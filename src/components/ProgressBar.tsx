@@ -73,7 +73,14 @@ export const ProgressBar = ({
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-semibold">{Math.round(animatedValue)}</span>
+          <span 
+            className={cn(
+              "text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent",
+              variant === 'circle' && "animate-scale-in"
+            )}
+          >
+            {Math.round(animatedValue)}
+          </span>
         </div>
       </div>
     );
