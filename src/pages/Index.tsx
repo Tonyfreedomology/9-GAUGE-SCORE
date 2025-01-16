@@ -65,8 +65,11 @@ const Index = () => {
               onLoad={handleImageLoad}
             />
           ) : (
-            <div className="text-2xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">Freedomology</div>
+            <div className="text-2xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">Freedomology</div>
           )}
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">
+            Overall Freedomology Score
+          </h1>
           <ScoreCard
             title="Overall Freedomology Score"
             score={overallScore}
@@ -129,10 +132,10 @@ const Index = () => {
             onLoad={handleImageLoad}
           />
         ) : (
-          <div className="text-xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">Freedomology</div>
+          <div className="text-xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">Freedomology</div>
         )}
         <div className="space-y-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
+          <h1 className="text-3xl md:text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">
             {currentPillar.name}
           </h1>
           <div className="h-2 bg-white/50 rounded-full overflow-hidden">
@@ -151,7 +154,7 @@ const Index = () => {
         )}>
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
+              <h2 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">
                 {currentQuestion.category}
               </h2>
               <p className="text-lg font-normal text-foreground/80">
