@@ -52,15 +52,31 @@ const Index = () => {
             isOverallScore={true}
           />
           <div className="grid gap-6 md:grid-cols-3">
-            {questions.map((pillar) => (
-              <ScoreCard
-                key={pillar.name}
-                title={pillar.name}
-                score={calculatePillarScore(pillar, answers)}
-                color={pillar.color}
-                className="shadow-lg backdrop-blur-sm bg-white/80 transform transition-all duration-300 hover:scale-105"
-              />
-            ))}
+            {questions.map((pillar) => {
+              let color;
+              switch (pillar.name) {
+                case 'Financial':
+                  color = '#17BEBB';
+                  break;
+                case 'Health':
+                  color = '#EDB88B';
+                  break;
+                case 'Relationships':
+                  color = '#EF3E36';
+                  break;
+                default:
+                  color = '#293230';
+              }
+              return (
+                <ScoreCard
+                  key={pillar.name}
+                  title={pillar.name}
+                  score={calculatePillarScore(pillar, answers)}
+                  color={color}
+                  className="shadow-lg backdrop-blur-sm bg-white/80 transform transition-all duration-300 hover:scale-105"
+                />
+              );
+            })}
           </div>
           <Button
             onClick={() => {
