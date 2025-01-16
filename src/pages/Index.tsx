@@ -36,6 +36,12 @@ const Index = () => {
     return Math.round(pillarScores.reduce((a, b) => a + b, 0) / pillarScores.length);
   };
 
+  // Calculate progress percentage
+  const progress = ((currentPillarIndex * allQuestions.length + currentQuestionIndex + 1) / 
+    (questions.reduce((acc, pillar) => 
+      acc + pillar.categories.reduce((sum, category) => 
+        sum + category.questions.length, 0), 0))) * 100;
+
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
