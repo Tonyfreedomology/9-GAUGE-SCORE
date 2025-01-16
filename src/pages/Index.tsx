@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LikertScale } from "@/components/LikertScale";
 import { ScoreCard } from "@/components/ScoreCard";
-import { questions, Question, Pillar } from "@/lib/questions";
+import { questions, calculatePillarScore } from "@/lib/questions";
 import { cn } from "@/lib/utils";
 
 type Answers = Record<string, number>;
@@ -31,33 +31,9 @@ const Index = () => {
     }
   };
 
-  const calculatePillarScore = (pillar: Pillar): number => {
-    const categoryScores = pillar.categories.map(category => {
-      const categoryQuestions = category.questions;
-      const categoryAnswers = categoryQuestions.map(q => answers[q.id] || 0);
-      const categoryScore = (categoryAnswers.reduce((a, b) => a + b, 0) / categoryQuestions.length) * 20;
-      return categoryScore * category.weight;
-    });
-
-    let pillarScore = categoryScores.reduce((a, b) => a + b, 0);
-
-    if (pillar.name === 'Financial') {
-      const impactCategory = pillar.categories.find(c => c.name === 'Impact & Generosity');
-      if (impactCategory) {
-        const impactQuestions = impactCategory.questions;
-        const impactScore = (impactQuestions.map(q => answers[q.id] || 0).reduce((a, b) => a + b, 0) / impactQuestions.length) * 20;
-        if (impactScore < 60) {
-          pillarScore = Math.min(pillarScore, 75);
-        }
-      }
-    }
-
-    return pillarScore;
-  };
-
   const calculateOverallScore = () => {
-    const pillarScores = questions.map(pillar => calculatePillarScore(pillar));
-    return pillarScores.reduce((a, b) => a + b, 0) / pillarScores.length;
+    const pillarScores = questions.map(pillar => calculatePillarScore(pillar, answers));
+    return Math.round(pillarScores.reduce((a, b) => a + b, 0) / pillarScores.length);
   };
 
   if (showResults) {
@@ -78,7 +54,7 @@ const Index = () => {
               <ScoreCard
                 key={pillar.name}
                 title={pillar.name}
-                score={calculatePillarScore(pillar)}
+                score={calculatePillarScore(pillar, answers)}
                 color={pillar.color}
               />
             ))}
@@ -132,12 +108,15 @@ const Index = () => {
             <LikertScale
               value={answers[currentQuestion.id] || 0}
               onChange={handleAnswer}
+              options={currentQuestion.options}
             />
             
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>Strongly Disagree</span>
-              <span>Strongly Agree</span>
-            </div>
+            {!currentQuestion.options && (
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>Strongly Disagree</span>
+                <span>Strongly Agree</span>
+              </div>
+            )}
           </div>
         </Card>
       </div>
