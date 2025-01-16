@@ -29,11 +29,11 @@ export default {
           light: "#B5C6B9",
         },
         health: {
-          DEFAULT: "#A8DADC",
+          DEFAULT: "#17BEBB",
           light: "#C8E7E8",
         },
         relationships: {
-          DEFAULT: "#E8A598",
+          DEFAULT: "#EF3E36",
           light: "#F1C5BC",
         },
         primary: {
