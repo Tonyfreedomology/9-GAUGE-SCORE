@@ -67,9 +67,6 @@ const Index = () => {
           ) : (
             <div className="text-2xl font-bold text-center mb-8">Freedomology</div>
           )}
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
-            Your Freedomology Score
-          </h1>
           <ScoreCard
             title="Overall Freedomology Score"
             score={overallScore}
@@ -111,7 +108,7 @@ const Index = () => {
               setCurrentQuestionIndex(0);
               setAnswers({});
             }}
-            className="mx-auto block bg-foreground hover:bg-foreground/90 text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
+            className="mx-auto flex items-center justify-center bg-gradient-to-r from-[#17BEBB] to-[#17BEBB]/80 hover:from-[#17BEBB]/90 hover:to-[#17BEBB]/70 text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
             Start Over
           </Button>

@@ -81,7 +81,7 @@ export const ProgressBar = ({
         <div className="absolute inset-0 flex items-center justify-center">
           <span 
             className={cn(
-              "text-4xl font-bold bg-gradient-to-r from-[#17BEBB] to-[#17BEBB]/70 bg-clip-text text-transparent",
+              "text-6xl font-bold bg-gradient-to-r from-[#17BEBB] to-[#17BEBB]/70 bg-clip-text text-transparent",
               variant === 'circle' && "animate-scale-in"
             )}
           >
