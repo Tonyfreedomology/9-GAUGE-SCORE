@@ -54,7 +54,7 @@ const Index = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-8 md:p-12 bg-gradient-to-br from-[#e7f0fd] to-[#accbee]">
+      <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(250,250,250,.075)_1px,transparent_0),linear-gradient(180deg,rgba(250,250,250,.075)_1px,transparent_0)] bg-[size:24px_24px]">
         <div className="max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
@@ -71,7 +71,7 @@ const Index = () => {
             title="Overall Freedomology Score"
             score={overallScore}
             color="#293230"
-            className="mb-12 max-w-2xl mx-auto transform transition-all duration-300 hover:scale-[1.02]"
+            className="mb-12 max-w-2xl mx-auto transform transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm bg-white/90"
             isOverallScore={true}
           />
           <div className="grid gap-8 md:grid-cols-3">
@@ -96,7 +96,7 @@ const Index = () => {
                   title={pillar.name}
                   score={calculatePillarScore(pillar, answers)}
                   color={color}
-                  className="transform transition-all duration-300 hover:scale-105"
+                  className="transform transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/90"
                 />
               );
             })}
@@ -118,7 +118,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen p-8 md:p-12 bg-gradient-to-br from-[#e7f0fd] to-[#accbee]">
+    <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(250,250,250,.075)_1px,transparent_0),linear-gradient(180deg,rgba(250,250,250,.075)_1px,transparent_0)] bg-[size:24px_24px]">
       <div className="max-w-2xl mx-auto space-y-8">
         {!imageError ? (
           <img 
@@ -144,7 +144,7 @@ const Index = () => {
         </div>
 
         <Card className={cn(
-          "p-8 shadow-lg backdrop-blur-sm bg-gradient-to-br from-white/90 to-white/70 animate-scale-in",
+          "p-8 shadow-lg backdrop-blur-sm bg-white/90 animate-scale-in",
           currentPillar.name === 'Financial' && "border-financial",
           currentPillar.name === 'Health' && "border-health",
           currentPillar.name === 'Relationships' && "border-relationships"
