@@ -54,13 +54,13 @@ const Index = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.03)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.03)_1px,transparent_0)] bg-[size:48px_48px]">
+      <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.015)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.015)_1px,transparent_0)] bg-[size:48px_48px]">
         <div className="max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
               src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
               alt="Freedomology" 
-              className="h-16 md:h-20 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
+              className="h-24 md:h-28 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
               onError={handleImageError}
               onLoad={handleImageLoad}
             />
@@ -118,13 +118,13 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.03)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.03)_1px,transparent_0)] bg-[size:48px_48px]">
+    <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.015)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.015)_1px,transparent_0)] bg-[size:48px_48px]">
       <div className="max-w-2xl mx-auto space-y-8">
         {!imageError ? (
           <img 
             src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
             alt="Freedomology" 
-            className="h-12 md:h-16 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
+            className="h-20 md:h-24 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
             onError={handleImageError}
             onLoad={handleImageLoad}
           />
