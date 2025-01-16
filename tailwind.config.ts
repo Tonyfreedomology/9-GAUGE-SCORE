@@ -28,12 +28,12 @@ export default {
         background: "hsl(var(--background))",
         foreground: "#293230",
         financial: {
-          DEFAULT: "#84A98C",
-          light: "#B5C6B9",
-        },
-        health: {
           DEFAULT: "#17BEBB",
           light: "#C8E7E8",
+        },
+        health: {
+          DEFAULT: "#EDB88B",
+          light: "#F7E4D5",
         },
         relationships: {
           DEFAULT: "#EF3E36",

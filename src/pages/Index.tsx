@@ -100,9 +100,9 @@ const Index = () => {
 
         <Card className={cn(
           "p-8 shadow-lg backdrop-blur-sm bg-white/80 animate-scale-in",
-          currentPillar.name === 'Financial' && "border-financial/50",
-          currentPillar.name === 'Health' && "border-health/50",
-          currentPillar.name === 'Relationships' && "border-relationships/50"
+          currentPillar.name === 'Financial' && "border-financial",
+          currentPillar.name === 'Health' && "border-health",
+          currentPillar.name === 'Relationships' && "border-relationships"
         )}>
           <div className="space-y-8">
             <div className="space-y-3">
