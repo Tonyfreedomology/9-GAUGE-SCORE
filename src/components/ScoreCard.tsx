@@ -1,5 +1,6 @@
 import { ProgressBar } from "./ProgressBar";
 import { getFeedbackTier } from "@/lib/questions";
+import { cn } from "@/lib/utils";
 
 type ScoreCardProps = {
   title: string;
