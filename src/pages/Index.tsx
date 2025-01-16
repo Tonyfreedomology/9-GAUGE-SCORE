@@ -54,7 +54,7 @@ const Index = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.1)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.1)_1px,transparent_0)] bg-[size:24px_24px]">
+      <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.05)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.05)_1px,transparent_0)] bg-[size:48px_48px]">
         <div className="max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
@@ -118,7 +118,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.1)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.1)_1px,transparent_0)] bg-[size:24px_24px]">
+    <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.05)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.05)_1px,transparent_0)] bg-[size:48px_48px]">
       <div className="max-w-2xl mx-auto space-y-8">
         {!imageError ? (
           <img 
