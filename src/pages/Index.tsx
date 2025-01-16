@@ -157,7 +157,7 @@ const Index = () => {
               <h2 className="text-xl font-semibold text-foreground">
                 {currentQuestion.category}
               </h2>
-              <p className="text-lg text-foreground/80">
+              <p className="text-lg font-normal text-foreground/80">
                 {currentQuestion.text}
               </p>
             </div>
