@@ -41,7 +41,6 @@ const Index = () => {
 
     let pillarScore = categoryScores.reduce((a, b) => a + b, 0);
 
-    // Apply caps
     if (pillar.name === 'Financial') {
       const impactCategory = pillar.categories.find(c => c.name === 'Impact & Generosity');
       if (impactCategory) {
@@ -56,11 +55,24 @@ const Index = () => {
     return pillarScore;
   };
 
+  const calculateOverallScore = () => {
+    const pillarScores = questions.map(pillar => calculatePillarScore(pillar));
+    return pillarScores.reduce((a, b) => a + b, 0) / pillarScores.length;
+  };
+
   if (showResults) {
+    const overallScore = calculateOverallScore();
     return (
       <div className="min-h-screen p-6 bg-background">
         <div className="max-w-4xl mx-auto space-y-8">
           <h1 className="text-3xl font-bold text-center mb-8">Your Freedomology Score</h1>
+          <ScoreCard
+            title="Overall Freedomology Score"
+            score={overallScore}
+            color="#2D3748"
+            className="mb-8"
+            isOverallScore={true}
+          />
           <div className="grid gap-6 md:grid-cols-3">
             {questions.map((pillar) => (
               <ScoreCard

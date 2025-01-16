@@ -7,9 +7,10 @@ type ScoreCardProps = {
   score: number;
   color: string;
   className?: string;
+  isOverallScore?: boolean;
 };
 
-export const ScoreCard = ({ title, score, color, className }: ScoreCardProps) => {
+export const ScoreCard = ({ title, score, color, className, isOverallScore = false }: ScoreCardProps) => {
   return (
     <div className={cn(
       "p-6 rounded-lg border bg-card text-card-foreground shadow-sm",
@@ -20,7 +21,7 @@ export const ScoreCard = ({ title, score, color, className }: ScoreCardProps) =>
         <ProgressBar value={score} color={color} />
         <div className="flex justify-between items-center">
           <span className="text-sm text-muted-foreground">{getFeedbackTier(score)}</span>
-          <span className="font-medium">{Math.round(score)}%</span>
+          <span className="font-medium">{isOverallScore ? Math.round(score) : `${Math.round(score)}%`}</span>
         </div>
       </div>
     </div>
