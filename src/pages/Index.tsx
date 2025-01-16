@@ -39,19 +39,19 @@ const Index = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-6 bg-gradient-soft">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <h1 className="text-4xl font-bold text-center mb-8 text-foreground">
+      <div className="min-h-screen p-8 md:p-12 bg-gradient-soft">
+        <div className="max-w-5xl mx-auto space-y-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
             Your Freedomology Score
           </h1>
           <ScoreCard
             title="Overall Freedomology Score"
             score={overallScore}
             color="#293230"
-            className="mb-8 shadow-lg backdrop-blur-sm bg-white/80"
+            className="mb-12 max-w-2xl mx-auto transform transition-all duration-300 hover:scale-[1.02]"
             isOverallScore={true}
           />
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             {questions.map((pillar) => {
               let color;
               switch (pillar.name) {
@@ -73,7 +73,7 @@ const Index = () => {
                   title={pillar.name}
                   score={calculatePillarScore(pillar, answers)}
                   color={color}
-                  className="shadow-lg backdrop-blur-sm bg-white/80 transform transition-all duration-300 hover:scale-105"
+                  className="transform transition-all duration-300 hover:scale-105"
                 />
               );
             })}
@@ -85,7 +85,7 @@ const Index = () => {
               setCurrentQuestionIndex(0);
               setAnswers({});
             }}
-            className="mx-auto block bg-foreground hover:bg-foreground/90 text-white"
+            className="mx-auto block bg-foreground hover:bg-foreground/90 text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
             Start Over
           </Button>
@@ -100,10 +100,10 @@ const Index = () => {
         sum + category.questions.length, 0), 0))) * 100;
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-soft">
+    <div className="min-h-screen p-8 md:p-12 bg-gradient-soft">
       <div className="max-w-2xl mx-auto space-y-8">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold text-center text-foreground">
+        <div className="space-y-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-center text-foreground">
             {currentPillar.name}
           </h1>
           <div className="h-2 bg-white/50 rounded-full overflow-hidden">
@@ -115,13 +115,13 @@ const Index = () => {
         </div>
 
         <Card className={cn(
-          "p-8 shadow-lg backdrop-blur-sm bg-white/80 animate-scale-in",
+          "p-8 shadow-lg backdrop-blur-sm bg-gradient-to-br from-white/90 to-white/70 animate-scale-in",
           currentPillar.name === 'Financial' && "border-financial",
           currentPillar.name === 'Health' && "border-health",
           currentPillar.name === 'Relationships' && "border-relationships"
         )}>
           <div className="space-y-8">
-            <div className="space-y-3">
+            <div className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
                 {currentQuestion.category}
               </h2>
@@ -134,11 +134,11 @@ const Index = () => {
               value={answers[currentQuestion.id] || 0}
               onChange={handleAnswer}
               options={currentQuestion.options}
-              className="mt-6"
+              className="mt-8"
             />
             
             {!currentQuestion.options && (
-              <div className="flex justify-between text-sm text-foreground/60 mt-2">
+              <div className="flex justify-between text-sm font-medium text-foreground/60 mt-4">
                 <span>Strongly Disagree</span>
                 <span>Strongly Agree</span>
               </div>
