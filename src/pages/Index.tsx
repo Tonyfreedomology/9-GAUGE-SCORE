@@ -37,19 +37,18 @@ const Index = () => {
     return Math.round(pillarScores.reduce((a, b) => a + b, 0) / pillarScores.length);
   };
 
-  // Calculate progress percentage
   const progress = ((currentPillarIndex * allQuestions.length + currentQuestionIndex + 1) / 
     (questions.reduce((acc, pillar) => 
       acc + pillar.categories.reduce((sum, category) => 
         sum + category.questions.length, 0), 0))) * 100;
 
   const handleImageError = () => {
-    console.error("Failed to load freedomology-logo.png");
+    console.error("Failed to load Freedomology logo");
     setImageError(true);
   };
 
   const handleImageLoad = () => {
-    console.log("Successfully loaded freedomology-logo.png");
+    console.log("Successfully loaded Freedomology logo");
   };
 
   if (showResults) {
@@ -59,7 +58,7 @@ const Index = () => {
         <div className="max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
-              src="/freedomology-logo.png" 
+              src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
               alt="Freedomology" 
               className="h-16 md:h-20 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
               onError={handleImageError}
@@ -126,7 +125,7 @@ const Index = () => {
       <div className="max-w-2xl mx-auto space-y-8">
         {!imageError ? (
           <img 
-            src="/freedomology-logo.png" 
+            src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
             alt="Freedomology" 
             className="h-12 md:h-16 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
             onError={handleImageError}
