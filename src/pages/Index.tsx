@@ -54,7 +54,7 @@ const Index = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-8 md:p-12 bg-gradient-soft">
+      <div className="min-h-screen p-8 md:p-12 bg-gradient-to-br from-[#e7f0fd] to-[#accbee]">
         <div className="max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
@@ -118,7 +118,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen p-8 md:p-12 bg-gradient-soft">
+    <div className="min-h-screen p-8 md:p-12 bg-gradient-to-br from-[#e7f0fd] to-[#accbee]">
       <div className="max-w-2xl mx-auto space-y-8">
         {!imageError ? (
           <img 
