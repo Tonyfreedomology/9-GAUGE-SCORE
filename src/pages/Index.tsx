@@ -41,6 +41,11 @@ const Index = () => {
     return (
       <div className="min-h-screen p-8 md:p-12 bg-gradient-soft">
         <div className="max-w-5xl mx-auto space-y-12">
+          <img 
+            src="/freedomology-logo.png" 
+            alt="Freedomology" 
+            className="h-16 md:h-20 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
+          />
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
             Your Freedomology Score
           </h1>
@@ -94,14 +99,14 @@ const Index = () => {
     );
   }
 
-  const progress = ((currentPillarIndex * allQuestions.length + currentQuestionIndex + 1) / 
-    (questions.reduce((acc, pillar) => 
-      acc + pillar.categories.reduce((sum, category) => 
-        sum + category.questions.length, 0), 0))) * 100;
-
   return (
     <div className="min-h-screen p-8 md:p-12 bg-gradient-soft">
       <div className="max-w-2xl mx-auto space-y-8">
+        <img 
+          src="/freedomology-logo.png" 
+          alt="Freedomology" 
+          className="h-12 md:h-16 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
+        />
         <div className="space-y-6">
           <h1 className="text-3xl md:text-4xl font-bold text-center text-foreground">
             {currentPillar.name}
