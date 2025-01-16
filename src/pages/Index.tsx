@@ -67,7 +67,7 @@ const Index = () => {
           ) : (
             <div className="text-2xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground">Freedomology</div>
           )}
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground leading-relaxed">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground leading-relaxed">
             Overall Freedomology Score
           </h1>
           <ScoreCard
