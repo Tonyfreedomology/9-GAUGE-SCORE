@@ -39,14 +39,16 @@ const Index = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-6 bg-background">
+      <div className="min-h-screen p-6 bg-gradient-soft">
         <div className="max-w-4xl mx-auto space-y-8">
-          <h1 className="text-3xl font-bold text-center mb-8">Your Freedomology Score</h1>
+          <h1 className="text-4xl font-bold text-center mb-8 text-foreground">
+            Your Freedomology Score
+          </h1>
           <ScoreCard
             title="Overall Freedomology Score"
             score={overallScore}
-            color="#2D3748"
-            className="mb-8"
+            color="#293230"
+            className="mb-8 shadow-lg backdrop-blur-sm bg-white/80"
             isOverallScore={true}
           />
           <div className="grid gap-6 md:grid-cols-3">
@@ -56,6 +58,7 @@ const Index = () => {
                 title={pillar.name}
                 score={calculatePillarScore(pillar, answers)}
                 color={pillar.color}
+                className="shadow-lg backdrop-blur-sm bg-white/80 transform transition-all duration-300 hover:scale-105"
               />
             ))}
           </div>
@@ -66,7 +69,7 @@ const Index = () => {
               setCurrentQuestionIndex(0);
               setAnswers({});
             }}
-            className="mx-auto block"
+            className="mx-auto block bg-foreground hover:bg-foreground/90 text-white"
           >
             Start Over
           </Button>
@@ -81,38 +84,45 @@ const Index = () => {
         sum + category.questions.length, 0), 0))) * 100;
 
   return (
-    <div className="min-h-screen p-6 bg-background">
+    <div className="min-h-screen p-6 bg-gradient-soft">
       <div className="max-w-2xl mx-auto space-y-8">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-center">{currentPillar.name}</h1>
-          <div className="h-2 bg-secondary rounded-full">
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold text-center text-foreground">
+            {currentPillar.name}
+          </h1>
+          <div className="h-2 bg-white/50 rounded-full overflow-hidden">
             <div
-              className="h-full bg-primary rounded-full transition-all duration-300"
+              className="h-full bg-foreground rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
         <Card className={cn(
-          "p-6 animate-scale-in",
+          "p-8 shadow-lg backdrop-blur-sm bg-white/80 animate-scale-in",
           currentPillar.name === 'Financial' && "border-financial/50",
           currentPillar.name === 'Health' && "border-health/50",
           currentPillar.name === 'Relationships' && "border-relationships/50"
         )}>
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-lg font-medium">{currentQuestion.category}</h2>
-              <p className="text-muted-foreground">{currentQuestion.text}</p>
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <h2 className="text-xl font-semibold text-foreground">
+                {currentQuestion.category}
+              </h2>
+              <p className="text-lg text-foreground/80">
+                {currentQuestion.text}
+              </p>
             </div>
             
             <LikertScale
               value={answers[currentQuestion.id] || 0}
               onChange={handleAnswer}
               options={currentQuestion.options}
+              className="mt-6"
             />
             
             {!currentQuestion.options && (
-              <div className="flex justify-between text-sm text-muted-foreground">
+              <div className="flex justify-between text-sm text-foreground/60 mt-2">
                 <span>Strongly Disagree</span>
                 <span>Strongly Agree</span>
               </div>
