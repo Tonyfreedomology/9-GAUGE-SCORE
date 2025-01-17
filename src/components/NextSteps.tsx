@@ -27,9 +27,9 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
       case "Relationships":
         return "https://www.freedomology.com/r40";
       case "Health":
-        return "https://www.freedomology.com/H40";
+        return "https://www.freedomology.com/h40";
       case "Financial":
-        return "https://www.freedomology.com/F40";
+        return "https://www.freedomology.com/f40";
       default:
         return "#";
     }
