@@ -13,7 +13,7 @@ const Index = () => {
         backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')"
       }}
     >
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/40" />
       
       <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-8">
         <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
