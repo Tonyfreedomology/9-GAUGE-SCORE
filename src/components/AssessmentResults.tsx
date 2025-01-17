@@ -37,18 +37,18 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
   const lowestPillar = findLowestPillar();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-black/40 via-black/20 to-transparent">
       <div 
         ref={resultsRef}
-        className="relative z-10 max-w-5xl mx-auto space-y-12 bg-gradient-to-b from-black/60 via-black/40 to-transparent p-8 rounded-3xl"
+        className="relative z-10 max-w-5xl mx-auto space-y-12 p-8 rounded-3xl"
       >
         <FreedomologyLogo />
         
         <div className="text-center space-y-4">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
             Overall Freedomology Score
           </h1>
-          <p className="text-xl text-white/90 font-medium">
+          <p className="text-xl text-white/90 font-medium drop-shadow">
             You're on the path to thriving freedom. Keep growing!
           </p>
         </div>
@@ -57,7 +57,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
           title=""
           score={overallScore}
           color="#17BEBB"
-          className="mb-12 max-w-2xl mx-auto"
+          className="mb-12 max-w-2xl mx-auto backdrop-blur-2xl"
           isOverallScore={true}
           hideSubtext={true}
         />
@@ -74,7 +74,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         </div>
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-serif font-bold text-white text-center mb-8">
+          <h2 className="text-2xl font-serif font-bold text-white text-center mb-8 drop-shadow-lg">
             Your Results Breakdown
           </h2>
           
