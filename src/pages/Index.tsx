@@ -33,7 +33,7 @@ const Index = () => {
             <div className="p-3 rounded-full bg-financial text-white">
               <Wallet className="h-6 w-6" />
             </div>
-            <span className="text-white font-medium">Financial</span>
+            <span className="text-white font-medium">Finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="p-3 rounded-full bg-health text-white">
