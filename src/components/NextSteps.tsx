@@ -95,9 +95,11 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
         </div>
       </div>
 
-      <ScrollPrompt />
+      <div className="relative h-24 flex items-center justify-center">
+        <ScrollPrompt />
+      </div>
 
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg mt-12">
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
         <h2 className="text-3xl font-serif font-bold text-center mb-8">
           Sign up for a FREE 40-day Challenge NOW
         </h2>
