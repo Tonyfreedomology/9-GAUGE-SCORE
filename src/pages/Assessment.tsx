@@ -54,8 +54,18 @@ const Assessment = () => {
   if (showResults) {
     const overallScore = calculateOverallScore();
     return (
-      <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.015)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.015)_1px,transparent_0)] bg-[size:48px_48px]">
-        <div className="max-w-5xl mx-auto space-y-12">
+      <div 
+        className="min-h-screen p-8 md:p-12 relative"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+        
+        <div className="relative z-10 max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
               src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
@@ -65,9 +75,9 @@ const Assessment = () => {
               onLoad={handleImageLoad}
             />
           ) : (
-            <div className="text-2xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground">Freedomology</div>
+            <div className="text-2xl font-bold text-center mb-8 text-white">Freedomology</div>
           )}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground leading-relaxed">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 text-white leading-relaxed">
             Overall Freedomology Score
           </h1>
           <ScoreCard
@@ -121,8 +131,18 @@ const Assessment = () => {
   }
 
   return (
-    <div className="min-h-screen p-8 md:p-12 bg-[#fafafa] bg-[linear-gradient(90deg,rgba(0,0,0,.015)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.015)_1px,transparent_0)] bg-[size:48px_48px]">
-      <div className="max-w-2xl mx-auto space-y-8">
+    <div 
+      className="min-h-screen p-8 md:p-12 relative"
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+      
+      <div className="relative z-10 max-w-2xl mx-auto space-y-8">
         {!imageError ? (
           <img 
             src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
@@ -132,15 +152,15 @@ const Assessment = () => {
             onLoad={handleImageLoad}
           />
         ) : (
-          <div className="text-xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground">Freedomology</div>
+          <div className="text-xl font-bold text-center mb-8 text-white">Freedomology</div>
         )}
         <div className="space-y-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground">
+          <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
             {currentPillar.name}
           </h1>
           <div className="h-2 bg-white/50 rounded-full overflow-hidden">
             <div
-              className="h-full bg-foreground rounded-full transition-all duration-300"
+              className="h-full bg-white rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
