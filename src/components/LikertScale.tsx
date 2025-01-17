@@ -12,7 +12,10 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
   const displayOptions = options || defaultOptions;
 
   return (
-    <div className={cn("flex justify-between gap-4 w-full max-w-2xl mx-auto", className)}>
+    <div className={cn(
+      "grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-between gap-3 w-full max-w-2xl mx-auto",
+      className
+    )}>
       {displayOptions.map((option) => {
         const optionValue = typeof option === 'number' ? option : option.value;
         const optionLabel = typeof option === 'number' ? option.toString() : option.label;
@@ -23,8 +26,8 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
             key={optionValue}
             onClick={() => onChange(optionValue)}
             className={cn(
-              "min-w-[120px] py-4 px-6 rounded-full transition-all duration-300",
-              "text-base font-medium flex items-center justify-center text-center",
+              "w-full lg:w-auto lg:min-w-[100px] py-3 px-4 rounded-full transition-all duration-300",
+              "text-sm lg:text-base font-medium flex items-center justify-center text-center",
               "hover:bg-[#F9FAFB] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]",
               isSelected ? [
                 "border-2 border-[#3ECF8E]",

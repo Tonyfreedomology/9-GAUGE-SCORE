@@ -35,10 +35,15 @@ const Assessment = () => {
     setAnswers({});
   };
 
-  const progress = ((currentPillarIndex * allQuestions.length + currentQuestionIndex + 1) / 
-    (questions.reduce((acc, pillar) => 
-      acc + pillar.categories.reduce((sum, category) => 
-        sum + category.questions.length, 0), 0))) * 100;
+  const totalQuestions = questions.reduce((acc, pillar) => 
+    acc + pillar.categories.reduce((sum, category) => 
+      sum + category.questions.length, 0), 0);
+
+  const currentQuestionNumber = questions.slice(0, currentPillarIndex).reduce((acc, pillar) => 
+    acc + pillar.categories.reduce((sum, category) => 
+      sum + category.questions.length, 0), 0) + currentQuestionIndex + 1;
+
+  const progress = (currentQuestionNumber / totalQuestions) * 100;
 
   return (
     <div 
@@ -63,6 +68,8 @@ const Assessment = () => {
           questionText={currentQuestion.text}
           progress={progress}
           currentValue={answers[currentQuestion.id] || 0}
+          currentStep={currentQuestionNumber}
+          totalSteps={totalQuestions}
           options={currentQuestion.options}
           onAnswer={handleAnswer}
         />
