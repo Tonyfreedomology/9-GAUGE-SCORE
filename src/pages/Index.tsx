@@ -22,6 +22,28 @@ const Index = () => {
           alt="Freedomology Logo" 
           className="h-20 mx-auto mb-4"
         />
+
+        {/* Dimension icons moved above headline */}
+        <div className="flex justify-center space-x-16">
+          <div className="flex flex-col items-center space-y-2">
+            <div className="p-3 rounded-full bg-financial text-white">
+              <Wallet className="h-6 w-6" />
+            </div>
+            <span className="text-white font-medium">Financial</span>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <div className="p-3 rounded-full bg-health text-white">
+              <Heart className="h-6 w-6" />
+            </div>
+            <span className="text-white font-medium">Health</span>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <div className="p-3 rounded-full bg-relationships text-white">
+              <Users className="h-6 w-6" />
+            </div>
+            <span className="text-white font-medium">Relationships</span>
+          </div>
+        </div>
         
         <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight font-serif">
           How Free Are You?
@@ -46,34 +68,6 @@ const Index = () => {
           Start Your Assessment
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
-
-        {/* Dimension icons */}
-        <div className="grid grid-cols-3 gap-8 mt-16">
-          <div className="p-6 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <div className="flex flex-col items-center space-y-3">
-              <div className="p-4 rounded-full bg-financial/20">
-                <Wallet className="h-6 w-6 text-financial" />
-              </div>
-              <span className="font-medium text-foreground">Financial</span>
-            </div>
-          </div>
-          <div className="p-6 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <div className="flex flex-col items-center space-y-3">
-              <div className="p-4 rounded-full bg-health/20">
-                <Heart className="h-6 w-6 text-health" />
-              </div>
-              <span className="font-medium text-foreground">Health</span>
-            </div>
-          </div>
-          <div className="p-6 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <div className="flex flex-col items-center space-y-3">
-              <div className="p-4 rounded-full bg-relationships/20">
-                <Users className="h-6 w-6 text-relationships" />
-              </div>
-              <span className="font-medium text-foreground">Relationships</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
