@@ -18,7 +18,7 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
-      <h2 className="text-3xl md:text-4xl font-serif font-bold text-center text-white">
+      <h2 className="text-3xl md:text-4xl font-serif font-bold text-white">
         Your Next Step
       </h2>
       
@@ -56,16 +56,6 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
             {content.cta}
           </button>
         </div>
-      </div>
-
-      <div className="flex justify-center pt-8">
-        <button
-          onClick={onStartOver}
-          className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
-            transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-[200px]"
-        >
-          Start Over
-        </button>
       </div>
     </div>
   );

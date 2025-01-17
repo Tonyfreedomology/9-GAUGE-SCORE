@@ -52,7 +52,18 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
           color="#17BEBB"
           className="mb-12 max-w-2xl mx-auto"
           isOverallScore={true}
+          hideSubtext={true}
         />
+
+        <div className="flex justify-center mb-8">
+          <button
+            onClick={onStartOver}
+            className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
+              transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-[200px]"
+          >
+            Start Over
+          </button>
+        </div>
 
         <div className="space-y-6">
           <h2 className="text-2xl font-serif font-bold text-white text-center mb-8">

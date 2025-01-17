@@ -10,9 +10,17 @@ type ScoreCardProps = {
   color: string;
   className?: string;
   isOverallScore?: boolean;
+  hideSubtext?: boolean;
 };
 
-export const ScoreCard = ({ title, score, color, className, isOverallScore = false }: ScoreCardProps) => {
+export const ScoreCard = ({ 
+  title, 
+  score, 
+  color, 
+  className, 
+  isOverallScore = false,
+  hideSubtext = false
+}: ScoreCardProps) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -78,11 +86,13 @@ export const ScoreCard = ({ title, score, color, className, isOverallScore = fal
             size={isOverallScore ? 200 : 160}
           />
         </div>
-        <div className="flex justify-center">
-          <span className="text-sm font-medium text-muted-foreground">
-            {getFeedbackTier(animatedScore)}
-          </span>
-        </div>
+        {!hideSubtext && (
+          <div className="flex justify-center">
+            <span className="text-sm font-medium text-muted-foreground">
+              {getFeedbackTier(animatedScore)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
