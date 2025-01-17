@@ -54,85 +54,52 @@ export const ScoreCard = ({
   const getIcon = () => {
     switch (title) {
       case 'Financial':
-        return <PiggyBank className="w-8 h-8 drop-shadow-lg" style={{ color }} />;
+        return <PiggyBank className="w-8 h-8" style={{ color }} />;
       case 'Health':
-        return <HeartPulse className="w-8 h-8 drop-shadow-lg" style={{ color }} />;
+        return <HeartPulse className="w-8 h-8" style={{ color }} />;
       case 'Relationships':
-        return <Heart className="w-8 h-8 drop-shadow-lg" style={{ color }} />;
+        return <Heart className="w-8 h-8" style={{ color }} />;
       default:
         return null;
     }
   };
 
-  const getGradientByTitle = () => {
-    switch (title) {
-      case 'Financial':
-        return 'from-financial-light/40 to-financial/30';
-      case 'Health':
-        return 'from-health-light/40 to-health/30';
-      case 'Relationships':
-        return 'from-relationships-light/40 to-relationships/30';
-      default:
-        return 'from-white/30 to-white/20';
-    }
-  };
-
   return (
     <div className={cn(
-      "relative p-8 rounded-3xl border backdrop-blur-xl border-white/20",
-      "shadow-[0_8px_32px_rgba(0,0,0,0.1)]",
-      "transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_16px_48px_rgba(0,0,0,0.15)]",
-      `bg-gradient-to-br ${getGradientByTitle()}`,
+      "p-8 rounded-xl border bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-sm",
+      "shadow-[0_4px_8px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)]",
+      "transition-all duration-500 hover:scale-[1.02]",
       !isVisible && "opacity-0 translate-y-4",
       isVisible && "opacity-100 translate-y-0",
       className
     )}>
-      {/* Glass overlay */}
-      <div className="absolute inset-0 rounded-3xl bg-white/10 backdrop-blur-sm" />
-      
-      {/* Content */}
-      <div className="relative z-10">
-        <div className="flex items-center justify-center gap-3 mb-8">
-          {getIcon()}
-          <h3 className="text-xl font-semibold text-foreground drop-shadow-sm">{title}</h3>
-        </div>
-        
-        <div className="space-y-6">
-          {!isOverallScore && (
-            <div className="flex justify-center">
-              <span 
-                className={cn(
-                  "text-5xl font-bold bg-clip-text text-transparent",
-                  "drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]",
-                  "bg-gradient-to-r from-[#ffffff] via-[#f0f0f0] to-[#ffffff]"
-                )}
-                style={{ 
-                  WebkitBackgroundClip: 'text',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.1)'
-                }}
-              >
-                {animatedScore}
-              </span>
-            </div>
-          )}
-          
+      <div className="flex items-center justify-center gap-3 mb-8">
+        {getIcon()}
+        <h3 className="text-xl font-semibold text-foreground">{title}</h3>
+      </div>
+      <div className="space-y-6">
+        {!isOverallScore && (
           <div className="flex justify-center">
-            <ProgressBar 
-              value={isVisible ? score : 0} 
-              color={color} 
-              variant={isOverallScore ? 'circle' : 'line'}
-              size={isOverallScore ? 200 : 160}
-            />
+            <span className="text-5xl font-bold" style={{ color }}>
+              {animatedScore}
+            </span>
           </div>
-          
-          {!hideSubtext && (
-            <div className="flex justify-center">
-              <span className="text-sm font-medium text-foreground/80 drop-shadow-sm">
-                {getFeedbackTier(animatedScore)}
-              </span>
-            </div>
-          )}
+        )}
+        <div className="flex justify-center">
+          <ProgressBar 
+            value={isVisible ? score : 0} 
+            color={color} 
+            variant={isOverallScore ? 'circle' : 'line'}
+            size={isOverallScore ? 200 : 160}
+          />
         </div>
+        {!hideSubtext && (
+          <div className="flex justify-center">
+            <span className="text-sm font-medium text-muted-foreground">
+              {getFeedbackTier(animatedScore)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
