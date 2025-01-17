@@ -37,10 +37,10 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
   const lowestPillar = findLowestPillar();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <div 
         ref={resultsRef}
-        className="relative z-10 max-w-5xl mx-auto space-y-12 bg-gradient-to-b from-black/60 via-black/40 to-transparent p-8 rounded-3xl"
+        className="relative max-w-5xl mx-auto space-y-12 bg-gradient-to-b from-black/60 via-black/40 to-transparent p-8 rounded-3xl"
       >
         <FreedomologyLogo />
         
@@ -96,7 +96,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         </div>
       </div>
 
-      <div className="flex justify-center gap-4 mt-8">
+      <div className="relative z-20 flex justify-center gap-4 mt-8">
         <button
           onClick={onStartOver}
           className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold

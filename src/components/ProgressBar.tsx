@@ -56,6 +56,12 @@ export const ProgressBar = ({
           height={size}
           viewBox="0 0 100 100"
         >
+          <defs>
+            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#17BEBB" />
+              <stop offset="100%" stopColor="#00D4FF" />
+            </linearGradient>
+          </defs>
           <circle
             className="text-gray-200"
             strokeWidth="8"
@@ -68,7 +74,7 @@ export const ProgressBar = ({
           <circle
             className="transition-all duration-1000 ease-out"
             strokeWidth="8"
-            stroke="#17BEBB"
+            stroke="url(#progressGradient)"
             fill="transparent"
             r={radius}
             cx="50"
@@ -99,7 +105,7 @@ export const ProgressBar = ({
         className="h-full transition-all duration-1000 ease-out rounded-full"
         style={{
           width: `${animatedValue}%`,
-          backgroundColor: color,
+          background: `linear-gradient(to right, ${color}, ${color}CC)`,
         }}
       />
     </div>
