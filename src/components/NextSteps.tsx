@@ -17,7 +17,7 @@ export const NextSteps = ({ lowestPillar }: NextStepsProps) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
-      <h2 className="text-3xl md:text-4xl font-serif font-bold text-center text-white">
+      <h2 className="text-3xl md:text-4xl font-serif font-bold text-center text-white" style={{ opacity: 1 }}>
         Your Next Step
       </h2>
       
