@@ -51,19 +51,6 @@ export const ScoreCard = ({
     }
   }, [score, isVisible]);
 
-  const getGradientByPillar = () => {
-    switch (title) {
-      case 'Financial':
-        return 'from-financial-light/40 to-financial/30';
-      case 'Health':
-        return 'from-health-light/40 to-health/30';
-      case 'Relationships':
-        return 'from-relationships-light/40 to-relationships/30';
-      default:
-        return 'from-financial-light/40 to-financial/30';
-    }
-  };
-
   const getIcon = () => {
     switch (title) {
       case 'Financial':
@@ -79,10 +66,8 @@ export const ScoreCard = ({
 
   return (
     <div className={cn(
-      "p-8 rounded-3xl border border-white/10",
-      "bg-gradient-to-br backdrop-blur-md",
-      getGradientByPillar(),
-      "shadow-[0_8px_32px_rgba(0,0,0,0.1)]",
+      "p-8 rounded-xl border bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-sm",
+      "shadow-[0_4px_8px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)]",
       "transition-all duration-500 hover:scale-[1.02]",
       !isVisible && "opacity-0 translate-y-4",
       isVisible && "opacity-100 translate-y-0",
@@ -95,13 +80,7 @@ export const ScoreCard = ({
       <div className="space-y-6">
         {!isOverallScore && (
           <div className="flex justify-center">
-            <span 
-              className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r" 
-              style={{ 
-                backgroundImage: `linear-gradient(135deg, ${color}, ${color}CC)`,
-                textShadow: '0 2px 10px rgba(0,0,0,0.1)'
-              }}
-            >
+            <span className="text-5xl font-bold" style={{ color }}>
               {animatedScore}
             </span>
           </div>
