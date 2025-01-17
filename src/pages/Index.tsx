@@ -8,11 +8,9 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center"
       style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')"
       }}
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
