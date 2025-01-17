@@ -22,7 +22,7 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
             key={optionValue}
             onClick={() => onChange(optionValue)}
             className={cn(
-              "min-w-12 h-12 rounded-full transition-all duration-300 text-sm font-medium px-4",
+              "w-24 h-24 rounded-full transition-all duration-300 text-sm font-medium flex items-center justify-center text-center px-2",
               "hover:shadow-lg transform hover:-translate-y-0.5",
               value === optionValue
                 ? "bg-foreground text-white scale-110 shadow-lg"
