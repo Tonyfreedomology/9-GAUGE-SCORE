@@ -44,13 +44,18 @@ export const ScoreCard = ({ title, score, color, className, isOverallScore = fal
   }, [score, isVisible]);
 
   const getIcon = () => {
+    const iconProps = {
+      className: "w-8 h-8 transition-transform duration-300 group-hover:scale-110",
+      style: { color }
+    };
+
     switch (title) {
       case 'Financial':
-        return <PiggyBank className="w-6 h-6" style={{ color }} />;
+        return <PiggyBank {...iconProps} />;
       case 'Health':
-        return <HeartPulse className="w-6 h-6" style={{ color }} />;
+        return <HeartPulse {...iconProps} />;
       case 'Relationships':
-        return <Heart className="w-6 h-6" style={{ color }} />;
+        return <Heart {...iconProps} />;
       default:
         return null;
     }
@@ -58,12 +63,12 @@ export const ScoreCard = ({ title, score, color, className, isOverallScore = fal
 
   return (
     <div className={cn(
-      "p-8 rounded-lg border bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-sm shadow-lg transition-all duration-500 hover:shadow-xl",
+      "group p-8 rounded-xl border bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-md shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-1",
       !isVisible && "opacity-0 translate-y-4",
       isVisible && "opacity-100 translate-y-0",
       className
     )}>
-      <div className="flex items-center justify-center gap-2 mb-6">
+      <div className="flex items-center justify-center gap-4 mb-6">
         {getIcon()}
         <h3 className="text-lg font-semibold text-foreground">{title}</h3>
       </div>
