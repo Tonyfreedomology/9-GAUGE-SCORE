@@ -40,16 +40,3 @@
 .read-the-docs {
   color: #888;
 }
-
-@keyframes glow {
-  0%, 100% {
-    filter: brightness(100%) blur(0px);
-  }
-  50% {
-    filter: brightness(120%) blur(1px);
-  }
-}
-
-.glow {
-  animation: glow 2s ease-in-out infinite;
-}
