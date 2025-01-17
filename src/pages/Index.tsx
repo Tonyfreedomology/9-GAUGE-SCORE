@@ -48,24 +48,30 @@ const Index = () => {
         </Button>
 
         {/* Dimension icons */}
-        <div className="grid grid-cols-3 gap-8 mt-16 text-white/90">
-          <div className="flex flex-col items-center space-y-3">
-            <div className="p-4 rounded-full bg-financial/20">
-              <Wallet className="h-6 w-6 text-financial" />
+        <div className="grid grid-cols-3 gap-8 mt-16">
+          <div className="p-6 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-4 rounded-full bg-financial/20">
+                <Wallet className="h-6 w-6 text-financial" />
+              </div>
+              <span className="font-medium text-foreground">Financial</span>
             </div>
-            <span className="font-medium">Financial</span>
           </div>
-          <div className="flex flex-col items-center space-y-3">
-            <div className="p-4 rounded-full bg-health/20">
-              <Heart className="h-6 w-6 text-health" />
+          <div className="p-6 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-4 rounded-full bg-health/20">
+                <Heart className="h-6 w-6 text-health" />
+              </div>
+              <span className="font-medium text-foreground">Health</span>
             </div>
-            <span className="font-medium">Health</span>
           </div>
-          <div className="flex flex-col items-center space-y-3">
-            <div className="p-4 rounded-full bg-relationships/20">
-              <Users className="h-6 w-6 text-relationships" />
+          <div className="p-6 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-4 rounded-full bg-relationships/20">
+                <Users className="h-6 w-6 text-relationships" />
+              </div>
+              <span className="font-medium text-foreground">Relationships</span>
             </div>
-            <span className="font-medium">Relationships</span>
           </div>
         </div>
       </div>
