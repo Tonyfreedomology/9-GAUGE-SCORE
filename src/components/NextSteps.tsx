@@ -16,6 +16,19 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
     users: Users
   }[content.icon];
 
+  const getLogo = () => {
+    switch (lowestPillar) {
+      case "Relationships":
+        return "https://static.wixstatic.com/media/c32598_2430f4e26a1d4123b1b40978409d938e~mv2.png";
+      case "Health":
+        return "https://static.wixstatic.com/media/c32598_562d75c90e6646bfb30ae54a5e0267af~mv2.png";
+      case "Financial":
+        return "https://static.wixstatic.com/media/c32598_42c88deef1e04279ab8800669ac7e634~mv2.png";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
@@ -30,6 +43,12 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
           )}>
             <IconComponent className="w-8 h-8" />
           </div>
+          
+          <img 
+            src={getLogo()} 
+            alt={`${lowestPillar} Program Logo`}
+            className="h-24 object-contain"
+          />
           
           <h3 className="text-2xl md:text-3xl font-serif font-bold text-center">
             {content.heading}
