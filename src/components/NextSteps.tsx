@@ -18,10 +18,6 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
-      <h2 className="text-3xl md:text-4xl font-serif font-bold text-white">
-        Your Next Step
-      </h2>
-      
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
         <div className="flex flex-col items-center space-y-6">
           <div className={cn(
