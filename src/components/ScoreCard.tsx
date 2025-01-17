@@ -78,6 +78,13 @@ export const ScoreCard = ({
         <h3 className="text-xl font-semibold text-foreground">{title}</h3>
       </div>
       <div className="space-y-6">
+        {!isOverallScore && (
+          <div className="flex justify-center">
+            <span className="text-3xl font-bold" style={{ color }}>
+              {animatedScore}
+            </span>
+          </div>
+        )}
         <div className="flex justify-center">
           <ProgressBar 
             value={isVisible ? score : 0} 
