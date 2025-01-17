@@ -22,6 +22,19 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
     }
   };
 
+  const getLink = () => {
+    switch (lowestPillar) {
+      case "Relationships":
+        return "https://www.freedomology.com/r40";
+      case "Health":
+        return "https://www.freedomology.com/H40";
+      case "Financial":
+        return "https://www.freedomology.com/F40";
+      default:
+        return "#";
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
@@ -40,7 +53,10 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
             {content.body}
           </p>
           
-          <button
+          <a
+            href={getLink()}
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(
               "mt-6 px-8 py-4 rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105",
               {
@@ -51,7 +67,7 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
             )}
           >
             {content.cta}
-          </button>
+          </a>
         </div>
       </div>
     </div>
