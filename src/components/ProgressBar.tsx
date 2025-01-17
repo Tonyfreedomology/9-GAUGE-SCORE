@@ -51,7 +51,7 @@ export const ProgressBar = ({
         style={{ width: size, height: size }}
       >
         <svg
-          className="transform -rotate-90"
+          className="transform -rotate-90 drop-shadow-lg"
           width={size}
           height={size}
           viewBox="0 0 100 100"
@@ -63,7 +63,7 @@ export const ProgressBar = ({
             </linearGradient>
           </defs>
           <circle
-            className="text-gray-200"
+            className="text-secondary/30"
             strokeWidth="8"
             stroke="currentColor"
             fill="transparent"
@@ -85,10 +85,15 @@ export const ProgressBar = ({
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-7xl font-bold text-[#17BEBB]">
+          <span 
+            className={cn(
+              "text-7xl font-bold bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] bg-clip-text text-transparent",
+              "animate-scale-in"
+            )}
+          >
             {Math.round(animatedValue)}
           </span>
-          <span className="text-sm font-medium text-gray-600 mt-1">
+          <span className="text-sm font-medium text-muted-foreground mt-1">
             {getFeedbackTier(animatedValue)}
           </span>
         </div>
@@ -98,7 +103,7 @@ export const ProgressBar = ({
 
   return (
     <div className={cn(
-      "w-full h-3 bg-gray-200 rounded-full overflow-hidden",
+      "w-full h-3 bg-secondary/30 rounded-full overflow-hidden",
       className
     )}>
       <div

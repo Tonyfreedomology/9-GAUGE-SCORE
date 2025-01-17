@@ -37,10 +37,10 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
   const lowestPillar = findLowestPillar();
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen">
       <div 
         ref={resultsRef}
-        className="relative max-w-5xl mx-auto space-y-12 bg-gradient-to-b from-black/60 via-black/40 to-transparent p-8 rounded-3xl"
+        className="relative z-10 max-w-5xl mx-auto space-y-12 bg-gradient-to-b from-black/60 via-black/40 to-transparent p-8 rounded-3xl"
       >
         <FreedomologyLogo />
         
@@ -61,6 +61,17 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
           isOverallScore={true}
           hideSubtext={true}
         />
+
+        <div className="flex justify-center gap-4 mb-8">
+          <button
+            onClick={onStartOver}
+            className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
+              transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-[200px]"
+          >
+            Start Over
+          </button>
+          <ShareResults containerRef={resultsRef} />
+        </div>
 
         <div className="space-y-6">
           <h2 className="text-2xl font-serif font-bold text-white text-center mb-8">
@@ -94,17 +105,6 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
             })}
           </div>
         </div>
-      </div>
-
-      <div className="relative z-20 flex justify-center gap-4 mt-8">
-        <button
-          onClick={onStartOver}
-          className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
-            transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-[200px]"
-        >
-          Start Over
-        </button>
-        <ShareResults containerRef={resultsRef} />
       </div>
 
       <NextSteps lowestPillar={lowestPillar} onStartOver={onStartOver} />
