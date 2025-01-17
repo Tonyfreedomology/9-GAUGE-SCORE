@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Wallet, Heart, Users } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -13,20 +13,21 @@ const Index = () => {
         backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')"
       }}
     >
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
       
-      <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-8">
+      <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-12">
         <img 
           src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
           alt="Freedomology Logo" 
-          className="h-24 mx-auto mb-8"
+          className="h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight font-serif">
           How Free Are You?
         </h1>
         
-        <div className="space-y-6 text-lg md:text-xl font-light text-white/90">
+        <div className="space-y-6 text-lg md:text-xl font-light text-white/90 leading-relaxed">
           <p>
             Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
@@ -40,11 +41,33 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="bg-white/90 hover:bg-white text-foreground text-lg px-8 py-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+          className="bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-lg px-8 py-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
         >
           Start Your Assessment
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
+
+        {/* Dimension icons */}
+        <div className="grid grid-cols-3 gap-8 mt-16 text-white/90">
+          <div className="flex flex-col items-center space-y-3">
+            <div className="p-4 rounded-full bg-financial/20">
+              <Wallet className="h-6 w-6 text-financial" />
+            </div>
+            <span className="font-medium">Financial</span>
+          </div>
+          <div className="flex flex-col items-center space-y-3">
+            <div className="p-4 rounded-full bg-health/20">
+              <Heart className="h-6 w-6 text-health" />
+            </div>
+            <span className="font-medium">Health</span>
+          </div>
+          <div className="flex flex-col items-center space-y-3">
+            <div className="p-4 rounded-full bg-relationships/20">
+              <Users className="h-6 w-6 text-relationships" />
+            </div>
+            <span className="font-medium">Relationships</span>
+          </div>
+        </div>
       </div>
     </div>
   );
