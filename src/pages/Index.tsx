@@ -20,7 +20,7 @@ const Index = () => {
           How Free Are You?
         </h1>
         
-        <div className="space-y-6 text-lg md:text-xl text-white/90">
+        <div className="space-y-6 text-lg md:text-xl font-light text-white/90">
           <p>
             Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
