@@ -82,52 +82,23 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
       sprintType: formData.get('sprintType'),
       startDate: date
     });
-    // Here you would typically send this data to your backend
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
-        <div className="flex flex-col items-center space-y-12">
-          <h2 className="text-4xl font-serif text-center">What is R40?</h2>
-          
-          <p className="text-lg text-center">
-            R40 is designed to transform every relationship in your life.<br />
-            Your relationships with:
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-            <div className="relative group">
-              <img 
-                src="/lovable-uploads/e99a5713-6ec2-49b7-9cda-a29533f68c7d.png" 
-                alt="Others relationships"
-                className="w-full h-64 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-4 left-4 bg-[#17BEBB] text-white px-6 py-2 rounded-md shadow-lg">
-                OTHERS
-              </div>
-            </div>
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/e99a5713-6ec2-49b7-9cda-a29533f68c7d.png" 
-                alt="Self relationship"
-                className="w-full h-64 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-4 left-4 bg-[#17BEBB] text-white px-6 py-2 rounded-md shadow-lg">
-                YOURSELF
-              </div>
-            </div>
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/e99a5713-6ec2-49b7-9cda-a29533f68c7d.png" 
-                alt="Creator relationship"
-                className="w-full h-64 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-4 left-4 bg-[#17BEBB] text-white px-6 py-2 rounded-md shadow-lg">
-                YOUR CREATOR
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-col items-center text-center space-y-6">
+          <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
+          <h2 className="text-3xl font-serif">{content.heading}</h2>
+          <p className="text-lg max-w-2xl">{content.body}</p>
+          <a 
+            href={getLink()} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-lg hover:bg-[#17BEBB]/90 transition-colors"
+          >
+            {content.cta}
+          </a>
         </div>
       </div>
 
