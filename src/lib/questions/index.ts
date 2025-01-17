@@ -10,10 +10,10 @@ export const questions: Pillar[] = [
 ];
 
 export const getFeedbackTier = (score: number): string => {
-  if (score >= 85) return "Thriving";
-  if (score >= 70) return "Strong";
-  if (score >= 50) return "Building";
-  return "Struggling";
+  if (score >= 85) return "Exceptional Score";
+  if (score >= 70) return "Above Average";
+  if (score >= 50) return "Room for Growth";
+  return "Needs Attention";
 };
 
 export const calculatePillarScore = (pillar: Pillar, answers: Record<string, number>): number => {
