@@ -14,9 +14,9 @@ const Index = () => {
       }}
     >
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/40" />
       
-      <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-12">
+      <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-12 bg-black/40 backdrop-blur-sm rounded-3xl">
         <img 
           src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
           alt="Freedomology Logo" 
@@ -27,7 +27,6 @@ const Index = () => {
           How Free Are You?
         </h1>
 
-        {/* Dimension icons moved below headline */}
         <div className="flex justify-center space-x-16">
           <div className="flex flex-col items-center space-y-2">
             <div className="p-3 rounded-full bg-financial text-white">
