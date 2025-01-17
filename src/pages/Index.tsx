@@ -13,8 +13,8 @@ const Index = () => {
         backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')"
       }}
     >
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/40" />
+      {/* Lighter gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
       
       <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-12 bg-black/40 backdrop-blur-sm rounded-3xl">
         <img 
