@@ -68,7 +68,7 @@ const Assessment = () => {
         <div className="relative z-10 max-w-5xl mx-auto space-y-12">
           {!imageError ? (
             <img 
-              src="https://static.wixstatic.com/media/af616c_4fdc0e4111304cf4ac2ee10f713c4a96~mv2.png" 
+              src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
               alt="Freedomology" 
               className="h-24 md:h-28 mx-auto mb-8 transform transition-all duration-300 hover:scale-105"
               onError={handleImageError}
