@@ -80,7 +80,18 @@ export const ScoreCard = ({
       <div className="space-y-6">
         {!isOverallScore && (
           <div className="flex justify-center">
-            <span className="text-5xl font-bold" style={{ color }}>
+            <span 
+              className={cn(
+                "text-5xl font-bold bg-gradient-to-r bg-clip-text text-transparent",
+                "drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)]",
+                "relative after:absolute after:inset-0 after:bg-gradient-to-b after:from-white/20 after:to-transparent after:rounded-lg",
+                "glow"
+              )}
+              style={{ 
+                backgroundImage: `linear-gradient(135deg, ${color}, ${color}CC)`,
+                textShadow: `0 0 20px ${color}40`
+              }}
+            >
               {animatedScore}
             </span>
           </div>
