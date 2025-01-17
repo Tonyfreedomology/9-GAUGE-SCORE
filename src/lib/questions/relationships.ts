@@ -36,7 +36,7 @@ export const relationshipsPillar: Pillar = {
         },
         { 
           id: 'r3', 
-          text: 'Do you recognize and manage your emotions well?', 
+          text: 'How well do you recognize and manage your emotions?', 
           category: 'Relationship with Self', 
           pillar: 'relationships',
           options: [

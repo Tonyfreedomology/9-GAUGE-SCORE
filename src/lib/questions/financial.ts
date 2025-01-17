@@ -10,15 +10,15 @@ export const financialPillar: Pillar = {
       questions: [
         { 
           id: 'f1', 
-          text: 'If you had an unexpected $3,000 expense, how sure are you you could cover it without new debt?', 
+          text: 'How confident are you that you could cover an unexpected $3,000 expense without taking on new debt?', 
           category: 'Income & Savings', 
           pillar: 'financial',
           options: [
-            { value: 1, label: 'Not at all sure' },
-            { value: 2, label: 'Somewhat unsure' },
+            { value: 1, label: 'Not confident at all' },
+            { value: 2, label: 'Low level of confidence' },
             { value: 3, label: 'Neutral' },
-            { value: 4, label: 'Somewhat sure' },
-            { value: 5, label: 'Very sure' }
+            { value: 4, label: 'Somewhat confident' },
+            { value: 5, label: 'Very confident' }
           ]
         },
         { 
@@ -36,7 +36,7 @@ export const financialPillar: Pillar = {
         },
         { 
           id: 'f3', 
-          text: 'How often do you rely on credit cards or loans to cover normal bills?', 
+          text: 'How often do you rely on credit cards or loans to cover everyday bills or expenses?', 
           category: 'Income & Savings', 
           pillar: 'financial',
           options: [
@@ -49,7 +49,7 @@ export const financialPillar: Pillar = {
         },
         { 
           id: 'f4', 
-          text: 'How steady is your main source of income for the next year?', 
+          text: 'How stable do you feel your main source of income will be for the next 12 months?', 
           category: 'Income & Savings', 
           pillar: 'financial',
           options: [
@@ -68,7 +68,7 @@ export const financialPillar: Pillar = {
       questions: [
         { 
           id: 'f5', 
-          text: 'What % of your monthly income goes to high-interest debts (credit cards)?', 
+          text: 'What percentage of your monthly income is used to pay off high-interest debts, such as credit cards?', 
           category: 'Debt & Credit', 
           pillar: 'financial',
           options: [
@@ -81,28 +81,28 @@ export const financialPillar: Pillar = {
         },
         { 
           id: 'f6', 
-          text: 'How much of your debt is tied to things that grow in value (house, business) vs. consumer stuff?', 
+          text: 'What portion of your debt is tied to assets that grow in value (like a house or business) versus consumer expenses?', 
           category: 'Debt & Credit', 
           pillar: 'financial',
           options: [
-            { value: 1, label: 'All consumer debt' },
-            { value: 2, label: 'Mostly consumer' },
-            { value: 3, label: 'Mixed' },
-            { value: 4, label: 'Mostly investment' },
-            { value: 5, label: 'All investment' }
+            { value: 1, label: 'All consumer expenses' },
+            { value: 2, label: 'Mostly consumer expenses' },
+            { value: 3, label: 'Mix consumer & Investments' },
+            { value: 4, label: 'Mostly investments' },
+            { value: 5, label: 'All investments' }
           ]
         },
         { 
           id: 'f7', 
-          text: 'How confident are you you\'d get a good loan rate if needed?', 
+          text: 'How confident are you that you could qualify for a good loan rate if needed?', 
           category: 'Debt & Credit', 
           pillar: 'financial',
           options: [
-            { value: 1, label: 'Not at all' },
-            { value: 2, label: 'Slightly' },
-            { value: 3, label: 'Moderately' },
-            { value: 4, label: 'Very' },
-            { value: 5, label: 'Extremely' }
+            { value: 1, label: 'Not confident at all' },
+            { value: 2, label: 'Not very confident' },
+            { value: 3, label: 'Neutral' },
+            { value: 4, label: 'Somewhat confident' },
+            { value: 5, label: 'Very confident' }
           ]
         },
       ],
@@ -113,15 +113,15 @@ export const financialPillar: Pillar = {
       questions: [
         { 
           id: 'f8', 
-          text: 'If you wanted a 7-day trip overseas next month, how possible is that financially?', 
+          text: 'If you wanted to take a 7-day trip overseas next month, how financially possible would that be?', 
           category: 'Independence & Flexibility', 
           pillar: 'financial',
           options: [
             { value: 1, label: 'Impossible' },
             { value: 2, label: 'Very difficult' },
-            { value: 3, label: 'Possible with planning' },
-            { value: 4, label: 'Fairly easy' },
-            { value: 5, label: 'Very easy' }
+            { value: 3, label: 'Challenging' },
+            { value: 4, label: 'Possible with planning' },
+            { value: 5, label: 'Easily possible' }
           ]
         },
         { 
@@ -133,13 +133,13 @@ export const financialPillar: Pillar = {
             { value: 1, label: 'Not at all' },
             { value: 2, label: 'With great difficulty' },
             { value: 3, label: 'With some strain' },
-            { value: 4, label: 'Fairly well' },
+            { value: 4, label: 'Fairly easily' },
             { value: 5, label: 'Easily' }
           ]
         },
         { 
           id: 'f10', 
-          text: 'How often do you make big life choices based on passion, not just money?', 
+          text: 'How often do you make major life decisions driven by passion rather than finances?', 
           category: 'Independence & Flexibility', 
           pillar: 'financial',
           options: [
@@ -152,7 +152,7 @@ export const financialPillar: Pillar = {
         },
         { 
           id: 'f11', 
-          text: 'Could you reduce/change your work hours without stressing about bills?', 
+          text: 'Could you reduce/change your work hours without stressing about covering your bills?', 
           category: 'Independence & Flexibility', 
           pillar: 'financial',
           options: [
@@ -242,15 +242,15 @@ export const financialPillar: Pillar = {
         },
         { 
           id: 'f17', 
-          text: 'How able do you feel to financially support the causes that really matter to you?', 
+          text: 'How comfortable are you with financially supporting causes that matter most to you?', 
           category: 'Impact & Generosity', 
           pillar: 'financial',
           options: [
-            { value: 1, label: 'Not at all' },
-            { value: 2, label: 'Barely' },
-            { value: 3, label: 'Somewhat' },
-            { value: 4, label: 'Mostly' },
-            { value: 5, label: 'Fully' }
+            { value: 1, label: 'Not comfortable at all' },
+            { value: 2, label: 'Uncomfortable' },
+            { value: 3, label: 'Neutral' },
+            { value: 4, label: 'Somewhat comfortable' },
+            { value: 5, label: 'Very comfortable' }
           ]
         },
       ],
