@@ -10,10 +10,36 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { useInView } from "react-intersection-observer";
 
 type NextStepsProps = {
   lowestPillar: string;
   onStartOver: () => void;
+};
+
+const WeekContent = ({ number, title, description }: { number: string, title: string, description: string }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  return (
+    <div 
+      ref={ref}
+      className={cn(
+        "opacity-0 translate-y-4 transition-all duration-700",
+        inView && "opacity-100 translate-y-0"
+      )}
+    >
+      <div className="flex gap-6 mb-8">
+        <span className="text-relationships/60 text-xl">{number}</span>
+        <div>
+          <h3 className="text-white text-xl font-semibold mb-2">{title}</h3>
+          <p className="text-white/80 leading-relaxed">{description}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
@@ -62,41 +88,93 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
-        <div className="flex flex-col items-center space-y-6">
-          <img 
-            src={getLogo()} 
-            alt={`${lowestPillar} Program Logo`}
-            className="h-24 object-contain"
-          />
+        <div className="flex flex-col items-center space-y-12">
+          <h2 className="text-4xl font-serif text-center">What is R40?</h2>
           
-          <h3 className="text-2xl md:text-3xl font-serif font-bold text-center">
-            {content.heading}
-          </h3>
-          
-          <p className="text-lg text-center max-w-2xl leading-relaxed">
-            {content.body}
+          <p className="text-lg text-center">
+            R40 is designed to transform every relationship in your life.<br />
+            Your relationships with:
           </p>
           
-          <a
-            href={getLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "mt-6 px-8 py-4 rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105",
-              {
-                "bg-financial": content.color === "financial",
-                "bg-health": content.color === "health",
-                "bg-relationships": content.color === "relationships",
-              }
-            )}
-          >
-            {content.cta}
-          </a>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+            <div className="relative group">
+              <img 
+                src="/lovable-uploads/e99a5713-6ec2-49b7-9cda-a29533f68c7d.png" 
+                alt="Others relationships"
+                className="w-full h-64 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-4 left-4 bg-[#17BEBB] text-white px-6 py-2 rounded-md shadow-lg">
+                OTHERS
+              </div>
+            </div>
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/e99a5713-6ec2-49b7-9cda-a29533f68c7d.png" 
+                alt="Self relationship"
+                className="w-full h-64 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-4 left-4 bg-[#17BEBB] text-white px-6 py-2 rounded-md shadow-lg">
+                YOURSELF
+              </div>
+            </div>
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/e99a5713-6ec2-49b7-9cda-a29533f68c7d.png" 
+                alt="Creator relationship"
+                className="w-full h-64 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-4 left-4 bg-[#17BEBB] text-white px-6 py-2 rounded-md shadow-lg">
+                YOUR CREATOR
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="relative h-24 flex items-center justify-center">
         <ScrollPrompt />
+      </div>
+
+      <div className="bg-[#293230] backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-lg">
+        <h2 className="text-4xl font-serif text-white mb-12">The Six Weeks</h2>
+        
+        <div className="space-y-12">
+          <WeekContent 
+            number="01"
+            title="CONNECT"
+            description="It's all about how we are hardwired for connection and that life isn't meant to be done alone. We believe that people matter more than anything, and that the best part about life is experiencing the world with people you love."
+          />
+          
+          <WeekContent 
+            number="02"
+            title="REFLECT"
+            description="It's all about reflecting on your relationship with yourself. How you see yourself and what you believe about yourself impacts every other relationship you have. You'll learn how to treat yourself as someone worth caring about, drop limiting beliefs, and transform your self-image."
+          />
+          
+          <WeekContent 
+            number="03"
+            title="ATTRACT"
+            description="You'll learn how to be a person who has values, and lives by them. To be a person who adds value. It's about becoming an attractive character - someone who serves others, and lives a principled life."
+          />
+          
+          <WeekContent 
+            number="04"
+            title="CORRECT"
+            description="We talk about why relationships fall apart, what goes wrong and why. You'll learn to spot the ways that you might have contributed to unhealthy patterns in relationships so that you can correct them. It's the week where you'll take a good hard look at yourself and the ways you may have hurt others."
+          />
+          
+          <WeekContent 
+            number="05"
+            title="RESPECT"
+            description="This week is all about mending fences and being able to treat people with respect, even when they hurt us. Conflict is inevitable in close relationships - it's how you handle it that matters. Every deep relationship has survived conflict and come out the other side stronger. This week, we'll share the secrets to navigating hurts and moving through them."
+          />
+          
+          <WeekContent 
+            number="06"
+            title="PERFECT"
+            description="You'll learn how living a life of relentless unconditional love is only possible through a relationship with God. We believe that God is perfectly for you and not against you. He is the only one who loves perfectly, and we need to lay on him to be our source of strength. What you believe about God, and more importantly, what you believe God thinks about YOU will transform your entire outlook on life."
+          />
+        </div>
       </div>
 
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
