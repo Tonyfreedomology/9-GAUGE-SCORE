@@ -37,7 +37,7 @@ export const NextSteps = ({ lowestPillar, onStartOver }: NextStepsProps) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
-      <div className="bg-[#E6F7FF]/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
         <div className="flex flex-col items-center space-y-6">
           <img 
             src={getLogo()} 
