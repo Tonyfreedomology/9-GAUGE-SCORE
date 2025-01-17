@@ -22,8 +22,8 @@ export const sprintContent: Record<string, SprintContent> = {
     color: "financial"
   },
   "Relationships": {
-    heading: "Strengthen Your Relationships",
-    body: "Relationships are at the core of a fulfilling life, and we see room for growth here. Join R40, our 40-day sprint focused on building stronger connections. This program will help you develop the skills needed for lasting relationships. When your relationships, health, and finances align, that's when true freedom happens.",
+    heading: "Transform Every Relationship in Your Life",
+    body: "R40 is designed to transform your relationships in three key areas: with others, yourself, and your Creator. Over six transformative weeks, you'll learn to CONNECT with those around you, REFLECT on your self-relationship, ATTRACT positive connections, CORRECT unhealthy patterns, show RESPECT in challenging situations, and discover PERFECT unconditional love. This 40-day journey will revolutionize how you approach relationships and help you build deeper, more meaningful connections in every area of your life.",
     cta: "Join R40",
     icon: "users",
     color: "relationships"
