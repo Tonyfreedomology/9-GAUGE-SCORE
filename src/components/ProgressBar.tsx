@@ -19,7 +19,8 @@ export const ProgressBar = ({
   const [animatedValue, setAnimatedValue] = useState(0);
 
   useEffect(() => {
-    const duration = 2000;
+    // Animate the progress
+    const duration = 2000; // 2 seconds
     const steps = 60;
     const increment = value / steps;
     let current = 0;
@@ -42,9 +43,9 @@ export const ProgressBar = ({
     const progress = ((100 - animatedValue) / 100) * circumference;
 
     return (
-      <div className={cn("relative group", className)} style={{ width: size, height: size }}>
+      <div className={cn("relative", className)} style={{ width: size, height: size }}>
         <svg
-          className="transform -rotate-90 transition-transform duration-300 group-hover:scale-105"
+          className="transform -rotate-90"
           width={size}
           height={size}
           viewBox="0 0 100 100"
@@ -52,18 +53,11 @@ export const ProgressBar = ({
           <defs>
             <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#17BEBB" />
-              <stop offset="100%" stopColor="#0EA5E9" />
+              <stop offset="100%" stopColor="rgba(23, 190, 187, 0.7)" />
             </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
           <circle
-            className="text-secondary/30"
+            className="text-secondary"
             strokeWidth="8"
             stroke="currentColor"
             fill="transparent"
@@ -72,7 +66,7 @@ export const ProgressBar = ({
             cy="50"
           />
           <circle
-            className="transition-all duration-300 ease-out drop-shadow-lg"
+            className="transition-all duration-300 ease-out"
             strokeWidth="8"
             stroke="url(#progressGradient)"
             fill="transparent"
@@ -82,20 +76,16 @@ export const ProgressBar = ({
             strokeDasharray={circumference}
             strokeDashoffset={progress}
             strokeLinecap="round"
-            filter="url(#glow)"
           />
         </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center">
           <span 
             className={cn(
-              "text-6xl font-bold bg-gradient-to-r from-[#17BEBB] to-[#0EA5E9] bg-clip-text text-transparent transition-all duration-300",
+              "text-6xl font-bold bg-gradient-to-r from-[#17BEBB] to-[#17BEBB]/70 bg-clip-text text-transparent",
               variant === 'circle' && "animate-scale-in"
             )}
           >
             {Math.round(animatedValue)}
-          </span>
-          <span className="text-sm font-medium text-muted-foreground mt-1">
-            {value >= 80 ? "Excellent" : value >= 60 ? "Good" : "Building"}
           </span>
         </div>
       </div>
@@ -103,15 +93,12 @@ export const ProgressBar = ({
   }
 
   return (
-    <div className={cn(
-      "w-full h-3 bg-secondary/30 rounded-full overflow-hidden shadow-inner",
-      className
-    )}>
+    <div className={cn("w-full h-2 bg-secondary rounded-full overflow-hidden", className)}>
       <div
-        className="h-full transition-all duration-300 ease-out rounded-full bg-gradient-to-r"
+        className="h-full transition-all duration-300 ease-out rounded-full"
         style={{
           width: `${animatedValue}%`,
-          backgroundImage: `linear-gradient(90deg, ${color}, ${color}CC)`,
+          backgroundColor: color || 'var(--primary)',
         }}
       />
     </div>

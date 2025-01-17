@@ -59,11 +59,11 @@ const Assessment = () => {
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1541417904950-b855846fe074?q=100&w=3840&auto=format&fit=crop')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center'
         }}
       >
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
         
         <div className="relative z-10 max-w-5xl mx-auto space-y-12">
           {!imageError ? (
@@ -77,55 +77,43 @@ const Assessment = () => {
           ) : (
             <div className="text-2xl font-bold text-center mb-8 text-white">Freedomology</div>
           )}
-          
-          <div className="space-y-6 text-center">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              Overall Freedomology Score
-            </h1>
-            <p className="text-xl text-white/90 font-medium">
-              You're on the path to thriving freedom. Keep growing!
-            </p>
-          </div>
-
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 text-white leading-relaxed">
+            Overall Freedomology Score
+          </h1>
           <ScoreCard
             title=""
             score={overallScore}
-            color="#17BEBB"
+            color="#293230"
             className="mb-12 max-w-2xl mx-auto transform transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm bg-white/90"
             isOverallScore={true}
           />
-
-          <div className="space-y-6">
-            <h2 className="text-2xl font-serif font-bold text-center text-white">Your Breakdown</h2>
-            <div className="grid gap-8 md:grid-cols-3">
-              {questions.map((pillar) => {
-                let color;
-                switch (pillar.name) {
-                  case 'Financial':
-                    color = '#17BEBB';
-                    break;
-                  case 'Health':
-                    color = '#EDB88B';
-                    break;
-                  case 'Relationships':
-                    color = '#EF3E36';
-                    break;
-                  default:
-                    color = '#293230';
-                }
-                return (
-                  <ScoreCard
-                    key={pillar.name}
-                    title={pillar.name}
-                    score={calculatePillarScore(pillar, answers)}
-                    color={color}
-                    className="transform transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/90"
-                  />
-                );
-              })}
-            </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {questions.map((pillar) => {
+              let color;
+              switch (pillar.name) {
+                case 'Financial':
+                  color = '#17BEBB';
+                  break;
+                case 'Health':
+                  color = '#EDB88B';
+                  break;
+                case 'Relationships':
+                  color = '#EF3E36';
+                  break;
+                default:
+                  color = '#293230';
+              }
+              return (
+                <ScoreCard
+                  key={pillar.name}
+                  title={pillar.name}
+                  score={calculatePillarScore(pillar, answers)}
+                  color={color}
+                  className="transform transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/90"
+                />
+              );
+            })}
           </div>
-
           <Button
             onClick={() => {
               setShowResults(false);
@@ -133,7 +121,7 @@ const Assessment = () => {
               setCurrentQuestionIndex(0);
               setAnswers({});
             }}
-            className="mx-auto flex items-center justify-center bg-gradient-to-r from-[#17BEBB] to-[#0EA5E9] hover:from-[#17BEBB]/90 hover:to-[#0EA5E9]/90 text-white px-8 py-4 text-lg font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105"
+            className="mx-auto flex items-center justify-center bg-gradient-to-r from-[#17BEBB] to-[#17BEBB]/80 hover:from-[#17BEBB]/90 hover:to-[#17BEBB]/70 text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
             Start Over
           </Button>
