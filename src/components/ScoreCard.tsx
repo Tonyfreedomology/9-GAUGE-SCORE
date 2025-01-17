@@ -80,7 +80,7 @@ export const ScoreCard = ({
       <div className="space-y-6">
         {!isOverallScore && (
           <div className="flex justify-center">
-            <span className="text-3xl font-bold" style={{ color }}>
+            <span className="text-6xl font-bold" style={{ color }}>
               {animatedScore}
             </span>
           </div>
