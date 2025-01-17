@@ -12,21 +12,29 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
   const displayOptions = options || defaultOptions;
 
   return (
-    <div className={cn("flex justify-between gap-3 w-full max-w-md mx-auto", className)}>
+    <div className={cn("flex justify-between gap-4 w-full max-w-2xl mx-auto", className)}>
       {displayOptions.map((option) => {
         const optionValue = typeof option === 'number' ? option : option.value;
         const optionLabel = typeof option === 'number' ? option.toString() : option.label;
+        const isSelected = value === optionValue;
         
         return (
           <button
             key={optionValue}
             onClick={() => onChange(optionValue)}
             className={cn(
-              "w-24 h-24 rounded-full transition-all duration-300 text-sm font-medium flex items-center justify-center text-center px-2",
-              "hover:shadow-lg transform hover:-translate-y-0.5",
-              value === optionValue
-                ? "bg-foreground text-white scale-110 shadow-lg"
-                : "bg-white/80 hover:bg-white text-foreground shadow-md"
+              "min-w-[120px] py-4 px-6 rounded-full transition-all duration-300",
+              "text-base font-medium flex items-center justify-center text-center",
+              "hover:bg-[#F9FAFB] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]",
+              isSelected ? [
+                "border-2 border-[#3ECF8E]",
+                "bg-gradient-to-b from-[#F0FFF4] to-white",
+                "shadow-[0_2px_8px_rgba(62,207,142,0.15)]",
+                "scale-105"
+              ] : [
+                "bg-white/80 border-2 border-transparent",
+                "shadow-[0_2px_4px_rgba(0,0,0,0.05)]"
+              ]
             )}
           >
             {optionLabel}
