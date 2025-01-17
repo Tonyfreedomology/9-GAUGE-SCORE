@@ -16,6 +16,12 @@ const Index = () => {
       <div className="absolute inset-0 bg-black/40" />
       
       <div className="relative z-10 max-w-3xl mx-auto p-8 text-center space-y-8">
+        <img 
+          src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
+          alt="Freedomology Logo" 
+          className="h-24 mx-auto mb-8"
+        />
+        
         <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
           How Free Are You?
         </h1>
