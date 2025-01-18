@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { LikertScale } from "@/components/LikertScale";
 import { cn } from "@/lib/utils";
 import { FreedomologyLogo } from "./FreedomologyLogo";
+import { Coins, HeartPulse, Users } from "lucide-react";
 
 type AssessmentQuestionProps = {
   pillarName: string;
@@ -26,14 +27,30 @@ export const AssessmentQuestion = ({
   options,
   onAnswer,
 }: AssessmentQuestionProps) => {
+  const getPillarIcon = () => {
+    switch (pillarName) {
+      case 'Financial':
+        return <Coins className="w-8 h-8 text-[#84A98C]" />;
+      case 'Health':
+        return <HeartPulse className="w-8 h-8 text-[#0EA5E9]" />;
+      case 'Relationships':
+        return <Users className="w-8 h-8 text-[#9b87f5]" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12 animate-[fade-in_0.5s_ease-out,scale-in_0.4s_ease-out]">
       <FreedomologyLogo />
       
       <div className="space-y-6">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
-          {pillarName}
-        </h1>
+        <div className="flex items-center justify-center gap-3">
+          {getPillarIcon()}
+          <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
+            {pillarName}
+          </h1>
+        </div>
         
         <div className="space-y-2">
           <div className="flex justify-between text-white/90 text-sm font-medium px-1">
