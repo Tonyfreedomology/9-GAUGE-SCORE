@@ -56,24 +56,26 @@ const Assessment = () => {
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
       
-      {showResults ? (
-        <AssessmentResults 
-          answers={answers}
-          onStartOver={handleStartOver}
-        />
-      ) : (
-        <AssessmentQuestion
-          pillarName={currentPillar.name}
-          category={currentQuestion.category}
-          questionText={currentQuestion.text}
-          progress={progress}
-          currentValue={answers[currentQuestion.id] || 0}
-          currentStep={currentQuestionNumber}
-          totalSteps={totalQuestions}
-          options={currentQuestion.options}
-          onAnswer={handleAnswer}
-        />
-      )}
+      <div className="animate-[fade-in_0.5s_ease-out]">
+        {showResults ? (
+          <AssessmentResults 
+            answers={answers}
+            onStartOver={handleStartOver}
+          />
+        ) : (
+          <AssessmentQuestion
+            pillarName={currentPillar.name}
+            category={currentQuestion.category}
+            questionText={currentQuestion.text}
+            progress={progress}
+            currentValue={answers[currentQuestion.id] || 0}
+            currentStep={currentQuestionNumber}
+            totalSteps={totalQuestions}
+            options={currentQuestion.options}
+            onAnswer={handleAnswer}
+          />
+        )}
+      </div>
     </div>
   );
 };
