@@ -35,6 +35,26 @@ const Assessment = () => {
     setAnswers({});
   };
 
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    } else if (currentPillarIndex > 0) {
+      const previousPillar = questions[currentPillarIndex - 1];
+      const previousPillarQuestions = previousPillar.categories.flatMap(category => category.questions);
+      setCurrentPillarIndex(currentPillarIndex - 1);
+      setCurrentQuestionIndex(previousPillarQuestions.length - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentQuestionIndex < allQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else if (currentPillarIndex < questions.length - 1) {
+      setCurrentPillarIndex(currentPillarIndex + 1);
+      setCurrentQuestionIndex(0);
+    }
+  };
+
   const totalQuestions = questions.reduce((acc, pillar) => 
     acc + pillar.categories.reduce((sum, category) => 
       sum + category.questions.length, 0), 0);
@@ -44,6 +64,10 @@ const Assessment = () => {
       sum + category.questions.length, 0), 0) + currentQuestionIndex + 1;
 
   const progress = (currentQuestionNumber / totalQuestions) * 100;
+
+  const isFirstQuestion = currentPillarIndex === 0 && currentQuestionIndex === 0;
+  const isLastQuestion = currentPillarIndex === questions.length - 1 && 
+    currentQuestionIndex === allQuestions.length - 1;
 
   return (
     <div 
@@ -73,6 +97,10 @@ const Assessment = () => {
             totalSteps={totalQuestions}
             options={currentQuestion.options}
             onAnswer={handleAnswer}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+            isFirstQuestion={isFirstQuestion}
+            isLastQuestion={isLastQuestion}
           />
         )}
       </div>
