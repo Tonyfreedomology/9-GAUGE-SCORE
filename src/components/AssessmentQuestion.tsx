@@ -33,15 +33,11 @@ export const AssessmentQuestion = ({
       <FreedomologyLogo />
       
       <div className="space-y-6">
-        <div className="flex items-center justify-center">
-          <div className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full flex items-center gap-4 shadow-lg">
-            <div className="bg-white rounded-full p-2 shadow-sm">
-              {getPillarIcon(pillarName)}
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-              {pillarName}
-            </h1>
-          </div>
+        <div className="flex items-center justify-center gap-3">
+          {getPillarIcon(pillarName)}
+          <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
+            {pillarName}
+          </h1>
         </div>
         
         <AssessmentProgress
