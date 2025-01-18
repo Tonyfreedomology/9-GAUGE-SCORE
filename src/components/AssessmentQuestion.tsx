@@ -34,7 +34,9 @@ export const AssessmentQuestion = ({
       
       <div className="space-y-6">
         <div className="flex items-center justify-center gap-3">
-          {getPillarIcon(pillarName)}
+          <div className="bg-white rounded-full p-2 shadow-md">
+            {getPillarIcon(pillarName)}
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
             {pillarName}
           </h1>
