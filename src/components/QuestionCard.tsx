@@ -27,16 +27,25 @@ export const QuestionCard = ({
       pillarName === 'Relationships' && "border-relationships"
     )}>
       <div className="space-y-10">
-        <div className="space-y-4 animate-[fade-in_0.5s_ease-out]">
-          <h2 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+        <div className="space-y-4">
+          <h2 
+            className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground animate-[fade-in_0.5s_ease-out]"
+            style={{ animationFillMode: 'both' }}
+          >
             {category}
           </h2>
-          <p className="text-xl md:text-2xl font-semibold leading-relaxed text-foreground/90 opacity-0 animate-[fade-in_0.5s_ease-out_0.2s_forwards]">
+          <p 
+            className="text-xl md:text-2xl font-semibold leading-relaxed text-foreground/90 animate-[fade-in_0.5s_ease-out_0.2s]"
+            style={{ animationFillMode: 'both' }}
+          >
             {questionText}
           </p>
         </div>
         
-        <div className="opacity-0 animate-[fade-in_0.5s_ease-out_0.4s_forwards]">
+        <div 
+          className="animate-[fade-in_0.5s_ease-out_0.4s]"
+          style={{ animationFillMode: 'both' }}
+        >
           <LikertScale
             value={currentValue}
             onChange={onAnswer}
