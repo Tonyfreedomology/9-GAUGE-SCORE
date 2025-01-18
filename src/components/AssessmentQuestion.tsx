@@ -5,6 +5,7 @@ import { getPillarIcon } from "@/lib/getPillarIcon";
 import { AssessmentProgress } from "./AssessmentProgress";
 import { QuestionCard } from "./QuestionCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type AssessmentQuestionProps = {
   pillarName: string;
@@ -37,6 +38,14 @@ export const AssessmentQuestion = ({
   isFirstQuestion,
   isLastQuestion,
 }: AssessmentQuestionProps) => {
+  const [key, setKey] = useState(0);
+
+  // Reset animation key when question changes
+  useEffect(() => {
+    setKey(prev => prev + 1);
+    console.log("Question changed, triggering animation");
+  }, [questionText]);
+
   return (
     <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12">
       <FreedomologyLogo />
@@ -56,7 +65,7 @@ export const AssessmentQuestion = ({
         />
       </div>
 
-      <div className="animate-[scale-in_0.4s_ease-out]">
+      <div key={key} className="animate-[scale-in_0.4s_ease-out]">
         <QuestionCard
           pillarName={pillarName}
           category={category}
