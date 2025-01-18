@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { LikertScale } from "@/components/LikertScale";
 import { cn } from "@/lib/utils";
 import { FreedomologyLogo } from "./FreedomologyLogo";
-import { Coins, HeartPulse, Users } from "lucide-react";
+import { BanknoteIcon, HeartPulse, Users } from "lucide-react";
 
 type AssessmentQuestionProps = {
   pillarName: string;
@@ -30,11 +30,11 @@ export const AssessmentQuestion = ({
   const getPillarIcon = () => {
     switch (pillarName) {
       case 'Financial':
-        return <Coins className="w-8 h-8 text-[#84A98C]" />;
+        return <BanknoteIcon className="w-8 h-8 text-[#17BEBB]" />;
       case 'Health':
-        return <HeartPulse className="w-8 h-8 text-[#0EA5E9]" />;
+        return <HeartPulse className="w-8 h-8 text-[#EDB88B]" />;
       case 'Relationships':
-        return <Users className="w-8 h-8 text-[#9b87f5]" />;
+        return <Users className="w-8 h-8 text-[#EF3E36]" />;
       default:
         return null;
     }
