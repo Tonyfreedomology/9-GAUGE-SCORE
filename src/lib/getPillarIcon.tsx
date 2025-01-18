@@ -1,9 +1,9 @@
-import { DollarSign, HeartPulse, Users } from "lucide-react";
+import { BanknoteIcon, HeartPulse, Users } from "lucide-react";
 
 export const getPillarIcon = (pillarName: string) => {
   switch (pillarName) {
     case 'Financial':
-      return <DollarSign className="w-8 h-8 text-[#17BEBB]" />;
+      return <BanknoteIcon className="w-8 h-8 text-[#17BEBB]" />;
     case 'Health':
       return <HeartPulse className="w-8 h-8 text-[#EDB88B]" />;
     case 'Relationships':
