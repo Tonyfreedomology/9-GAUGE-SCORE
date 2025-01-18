@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card";
-import { LikertScale } from "@/components/LikertScale";
 import { cn } from "@/lib/utils";
 import { FreedomologyLogo } from "./FreedomologyLogo";
-import { BanknoteIcon, HeartPulse, Users } from "lucide-react";
+import { getPillarIcon } from "@/lib/getPillarIcon";
+import { AssessmentProgress } from "./AssessmentProgress";
+import { QuestionCard } from "./QuestionCard";
 
 type AssessmentQuestionProps = {
   pillarName: string;
@@ -27,80 +28,33 @@ export const AssessmentQuestion = ({
   options,
   onAnswer,
 }: AssessmentQuestionProps) => {
-  const getPillarIcon = () => {
-    switch (pillarName) {
-      case 'Financial':
-        return <BanknoteIcon className="w-8 h-8 text-[#17BEBB]" />;
-      case 'Health':
-        return <HeartPulse className="w-8 h-8 text-[#EDB88B]" />;
-      case 'Relationships':
-        return <Users className="w-8 h-8 text-[#EF3E36]" />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12 animate-[fade-in_0.5s_ease-out,scale-in_0.4s_ease-out]">
       <FreedomologyLogo />
       
       <div className="space-y-6">
         <div className="flex items-center justify-center gap-3">
-          {getPillarIcon()}
+          {getPillarIcon(pillarName)}
           <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
             {pillarName}
           </h1>
         </div>
         
-        <div className="space-y-2">
-          <div className="flex justify-between text-white/90 text-sm font-medium px-1">
-            <span>Step {currentStep} of {totalSteps}</span>
-            <span>{Math.round(progress)}% Complete</span>
-          </div>
-          <div className="h-3 bg-white/30 rounded-full overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-300"
-              style={{ 
-                width: `${progress}%`,
-                background: 'linear-gradient(90deg, #3ECF8E, #36A2EB)'
-              }}
-            />
-          </div>
-        </div>
+        <AssessmentProgress
+          currentStep={currentStep}
+          totalSteps={totalSteps}
+          progress={progress}
+        />
       </div>
 
-      <Card className={cn(
-        "p-8 md:p-10 shadow-lg backdrop-blur-sm bg-gradient-to-b from-white to-[#F9FAFB]/90 rounded-2xl",
-        "border-0 shadow-[0_4px_10px_rgba(0,0,0,0.1)]",
-        pillarName === 'Financial' && "border-financial",
-        pillarName === 'Health' && "border-health",
-        pillarName === 'Relationships' && "border-relationships"
-      )}>
-        <div className="space-y-10">
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground">
-              {category}
-            </h2>
-            <p className="text-xl md:text-2xl font-semibold leading-relaxed text-foreground/90">
-              {questionText}
-            </p>
-          </div>
-          
-          <LikertScale
-            value={currentValue}
-            onChange={onAnswer}
-            options={options}
-            className="mt-8"
-          />
-          
-          {!options && (
-            <div className="flex justify-between text-sm font-medium text-foreground/60 mt-4">
-              <span>Strongly Disagree</span>
-              <span>Strongly Agree</span>
-            </div>
-          )}
-        </div>
-      </Card>
+      <QuestionCard
+        pillarName={pillarName}
+        category={category}
+        questionText={questionText}
+        currentValue={currentValue}
+        options={options}
+        onAnswer={onAnswer}
+      />
     </div>
   );
 };
