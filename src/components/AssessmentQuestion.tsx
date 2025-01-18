@@ -65,8 +65,9 @@ export const AssessmentQuestion = ({
         />
       </div>
 
-      <div key={key} className="animate-[scale-in_0.4s_ease-out]">
+      <div className="transition-all duration-300">
         <QuestionCard
+          key={key}
           pillarName={pillarName}
           category={category}
           questionText={questionText}

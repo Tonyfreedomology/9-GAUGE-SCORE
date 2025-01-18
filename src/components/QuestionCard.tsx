@@ -27,7 +27,7 @@ export const QuestionCard = ({
       pillarName === 'Relationships' && "border-relationships"
     )}>
       <div className="space-y-10">
-        <div className="space-y-4">
+        <div className="space-y-4 animate-[fade-in_0.3s_ease-out]">
           <h2 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground">
             {category}
           </h2>
@@ -36,19 +36,21 @@ export const QuestionCard = ({
           </p>
         </div>
         
-        <LikertScale
-          value={currentValue}
-          onChange={onAnswer}
-          options={options}
-          className="mt-8"
-        />
-        
-        {!options && (
-          <div className="flex justify-between text-sm font-medium text-foreground/60 mt-4">
-            <span>Strongly Disagree</span>
-            <span>Strongly Agree</span>
-          </div>
-        )}
+        <div className="animate-[fade-in_0.3s_ease-out]">
+          <LikertScale
+            value={currentValue}
+            onChange={onAnswer}
+            options={options}
+            className="mt-8"
+          />
+          
+          {!options && (
+            <div className="flex justify-between text-sm font-medium text-foreground/60 mt-4">
+              <span>Strongly Disagree</span>
+              <span>Strongly Agree</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
