@@ -38,10 +38,10 @@ export const AssessmentQuestion = ({
   isLastQuestion,
 }: AssessmentQuestionProps) => {
   return (
-    <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12 animate-[fade-in_0.5s_ease-out,scale-in_0.4s_ease-out]">
+    <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12">
       <FreedomologyLogo />
       
-      <div className="space-y-6">
+      <div className="space-y-6 animate-[fade-in_0.5s_ease-out]">
         <div className="flex items-center justify-center gap-3">
           {getPillarIcon(pillarName)}
           <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
@@ -56,16 +56,18 @@ export const AssessmentQuestion = ({
         />
       </div>
 
-      <QuestionCard
-        pillarName={pillarName}
-        category={category}
-        questionText={questionText}
-        currentValue={currentValue}
-        options={options}
-        onAnswer={onAnswer}
-      />
+      <div className="animate-[scale-in_0.4s_ease-out]">
+        <QuestionCard
+          pillarName={pillarName}
+          category={category}
+          questionText={questionText}
+          currentValue={currentValue}
+          options={options}
+          onAnswer={onAnswer}
+        />
+      </div>
 
-      <div className="flex justify-center items-center gap-4 mt-6">
+      <div className="flex justify-center items-center gap-4 mt-6 animate-[fade-in_0.5s_ease-out]">
         <button
           onClick={onPrevious}
           disabled={isFirstQuestion}
