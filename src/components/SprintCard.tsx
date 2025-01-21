@@ -42,6 +42,8 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   };
 
   const splitBodyContent = () => {
+    if (!content?.body) return { intro: "", weeks: "" };
+    
     const body = content.body;
     const splitPoint = body.indexOf("Here's what we cover in the 6 weeks:");
     if (splitPoint === -1) return { intro: body, weeks: "" };
@@ -52,7 +54,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     };
   };
 
-  if (!program) return null;
+  if (!program || !content) return null;
 
   const { intro } = splitBodyContent();
 
