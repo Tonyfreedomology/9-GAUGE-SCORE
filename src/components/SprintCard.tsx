@@ -73,7 +73,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           dangerouslySetInnerHTML={{ __html: intro }} 
         />
         
-        <h3 className="text-3xl font-serif text-foreground text-center mt-8">THE SIX WEEKS</h3>
+        <h3 className="text-3xl font-serif font-bold text-foreground text-center mt-8">THE SIX WEEKS</h3>
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
