@@ -80,7 +80,6 @@ export const SignupForm = () => {
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                initialFocus
                 className="bg-white"
               />
             </PopoverContent>

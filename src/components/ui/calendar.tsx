@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 export interface CalendarProps {
   mode?: "single"
-  selected?: Date
+  selected?: Date | null
   onSelect?: (date: Date | null) => void
   className?: string
 }
@@ -21,7 +21,7 @@ const Calendar = ({
     <div className={cn("p-3 w-[280px] bg-white rounded-md", className)}>
       <DatePicker
         selected={selected}
-        onChange={(date) => onSelect?.(date as Date)}
+        onChange={(date: Date) => onSelect?.(date)}
         inline
         showPopperArrow={false}
         renderCustomHeader={({
