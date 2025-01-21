@@ -7,12 +7,6 @@ type ShareResultsProps = {
   containerRef: RefObject<HTMLDivElement>;
 };
 
-type ShareData = {
-  files: File[];
-  title: string;
-  text: string;
-};
-
 export const ShareResults = ({ containerRef }: ShareResultsProps) => {
   const { toast } = useToast();
 
@@ -38,15 +32,14 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
       });
 
       const file = new File([blob], 'freedomology-score.png', { type: 'image/png' });
-      const shareData: ShareData = {
-        files: [file],
-        title: 'My Freedomology Score',
-        text: 'Check out my Freedomology Score!'
-      };
-
-      if (navigator.canShare?.(shareData)) {
+      
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
         console.log('Sharing via native share API...');
-        await navigator.share(shareData);
+        await navigator.share({
+          files: [file],
+          title: 'My Freedomology Score',
+          text: 'Check out my Freedomology Score!'
+        });
       } else {
         console.log('Native sharing not available, downloading instead...');
         const url = URL.createObjectURL(blob);
@@ -76,10 +69,10 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
   return (
     <button
       onClick={handleShare}
+      type="button"
       className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl text-lg font-semibold
         transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105
         flex items-center gap-2 min-w-[200px] justify-center"
-      type="button"
       aria-label="Share results"
     >
       <Share className="w-5 h-5" />

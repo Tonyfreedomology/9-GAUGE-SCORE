@@ -36,7 +36,7 @@ export const AssessmentQuestion = ({
   isFirstQuestion,
   isLastQuestion,
 }: AssessmentQuestionProps) => {
-  const [key, setKey] = useState<number>(0);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     setKey(prev => prev + 1);
