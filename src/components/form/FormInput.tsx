@@ -2,17 +2,30 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 type FormInputProps = {
-  id: string;
   label: string;
+  name: string;
   type?: string;
+  placeholder?: string;
   required?: boolean;
 };
 
-export const FormInput = ({ id, label, type = "text", required = false }: FormInputProps) => {
+export const FormInput = ({ 
+  label, 
+  name, 
+  type = "text", 
+  placeholder = "", 
+  required = false 
+}: FormInputProps) => {
   return (
     <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
-      <Input id={id} name={id} type={type} required={required} />
+      <Label htmlFor={name}>{label}</Label>
+      <Input 
+        id={name}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+      />
     </div>
   );
 };
