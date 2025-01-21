@@ -27,8 +27,8 @@ export const WeekContent = ({ number, title, description, color, isOpen, index }
     >
       <div className="flex flex-col items-center gap-4 mb-8">
         <h3 className="text-white text-xl font-semibold">
-          <span className={`text-${color}/60`}>Week {number}: </span>
-          {title}
+          <span className={`text-${color}/60`}>WEEK {number}: </span>
+          {title.toUpperCase()}
         </h3>
         <p className="text-white/80 leading-relaxed max-w-2xl mx-auto">{description}</p>
       </div>
