@@ -44,11 +44,11 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   if (!program) return null;
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
+    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
       <div className="flex flex-col items-center text-center space-y-6">
         <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
-        <h2 className="text-3xl font-serif">{content.heading}</h2>
-        <div className="text-lg max-w-2xl space-y-4" dangerouslySetInnerHTML={{ __html: content.body }} />
+        <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
+        <div className="text-lg max-w-2xl space-y-4 text-foreground" dangerouslySetInnerHTML={{ __html: content.body }} />
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
