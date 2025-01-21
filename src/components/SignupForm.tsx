@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Calendar } from "./ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useState } from "react";
 import { Button } from "./ui/button";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { FormInput } from "./form/FormInput";
+import { SprintTypeSelect } from "./form/SprintTypeSelect";
+import { StartDatePicker } from "./form/StartDatePicker";
 
 type SignupFormProps = {
   defaultSprintType?: string;
@@ -99,66 +94,15 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="firstName">First Name</Label>
-            <Input id="firstName" name="firstName" required />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name</Label>
-            <Input id="lastName" name="lastName" required />
-          </div>
+          <FormInput id="firstName" label="First Name" required />
+          <FormInput id="lastName" label="Last Name" required />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" required />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" name="phone" type="tel" required />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="sprintType">Sprint Type</Label>
-          <Select name="sprintType" defaultValue={defaultSprintType} required>
-            <SelectTrigger className="bg-white">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-white">
-              <SelectItem value="H40">H40 - Health Sprint</SelectItem>
-              <SelectItem value="F40">F40 - Financial Sprint</SelectItem>
-              <SelectItem value="R40">R40 - Relationships Sprint</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Start Date</Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full justify-start text-left font-normal bg-white",
-                  !date && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : "Pick a date"}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 bg-white" align="start">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="bg-white"
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
+        <FormInput id="email" label="Email" type="email" required />
+        <FormInput id="phone" label="Phone Number" type="tel" required />
+        
+        <SprintTypeSelect defaultValue={defaultSprintType} />
+        <StartDatePicker date={date} setDate={setDate} />
 
         <Button 
           type="submit" 
