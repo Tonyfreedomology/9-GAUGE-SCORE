@@ -16,11 +16,11 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3 w-[280px]", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-        month: "space-y-4 w-full",
-        caption: "relative flex items-center justify-between px-8 pb-4",
+        month: "space-y-4",
+        caption: "flex justify-center relative items-center px-2",
         caption_label: "text-sm font-medium",
         nav: "flex items-center",
         nav_button: cn(
@@ -29,11 +29,11 @@ function Calendar({
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
-        table: "w-full border-collapse",
-        head_row: "flex w-full",
-        head_cell: "w-[14.28%] text-center text-muted-foreground text-sm font-medium",
+        table: "w-full border-collapse space-y-1",
+        head_row: "flex",
+        head_cell: "w-9 text-center text-muted-foreground text-sm font-medium",
         row: "flex w-full mt-2",
-        cell: "w-[14.28%] text-center relative p-0 focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md",
+        cell: "w-9 text-center relative p-0 focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md",
         day: cn(
           buttonVariants({ variant: "ghost" }),
           "h-8 w-8 p-0 font-normal aria-selected:opacity-100 hover:bg-accent hover:text-accent-foreground"
