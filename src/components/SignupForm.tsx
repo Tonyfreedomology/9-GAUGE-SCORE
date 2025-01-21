@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -9,6 +9,7 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 type SignupFormProps = {
   defaultSprintType?: string;
@@ -17,47 +18,63 @@ type SignupFormProps = {
 export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
   const [date, setDate] = useState<Date>();
   const [isLoading, setIsLoading] = useState(false);
-  const [webhookUrl, setWebhookUrl] = useState(''); // You'll need to set this with your Zapier webhook URL
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      sprintType: formData.get('sprintType'),
-      startDate: date?.toISOString()
-    };
-
-    console.log("Form submission data:", data);
+    console.log("Starting form submission...");
 
     try {
-      if (!webhookUrl) {
+      // Fetch the webhook URL from Supabase
+      const { data: secretData, error: secretError } = await supabase
+        .from('secrets')
+        .select('value')
+        .eq('name', 'ZAPIER_WEBHOOK_URL')
+        .single();
+
+      if (secretError || !secretData) {
+        console.error("Error fetching webhook URL:", secretError);
         toast({
-          title: "Configuration Required",
-          description: "Please set up your Zapier webhook URL first.",
+          title: "Configuration Error",
+          description: "Unable to process your signup. Please try again later.",
           variant: "destructive",
         });
         return;
       }
+
+      const webhookUrl = secretData.value;
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        sprintType: formData.get('sprintType'),
+        startDate: date?.toISOString(),
+        timestamp: new Date().toISOString(),
+        source: window.location.origin
+      };
+
+      console.log("Submitting data to Zapier:", data);
 
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors", // Handle CORS issues
+        mode: "no-cors",
         body: JSON.stringify(data),
       });
 
+      console.log("Zapier webhook triggered successfully");
       toast({
         title: "Success!",
         description: "You've been signed up for the sprint. Check your email for next steps!",
       });
+
+      // Reset form
+      (e.target as HTMLFormElement).reset();
+      setDate(undefined);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
