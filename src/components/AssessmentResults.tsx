@@ -56,12 +56,14 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               Overall Freedomology Score
             </h1>
-            <TooltipProvider>
+            <TooltipProvider delayDuration={0}>
               <Tooltip>
-                <TooltipTrigger>
-                  <HelpCircle className="w-6 h-6 text-white/80 hover:text-white transition-colors" />
+                <TooltipTrigger asChild>
+                  <button type="button" className="cursor-help">
+                    <HelpCircle className="w-6 h-6 text-white/80 hover:text-white transition-colors" />
+                  </button>
                 </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
+                <TooltipContent side="top" className="max-w-xs bg-white text-gray-900 p-3 rounded-lg shadow-lg">
                   <p>Your Freedomology Score represents your overall well-being across financial, health, and relationship dimensions. A higher score indicates greater freedom and balance in these key life areas.</p>
                 </TooltipContent>
               </Tooltip>
