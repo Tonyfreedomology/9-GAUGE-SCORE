@@ -135,7 +135,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
           </h2>
           <div className="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-white/90">
             <p>
-              We've worked with over 11,000 people in the past 15 years and learned that balance really is the key to building a beautiful life.
+              We've worked with over 11,000 people in the past 15 years and learned that balance is the key to building a beautiful life.
             </p>
             <p>
               Our culture pushes the hustle and grind mindset as the path to success, but we see it differenty.
@@ -156,7 +156,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         </div>
       </div>
 
-      <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
+      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
         <h2 className="text-3xl font-serif font-bold text-center text-white mb-8">
           Next Steps
         </h2>
