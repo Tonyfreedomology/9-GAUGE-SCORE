@@ -46,7 +46,12 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
       <div className="flex flex-col items-center text-center space-y-6">
-        <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
+        <img 
+          src={getLogo()} 
+          alt={`${lowestPillar} Sprint Logo`} 
+          className="h-24 object-contain"
+          loading="lazy"
+        />
         <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
         <div className="text-lg max-w-2xl space-y-4 text-foreground" dangerouslySetInnerHTML={{ __html: content.body }} />
         
