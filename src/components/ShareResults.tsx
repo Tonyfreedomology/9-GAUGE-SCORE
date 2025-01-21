@@ -7,6 +7,12 @@ type ShareResultsProps = {
   containerRef: RefObject<HTMLDivElement>;
 };
 
+type ShareData = {
+  files: File[];
+  title: string;
+  text: string;
+};
+
 export const ShareResults = ({ containerRef }: ShareResultsProps) => {
   const { toast } = useToast();
 
@@ -31,13 +37,14 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
         }, 'image/png');
       });
 
-      const shareData = {
-        files: [new File([blob], 'freedomology-score.png', { type: 'image/png' })],
+      const file = new File([blob], 'freedomology-score.png', { type: 'image/png' });
+      const shareData: ShareData = {
+        files: [file],
         title: 'My Freedomology Score',
         text: 'Check out my Freedomology Score!'
       };
 
-      if ('share' in navigator && navigator.canShare && navigator.canShare(shareData)) {
+      if (navigator.canShare?.(shareData)) {
         console.log('Sharing via native share API...');
         await navigator.share(shareData);
       } else {
@@ -59,8 +66,8 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
     } catch (error) {
       console.error('Error sharing results:', error);
       toast({
-        title: "Sharing failed",
-        description: "There was an error sharing your results. Please try again.",
+        title: "Error",
+        description: "Failed to share your results. Please try again.",
         variant: "destructive",
       });
     }
@@ -72,6 +79,8 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
       className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl text-lg font-semibold
         transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105
         flex items-center gap-2 min-w-[200px] justify-center"
+      type="button"
+      aria-label="Share results"
     >
       <Share className="w-5 h-5" />
       Share Results

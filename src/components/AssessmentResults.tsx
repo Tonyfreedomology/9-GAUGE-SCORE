@@ -87,6 +87,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         <div className="flex justify-center gap-4 mb-8">
           <button
             onClick={onStartOver}
+            type="button"
             className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
               transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-[200px]"
           >

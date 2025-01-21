@@ -38,7 +38,7 @@ export const AssessmentQuestion = ({
   isFirstQuestion,
   isLastQuestion,
 }: AssessmentQuestionProps) => {
-  const [key, setKey] = useState(0);
+  const [key, setKey] = useState<number>(0);
 
   useEffect(() => {
     setKey(prev => prev + 1);
@@ -86,6 +86,7 @@ export const AssessmentQuestion = ({
             "disabled:opacity-50 disabled:cursor-not-allowed",
           )}
           aria-label="Previous question"
+          type="button"
         >
           <ArrowLeft className="w-6 h-6 text-white" />
         </button>
@@ -98,6 +99,7 @@ export const AssessmentQuestion = ({
             "disabled:opacity-50 disabled:cursor-not-allowed",
           )}
           aria-label="Next question"
+          type="button"
         >
           <ArrowRight className="w-6 h-6 text-white" />
         </button>
