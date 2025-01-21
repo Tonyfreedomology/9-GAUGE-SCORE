@@ -26,7 +26,6 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
     console.log("Starting form submission...");
 
     try {
-      // Fetch the webhook URL from Supabase
       const { data: secretData, error: secretError } = await supabase
         .from('secrets')
         .select('value')
@@ -44,11 +43,12 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
       }
 
       const webhookUrl = secretData.value;
-      console.log("Retrieved webhook URL:", webhookUrl); // Log the webhook URL
+      console.log("Retrieved webhook URL:", webhookUrl);
 
       const formData = new FormData(e.target as HTMLFormElement);
       const data = {
-        name: formData.get('name'),
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
         email: formData.get('email'),
         phone: formData.get('phone'),
         sprintType: formData.get('sprintType'),
@@ -59,7 +59,6 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
 
       console.log("Submitting data to Zapier:", data);
 
-      // Modified fetch request with better error handling
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -69,8 +68,6 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
         body: JSON.stringify(data),
       });
 
-      // Since we're using no-cors, we won't get a response status
-      // Instead, we'll assume success if we get here without an error
       console.log("Zapier webhook request completed");
       
       toast({
@@ -78,7 +75,6 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
         description: "You've been signed up for the sprint. Check your email for next steps!",
       });
 
-      // Reset form
       (e.target as HTMLFormElement).reset();
       setDate(undefined);
     } catch (error) {
@@ -102,9 +98,16 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
-          <Input id="name" name="name" required />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input id="firstName" name="firstName" required />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input id="lastName" name="lastName" required />
+          </div>
         </div>
 
         <div className="space-y-2">
