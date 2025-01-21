@@ -27,7 +27,7 @@ export const SignupForm = () => {
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
       <h2 className="text-3xl font-serif font-bold text-center mb-8">
-        Sign up for a FREE 40-day Challenge NOW
+        Start your FREE 40-day challenge NOW!
       </h2>
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6">
