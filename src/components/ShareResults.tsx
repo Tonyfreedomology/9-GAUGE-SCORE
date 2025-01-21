@@ -15,13 +15,14 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
 
     try {
       const canvas = await html2canvas(containerRef.current);
-      const blob = await new Promise<Blob>((resolve) => {
+      const blob = await new Promise<Blob>((resolve, reject) => {
         canvas.toBlob((blob) => {
           if (blob) resolve(blob);
+          else reject(new Error('Failed to create blob'));
         }, 'image/png');
       });
 
-      if ('share' in navigator) {
+      if ('share' in navigator && navigator.canShare) {
         await navigator.share({
           files: [new File([blob], 'freedomology-score.png', { type: 'image/png' })],
           title: 'My Freedomology Score',

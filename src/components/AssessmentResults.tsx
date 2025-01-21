@@ -159,13 +159,13 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
             </p>
           </div>
         </div>
-      </div>
 
-      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-serif font-bold text-center text-white mb-8">
-          Next Steps
-        </h2>
-        <SprintCard lowestPillar={lowestPillar} />
+        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16">
+          <h2 className="text-3xl font-serif font-bold text-center text-white mb-8">
+            Next Steps
+          </h2>
+          <SprintCard lowestPillar={lowestPillar} />
+        </div>
       </div>
     </div>
   );
