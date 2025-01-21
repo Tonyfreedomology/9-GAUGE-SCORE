@@ -1,110 +1,173 @@
-import { useState } from "react";
-import { FormInput } from "./form/FormInput";
-import { SprintTypeSelect } from "./form/SprintTypeSelect";
-import { StartDatePicker } from "./form/StartDatePicker";
-import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Calendar } from "./ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 type SignupFormProps = {
   defaultSprintType?: string;
 };
 
 export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date>();
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    console.log("Form submission started");
-
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      sprintType: formData.get("sprintType"),
-      startDate: startDate.toISOString(),
-    };
+    setIsLoading(true);
+    console.log("Starting form submission...");
 
     try {
-      console.log("Sending data to Zapier webhook:", data);
-      const response = await fetch(
-        "https://hooks.zapier.com/hooks/catch/15559669/3ivp9jj/",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const { data: secretData, error: secretError } = await supabase
+        .from('secrets')
+        .select('value')
+        .eq('name', 'ZAPIER_WEBHOOK_URL')
+        .single();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (secretError || !secretData) {
+        console.error("Error fetching webhook URL:", secretError);
+        toast({
+          title: "Configuration Error",
+          description: "Unable to process your signup. Please try again later.",
+          variant: "destructive",
+        });
+        return;
       }
 
-      console.log("Form submitted successfully");
-      toast({
-        title: "Thank you for signing up!",
-        description: "We'll be in touch soon.",
+      const webhookUrl = secretData.value;
+      console.log("Retrieved webhook URL:", webhookUrl);
+
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        sprintType: formData.get('sprintType'),
+        startDate: date?.toISOString(),
+        timestamp: new Date().toISOString(),
+        source: window.location.origin
+      };
+
+      console.log("Submitting data to Zapier:", data);
+
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        body: JSON.stringify(data),
       });
 
-      // Reset form
-      e.currentTarget.reset();
-      setStartDate(new Date());
+      console.log("Zapier webhook request completed");
+      
+      toast({
+        title: "Success!",
+        description: "You've been signed up for the sprint. Check your email for next steps!",
+      });
+
+      (e.target as HTMLFormElement).reset();
+      setDate(undefined);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
-        variant: "destructive",
         title: "Error",
-        description: "There was a problem submitting your form. Please try again.",
+        description: "There was a problem signing you up. Please try again.",
+        variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <FormInput
-        label="First Name"
-        name="firstName"
-        type="text"
-        placeholder="Enter your first name"
-        required={true}
-      />
+    <div className="w-full">
+      <h2 className="text-3xl font-serif font-bold text-center mb-8">
+        Ready to start?
+        <br />
+        Sign up for FREE now!
+      </h2>
 
-      <FormInput
-        label="Last Name"
-        name="lastName"
-        type="text"
-        placeholder="Enter your last name"
-        required={true}
-      />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input id="firstName" name="firstName" required />
+          </div>
 
-      <FormInput
-        label="Email"
-        name="email"
-        type="email"
-        placeholder="Enter your email"
-        required={true}
-      />
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input id="lastName" name="lastName" required />
+          </div>
+        </div>
 
-      <SprintTypeSelect defaultValue={defaultSprintType} />
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" name="email" type="email" required />
+        </div>
 
-      <StartDatePicker
-        selected={startDate}
-        onSelect={(date) => date && setStartDate(date)}
-      />
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone Number</Label>
+          <Input id="phone" name="phone" type="tel" required />
+        </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-[#3ECF8E] text-white py-3 rounded-md font-semibold hover:bg-[#3ECF8E]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? "Submitting..." : "Start Your Sprint"}
-      </button>
-    </form>
+        <div className="space-y-2">
+          <Label htmlFor="sprintType">Sprint Type</Label>
+          <Select name="sprintType" defaultValue={defaultSprintType} required>
+            <SelectTrigger className="bg-white">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectItem value="H40">H40 - Health Sprint</SelectItem>
+              <SelectItem value="F40">F40 - Financial Sprint</SelectItem>
+              <SelectItem value="R40">R40 - Relationships Sprint</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Start Date</Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-start text-left font-normal bg-white",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? format(date, "PPP") : "Pick a date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0 bg-white" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="bg-white"
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+
+        <Button 
+          type="submit" 
+          className="w-full bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white rounded-full"
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing up..." : "Sign Up Now"}
+        </Button>
+      </form>
+    </div>
   );
 };
