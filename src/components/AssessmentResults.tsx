@@ -126,9 +126,41 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
             })}
           </div>
         </div>
+
+        <div className="mt-16 space-y-8 text-white">
+          <h2 className="text-3xl font-serif font-bold text-center">
+            Your Score Explained
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-white/90">
+            <p>
+              We've worked with over 11,000 people in the past 15 years and learned that balance really is the key to building a beautiful life.
+            </p>
+            <p>
+              Our culture pushes the hustle and grind mindset as the path to success, but we see it differenty.
+            </p>
+            <p>
+              Balance is a superpower, and hustle culture is a disease. When your finances, health, and relationships work in harmony, life becomes more free, fulfilling, and fun.
+            </p>
+            <p>
+              Your Freedomology Score measures your well-being across Finance, Health (physical and mental), and Relationships. Each pillar gets a rating from 0 to 100, based on questions about key areas—like debt, investments, generosity, mental health, and your connection to the people around you.
+            </p>
+            <p>
+              If certain areas slip below a healthy level (like generosity or mental well-being), your overall score gets capped. That's because true freedom is about more than just being personally successful—it's about building a life that helps you thrive and also uplifts the people around you.
+            </p>
+            <p>
+              Below, you'll find our suggestions for how to boost your score. Whether you need more financial independence, better health habits, or stronger relationships, we've got a 40-day sprint to help you grow where it counts.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <NextSteps lowestPillar={lowestPillar} onStartOver={onStartOver} />
+      <div className="w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
+        <h2 className="text-3xl font-serif font-bold text-center text-white mb-8">
+          Next Steps
+        </h2>
+        <SprintCard lowestPillar={lowestPillar} />
+        <SignupForm />
+      </div>
     </div>
   );
 };
