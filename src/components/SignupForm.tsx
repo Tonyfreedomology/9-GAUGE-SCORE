@@ -5,6 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { FormInput } from "./form/FormInput";
 import { SprintTypeSelect } from "./form/SprintTypeSelect";
 import { StartDatePicker } from "./form/StartDatePicker";
+import { Alert, AlertDescription } from "./ui/alert";
+import { CheckCircle2 } from "lucide-react";
 
 type SignupFormProps = {
   defaultSprintType?: string;
@@ -13,6 +15,7 @@ type SignupFormProps = {
 export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
   const [date, setDate] = useState<Date>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,11 +62,15 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors",
         body: JSON.stringify(data),
       });
 
-      console.log("Zapier webhook request completed");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      console.log("Zapier webhook request completed successfully");
+      setIsSuccess(true);
       
       toast({
         title: "Success!",
@@ -83,6 +90,20 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
       setIsLoading(false);
     }
   };
+
+  if (isSuccess) {
+    return (
+      <div className="w-full max-w-md mx-auto text-center space-y-4 p-6 bg-green-50 rounded-lg">
+        <CheckCircle2 className="w-16 h-16 mx-auto text-green-500" />
+        <h2 className="text-2xl font-serif font-bold text-green-800">
+          Thank you for signing up!
+        </h2>
+        <p className="text-green-700">
+          We've received your registration. Check your email for next steps and information about your sprint.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">
