@@ -17,6 +17,7 @@ type SignupFormProps = {
 export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
   const [date, setDate] = useState<Date>();
   const [isLoading, setIsLoading] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState(''); // You'll need to set this with your Zapier webhook URL
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,7 +36,24 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
     console.log("Form submission data:", data);
 
     try {
-      // For now, just show success message since Zapier webhook URL isn't set
+      if (!webhookUrl) {
+        toast({
+          title: "Configuration Required",
+          description: "Please set up your Zapier webhook URL first.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors", // Handle CORS issues
+        body: JSON.stringify(data),
+      });
+
       toast({
         title: "Success!",
         description: "You've been signed up for the sprint. Check your email for next steps!",
@@ -55,7 +73,9 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
   return (
     <div className="w-full">
       <h2 className="text-3xl font-serif font-bold text-center mb-8">
-        Ready to start? Sign up for FREE now!
+        Ready to start?
+        <br />
+        Sign up for FREE now!
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
