@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import { FormInput } from "./form/FormInput";
 import { SprintTypeSelect } from "./form/SprintTypeSelect";
 import { StartDatePicker } from "./form/StartDatePicker";
-import { Alert, AlertDescription } from "./ui/alert";
 import { CheckCircle2 } from "lucide-react";
 
 type SignupFormProps = {
@@ -21,42 +18,30 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log("Starting form submission...");
+    console.log("Form submission started");
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      sprintType: formData.get("sprintType"),
+      startDate: date?.toISOString(),
+    };
+
+    console.log("Form data:", data);
 
     try {
-      const { data: secretData, error: secretError } = await supabase
-        .from('secrets')
-        .select('value')
-        .eq('name', 'ZAPIER_WEBHOOK_URL')
-        .single();
-
-      if (secretError || !secretData) {
-        console.error("Error fetching webhook URL:", secretError);
-        toast({
-          title: "Configuration Error",
-          description: "Unable to process your signup. Please try again later.",
-          variant: "destructive",
-        });
-        return;
+      const webhookUrl = import.meta.env.VITE_ZAPIER_WEBHOOK_URL;
+      
+      if (!webhookUrl) {
+        throw new Error("Zapier webhook URL not configured");
       }
 
-      const webhookUrl = secretData.value;
-      console.log("Retrieved webhook URL:", webhookUrl);
-
-      const formData = new FormData(e.target as HTMLFormElement);
-      const data = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        sprintType: formData.get('sprintType'),
-        startDate: date?.toISOString(),
-        timestamp: new Date().toISOString(),
-        source: window.location.origin
-      };
-
-      console.log("Submitting data to Zapier:", data);
-
+      console.log("Sending request to Zapier webhook");
+      
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -74,16 +59,13 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
       
       toast({
         title: "Success!",
-        description: "You've been signed up for the sprint. Check your email for next steps!",
+        description: "Your registration has been received. Check your email for next steps.",
       });
-
-      (e.target as HTMLFormElement).reset();
-      setDate(undefined);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
         title: "Error",
-        description: "There was a problem signing you up. Please try again.",
+        description: "There was a problem submitting your registration. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -107,31 +89,47 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
 
   return (
     <div className="w-full">
-      <h2 className="text-3xl font-serif font-bold text-center mb-8">
-        Ready to start?
-        <br />
-        Sign up for FREE now!
-      </h2>
-
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormInput id="firstName" label="First Name" required />
-          <FormInput id="lastName" label="Last Name" required />
-        </div>
-
-        <FormInput id="email" label="Email" type="email" required />
-        <FormInput id="phone" label="Phone Number" type="tel" required />
+        <FormInput
+          label="Name"
+          name="name"
+          type="text"
+          placeholder="Your full name"
+          required
+        />
         
-        <SprintTypeSelect defaultValue={defaultSprintType} />
-        <StartDatePicker date={date} setDate={setDate} />
+        <FormInput
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          required
+        />
+        
+        <FormInput
+          label="Phone"
+          name="phone"
+          type="tel"
+          placeholder="Your phone number"
+          required
+        />
 
-        <Button 
-          type="submit" 
-          className="w-full bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white rounded-full"
+        <SprintTypeSelect defaultValue={defaultSprintType} />
+        
+        <StartDatePicker
+          selected={date}
+          onSelect={setDate}
+        />
+
+        <button
+          type="submit"
           disabled={isLoading}
+          className="w-full bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl
+            text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105
+            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          {isLoading ? "Signing up..." : "Sign Up Now"}
-        </Button>
+          {isLoading ? "Submitting..." : "Start Your Sprint"}
+        </button>
       </form>
     </div>
   );
