@@ -62,7 +62,7 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-lg px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+          className="bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-lg px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg shadow-[#17BEBB]/20"
         >
           Start Your Assessment
           <ArrowRight className="ml-2 h-5 w-5" />
