@@ -6,7 +6,6 @@ import { NextSteps } from "./NextSteps";
 import { ShareResults } from "./ShareResults";
 import { HelpCircle } from "lucide-react";
 import { SprintCard } from "./SprintCard";
-import { SignupForm } from "./SignupForm";
 import {
   Tooltip,
   TooltipContent,
@@ -162,12 +161,11 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         </div>
       </div>
 
-      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16 space-y-8">
+      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-serif font-bold text-center text-white mb-8">
           Next Steps
         </h2>
         <SprintCard lowestPillar={lowestPillar} />
-        <SignupForm />
       </div>
     </div>
   );

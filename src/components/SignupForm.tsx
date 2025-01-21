@@ -8,29 +8,69 @@ import { Button } from "./ui/button";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useToast } from "./ui/use-toast";
 
-export const SignupForm = () => {
+type SignupFormProps = {
+  defaultSprintType?: string;
+};
+
+export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
   const [date, setDate] = useState<Date>();
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
     const formData = new FormData(e.target as HTMLFormElement);
-    console.log({
+    const data = {
       name: formData.get('name'),
       email: formData.get('email'),
       phone: formData.get('phone'),
       sprintType: formData.get('sprintType'),
-      startDate: date
-    });
+      startDate: date?.toISOString()
+    };
+
+    console.log("Form submission data:", data);
+
+    try {
+      // Here you would add your Zapier webhook URL
+      const response = await fetch("YOUR_ZAPIER_WEBHOOK_URL", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Success!",
+          description: "You've been signed up for the sprint. Check your email for next steps!",
+        });
+      } else {
+        throw new Error("Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem signing you up. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
+    <div className="w-full">
       <h2 className="text-3xl font-serif font-bold text-center mb-8">
-        Start your FREE 40-day challenge NOW!
+        Ready to start? Sign up for FREE now!
       </h2>
 
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>
           <Input id="name" name="name" required />
@@ -48,9 +88,9 @@ export const SignupForm = () => {
 
         <div className="space-y-2">
           <Label htmlFor="sprintType">Sprint Type</Label>
-          <Select name="sprintType" required>
+          <Select name="sprintType" defaultValue={defaultSprintType} required>
             <SelectTrigger className="bg-white">
-              <SelectValue placeholder="Select your sprint" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-white">
               <SelectItem value="H40">H40 - Health Sprint</SelectItem>
@@ -89,8 +129,9 @@ export const SignupForm = () => {
         <Button 
           type="submit" 
           className="w-full bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white rounded-full"
+          disabled={isLoading}
         >
-          Sign Up Now
+          {isLoading ? "Signing up..." : "Sign Up Now"}
         </Button>
       </form>
     </div>
