@@ -1,72 +1,66 @@
-import { useState } from "react";
-import html2canvas from "html2canvas";
-import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
-import { toast } from "sonner";
+import { RefObject } from 'react';
+import html2canvas from 'html2canvas';
+import { Share } from 'lucide-react';
+import { useToast } from './ui/use-toast';
 
 type ShareResultsProps = {
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement>;
 };
 
 export const ShareResults = ({ containerRef }: ShareResultsProps) => {
-  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
 
-  const generateAndShareImage = async () => {
+  const handleShare = async () => {
     if (!containerRef.current) return;
-    
+
     try {
-      setIsGenerating(true);
-      console.log("Starting image generation");
-      
-      const canvas = await html2canvas(containerRef.current, {
-        backgroundColor: null,
-        scale: 2, // Higher quality
-        logging: true,
-      });
-      
-      // Convert to blob
+      const canvas = await html2canvas(containerRef.current);
       const blob = await new Promise<Blob>((resolve) => {
         canvas.toBlob((blob) => {
-          resolve(blob!);
+          if (blob) resolve(blob);
         }, 'image/png');
       });
 
-      // Create file from blob
-      const file = new File([blob], 'freedomology-results.png', { type: 'image/png' });
-
-      // Check if Web Share API is supported
-      if (navigator.share && navigator.canShare({ files: [file] })) {
+      if ('share' in navigator) {
         await navigator.share({
-          files: [file],
-          title: 'My Freedomology Assessment Results',
-          text: 'Check out my Freedomology Assessment results!'
+          files: [new File([blob], 'freedomology-score.png', { type: 'image/png' })],
+          title: 'My Freedomology Score',
+          text: 'Check out my Freedomology Score!'
         });
-        toast.success("Thanks for sharing your results!");
       } else {
-        // Fallback to download if sharing isn't supported
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'freedomology-results.png';
+        link.href = url;
+        link.download = 'freedomology-score.png';
+        document.body.appendChild(link);
         link.click();
-        toast.success("Results image downloaded!");
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        toast({
+          title: "Image downloaded!",
+          description: "Your results have been saved as an image.",
+        });
       }
     } catch (error) {
-      console.error("Error generating/sharing image:", error);
-      toast.error("Sorry, there was an error sharing your results");
-    } finally {
-      setIsGenerating(false);
+      console.error('Error sharing results:', error);
+      toast({
+        title: "Sharing failed",
+        description: "There was an error sharing your results. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
   return (
-    <Button
-      onClick={generateAndShareImage}
-      disabled={isGenerating}
-      className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
-        transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center gap-2"
+    <button
+      onClick={handleShare}
+      className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl text-lg font-semibold
+        transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105
+        flex items-center gap-2 min-w-[200px] justify-center"
     >
-      <Share2 className="w-5 h-5" />
-      {isGenerating ? "Generating..." : "Share Results"}
-    </Button>
+      <Share className="w-5 h-5" />
+      Share Results
+    </button>
   );
 };
