@@ -49,10 +49,10 @@ export const SignupForm = () => {
         <div className="space-y-2">
           <Label htmlFor="sprintType">Sprint Type</Label>
           <Select name="sprintType" required>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Select your sprint" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               <SelectItem value="H40">H40 - Health Sprint</SelectItem>
               <SelectItem value="F40">F40 - Financial Sprint</SelectItem>
               <SelectItem value="R40">R40 - Relationships Sprint</SelectItem>
@@ -67,7 +67,7 @@ export const SignupForm = () => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal bg-white",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -75,12 +75,13 @@ export const SignupForm = () => {
                 {date ? format(date, "PPP") : "Pick a date"}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0 bg-white" align="start">
               <Calendar
                 mode="single"
                 selected={date}
                 onSelect={setDate}
                 initialFocus
+                className="bg-white"
               />
             </PopoverContent>
           </Popover>
