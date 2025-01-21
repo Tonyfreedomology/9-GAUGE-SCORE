@@ -1,4 +1,7 @@
 import { sprintContent } from "@/lib/sprintContent";
+import { programs } from "@/lib/programContent";
+import { WeekContent } from "./WeekContent";
+import { useInView } from "react-intersection-observer";
 
 type SprintCardProps = {
   lowestPillar: string;
@@ -6,6 +9,11 @@ type SprintCardProps = {
 
 export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   const content = sprintContent[lowestPillar];
+  const program = programs[lowestPillar];
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
   
   const getLogo = () => {
     switch (lowestPillar) {
@@ -33,12 +41,27 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     }
   };
 
+  if (!program) return null;
+
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
       <div className="flex flex-col items-center text-center space-y-6">
         <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
         <h2 className="text-3xl font-serif">{content.heading}</h2>
-        <p className="text-lg max-w-2xl">{content.body}</p>
+        <div className="text-lg max-w-2xl space-y-4" dangerouslySetInnerHTML={{ __html: content.body }} />
+        
+        <div ref={ref} className="w-full space-y-12">
+          {program.weeks.map((week, index) => (
+            <WeekContent
+              key={week.number}
+              {...week}
+              color={program.color}
+              isOpen={true}
+              index={index}
+            />
+          ))}
+        </div>
+
         <a 
           href={getLink()} 
           target="_blank" 

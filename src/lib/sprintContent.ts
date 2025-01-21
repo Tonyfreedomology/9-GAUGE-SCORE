@@ -16,7 +16,23 @@ export const sprintContent: Record<string, SprintContent> = {
   },
   "Financial": {
     heading: "Financial Freedom Awaits",
-    body: "Looks like your finances could use some improvement, but that's okay! **We built something just for you!**\n\nConsider joining **F40**. It's our **40-day roadmap to financial freedom**. We believe that financial freedom is possible for everyone, and that life is better when you're not stressed about money.\n\n**The problem?** Most people just don't know which steps to take.\n\nWe've designed this program to help you take control of your money and build wealth-building habits, and it's completely **FREE** so you have **NOTHING to lose**.\n\n**The commitment is simple:**\n\nEach day for 40 days, you'll get:\n• An email\n• A short micro-lesson (10 minutes or less)\n\nEach one is designed to be thought-provoking, relevant, and practical so that you can start applying what you're learning right away.\n\n**Here's an overview of what we cover in the 6 weeks:**",
+    body: `Looks like your finances could use some improvement, but that's okay! <strong>We built something just for you!</strong>
+
+<p>Consider joining <strong>F40</strong>. It's our <strong>40-day roadmap to financial freedom</strong>. We believe that financial freedom is possible for everyone, and that life is better when you're not stressed about money.</p>
+
+<p><strong>The problem?</strong> Most people just don't know which steps to take.</p>
+
+<p>We've designed this program to help you take control of your money and build wealth-building habits, and it's completely <strong>FREE</strong> so you have <strong>NOTHING to lose</strong>.</p>
+
+<p><strong>The commitment is simple:</strong></p>
+
+<p>Each day for 40 days, you'll get:
+<br>• An email
+<br>• A short micro-lesson (10 minutes or less)</p>
+
+<p>Each one is designed to be thought-provoking, relevant, and practical so that you can start applying what you're learning right away.</p>
+
+<p><strong>Here's an overview of what we cover in the 6 weeks:</strong></p>`,
     cta: "Join F40",
     icon: "dollar-sign",
     color: "financial"
