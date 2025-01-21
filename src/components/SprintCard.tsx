@@ -41,19 +41,37 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     }
   };
 
+  const splitBodyContent = () => {
+    const body = content.body;
+    const splitPoint = body.indexOf("Here's what we cover in the 6 weeks:");
+    if (splitPoint === -1) return { intro: body, weeks: "" };
+    
+    return {
+      intro: body.substring(0, splitPoint).trim(),
+      weeks: body.substring(splitPoint).trim()
+    };
+  };
+
   if (!program) return null;
+
+  const { intro } = splitBodyContent();
 
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
-      <div className="flex flex-col items-center text-center space-y-6">
+      <div className="flex flex-col items-center space-y-6">
         <img 
           src={getLogo()} 
           alt={`${lowestPillar} Sprint Logo`} 
           className="h-24 object-contain"
           loading="lazy"
         />
-        <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
-        <div className="text-lg max-w-2xl space-y-4 text-foreground" dangerouslySetInnerHTML={{ __html: content.body }} />
+        <h2 className="text-3xl font-serif text-foreground text-center">{content.heading}</h2>
+        <div 
+          className="text-lg max-w-2xl space-y-4 text-foreground text-left" 
+          dangerouslySetInnerHTML={{ __html: intro }} 
+        />
+        
+        <h3 className="text-3xl font-serif text-foreground text-center mt-8">THE SIX WEEKS</h3>
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
