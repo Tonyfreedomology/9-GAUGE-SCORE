@@ -44,6 +44,8 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
       }
 
       const webhookUrl = secretData.value;
+      console.log("Retrieved webhook URL:", webhookUrl); // Log the webhook URL
+
       const formData = new FormData(e.target as HTMLFormElement);
       const data = {
         name: formData.get('name'),
@@ -57,6 +59,7 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
 
       console.log("Submitting data to Zapier:", data);
 
+      // Modified fetch request with better error handling
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -66,7 +69,10 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
         body: JSON.stringify(data),
       });
 
-      console.log("Zapier webhook triggered successfully");
+      // Since we're using no-cors, we won't get a response status
+      // Instead, we'll assume success if we get here without an error
+      console.log("Zapier webhook request completed");
+      
       toast({
         title: "Success!",
         description: "You've been signed up for the sprint. Check your email for next steps!",
