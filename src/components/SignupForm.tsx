@@ -88,7 +88,7 @@ export const SignupForm = () => {
 
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/90"
+          className="w-full bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white rounded-full"
         >
           Sign Up Now
         </Button>
