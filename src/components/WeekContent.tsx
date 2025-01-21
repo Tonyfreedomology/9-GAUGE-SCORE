@@ -26,11 +26,11 @@ export const WeekContent = ({ number, title, description, color, isOpen, index }
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className="flex flex-col items-center gap-4 mb-8">
-        <h3 className="text-foreground text-xl font-serif">
+        <h3 className="text-foreground text-xl font-serif font-bold">
           <span className={`text-${color}/60`}>WEEK {number}: </span>
           {title.toUpperCase()}
         </h3>
-        <p className="text-foreground text-base leading-relaxed max-w-2xl mx-auto">{description}</p>
+        <p className="text-foreground text-lg leading-relaxed max-w-2xl mx-auto">{description}</p>
       </div>
     </div>
   );
