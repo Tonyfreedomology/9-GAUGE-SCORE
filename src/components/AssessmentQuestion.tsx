@@ -40,7 +40,6 @@ export const AssessmentQuestion = ({
 }: AssessmentQuestionProps) => {
   const [key, setKey] = useState(0);
 
-  // Reset animation key when question changes
   useEffect(() => {
     setKey(prev => prev + 1);
     console.log("Question changed, triggering animation");

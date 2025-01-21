@@ -11,24 +11,37 @@ export const ShareResults = ({ containerRef }: ShareResultsProps) => {
   const { toast } = useToast();
 
   const handleShare = async () => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      console.error('Container ref is not available');
+      return;
+    }
 
     try {
+      console.log('Starting image capture...');
       const canvas = await html2canvas(containerRef.current);
+      
       const blob = await new Promise<Blob>((resolve, reject) => {
         canvas.toBlob((blob) => {
-          if (blob) resolve(blob);
-          else reject(new Error('Failed to create blob'));
+          if (blob) {
+            console.log('Blob created successfully');
+            resolve(blob);
+          } else {
+            reject(new Error('Failed to create blob'));
+          }
         }, 'image/png');
       });
 
-      if ('share' in navigator && navigator.canShare) {
-        await navigator.share({
-          files: [new File([blob], 'freedomology-score.png', { type: 'image/png' })],
-          title: 'My Freedomology Score',
-          text: 'Check out my Freedomology Score!'
-        });
+      const shareData = {
+        files: [new File([blob], 'freedomology-score.png', { type: 'image/png' })],
+        title: 'My Freedomology Score',
+        text: 'Check out my Freedomology Score!'
+      };
+
+      if ('share' in navigator && navigator.canShare && navigator.canShare(shareData)) {
+        console.log('Sharing via native share API...');
+        await navigator.share(shareData);
       } else {
+        console.log('Native sharing not available, downloading instead...');
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
