@@ -45,13 +45,10 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
 
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
-      <div className="flex flex-col space-y-6">
-        <div className="text-center">
-          <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain mx-auto" />
-          <h2 className="text-3xl font-serif text-foreground mt-6">{content.heading}</h2>
-        </div>
-        
-        <div className="text-lg max-w-2xl space-y-4 text-foreground text-left" dangerouslySetInnerHTML={{ __html: content.body }} />
+      <div className="flex flex-col items-center text-center space-y-6">
+        <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
+        <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
+        <div className="text-lg max-w-2xl space-y-4 text-foreground" dangerouslySetInnerHTML={{ __html: content.body }} />
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
@@ -65,16 +62,14 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           ))}
         </div>
 
-        <div className="text-center">
-          <a 
-            href={getLink()} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-lg hover:bg-[#17BEBB]/90 transition-colors"
-          >
-            {content.cta}
-          </a>
-        </div>
+        <a 
+          href={getLink()} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-lg hover:bg-[#17BEBB]/90 transition-colors"
+        >
+          {content.cta}
+        </a>
       </div>
     </div>
   );
