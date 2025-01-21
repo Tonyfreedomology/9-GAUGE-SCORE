@@ -20,17 +20,17 @@ export const WeekContent = ({ number, title, description, color, isOpen, index }
     <div
       ref={ref}
       className={cn(
-        "opacity-0 translate-y-4 transition-all duration-700",
+        "opacity-0 translate-y-4 transition-all duration-700 text-center",
         isOpen && inView && "opacity-100 translate-y-0"
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="flex gap-6 mb-8">
-        <span className={`text-${color}/60 text-xl`}>{number}</span>
-        <div>
-          <h3 className="text-white text-xl font-semibold mb-2">{title}</h3>
-          <p className="text-white/80 leading-relaxed">{description}</p>
-        </div>
+      <div className="flex flex-col items-center gap-4 mb-8">
+        <h3 className="text-white text-xl font-semibold">
+          <span className={`text-${color}/60`}>Week {number}: </span>
+          {title}
+        </h3>
+        <p className="text-white/80 leading-relaxed max-w-2xl mx-auto">{description}</p>
       </div>
     </div>
   );
