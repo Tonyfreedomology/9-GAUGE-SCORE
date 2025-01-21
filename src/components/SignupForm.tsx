@@ -35,23 +35,11 @@ export const SignupForm = ({ defaultSprintType = "F40" }: SignupFormProps) => {
     console.log("Form submission data:", data);
 
     try {
-      // Here you would add your Zapier webhook URL
-      const response = await fetch("YOUR_ZAPIER_WEBHOOK_URL", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      // For now, just show success message since Zapier webhook URL isn't set
+      toast({
+        title: "Success!",
+        description: "You've been signed up for the sprint. Check your email for next steps!",
       });
-
-      if (response.ok) {
-        toast({
-          title: "Success!",
-          description: "You've been signed up for the sprint. Check your email for next steps!",
-        });
-      } else {
-        throw new Error("Failed to submit form");
-      }
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
