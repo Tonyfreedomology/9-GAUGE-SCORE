@@ -66,7 +66,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           href={getLink()} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-lg hover:bg-[#17BEBB]/90 transition-colors"
+          className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-full hover:bg-[#17BEBB]/90 transition-colors"
         >
           {content.cta}
         </a>
