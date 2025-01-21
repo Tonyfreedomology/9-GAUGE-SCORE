@@ -5,6 +5,8 @@ import { questions, calculatePillarScore } from "@/lib/questions";
 import { NextSteps } from "./NextSteps";
 import { ShareResults } from "./ShareResults";
 import { HelpCircle } from "lucide-react";
+import { SprintCard } from "./SprintCard";
+import { SignupForm } from "./SignupForm";
 import {
   Tooltip,
   TooltipContent,
