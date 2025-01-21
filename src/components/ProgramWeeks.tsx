@@ -31,7 +31,7 @@ const programs: Record<string, ProgramContent> = {
       {
         number: "02",
         title: "REDUCE",
-        description: "Money isn't about "deserving"—it's about action. This week, we're ripping apart the myths holding you back and helping you cut deadweight debts that drown your potential."
+        description: 'Money isn\'t about "deserving"—it\'s about action. This week, we\'re ripping apart the myths holding you back and helping you cut deadweight debts that drown your potential.'
       },
       {
         number: "03",
