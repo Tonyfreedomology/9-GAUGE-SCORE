@@ -67,8 +67,7 @@ export const ScoreCard = ({
 
   const glowStyle = {
     color,
-    filter: `drop-shadow(0 0 15px ${hexToRgba(color)})`,
-    animation: 'glow 2s ease-in-out infinite'
+    filter: `drop-shadow(0 0 15px ${hexToRgba(color, 0.5)})`
   };
 
   return (
