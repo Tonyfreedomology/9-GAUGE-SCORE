@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { SprintSelect } from "./signup/SprintSelect";
 import { EmailInput } from "./signup/EmailInput";
-import { DatePicker } from "./ui/calendar";
+import { Calendar } from "./ui/calendar";
 import { Input } from "./ui/input";
 import { format } from "date-fns";
 
@@ -166,10 +166,11 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
             <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
               Start Date
             </label>
-            <DatePicker
+            <Calendar
+              mode="single"
               selected={startDate}
               onSelect={setStartDate}
-              className="w-full"
+              className="rounded-md border"
               required
             />
           </div>
