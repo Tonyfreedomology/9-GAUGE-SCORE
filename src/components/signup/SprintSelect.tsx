@@ -29,9 +29,9 @@ export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => 
           <SelectValue placeholder="Select a sprint" />
         </SelectTrigger>
         <SelectContent className="bg-white">
-          <SelectItem value="F4025">Financial Sprint</SelectItem>
-          <SelectItem value="H4025">Health Sprint</SelectItem>
-          <SelectItem value="R4025">Relational Sprint</SelectItem>
+          <SelectItem value="F4025">F40: Financial Sprint</SelectItem>
+          <SelectItem value="H4025">H40: Health Sprint</SelectItem>
+          <SelectItem value="R4025">R40: Relational Sprint</SelectItem>
         </SelectContent>
       </Select>
     </div>
