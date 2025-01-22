@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const Index = () => {
@@ -81,10 +80,12 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 transform hover:scale-105 animate-smooth-glow relative overflow-visible"
+          className="inline-flex items-center justify-center bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 transform hover:scale-105 animate-smooth-glow relative overflow-visible"
         >
-          Find Out Your Score
-          <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+          <span className="flex items-center">
+            Find Out Your Score
+            <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 inline-block" />
+          </span>
         </button>
       </div>
     </div>
