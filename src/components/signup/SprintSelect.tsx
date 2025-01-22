@@ -21,14 +21,14 @@ export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => 
 
   return (
     <div className="space-y-2">
-      <label htmlFor="sprint" className="block text-sm font-medium text-white">
+      <label htmlFor="sprint" className="block text-sm font-medium text-gray-700">
         Choose Your Sprint
       </label>
       <Select defaultValue={getDefaultSprintValue()} onValueChange={onChange}>
-        <SelectTrigger id="sprint" className="bg-white/10 border-white/20 text-white">
+        <SelectTrigger id="sprint" className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900">
           <SelectValue placeholder="Select a sprint" />
         </SelectTrigger>
-        <SelectContent className="bg-white border-white/20">
+        <SelectContent className="bg-white border border-gray-300">
           <SelectItem value="F40">Financial Freedom Sprint</SelectItem>
           <SelectItem value="H40">Health Transformation Sprint</SelectItem>
           <SelectItem value="R40">Relationship Mastery Sprint</SelectItem>

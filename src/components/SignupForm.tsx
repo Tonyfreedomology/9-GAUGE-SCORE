@@ -37,7 +37,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     };
 
     fetchWebhookUrl();
-  }, [toast]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +88,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-sm">
       <form onSubmit={handleSubmit} className="space-y-6">
         <EmailInput 
           value={email}
