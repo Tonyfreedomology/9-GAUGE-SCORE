@@ -19,10 +19,12 @@ export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
           </h1>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
-                <HelpCircle className="w-6 h-6 text-white/80 hover:text-white transition-colors" />
+              <TooltipTrigger asChild>
+                <button className="hover:opacity-80 transition-opacity">
+                  <HelpCircle className="w-6 h-6 text-white/80 hover:text-white transition-colors" />
+                </button>
               </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
+              <TooltipContent side="top" className="max-w-xs bg-white text-foreground">
                 <p>Your Freedomology Score represents your overall well-being across Financial, Health, and Relationship dimensions. A higher score indicates greater freedom and balance in these key life areas.</p>
               </TooltipContent>
             </Tooltip>
