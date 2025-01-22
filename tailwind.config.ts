@@ -20,6 +20,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Avenir', 'system-ui', 'sans-serif'],
+        'league-spartan': ['League Spartan', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -98,13 +99,13 @@ export default {
           "0%": { opacity: "0", transform: "scale(0.95)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
-        "smooth-glow": {
-          "0%, 100%": { 
-            textShadow: "0 0 30px rgba(var(--glow-color), 0.3)",
+        shimmer: {
+          "0%": {
+            backgroundPosition: "-500px 0",
           },
-          "50%": { 
-            textShadow: "0 0 50px rgba(var(--glow-color), 0.8)",
-          }
+          "100%": {
+            backgroundPosition: "500px 0",
+          },
         }
       },
       animation: {
@@ -113,7 +114,7 @@ export default {
         "fade-in": "fade-in 0.5s ease-out forwards",
         "fade-out": "fade-out 0.5s ease-out forwards",
         "scale-in": "scale-in 0.2s ease-out",
-        "smooth-glow": "smooth-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+        "shimmer": "shimmer 2.5s linear infinite"
       },
     },
   },

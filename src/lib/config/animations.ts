@@ -28,6 +28,14 @@ export const keyframes = {
       boxShadow: "0 0 80px rgba(23, 190, 187, 1), inset 0 0 80px rgba(23, 190, 187, 1)",
       filter: "brightness(1.4)"
     }
+  },
+  shimmer: {
+    "0%": {
+      backgroundPosition: "-500px 0",
+    },
+    "100%": {
+      backgroundPosition: "500px 0",
+    },
   }
 };
 
@@ -37,5 +45,6 @@ export const animations = {
   "fade-in": "fade-in 0.5s ease-out forwards",
   "fade-out": "fade-out 0.5s ease-out forwards",
   "scale-in": "scale-in 0.2s ease-out",
-  "pulse-glow": "pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+  "pulse-glow": "pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  shimmer: "shimmer 2.5s linear infinite"
 };

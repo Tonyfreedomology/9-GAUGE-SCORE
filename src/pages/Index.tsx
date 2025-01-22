@@ -25,7 +25,7 @@ const Index = () => {
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-serif px-2 md:px-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-league-spartan px-2 md:px-4">
           How Free Are You?
         </h1>
 
@@ -79,7 +79,11 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow before:content-[''] before:absolute before:inset-0 before:rounded-full before:bg-[#17BEBB] before:opacity-50 before:blur-2xl before:animate-pulse-glow hover:scale-105 transition-transform duration-300"
+          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full 
+            before:content-[''] before:absolute before:inset-0 before:rounded-full before:bg-[#17BEBB] before:opacity-50 before:blur-2xl 
+            hover:scale-105 transition-transform duration-300 overflow-hidden
+            after:absolute after:top-0 after:right-0 after:bottom-0 after:left-0 after:bg-gradient-to-r 
+            after:from-transparent after:via-white/20 after:to-transparent after:animate-shimmer"
         >
           <span className="relative z-10 flex items-center gap-2">
             Find Out Your Score
