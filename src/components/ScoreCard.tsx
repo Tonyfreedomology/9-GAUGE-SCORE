@@ -68,7 +68,7 @@ export const ScoreCard = ({
         </h3>
       </div>
       <div className="space-y-6">
-        <div className="flex justify-center relative">
+        <div className="relative flex justify-center items-center">
           <ProgressBar 
             value={isVisible ? score : 0} 
             color={color} 
@@ -77,7 +77,7 @@ export const ScoreCard = ({
           />
           <div 
             className={cn(
-              "absolute inset-0 flex items-center justify-center",
+              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
               isOverallScore && "animate-pulse"
             )}
           >
