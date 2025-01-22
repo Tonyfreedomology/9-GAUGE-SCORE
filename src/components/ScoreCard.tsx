@@ -61,14 +61,21 @@ export const ScoreCard = ({
   );
 
   const scoreClasses = cn(
-    "text-7xl font-bold",
+    "text-7xl font-bold animate-smooth-glow",
     isOverallScore && "text-8xl"
   );
 
-  const glowStyle = {
-    color,
-    filter: `drop-shadow(0 0 15px ${hexToRgba(color, 0.5)})`
+  // Convert hex color to RGB for CSS variable
+  const getRgbValues = (hex: string) => {
+    const rgb = hexToRgba(hex, 1);
+    const match = rgb.match(/\d+/g);
+    return match ? match.slice(0, 3).join(', ') : '0, 0, 0';
   };
+
+  const scoreStyle = {
+    color,
+    '--glow-color': getRgbValues(color),
+  } as React.CSSProperties;
 
   return (
     <div className={cardClasses}>
@@ -89,7 +96,7 @@ export const ScoreCard = ({
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
               className={scoreClasses}
-              style={glowStyle}
+              style={scoreStyle}
             >
               {Math.round(animatedScore)}
             </span>
