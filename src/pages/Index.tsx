@@ -8,10 +8,7 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center"
-      style={{
-        backgroundImage: "url('https://static.wixstatic.com/media/af616c_3c24b4e9154642ab91d2d95694114f6e~mv2.png')"
-      }}
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
       {/* Lighter gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
