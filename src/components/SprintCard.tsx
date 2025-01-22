@@ -41,14 +41,27 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     }
   };
 
+  // Split the content body at the specific line
+  const splitBody = content.body.split("<p>Here's what we cover in the 6 weeks:</p>");
+  const introText = splitBody[0];
+
   if (!program) return null;
 
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
-      <div className="flex flex-col items-center text-center space-y-6">
+      <div className="flex flex-col items-center space-y-6">
         <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
         <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
-        <div className="text-lg max-w-2xl space-y-4 text-foreground" dangerouslySetInnerHTML={{ __html: content.body }} />
+        
+        {/* Introduction text - left aligned */}
+        <div className="text-lg text-left w-full space-y-4 text-foreground" 
+          dangerouslySetInnerHTML={{ __html: introText }} 
+        />
+        
+        {/* Weeks section */}
+        <h3 className="text-2xl font-serif font-bold text-foreground mt-8">
+          THE SIX WEEKS
+        </h3>
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
