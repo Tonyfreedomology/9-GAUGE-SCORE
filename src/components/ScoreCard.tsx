@@ -75,12 +75,7 @@ export const ScoreCard = ({
             variant="circle"
             size={isOverallScore ? 200 : 160}
           />
-          <div 
-            className={cn(
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-              ""
-            )}
-          >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
               className={cn(
                 "text-7xl font-bold animate-scale-in",
