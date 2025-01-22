@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wallet, Heart, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -29,21 +29,27 @@ const Index = () => {
 
         <div className="flex justify-center space-x-6 md:space-x-16">
           <div className="flex flex-col items-center space-y-2">
-            <div className="p-2 md:p-3 rounded-full bg-financial text-white">
-              <Wallet className="h-5 w-5 md:h-6 md:w-6" />
-            </div>
+            <img 
+              src="https://static.wixstatic.com/media/af616c_29340f0ac2544ea0b413a7d67075a5a2~mv2.png"
+              alt="Financial icon"
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            />
             <span className="text-sm md:text-base text-white font-medium">Finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
-            <div className="p-2 md:p-3 rounded-full bg-health text-white">
-              <Heart className="h-5 w-5 md:h-6 md:w-6" />
-            </div>
+            <img 
+              src="https://static.wixstatic.com/media/af616c_b6f5c191747244d3bd07ab3fce1bcf94~mv2.png"
+              alt="Health icon"
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            />
             <span className="text-sm md:text-base text-white font-medium">Health</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
-            <div className="p-2 md:p-3 rounded-full bg-relationships text-white">
-              <Users className="h-5 w-5 md:h-6 md:w-6" />
-            </div>
+            <img 
+              src="https://static.wixstatic.com/media/af616c_4a5f9c62983540fb8acb46d96c216469~mv2.png"
+              alt="Relationships icon"
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            />
             <span className="text-sm md:text-base text-white font-medium">Relationships</span>
           </div>
         </div>
