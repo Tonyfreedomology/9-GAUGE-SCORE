@@ -3,6 +3,7 @@ import { programs } from "@/lib/programContent";
 import { WeekContent } from "./WeekContent";
 import { useInView } from "react-intersection-observer";
 import { SignupForm } from "./SignupForm";
+import { getPillarIcon } from "@/lib/getPillarIcon";
 
 type SprintCardProps = {
   lowestPillar: string;
@@ -30,7 +31,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   };
 
   // Split the content body at the specific line
-  const splitBody = content.body.split("<p>Here's what we cover in the 6 weeks:</p>");
+  const splitBody = content.body.split("<p>Here's what we cover:</p>");
   const introText = splitBody[0];
 
   if (!program) return null;
@@ -50,6 +51,11 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         <h3 className="text-4xl font-serif font-bold text-foreground mt-8 text-center">
           THE SIX WEEKS
         </h3>
+
+        {/* Pillar Icon */}
+        <div className="w-16 h-16">
+          {getPillarIcon(lowestPillar)}
+        </div>
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
