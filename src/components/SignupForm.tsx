@@ -6,7 +6,7 @@ import { EmailInput } from "./signup/EmailInput";
 import { Input } from "./ui/input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 type SignupFormProps = {
   defaultSprint?: string;
@@ -111,12 +111,12 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
         <p className="text-xl">Sign up for a FREE 40-day challenge NOW!</p>
       </div>
       
-      <div className="bg-white p-6 rounded-lg shadow-sm">
+      <div className="bg-[#293230] backdrop-blur-sm p-6 rounded-lg shadow-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name fields row */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="firstName" className="block text-sm font-medium text-white">
                 First Name
               </label>
               <Input
@@ -129,7 +129,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="lastName" className="block text-sm font-medium text-white">
                 Last Name
               </label>
               <Input
@@ -150,7 +150,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
             />
 
             <div className="space-y-2">
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="phone" className="block text-sm font-medium text-white">
                 Phone Number
               </label>
               <Input
@@ -172,7 +172,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
             />
 
             <div className="space-y-2">
-              <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="startDate" className="block text-sm font-medium text-white">
                 Start Date
               </label>
               <DatePicker
