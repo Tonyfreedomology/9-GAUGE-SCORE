@@ -61,11 +61,10 @@ export const ScoreCard = ({
   );
 
   const scoreClasses = cn(
-    "text-7xl font-bold animate-smooth-glow",
+    "text-7xl font-league-spartan font-bold animate-smooth-glow",
     isOverallScore && "text-8xl"
   );
 
-  // Convert hex color to RGB for CSS variable
   const getRgbValues = (hex: string) => {
     const rgb = hexToRgba(hex, 1);
     const match = rgb.match(/\d+/g);
@@ -83,7 +82,7 @@ export const ScoreCard = ({
     <div className={cardClasses}>
       <div className="flex items-center justify-center gap-3 mb-8">
         {getPillarIcon(title)}
-        <h3 className="text-xl font-semibold text-white">
+        <h3 className="text-xl font-league-spartan font-semibold text-white">
           {title}
         </h3>
       </div>
