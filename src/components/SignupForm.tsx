@@ -34,7 +34,8 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     const formData = new FormData(e.target as HTMLFormElement);
     
     const formValues = {
-      name: formData.get('name'),
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
       email: formData.get('email'),
       phone: formData.get('phone'),
       sprintType: formData.get('sprintType'),
@@ -80,8 +81,13 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
-          <Input id="name" name="name" required />
+          <Label htmlFor="firstName">First Name</Label>
+          <Input id="firstName" name="firstName" required />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="lastName">Last Name</Label>
+          <Input id="lastName" name="lastName" required />
         </div>
 
         <div className="space-y-2">
