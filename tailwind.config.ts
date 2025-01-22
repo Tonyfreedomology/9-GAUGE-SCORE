@@ -98,6 +98,10 @@ export default {
           "0%": { opacity: "0", transform: "scale(0.95)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
+        "glow": {
+          "0%, 100%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
+          "50%": { filter: "drop-shadow(0 0 25px rgba(var(--glow-color), 0.7))" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -105,6 +109,7 @@ export default {
         "fade-in": "fade-in 0.5s ease-out forwards",
         "fade-out": "fade-out 0.5s ease-out forwards",
         "scale-in": "scale-in 0.2s ease-out",
+        "glow": "glow 2s ease-in-out infinite"
       },
     },
   },

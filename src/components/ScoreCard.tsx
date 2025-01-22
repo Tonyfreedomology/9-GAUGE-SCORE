@@ -59,6 +59,16 @@ export const ScoreCard = ({
     className
   );
 
+  // Convert the color to rgba for the glow effect
+  const getRgbaColor = (hexColor: string) => {
+    // Remove the # if present
+    const hex = hexColor.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, 0.5)`;
+  };
+
   return (
     <div className={cardClasses}>
       <div className="flex items-center justify-center gap-3 mb-8">
@@ -78,11 +88,14 @@ export const ScoreCard = ({
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
               className={cn(
-                "text-7xl font-bold animate-pulse",
-                isOverallScore && "text-8xl",
-                "drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                "text-7xl font-bold",
+                isOverallScore && "text-8xl"
               )}
-              style={{ color }}
+              style={{ 
+                color,
+                filter: `drop-shadow(0 0 15px ${getRgbaColor(color)})`,
+                animation: 'glow 2s ease-in-out infinite'
+              }}
             >
               {Math.round(animatedScore)}
             </span>
