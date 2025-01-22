@@ -77,6 +77,8 @@ export const ScoreCard = ({
     '--glow-color': getRgbValues(color),
   } as React.CSSProperties;
 
+  console.log('Applying glow with color:', color, 'RGB values:', getRgbValues(color));
+
   return (
     <div className={cardClasses}>
       <div className="flex items-center justify-center gap-3 mb-8">

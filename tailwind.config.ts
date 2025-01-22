@@ -100,10 +100,10 @@ export default {
         },
         "smooth-glow": {
           "0%, 100%": { 
-            filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.3))",
+            textShadow: "0 0 30px rgba(var(--glow-color), 0.3)",
           },
           "50%": { 
-            filter: "drop-shadow(0 0 25px rgba(var(--glow-color), 0.8))",
+            textShadow: "0 0 50px rgba(var(--glow-color), 0.8)",
           }
         }
       },
