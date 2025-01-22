@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { getFeedbackTier } from "@/lib/questions";
 
 type ProgressBarProps = {
   value: number;
@@ -56,12 +55,6 @@ export const ProgressBar = ({
           height={size}
           viewBox="0 0 100 100"
         >
-          <defs>
-            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#17BEBB" />
-              <stop offset="100%" stopColor="#00D4FF" />
-            </linearGradient>
-          </defs>
           <circle
             className="text-secondary/30"
             strokeWidth="8"
@@ -74,7 +67,7 @@ export const ProgressBar = ({
           <circle
             className="transition-all duration-1000 ease-out"
             strokeWidth="8"
-            stroke="url(#progressGradient)"
+            stroke={color}
             fill="transparent"
             r={radius}
             cx="50"
@@ -84,17 +77,15 @@ export const ProgressBar = ({
             strokeLinecap="round"
           />
         </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center">
           <span 
             className={cn(
-              "text-7xl font-bold bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] bg-clip-text text-transparent",
+              "text-7xl font-bold",
               "animate-scale-in"
             )}
+            style={{ color }}
           >
             {Math.round(animatedValue)}
-          </span>
-          <span className="text-sm font-medium text-muted-foreground mt-1">
-            {getFeedbackTier(animatedValue)}
           </span>
         </div>
       </div>
