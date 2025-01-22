@@ -21,10 +21,10 @@ export const keyframes = {
   },
   "smooth-glow": {
     "0%, 100%": { 
-      boxShadow: "0 0 15px rgba(23, 190, 187, 0.3)",
+      boxShadow: "0 0 20px rgba(23, 190, 187, 0.4), 0 0 40px rgba(23, 190, 187, 0.2)",
     },
     "50%": { 
-      boxShadow: "0 0 30px rgba(23, 190, 187, 0.6)",
+      boxShadow: "0 0 30px rgba(23, 190, 187, 0.6), 0 0 60px rgba(23, 190, 187, 0.4)",
     }
   }
 };
