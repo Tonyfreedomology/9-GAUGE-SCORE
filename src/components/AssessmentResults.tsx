@@ -46,14 +46,15 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
       >
         <ResultsHeader overallScore={overallScore} />
 
-        <ScoreCard
-          title=""
-          score={overallScore}
-          color="#17BEBB"
-          className="mb-12 max-w-2xl mx-auto"
-          isOverallScore={true}
-          hideSubtext={true}
-        />
+        <div className="mb-12 max-w-2xl mx-auto">
+          <ScoreCard
+            title=""
+            score={overallScore}
+            color="#17BEBB"
+            isOverallScore={true}
+            hideSubtext={true}
+          />
+        </div>
 
         <ResultsActions onStartOver={onStartOver} containerRef={resultsRef} />
 
