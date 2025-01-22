@@ -78,13 +78,13 @@ export const ScoreCard = ({
           <div 
             className={cn(
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-              isOverallScore && "animate-pulse"
+              ""
             )}
           >
             <span 
               className={cn(
                 "text-7xl font-bold animate-scale-in",
-                isOverallScore && "text-8xl drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                isOverallScore && "text-8xl"
               )}
               style={{ color }}
             >
