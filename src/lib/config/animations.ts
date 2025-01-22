@@ -21,10 +21,10 @@ export const keyframes = {
   },
   "pulse-glow": {
     "0%, 100%": {
-      boxShadow: "0 0 15px 5px rgba(23, 190, 187, 0.2)"
+      boxShadow: "0 0 30px 10px rgba(23, 190, 187, 0.4)"
     },
     "50%": {
-      boxShadow: "0 0 25px 8px rgba(23, 190, 187, 0.4)"
+      boxShadow: "0 0 50px 15px rgba(23, 190, 187, 0.7)"
     }
   }
 };
@@ -35,5 +35,5 @@ export const animations = {
   "fade-in": "fade-in 0.5s ease-out forwards",
   "fade-out": "fade-out 0.5s ease-out forwards",
   "scale-in": "scale-in 0.2s ease-out",
-  "pulse-glow": "pulse-glow 3s ease-in-out infinite"
+  "pulse-glow": "pulse-glow 4s ease-in-out infinite"
 };

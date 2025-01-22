@@ -80,7 +80,7 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow"
+          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow"
         >
           <span className="flex items-center gap-2">
             Find Out Your Score
