@@ -119,7 +119,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
             </Select>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             <Label htmlFor="startDate">Start Date</Label>
             <DatePicker
               id="startDate"
