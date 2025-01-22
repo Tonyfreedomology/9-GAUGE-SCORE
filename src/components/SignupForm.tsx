@@ -4,30 +4,80 @@ import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
 import DatePicker from "react-datepicker";
+import { useToast } from "./ui/use-toast";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const SignupForm = () => {
-  const [date, setDate] = useState<Date | null>(null);
+type SignupFormProps = {
+  defaultSprint?: string;
+};
 
-  const handleSubmit = (e: React.FormEvent) => {
+export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
+  const [date, setDate] = useState<Date | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const getDefaultSprintValue = () => {
+    switch (defaultSprint) {
+      case "Health":
+        return "H40";
+      case "Financial":
+        return "F40";
+      case "Relationships":
+        return "R40";
+      default:
+        return undefined;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    console.log({
+    
+    const formValues = {
       name: formData.get('name'),
       email: formData.get('email'),
       phone: formData.get('phone'),
       sprintType: formData.get('sprintType'),
-      startDate: date
-    });
+      startDate: date?.toISOString()
+    };
+
+    setIsLoading(true);
+    console.log("Form submission:", formValues);
+
+    try {
+      // Replace this URL with your actual Zapier webhook URL
+      const response = await fetch("YOUR_ZAPIER_WEBHOOK_URL", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        body: JSON.stringify(formValues),
+      });
+
+      toast({
+        title: "Success!",
+        description: "Your registration has been submitted. We'll be in touch soon!",
+      });
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem submitting your registration. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg">
+    <div className="w-full">
       <h2 className="text-3xl font-serif font-bold text-center mb-8">
-        Start your FREE 40-day challenge NOW!
+        Ready to start? Sign up for FREE now!
       </h2>
 
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>
           <Input id="name" name="name" required />
@@ -45,7 +95,7 @@ export const SignupForm = () => {
 
         <div className="space-y-2">
           <Label htmlFor="sprintType">Sprint Type</Label>
-          <Select name="sprintType" required>
+          <Select name="sprintType" defaultValue={getDefaultSprintValue()} required>
             <SelectTrigger className="bg-white">
               <SelectValue placeholder="Select your sprint" />
             </SelectTrigger>
@@ -74,8 +124,9 @@ export const SignupForm = () => {
         <Button 
           type="submit" 
           className="w-full bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white rounded-full"
+          disabled={isLoading}
         >
-          Sign Up Now
+          {isLoading ? "Submitting..." : "Sign Up Now"}
         </Button>
       </form>
     </div>

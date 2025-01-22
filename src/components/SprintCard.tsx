@@ -2,6 +2,7 @@ import { sprintContent } from "@/lib/sprintContent";
 import { programs } from "@/lib/programContent";
 import { WeekContent } from "./WeekContent";
 import { useInView } from "react-intersection-observer";
+import { SignupForm } from "./SignupForm";
 
 type SprintCardProps = {
   lowestPillar: string;
@@ -25,19 +26,6 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         return "https://static.wixstatic.com/media/c32598_42c88deef1e04279ab8800669ac7e634~mv2.png";
       default:
         return "";
-    }
-  };
-
-  const getLink = () => {
-    switch (lowestPillar) {
-      case "Relationships":
-        return "https://www.freedomology.com/r40";
-      case "Health":
-        return "https://www.freedomology.com/h40";
-      case "Financial":
-        return "https://www.freedomology.com/f40";
-      default:
-        return "#";
     }
   };
 
@@ -75,14 +63,9 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           ))}
         </div>
 
-        <a 
-          href={getLink()} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-full hover:bg-[#17BEBB]/90 transition-colors"
-        >
-          {content.cta}
-        </a>
+        <div className="w-full max-w-md mx-auto mt-12">
+          <SignupForm defaultSprint={lowestPillar} />
+        </div>
       </div>
     </div>
   );
