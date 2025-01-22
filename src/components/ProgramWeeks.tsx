@@ -41,7 +41,7 @@ export const ProgramWeeks = ({ pillarName }: ProgramWeeksProps) => {
         
         <CollapsibleContent className="space-y-8">
           <div className="bg-[#293230] backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-lg mt-8">
-            <h2 className="text-4xl font-league-spartan text-white mb-12 text-center">The Six Weeks</h2>
+            <h2 className="text-4xl font-serif text-white mb-12 text-center">The Six Weeks</h2>
             
             <div className="space-y-12">
               {program.weeks.map((week, index) => (

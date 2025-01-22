@@ -25,7 +25,7 @@ const Index = () => {
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-league-spartan text-white leading-tight px-2 md:px-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-serif px-2 md:px-4">
           How Free Are You?
         </h1>
 
