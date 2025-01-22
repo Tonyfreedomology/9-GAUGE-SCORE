@@ -78,7 +78,14 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
       email: formData.get('email'),
       phone: formData.get('phone'),
       sprintType: formData.get('sprintType'),
-      startDate: date?.toISOString()
+      startDate: date ? new Date(date.setHours(6, 0, 0)).toLocaleString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      }).replace(',', '') : null
     };
 
     setIsLoading(true);
