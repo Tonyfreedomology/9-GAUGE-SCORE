@@ -47,14 +47,17 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           dangerouslySetInnerHTML={{ __html: introText }} 
         />
         
-        {/* Weeks section */}
-        <h3 className="text-4xl font-serif font-bold text-foreground mt-8 text-center">
-          THE SIX WEEKS
-        </h3>
-
-        {/* Pillar Icon */}
-        <div className="w-16 h-16">
-          {getPillarIcon(lowestPillar)}
+        {/* Weeks section with flanking icons */}
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="w-12 h-12">
+            {getPillarIcon(lowestPillar)}
+          </div>
+          <h3 className="text-4xl font-serif font-bold text-foreground text-center">
+            THE SIX WEEKS
+          </h3>
+          <div className="w-12 h-12">
+            {getPillarIcon(lowestPillar)}
+          </div>
         </div>
         
         <div ref={ref} className="w-full space-y-12">
