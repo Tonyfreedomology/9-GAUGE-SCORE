@@ -88,7 +88,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-sm">
+    <div className="w-full max-w-md mx-auto bg-[#293230] p-6 rounded-lg shadow-lg border border-white/10">
       <form onSubmit={handleSubmit} className="space-y-6">
         <EmailInput 
           value={email}
@@ -102,7 +102,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
 
         <button
           type="submit"
-          className="w-full px-4 py-2 text-white bg-[#17BEBB] rounded-md hover:bg-[#14a8a5] transition-colors"
+          className="w-full px-4 py-2 text-white bg-[#17BEBB] rounded-lg hover:bg-[#14a8a5] transition-colors"
         >
           Start Your Journey
         </button>

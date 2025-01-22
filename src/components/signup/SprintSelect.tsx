@@ -1,4 +1,10 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type SprintSelectProps = {
   defaultSprint?: string;
@@ -7,28 +13,22 @@ type SprintSelectProps = {
 
 export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => {
   const getDefaultSprintValue = () => {
-    switch (defaultSprint) {
-      case "Health":
-        return "H40";
-      case "Financial":
-        return "F40";
-      case "Relationships":
-        return "R40";
-      default:
-        return undefined;
-    }
+    if (!defaultSprint) return undefined;
+    
+    const validSprints = ["F40", "H40", "R40"];
+    return validSprints.includes(defaultSprint) ? defaultSprint : undefined;
   };
 
   return (
     <div className="space-y-2">
-      <label htmlFor="sprint" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="sprint" className="block text-sm font-medium text-white">
         Choose Your Sprint
       </label>
       <Select defaultValue={getDefaultSprintValue()} onValueChange={onChange}>
-        <SelectTrigger id="sprint" className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900">
+        <SelectTrigger id="sprint" className="bg-white/10 border-white/20 text-white rounded-lg">
           <SelectValue placeholder="Select a sprint" />
         </SelectTrigger>
-        <SelectContent className="bg-white border border-gray-300">
+        <SelectContent className="bg-[#293230] border-white/20">
           <SelectItem value="F40">Financial Freedom Sprint</SelectItem>
           <SelectItem value="H40">Health Transformation Sprint</SelectItem>
           <SelectItem value="R40">Relationship Mastery Sprint</SelectItem>
