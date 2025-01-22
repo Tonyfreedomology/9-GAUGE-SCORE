@@ -4,7 +4,7 @@ import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
 import DatePicker from "react-datepicker";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import "react-datepicker/dist/react-datepicker.css";
 
 type SignupFormProps = {
@@ -46,7 +46,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     console.log("Form submission:", formValues);
 
     try {
-      // Replace this URL with your actual Zapier webhook URL
+      // Replace YOUR_ZAPIER_WEBHOOK_URL with your actual webhook URL
       const response = await fetch("YOUR_ZAPIER_WEBHOOK_URL", {
         method: "POST",
         headers: {
