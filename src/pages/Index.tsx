@@ -24,6 +24,10 @@ const Index = () => {
           alt="Freedomology Logo" 
           className="h-16 md:h-20 mx-auto mb-4"
         />
+        
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white leading-tight font-sans px-2 md:px-4">
+          How Free Are You?
+        </h1>
 
         <div className="flex justify-center space-x-6 md:space-x-16">
           <div className="flex flex-col items-center space-y-2">
@@ -60,10 +64,6 @@ const Index = () => {
             <span className="text-sm md:text-base text-white font-medium">Relationships</span>
           </div>
         </div>
-
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white leading-tight font-sans px-2 md:px-4">
-          How Free Are You?
-        </h1>
 
         <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light text-white/90 leading-relaxed px-2 md:px-0">
           <p>
