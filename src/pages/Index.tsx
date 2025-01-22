@@ -27,7 +27,7 @@ const Index = () => {
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-serif px-2 md:px-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-sans px-2 md:px-4">
           How Free Are You?
         </h1>
 
@@ -81,8 +81,7 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative overflow-hidden before:absolute before:inset-0 before:bg-white/20 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 animate-glow"
-          style={{ "--glow-color": "23, 190, 187" } as React.CSSProperties}
+          className="bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative overflow-hidden before:absolute before:inset-0 before:bg-white/20 before:translate-x-[-100%] before:animate-[shimmer_3s_infinite] before:transition-transform before:duration-700"
         >
           Find Out Your Score
           <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
