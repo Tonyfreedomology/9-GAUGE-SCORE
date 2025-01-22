@@ -47,6 +47,19 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     fetchWebhookUrl();
   }, [toast]);
 
+  const getDefaultSprintValue = () => {
+    switch (defaultSprint) {
+      case "Health":
+        return "H40";
+      case "Financial":
+        return "F40";
+      case "Relationships":
+        return "R40";
+      default:
+        return undefined;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
