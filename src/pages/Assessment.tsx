@@ -16,7 +16,6 @@ const Assessment = () => {
   const currentQuestion = allQuestions[currentQuestionIndex];
   
   const handleAnswer = (value: number) => {
-    console.log('Handling answer:', value);
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
     
     if (currentQuestionIndex < allQuestions.length - 1) {
@@ -30,7 +29,6 @@ const Assessment = () => {
   };
 
   const handleStartOver = () => {
-    console.log('Starting over');
     setShowResults(false);
     setCurrentPillarIndex(0);
     setCurrentQuestionIndex(0);
@@ -38,7 +36,6 @@ const Assessment = () => {
   };
 
   const handlePrevious = () => {
-    console.log('Going to previous question');
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     } else if (currentPillarIndex > 0) {
@@ -50,7 +47,6 @@ const Assessment = () => {
   };
 
   const handleNext = () => {
-    console.log('Going to next question');
     if (currentQuestionIndex < allQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else if (currentPillarIndex < questions.length - 1) {

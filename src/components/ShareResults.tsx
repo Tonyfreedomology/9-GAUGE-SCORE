@@ -1,82 +1,72 @@
-import { RefObject } from 'react';
-import html2canvas from 'html2canvas';
-import { Share } from 'lucide-react';
-import { useToast } from './ui/use-toast';
+import { useState } from "react";
+import html2canvas from "html2canvas";
+import { Button } from "@/components/ui/button";
+import { Share2 } from "lucide-react";
+import { toast } from "sonner";
 
 type ShareResultsProps = {
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement>;
 };
 
 export const ShareResults = ({ containerRef }: ShareResultsProps) => {
-  const { toast } = useToast();
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleShare = async () => {
-    if (!containerRef.current) {
-      console.error('Container ref is not available');
-      return;
-    }
-
+  const generateAndShareImage = async () => {
+    if (!containerRef.current) return;
+    
     try {
-      console.log('Starting image capture...');
-      const canvas = await html2canvas(containerRef.current);
+      setIsGenerating(true);
+      console.log("Starting image generation");
       
-      const blob = await new Promise<Blob>((resolve, reject) => {
+      const canvas = await html2canvas(containerRef.current, {
+        backgroundColor: null,
+        scale: 2, // Higher quality
+        logging: true,
+      });
+      
+      // Convert to blob
+      const blob = await new Promise<Blob>((resolve) => {
         canvas.toBlob((blob) => {
-          if (blob) {
-            console.log('Blob created successfully');
-            resolve(blob);
-          } else {
-            reject(new Error('Failed to create blob'));
-          }
+          resolve(blob!);
         }, 'image/png');
       });
 
-      const file = new File([blob], 'freedomology-score.png', { type: 'image/png' });
-      
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        console.log('Sharing via native share API...');
+      // Create file from blob
+      const file = new File([blob], 'freedomology-results.png', { type: 'image/png' });
+
+      // Check if Web Share API is supported
+      if (navigator.share && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
-          title: 'My Freedomology Score',
-          text: 'Check out my Freedomology Score!'
+          title: 'My Freedomology Assessment Results',
+          text: 'Check out my Freedomology Assessment results!'
         });
+        toast.success("Thanks for sharing your results!");
       } else {
-        console.log('Native sharing not available, downloading instead...');
-        const url = URL.createObjectURL(blob);
+        // Fallback to download if sharing isn't supported
         const link = document.createElement('a');
-        link.href = url;
-        link.download = 'freedomology-score.png';
-        document.body.appendChild(link);
+        link.href = URL.createObjectURL(blob);
+        link.download = 'freedomology-results.png';
         link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        
-        toast({
-          title: "Image downloaded!",
-          description: "Your results have been saved as an image.",
-        });
+        toast.success("Results image downloaded!");
       }
     } catch (error) {
-      console.error('Error sharing results:', error);
-      toast({
-        title: "Error",
-        description: "Failed to share your results. Please try again.",
-        variant: "destructive",
-      });
+      console.error("Error generating/sharing image:", error);
+      toast.error("Sorry, there was an error sharing your results");
+    } finally {
+      setIsGenerating(false);
     }
   };
 
   return (
-    <button
-      onClick={handleShare}
-      type="button"
-      className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl text-lg font-semibold
-        transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105
-        flex items-center gap-2 min-w-[200px] justify-center"
-      aria-label="Share results"
+    <Button
+      onClick={generateAndShareImage}
+      disabled={isGenerating}
+      className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
+        transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center gap-2"
     >
-      <Share className="w-5 h-5" />
-      Share Results
-    </button>
+      <Share2 className="w-5 h-5" />
+      {isGenerating ? "Generating..." : "Share Results"}
+    </Button>
   );
 };

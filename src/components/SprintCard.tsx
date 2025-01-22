@@ -2,7 +2,6 @@ import { sprintContent } from "@/lib/sprintContent";
 import { programs } from "@/lib/programContent";
 import { WeekContent } from "./WeekContent";
 import { useInView } from "react-intersection-observer";
-import { SignupForm } from "./SignupForm";
 
 type SprintCardProps = {
   lowestPillar: string;
@@ -29,52 +28,27 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     }
   };
 
-  const splitBodyContent = () => {
-    if (!content?.body) return { intro: "", weeks: "" };
-    
-    const body = content.body;
-    const splitPoint = body.indexOf("Here's what we cover in the 6 weeks:");
-    if (splitPoint === -1) return { intro: body, weeks: "" };
-    
-    return {
-      intro: body.substring(0, splitPoint).trim(),
-      weeks: body.substring(splitPoint).trim()
-    };
-  };
-
-  if (!program || !content) return null;
-
-  const { intro } = splitBodyContent();
-
-  const getSprintType = () => {
+  const getLink = () => {
     switch (lowestPillar) {
       case "Relationships":
-        return "R40";
+        return "https://www.freedomology.com/r40";
       case "Health":
-        return "H40";
+        return "https://www.freedomology.com/h40";
       case "Financial":
-        return "F40";
+        return "https://www.freedomology.com/f40";
       default:
-        return "F40";
+        return "#";
     }
   };
 
+  if (!program) return null;
+
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
-      <div className="flex flex-col items-center space-y-6">
-        <img 
-          src={getLogo()} 
-          alt={`${lowestPillar} Sprint Logo`} 
-          className="h-24 object-contain"
-          loading="lazy"
-        />
-        <h2 className="text-3xl font-serif text-foreground text-center">{content.heading}</h2>
-        <div 
-          className="text-lg max-w-2xl space-y-4 text-foreground text-left" 
-          dangerouslySetInnerHTML={{ __html: intro }} 
-        />
-        
-        <h3 className="text-3xl font-serif font-bold text-foreground text-center mt-8">THE SIX WEEKS</h3>
+      <div className="flex flex-col items-center text-center space-y-6">
+        <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
+        <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
+        <div className="text-lg max-w-2xl space-y-4 text-foreground" dangerouslySetInnerHTML={{ __html: content.body }} />
         
         <div ref={ref} className="w-full space-y-12">
           {program.weeks.map((week, index) => (
@@ -88,9 +62,14 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           ))}
         </div>
 
-        <div className="w-full max-w-md mx-auto mt-12">
-          <SignupForm defaultSprintType={getSprintType()} />
-        </div>
+        <a 
+          href={getLink()} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-[#17BEBB] rounded-full hover:bg-[#17BEBB]/90 transition-colors"
+        >
+          {content.cta}
+        </a>
       </div>
     </div>
   );
