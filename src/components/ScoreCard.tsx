@@ -76,6 +76,22 @@ export const ScoreCard = ({
             size={isOverallScore ? 200 : 160}
           />
         </div>
+        <div 
+          className={cn(
+            "absolute inset-0 flex items-center justify-center",
+            isOverallScore && "animate-pulse"
+          )}
+        >
+          <span 
+            className={cn(
+              "text-7xl font-bold animate-scale-in",
+              isOverallScore && "text-8xl drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            )}
+            style={{ color }}
+          >
+            {Math.round(animatedScore)}
+          </span>
+        </div>
         {!hideSubtext && (
           <div className="flex justify-center">
             <span className="text-sm font-medium text-white/80">
