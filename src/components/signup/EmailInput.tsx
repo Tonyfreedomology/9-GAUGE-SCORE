@@ -1,3 +1,5 @@
+import { Input } from "@/components/ui/input";
+
 type EmailInputProps = {
   value: string;
   onChange: (value: string) => void;
@@ -9,12 +11,12 @@ export const EmailInput = ({ value, onChange }: EmailInputProps) => {
       <label htmlFor="email" className="block text-sm font-medium text-gray-700">
         Email
       </label>
-      <input
+      <Input
         type="email"
         id="email"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500"
+        className="w-full"
         placeholder="Enter your email"
         required
       />

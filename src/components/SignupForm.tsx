@@ -1,16 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { SprintSelect } from "./signup/SprintSelect";
 import { EmailInput } from "./signup/EmailInput";
+import { DatePicker } from "./ui/calendar";
+import { Input } from "./ui/input";
+import { format } from "date-fns";
 
 type SignupFormProps = {
   defaultSprint?: string;
 };
 
 export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [sprint, setSprint] = useState("");
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [webhookUrl, setWebhookUrl] = useState("");
   const { toast } = useToast();
 
@@ -41,7 +48,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted with:", { email, sprint });
+    console.log("Form submitted with:", { firstName, lastName, email, phone, sprint, startDate });
 
     if (!webhookUrl) {
       console.error("Webhook URL not found");
@@ -60,8 +67,12 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          firstName,
+          lastName,
           email,
+          phone,
           sprint,
+          startDate: startDate ? format(startDate, 'MM/dd/yyyy') : null,
         }),
       });
 
@@ -75,8 +86,13 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
         className: "bg-white border border-gray-200",
       });
 
+      // Reset form
+      setFirstName("");
+      setLastName("");
       setEmail("");
+      setPhone("");
       setSprint("");
+      setStartDate(null);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -88,25 +104,84 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-sm">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <EmailInput 
-          value={email}
-          onChange={setEmail}
-        />
-        
-        <SprintSelect 
-          defaultSprint={defaultSprint}
-          onChange={setSprint}
-        />
+    <div className="w-full max-w-md mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold mb-2">Ready to start?</h2>
+        <p className="text-xl">Sign up for a FREE 40-day challenge NOW!</p>
+      </div>
+      
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+              First Name
+            </label>
+            <Input
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full"
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-[#17BEBB] rounded-md hover:bg-[#14a8a5] transition-colors"
-        >
-          Start Your Journey
-        </button>
-      </form>
+          <div className="space-y-2">
+            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+              Last Name
+            </label>
+            <Input
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full"
+              required
+            />
+          </div>
+
+          <EmailInput 
+            value={email}
+            onChange={setEmail}
+          />
+
+          <div className="space-y-2">
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              Phone Number
+            </label>
+            <Input
+              id="phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full"
+              required
+            />
+          </div>
+          
+          <SprintSelect 
+            defaultSprint={defaultSprint}
+            onChange={setSprint}
+          />
+
+          <div className="space-y-2">
+            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+              Start Date
+            </label>
+            <DatePicker
+              selected={startDate}
+              onSelect={setStartDate}
+              className="w-full"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-[#17BEBB] rounded-full hover:bg-[#14a8a5] transition-colors"
+          >
+            Start Your Journey
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

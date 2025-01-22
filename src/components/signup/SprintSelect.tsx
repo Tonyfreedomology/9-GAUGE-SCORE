@@ -25,10 +25,10 @@ export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => 
         Choose Your Sprint
       </label>
       <Select defaultValue={getDefaultSprintValue()} onValueChange={onChange}>
-        <SelectTrigger id="sprint" className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900">
+        <SelectTrigger id="sprint" className="w-full">
           <SelectValue placeholder="Select a sprint" />
         </SelectTrigger>
-        <SelectContent className="bg-white border border-gray-300">
+        <SelectContent>
           <SelectItem value="F40">Financial Freedom Sprint</SelectItem>
           <SelectItem value="H40">Health Transformation Sprint</SelectItem>
           <SelectItem value="R40">Relationship Mastery Sprint</SelectItem>
