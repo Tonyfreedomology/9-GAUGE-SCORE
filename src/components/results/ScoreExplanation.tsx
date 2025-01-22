@@ -35,11 +35,11 @@ export const ScoreExplanation = () => {
 
         <CollapsibleContent className="space-y-6 text-lg mt-6">
           <p>
-            We've worked with over 11,000 people in the past 15 years and learned that <span className="font-bold italic">balance</span> is the key to building a beautiful life.
+            Our culture pushes the hustle and grind mindset as the path to success, but we see it differently.
           </p>
           
           <p>
-            Our culture pushes the hustle and grind mindset as the path to success, but we see it differently.
+            We've worked with over 11,000 people in the past 15 years and learned that <span className="font-bold italic">balance</span> is the key to building a beautiful life.
           </p>
           
           <p>
