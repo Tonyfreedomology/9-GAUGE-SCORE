@@ -6,7 +6,7 @@ type EmailInputProps = {
 export const EmailInput = ({ value, onChange }: EmailInputProps) => {
   return (
     <div className="space-y-2">
-      <label htmlFor="email" className="block text-sm font-medium text-white">
+      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
         Email
       </label>
       <input
@@ -14,7 +14,7 @@ export const EmailInput = ({ value, onChange }: EmailInputProps) => {
         id="email"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50"
+        className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500"
         placeholder="Enter your email"
         required
       />
