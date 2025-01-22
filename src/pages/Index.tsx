@@ -65,7 +65,7 @@ const Index = () => {
             <span className="text-sm md:text-base text-white font-medium">Relationships</span>
           </div>
         </div>
-        
+
         <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light text-white/90 leading-relaxed px-2 md:px-0">
           <p>
             Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
@@ -80,11 +80,11 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="inline-flex items-center justify-center bg-[#17BEBB] hover:bg-[#17BEBB]/90 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 transform hover:scale-105 animate-smooth-glow relative overflow-visible"
+          className="inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full"
         >
-          <span className="flex items-center">
+          <span className="flex items-center gap-2">
             Find Out Your Score
-            <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 inline-block" />
+            <ArrowRight className="h-5 w-5" />
           </span>
         </button>
       </div>
