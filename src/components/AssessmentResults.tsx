@@ -42,21 +42,19 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
     <div 
       className="min-h-screen"
       style={{
-        backgroundImage: "url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png')",
+        backgroundImage: "url('https://static.wixstatic.com/media/af616c_236c8c1137ba4146a1d6fbd7874561ed~mv2.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed'
       }}
     >
+      {/* Dark overlay for better readability */}
+      <div className="absolute inset-0 bg-black/50" />
+      
       <div 
         ref={resultsRef}
         className="relative z-10 max-w-5xl mx-auto space-y-12 p-8 rounded-3xl"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4), transparent)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)'
-        }}
       >
         <ResultsHeader overallScore={overallScore} />
 
@@ -77,8 +75,8 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         <ScoreExplanation />
       </div>
 
-      <div className="w-full max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-serif font-bold text-white mb-8 text-center relative z-20">Next Steps</h2>
+      <div className="w-full max-w-4xl mx-auto px-4 py-16 relative z-10">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">Next Steps</h2>
         <NextSteps lowestPillar={lowestPillar} onStartOver={onStartOver} />
       </div>
     </div>

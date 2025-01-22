@@ -17,17 +17,17 @@ const Index = () => {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Lighter gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
+      {/* Dark overlay for better readability */}
+      <div className="absolute inset-0 bg-black/50" />
       
-      <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-8 md:space-y-12 bg-black/40 backdrop-blur-sm rounded-3xl m-4">
+      <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-8 md:space-y-12">
         <img 
           src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
           alt="Freedomology Logo" 
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-serif px-2 md:px-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-sans px-2 md:px-4">
           How Free Are You?
         </h1>
 
