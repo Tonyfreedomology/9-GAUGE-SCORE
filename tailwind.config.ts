@@ -99,8 +99,11 @@ export default {
           "100%": { opacity: "1", transform: "scale(1)" },
         },
         "glow": {
-          "0%, 100%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
-          "50%": { filter: "drop-shadow(0 0 25px rgba(var(--glow-color), 0.7))" }
+          "0%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
+          "25%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
+          "50%": { filter: "drop-shadow(0 0 25px rgba(var(--glow-color), 0.7))" },
+          "75%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
+          "100%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" }
         }
       },
       animation: {
