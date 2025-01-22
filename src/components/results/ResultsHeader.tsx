@@ -17,14 +17,21 @@ export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
             Overall Freedomology Score
           </h1>
-          <TooltipProvider>
+          <TooltipProvider delayDuration={0}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button className="hover:opacity-80 transition-opacity">
+                <button 
+                  type="button"
+                  className="hover:opacity-80 transition-opacity"
+                >
                   <HelpCircle className="w-6 h-6 text-white/80 hover:text-white transition-colors" />
                 </button>
               </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-xs bg-white text-foreground">
+              <TooltipContent 
+                side="top" 
+                align="center"
+                className="max-w-xs bg-white text-foreground p-3 rounded-lg shadow-lg"
+              >
                 <p>Your Freedomology Score represents your overall well-being across Financial, Health, and Relationship dimensions. A higher score indicates greater freedom and balance in these key life areas.</p>
               </TooltipContent>
             </Tooltip>
