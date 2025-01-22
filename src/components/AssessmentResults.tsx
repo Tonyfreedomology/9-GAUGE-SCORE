@@ -56,9 +56,9 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
           />
         </div>
 
-        <ResultsActions onStartOver={onStartOver} containerRef={resultsRef} />
-
         <ResultsBreakdown answers={answers} />
+        
+        <ResultsActions onStartOver={onStartOver} containerRef={resultsRef} />
         
         <ScoreExplanation />
       </div>
