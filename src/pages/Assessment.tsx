@@ -70,39 +70,47 @@ const Assessment = () => {
     currentQuestionIndex === allQuestions.length - 1;
 
   return (
-    <div 
-      className="min-h-screen p-8 md:p-12"
-      style={{
-        backgroundImage: "url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      <div className="animate-[fade-in_0.5s_ease-out]">
-        {showResults ? (
-          <AssessmentResults 
-            answers={answers}
-            onStartOver={handleStartOver}
-          />
-        ) : (
-          <AssessmentQuestion
-            pillarName={currentPillar.name}
-            category={currentQuestion.category}
-            questionText={currentQuestion.text}
-            progress={progress}
-            currentValue={answers[currentQuestion.id] || 0}
-            currentStep={currentQuestionNumber}
-            totalSteps={totalQuestions}
-            options={currentQuestion.options}
-            onAnswer={handleAnswer}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            isFirstQuestion={isFirstQuestion}
-            isLastQuestion={isLastQuestion}
-          />
-        )}
+    <div className="relative min-h-screen">
+      {/* Background image */}
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: "url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
+        }}
+      />
+      {/* Dark overlay */}
+      <div className="fixed inset-0 z-0 bg-black/60" />
+      
+      {/* Content */}
+      <div className="relative z-10 min-h-screen p-8 md:p-12">
+        <div className="animate-[fade-in_0.5s_ease-out]">
+          {showResults ? (
+            <AssessmentResults 
+              answers={answers}
+              onStartOver={handleStartOver}
+            />
+          ) : (
+            <AssessmentQuestion
+              pillarName={currentPillar.name}
+              category={currentQuestion.category}
+              questionText={currentQuestion.text}
+              progress={progress}
+              currentValue={answers[currentQuestion.id] || 0}
+              currentStep={currentQuestionNumber}
+              totalSteps={totalQuestions}
+              options={currentQuestion.options}
+              onAnswer={handleAnswer}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              isFirstQuestion={isFirstQuestion}
+              isLastQuestion={isLastQuestion}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

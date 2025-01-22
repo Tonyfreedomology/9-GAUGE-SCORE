@@ -39,21 +39,12 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
   const lowestPillar = findLowestPillar();
 
   return (
-    <div 
-      className="min-h-screen"
-      style={{
-        backgroundImage: "url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
-    >
+    <div className="relative z-10 max-w-5xl mx-auto space-y-12">
       <div 
         ref={resultsRef}
-        className="relative z-10 max-w-5xl mx-auto space-y-12 p-8 rounded-3xl"
+        className="space-y-12 p-8 rounded-3xl"
         style={{
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4), transparent)',
+          background: 'rgba(0,0,0,0.4)',
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)'
         }}
