@@ -21,12 +21,12 @@ export const keyframes = {
   },
   "pulse-glow": {
     "0%, 100%": { 
-      boxShadow: "0 0 30px rgba(23, 190, 187, 0.6), inset 0 0 30px rgba(23, 190, 187, 0.6)",
-      filter: "brightness(1)"
+      boxShadow: "0 0 40px rgba(23, 190, 187, 0.8), inset 0 0 40px rgba(23, 190, 187, 0.8)",
+      filter: "brightness(1.1)"
     },
     "50%": { 
-      boxShadow: "0 0 60px rgba(23, 190, 187, 0.8), inset 0 0 60px rgba(23, 190, 187, 0.8)",
-      filter: "brightness(1.2)"
+      boxShadow: "0 0 80px rgba(23, 190, 187, 1), inset 0 0 80px rgba(23, 190, 187, 1)",
+      filter: "brightness(1.4)"
     }
   }
 };

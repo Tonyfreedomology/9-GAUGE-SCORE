@@ -79,7 +79,7 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow before:content-[''] before:absolute before:inset-0 before:rounded-full before:bg-[#17BEBB]/30 before:blur-xl before:animate-pulse-glow"
+          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow before:content-[''] before:absolute before:inset-0 before:rounded-full before:bg-[#17BEBB] before:opacity-50 before:blur-2xl before:animate-pulse-glow hover:scale-105 transition-transform duration-300"
         >
           <span className="relative z-10 flex items-center gap-2">
             Find Out Your Score
