@@ -70,7 +70,16 @@ const Assessment = () => {
     currentQuestionIndex === allQuestions.length - 1;
 
   return (
-    <div className="min-h-screen p-8 md:p-12">
+    <div 
+      className="min-h-screen p-8 md:p-12"
+      style={{
+        backgroundImage: "url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       <div className="animate-[fade-in_0.5s_ease-out]">
         {showResults ? (
           <AssessmentResults 
