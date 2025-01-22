@@ -1,11 +1,11 @@
 export const ScoreExplanation = () => {
   return (
-    <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-      <h2 className="text-3xl font-serif font-bold text-foreground mb-6 text-center">
+    <div className="max-w-3xl mx-auto text-white">
+      <h2 className="text-3xl font-serif font-bold mb-6 text-center">
         Your Score Explained
       </h2>
       
-      <div className="space-y-6 text-lg text-foreground">
+      <div className="space-y-6 text-lg">
         <p>
           Your Freedomology Score measures your well-being across Finance, Health (physical and mental), and Relationships.
         </p>
