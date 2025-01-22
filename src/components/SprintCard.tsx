@@ -48,14 +48,14 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         />
         
         {/* Weeks section with flanking icons */}
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <div className="w-12 h-12">
+        <div className="flex items-center justify-center space-x-6 mt-8">
+          <div className="w-12 h-12 flex items-center justify-center">
             {getPillarIcon(lowestPillar)}
           </div>
           <h3 className="text-4xl font-serif font-bold text-foreground text-center">
             THE SIX WEEKS
           </h3>
-          <div className="w-12 h-12">
+          <div className="w-12 h-12 flex items-center justify-center">
             {getPillarIcon(lowestPillar)}
           </div>
         </div>
