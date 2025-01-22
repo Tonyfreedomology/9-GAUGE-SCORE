@@ -73,7 +73,7 @@ const Assessment = () => {
     <div 
       className="min-h-screen p-8 md:p-12 relative"
       style={{
-        backgroundImage: "url('https://static.wixstatic.com/media/af616c_e756971b1bdc4ba48d070a291b8ca651~mv2.png')",
+        backgroundImage: "url('https://static.wixstatic.com/media/af616c_3c24b4e9154642ab91d2d95694114f6e~mv2.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
