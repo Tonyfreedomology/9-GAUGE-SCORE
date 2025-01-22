@@ -9,11 +9,11 @@ export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => 
   const getDefaultSprintValue = () => {
     switch (defaultSprint) {
       case "Health":
-        return "H40";
+        return "H4025";
       case "Financial":
-        return "F40";
+        return "F4025";
       case "Relationships":
-        return "R40";
+        return "R4025";
       default:
         return undefined;
     }
@@ -28,10 +28,10 @@ export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => 
         <SelectTrigger id="sprint" className="w-full">
           <SelectValue placeholder="Select a sprint" />
         </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="F40">Financial Freedom Sprint</SelectItem>
-          <SelectItem value="H40">Health Transformation Sprint</SelectItem>
-          <SelectItem value="R40">Relationship Mastery Sprint</SelectItem>
+        <SelectContent className="bg-white">
+          <SelectItem value="F4025">Financial Sprint</SelectItem>
+          <SelectItem value="H4025">Health Sprint</SelectItem>
+          <SelectItem value="R4025">Relational Sprint</SelectItem>
         </SelectContent>
       </Select>
     </div>
