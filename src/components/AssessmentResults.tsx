@@ -5,6 +5,7 @@ import { ResultsHeader } from "./results/ResultsHeader";
 import { ResultsActions } from "./results/ResultsActions";
 import { ResultsBreakdown } from "./results/ResultsBreakdown";
 import { ScoreCard } from "./ScoreCard";
+import { ScoreExplanation } from "./results/ScoreExplanation";
 
 type AssessmentResultsProps = {
   answers: Record<string, number>;
@@ -57,9 +58,14 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         <ResultsActions onStartOver={onStartOver} containerRef={resultsRef} />
 
         <ResultsBreakdown answers={answers} />
+        
+        <ScoreExplanation />
       </div>
 
-      <NextSteps lowestPillar={lowestPillar} onStartOver={onStartOver} />
+      <div className="w-full max-w-4xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-serif font-bold text-foreground mb-8 text-center">Next Steps</h2>
+        <NextSteps lowestPillar={lowestPillar} onStartOver={onStartOver} />
+      </div>
     </div>
   );
 };
