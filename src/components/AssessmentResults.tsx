@@ -4,6 +4,13 @@ import { FreedomologyLogo } from "./FreedomologyLogo";
 import { questions, calculatePillarScore } from "@/lib/questions";
 import { NextSteps } from "./NextSteps";
 import { ShareResults } from "./ShareResults";
+import { CircleQuestion } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type AssessmentResultsProps = {
   answers: Record<string, number>;
@@ -45,9 +52,21 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
         <FreedomologyLogo />
         
         <div className="text-center space-y-4">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-            Overall Freedomology Score
-          </h1>
+          <div className="flex items-center justify-center gap-2">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              Overall Freedomology Score
+            </h1>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <CircleQuestion className="w-6 h-6 text-white/80 hover:text-white transition-colors" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p>Your Freedomology Score represents your overall well-being across Financial, Health, and Relationship dimensions. A higher score indicates greater freedom and balance in these key life areas.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <p className="text-xl text-white/90 font-medium">
             You're on the path to thriving freedom. Keep growing!
           </p>
