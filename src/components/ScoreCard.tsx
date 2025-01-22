@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { getFeedbackTier } from "@/lib/questions";
 import { cn } from "@/lib/utils";
-import { getPillarIcon } from "@/lib/getPillarIcon";
+import { PiggyBank, HeartPulse, Heart } from "lucide-react";
 
 type ScoreCardProps = {
   title: string;
@@ -51,6 +51,19 @@ export const ScoreCard = ({
     }
   }, [score, isVisible]);
 
+  const getIcon = () => {
+    switch (title) {
+      case 'Financial':
+        return <PiggyBank className="w-8 h-8" style={{ color }} />;
+      case 'Health':
+        return <HeartPulse className="w-8 h-8" style={{ color }} />;
+      case 'Relationships':
+        return <Heart className="w-8 h-8" style={{ color }} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className={cn(
       "p-8 rounded-xl border bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-sm",
@@ -61,7 +74,7 @@ export const ScoreCard = ({
       className
     )}>
       <div className="flex items-center justify-center gap-3 mb-8">
-        {title && getPillarIcon(title)}
+        {getIcon()}
         <h3 className="text-xl font-semibold text-foreground">{title}</h3>
       </div>
       <div className="space-y-6">
