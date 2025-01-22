@@ -21,7 +21,7 @@ export const SprintSelect = ({ defaultSprint, onChange }: SprintSelectProps) => 
 
   return (
     <div className="space-y-2">
-      <label htmlFor="sprint" className="block text-sm font-medium text-white">
+      <label htmlFor="sprint" className="block text-sm font-medium text-gray-700">
         Choose Your Sprint
       </label>
       <Select defaultValue={getDefaultSprintValue()} onValueChange={onChange}>
