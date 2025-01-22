@@ -20,11 +20,13 @@ export const keyframes = {
     "100%": { opacity: "1", transform: "scale(1)" },
   },
   "pulse-glow": {
-    "0%, 100%": {
-      boxShadow: "0 0 30px 10px rgba(23, 190, 187, 0.4)"
+    "0%, 100%": { 
+      boxShadow: "0 0 30px rgba(23, 190, 187, 0.6), inset 0 0 30px rgba(23, 190, 187, 0.6)",
+      filter: "brightness(1)"
     },
-    "50%": {
-      boxShadow: "0 0 50px 15px rgba(23, 190, 187, 0.7)"
+    "50%": { 
+      boxShadow: "0 0 60px rgba(23, 190, 187, 0.8), inset 0 0 60px rgba(23, 190, 187, 0.8)",
+      filter: "brightness(1.2)"
     }
   }
 };
@@ -35,5 +37,5 @@ export const animations = {
   "fade-in": "fade-in 0.5s ease-out forwards",
   "fade-out": "fade-out 0.5s ease-out forwards",
   "scale-in": "scale-in 0.2s ease-out",
-  "pulse-glow": "pulse-glow 4s ease-in-out infinite"
+  "pulse-glow": "pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite"
 };

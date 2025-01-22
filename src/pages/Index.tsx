@@ -16,7 +16,6 @@ const Index = () => {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Lighter gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
       
       <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-8 md:space-y-12 bg-black/40 backdrop-blur-sm rounded-3xl m-4">
@@ -80,9 +79,9 @@ const Index = () => {
             console.log("Starting assessment");
             navigate("/assessment");
           }}
-          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow"
+          className="relative inline-flex items-center justify-center bg-[#17BEBB] text-white text-base md:text-lg px-8 py-4 rounded-full animate-pulse-glow before:content-[''] before:absolute before:inset-0 before:rounded-full before:bg-[#17BEBB]/30 before:blur-xl before:animate-pulse-glow"
         >
-          <span className="flex items-center gap-2">
+          <span className="relative z-10 flex items-center gap-2">
             Find Out Your Score
             <ArrowRight className="h-5 w-5" />
           </span>
