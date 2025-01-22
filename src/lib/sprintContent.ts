@@ -16,21 +16,13 @@ export const sprintContent: Record<string, SprintContent> = {
   },
   "Financial": {
     heading: "Financial Freedom Awaits",
-    body: `Looks like your finances could use some improvement, <strong>but that's okay!</strong> We built something just for you!
+    body: `Looks like your finances could use some improvement, but that's okay! We built something just for you!
 
-<p>Consider joining <strong>F40</strong>, our <strong>40-day roadmap to financial freedom</strong>. We believe that financial freedom is possible for everyone, and that life is better when you're not stressed about money.</p>
+<p>We've created a FREE 40-day challenge called <strong>F40</strong> to help people improve their finances and start down the path to financial freedom.</p>
 
-<p>We've designed this program to help you take control of your money and build wealth-building habits, and it's completely <strong>FREE</strong> so you have <strong>nothing to lose</strong>.</p>
+<p>Sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) on an aspect of wealth creation. We'll show you the exact steps you need to take to start increasing your income, your independence and ultimately, your impact.</p>
 
-<p>The commitment is simple:</p>
-
-<p>Each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) on some aspect of wealth creation.</p>
-
-<p>Every video is designed to be thought-provoking, relevant, and practical so that you can start applying what you're learning right away.</p>
-
-<p>Over the course of the 40 days, you will build entirely new habits that set you on the path to financial freedom.</p>
-
-<p>Here's what we cover in the 6 weeks:</p>`,
+<p>Here's what we cover:</p>`,
     cta: "Join F40",
     icon: "dollar-sign",
     color: "financial"
