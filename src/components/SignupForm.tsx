@@ -3,8 +3,9 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { SprintSelect } from "./signup/SprintSelect";
 import { EmailInput } from "./signup/EmailInput";
-import { Calendar } from "./ui/calendar";
 import { Input } from "./ui/input";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 
 type SignupFormProps = {
@@ -112,67 +113,77 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
       
       <div className="bg-white p-6 rounded-lg shadow-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-              First Name
-            </label>
-            <Input
-              id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="w-full"
-              required
-            />
+          {/* Name fields row */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                First Name
+              </label>
+              <Input
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="w-full"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <Input
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="w-full"
+                required
+              />
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-              Last Name
-            </label>
-            <Input
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="w-full"
-              required
+          {/* Contact fields row */}
+          <div className="grid grid-cols-2 gap-4">
+            <EmailInput 
+              value={email}
+              onChange={setEmail}
             />
+
+            <div className="space-y-2">
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <Input
+                id="phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full"
+                required
+              />
+            </div>
           </div>
 
-          <EmailInput 
-            value={email}
-            onChange={setEmail}
-          />
-
-          <div className="space-y-2">
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-              Phone Number
-            </label>
-            <Input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full"
-              required
+          {/* Sprint and Date row */}
+          <div className="grid grid-cols-2 gap-4">
+            <SprintSelect 
+              defaultSprint={defaultSprint}
+              onChange={setSprint}
             />
-          </div>
-          
-          <SprintSelect 
-            defaultSprint={defaultSprint}
-            onChange={setSprint}
-          />
 
-          <div className="space-y-2">
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
-              Start Date
-            </label>
-            <Calendar
-              mode="single"
-              selected={startDate}
-              onSelect={setStartDate}
-              className="rounded-md border"
-              required
-            />
+            <div className="space-y-2">
+              <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+                Start Date
+              </label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date: Date) => setStartDate(date)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                dateFormat="MM/dd/yyyy"
+                placeholderText="Select a date"
+                required
+              />
+            </div>
           </div>
 
           <button
