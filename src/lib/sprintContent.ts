@@ -9,7 +9,7 @@ export type SprintContent = {
 export const sprintContent: Record<string, SprintContent> = {
   "Health": {
     heading: "Your Health Matters",
-    body: "Your health is the foundation of your freedom. We've noticed this area could use some attention. Consider joining H40, our 40-day sprint designed to help you build lasting health habits and increase your energy levels. We believe life is best when all three areas—health, finances, and relationships—are thriving.",
+    body: "It looks like your health has some room for improvement, but that's okay! We have something that might help.\n\nWe've built a FREE 40-day challenge called <strong>H40</strong> that's designed to completely transform both your physical and mental health. We've had over 5000 people go through H40 and have seen <strong><em>incredible</em></strong> results.\n\nIt's super easy. Sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) on an aspect of health. We'll show you the exact steps you need to take to increase your energy, build muscle, lose fat AND improve your mental health.",
     cta: "Join H40",
     icon: "heart",
     color: "health"
