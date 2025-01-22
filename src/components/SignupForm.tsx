@@ -73,9 +73,10 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
 
   return (
     <div className="w-full">
-      <h2 className="text-3xl font-serif font-bold text-center mb-8">
-        Ready to start? Sign up for FREE now!
-      </h2>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-serif font-bold">Ready to start?</h2>
+        <h3 className="text-2xl font-serif font-bold mt-2">Sign up for FREE now!</h3>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
@@ -107,9 +108,9 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
           </Select>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-center">
           <Label htmlFor="startDate">Start Date</Label>
-          <div className="block w-full">
+          <div className="flex justify-center w-full">
             <DatePicker
               id="startDate"
               selected={date}
