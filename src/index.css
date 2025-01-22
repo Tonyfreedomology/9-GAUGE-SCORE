@@ -19,6 +19,12 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    background-image: url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   .font-serif {
