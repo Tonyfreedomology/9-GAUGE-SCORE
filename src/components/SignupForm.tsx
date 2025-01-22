@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import DatePicker from "react-datepicker";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { submitSignupForm } from "@/lib/utils/formUtils";
 import "react-datepicker/dist/react-datepicker.css";
 
 type SignupFormProps = {
@@ -32,6 +33,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
           title: "Error",
           description: "Could not load webhook configuration. Please try again later.",
           variant: "destructive",
+          className: "bg-white border",
         });
         return;
       }
@@ -45,19 +47,6 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     fetchWebhookUrl();
   }, [toast]);
 
-  const getDefaultSprintValue = () => {
-    switch (defaultSprint) {
-      case "Health":
-        return "H40";
-      case "Financial":
-        return "F40";
-      case "Relationships":
-        return "R40";
-      default:
-        return undefined;
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -66,50 +55,21 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
         title: "Error",
         description: "Webhook URL not configured. Please try again later.",
         variant: "destructive",
+        className: "bg-white border",
       });
       return;
     }
 
     const formData = new FormData(e.target as HTMLFormElement);
-    
-    const formValues = {
-      firstName: formData.get('firstName'),
-      lastName: formData.get('lastName'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      sprintType: formData.get('sprintType'),
-      startDate: date ? new Date(date.setHours(6, 0, 0)).toLocaleString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      }).replace(',', '') : null
-    };
-
     setIsLoading(true);
-    console.log("Form submission:", formValues);
 
     try {
-      console.log("Attempting to call webhook URL:", webhookUrl);
+      await submitSignupForm(formData, date, webhookUrl);
       
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "no-cors", // This is required for cross-origin requests to Zapier
-        body: JSON.stringify(formValues),
-      });
-
-      console.log("Webhook response received");
-      
-      // Since we're using no-cors mode, we won't get a proper response status
-      // Instead, we'll assume success and let Zapier handle any issues
       toast({
         title: "Success!",
         description: "Your registration has been submitted. We'll be in touch soon!",
+        className: "bg-white border",
       });
       
       // Clear the form
@@ -122,6 +82,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
         title: "Error",
         description: "There was a problem submitting your registration. Please try again.",
         variant: "destructive",
+        className: "bg-white border",
       });
     } finally {
       setIsLoading(false);
