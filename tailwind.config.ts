@@ -97,13 +97,6 @@ export default {
         "scale-in": {
           "0%": { opacity: "0", transform: "scale(0.95)" },
           "100%": { opacity: "1", transform: "scale(1)" },
-        },
-        "glow": {
-          "0%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
-          "25%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
-          "50%": { filter: "drop-shadow(0 0 25px rgba(var(--glow-color), 0.7))" },
-          "75%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" },
-          "100%": { filter: "drop-shadow(0 0 15px rgba(var(--glow-color), 0.2))" }
         }
       },
       animation: {
@@ -111,8 +104,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out forwards",
         "fade-out": "fade-out 0.5s ease-out forwards",
-        "scale-in": "scale-in 0.2s ease-out",
-        "glow": "glow 8s ease-in-out infinite"
+        "scale-in": "scale-in 0.2s ease-out"
       },
     },
   },
