@@ -14,7 +14,6 @@ type SignupFormProps = {
 export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
   const [date, setDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [webhookUrl, setWebhookUrl] = useState("");
   const { toast } = useToast();
 
   const getDefaultSprintValue = () => {
@@ -32,16 +31,6 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!webhookUrl) {
-      toast({
-        title: "Error",
-        description: "Please enter your Zapier webhook URL",
-        variant: "destructive",
-      });
-      return;
-    }
-
     const formData = new FormData(e.target as HTMLFormElement);
     
     const formValues = {
@@ -50,16 +39,15 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
       email: formData.get('email'),
       phone: formData.get('phone'),
       sprintType: formData.get('sprintType'),
-      startDate: date?.toISOString(),
-      submittedAt: new Date().toISOString(),
-      source: window.location.origin
+      startDate: date?.toISOString()
     };
 
     setIsLoading(true);
     console.log("Form submission:", formValues);
 
     try {
-      const response = await fetch(webhookUrl, {
+      // Replace this URL with your actual Zapier webhook URL
+      const response = await fetch("YOUR_ZAPIER_WEBHOOK_URL", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,18 +80,6 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="webhookUrl">Zapier Webhook URL</Label>
-          <Input
-            id="webhookUrl"
-            value={webhookUrl}
-            onChange={(e) => setWebhookUrl(e.target.value)}
-            placeholder="Enter your Zapier webhook URL"
-            className="font-mono text-sm"
-            required
-          />
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name</Label>
