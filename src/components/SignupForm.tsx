@@ -85,19 +85,30 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     console.log("Form submission:", formValues);
 
     try {
+      console.log("Attempting to call webhook URL:", webhookUrl);
+      
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors",
+        mode: "no-cors", // This is required for cross-origin requests to Zapier
         body: JSON.stringify(formValues),
       });
 
+      console.log("Webhook response received");
+      
+      // Since we're using no-cors mode, we won't get a proper response status
+      // Instead, we'll assume success and let Zapier handle any issues
       toast({
         title: "Success!",
         description: "Your registration has been submitted. We'll be in touch soon!",
       });
+      
+      // Clear the form
+      (e.target as HTMLFormElement).reset();
+      setDate(null);
+      
     } catch (error) {
       console.error("Submission error:", error);
       toast({
