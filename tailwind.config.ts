@@ -109,7 +109,7 @@ export default {
         "fade-in": "fade-in 0.5s ease-out forwards",
         "fade-out": "fade-out 0.5s ease-out forwards",
         "scale-in": "scale-in 0.2s ease-out",
-        "glow": "glow 2s ease-in-out infinite"
+        "glow": "glow 4s ease-in-out infinite"
       },
     },
   },
