@@ -80,43 +80,47 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="firstName">First Name</Label>
-          <Input id="firstName" name="firstName" required />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input id="firstName" name="firstName" required />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input id="lastName" name="lastName" required />
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="lastName">Last Name</Label>
-          <Input id="lastName" name="lastName" required />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" name="email" type="email" required />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input id="phone" name="phone" type="tel" required />
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" required />
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="sprintType">Sprint Type</Label>
+            <Select name="sprintType" defaultValue={getDefaultSprintValue()} required>
+              <SelectTrigger className="bg-white">
+                <SelectValue placeholder="Select your sprint" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                <SelectItem value="H40">H40 - Health Sprint</SelectItem>
+                <SelectItem value="F40">F40 - Financial Sprint</SelectItem>
+                <SelectItem value="R40">R40 - Relationships Sprint</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" name="phone" type="tel" required />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="sprintType">Sprint Type</Label>
-          <Select name="sprintType" defaultValue={getDefaultSprintValue()} required>
-            <SelectTrigger className="bg-white">
-              <SelectValue placeholder="Select your sprint" />
-            </SelectTrigger>
-            <SelectContent className="bg-white">
-              <SelectItem value="H40">H40 - Health Sprint</SelectItem>
-              <SelectItem value="F40">F40 - Financial Sprint</SelectItem>
-              <SelectItem value="R40">R40 - Relationships Sprint</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2 text-center">
-          <Label htmlFor="startDate">Start Date</Label>
-          <div className="flex justify-center w-full">
+          <div className="space-y-2">
+            <Label htmlFor="startDate">Start Date</Label>
             <DatePicker
               id="startDate"
               selected={date}
