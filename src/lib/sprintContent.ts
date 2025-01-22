@@ -31,7 +31,10 @@ It's super easy. Sign up below, and each day for 40 days, you'll get an email an
   },
   "Relationships": {
     heading: "Transform Every Relationship in Your Life",
-    body: "R40 is designed to transform your relationships in three key areas: with others, yourself, and your Creator. Over six transformative weeks, you'll learn to CONNECT with those around you, REFLECT on your self-relationship, ATTRACT positive connections, CORRECT unhealthy patterns, show RESPECT in challenging situations, and discover PERFECT unconditional love. This 40-day journey will revolutionize how you approach relationships and help you build deeper, more meaningful connections in every area of your life.",
+    body: "It looks like your relationships have some room for growth, but that's okay! We have something that might help.\n\n\
+We've built a FREE 40-day challenge called <strong>R40</strong> that's designed to transform and improve every relationship in your life.\n\n\
+It's super easy. Just sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) about an aspect of relationships. We'll show you the exact steps you need to take to become more attractive, build deeper, more meaningful connections, and improve your relationship with yourself.\n\n\
+Here's what we cover:",
     cta: "Join R40",
     icon: "users",
     color: "relationships"
