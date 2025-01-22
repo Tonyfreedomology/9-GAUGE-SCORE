@@ -68,29 +68,13 @@ export const ScoreCard = ({
         </h3>
       </div>
       <div className="space-y-6">
-        <div className="relative flex justify-center items-center">
+        <div className="flex justify-center">
           <ProgressBar 
             value={isVisible ? score : 0} 
             color={color} 
             variant="circle"
             size={isOverallScore ? 200 : 160}
           />
-          <div 
-            className={cn(
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-              isOverallScore && "animate-pulse"
-            )}
-          >
-            <span 
-              className={cn(
-                "text-7xl font-bold animate-scale-in",
-                isOverallScore && "text-8xl drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-              )}
-              style={{ color }}
-            >
-              {Math.round(animatedScore)}
-            </span>
-          </div>
         </div>
         {!hideSubtext && (
           <div className="flex justify-center">
