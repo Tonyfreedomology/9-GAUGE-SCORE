@@ -3,6 +3,7 @@ import { ProgressBar } from "./ProgressBar";
 import { getFeedbackTier } from "@/lib/questions";
 import { cn } from "@/lib/utils";
 import { getPillarIcon } from "@/lib/getPillarIcon";
+import { hexToRgba } from "@/lib/utils/colorUtils";
 
 type ScoreCardProps = {
   title: string;
@@ -59,14 +60,15 @@ export const ScoreCard = ({
     className
   );
 
-  // Convert the color to rgba for the glow effect
-  const getRgbaColor = (hexColor: string) => {
-    // Remove the # if present
-    const hex = hexColor.replace('#', '');
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, 0.5)`;
+  const scoreClasses = cn(
+    "text-7xl font-bold",
+    isOverallScore && "text-8xl"
+  );
+
+  const glowStyle = {
+    color,
+    filter: `drop-shadow(0 0 15px ${hexToRgba(color)})`,
+    animation: 'glow 2s ease-in-out infinite'
   };
 
   return (
@@ -87,15 +89,8 @@ export const ScoreCard = ({
           />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
-              className={cn(
-                "text-7xl font-bold",
-                isOverallScore && "text-8xl"
-              )}
-              style={{ 
-                color,
-                filter: `drop-shadow(0 0 15px ${getRgbaColor(color)})`,
-                animation: 'glow 2s ease-in-out infinite'
-              }}
+              className={scoreClasses}
+              style={glowStyle}
             >
               {Math.round(animatedScore)}
             </span>
