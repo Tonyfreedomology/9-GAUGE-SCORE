@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
 import DatePicker from "react-datepicker";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import "react-datepicker/dist/react-datepicker.css";
 
 type SignupFormProps = {
@@ -14,7 +15,35 @@ type SignupFormProps = {
 export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
   const [date, setDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState<string>("");
   const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchWebhookUrl = async () => {
+      const { data, error } = await supabase
+        .from('secrets')
+        .select('value')
+        .eq('name', 'ZAPIER_WEBHOOK_URL')
+        .single();
+
+      if (error) {
+        console.error('Error fetching webhook URL:', error);
+        toast({
+          title: "Error",
+          description: "Could not load webhook configuration. Please try again later.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (data) {
+        setWebhookUrl(data.value);
+        console.log("Webhook URL loaded successfully");
+      }
+    };
+
+    fetchWebhookUrl();
+  }, [toast]);
 
   const getDefaultSprintValue = () => {
     switch (defaultSprint) {
@@ -31,6 +60,16 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!webhookUrl) {
+      toast({
+        title: "Error",
+        description: "Webhook URL not configured. Please try again later.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const formData = new FormData(e.target as HTMLFormElement);
     
     const formValues = {
@@ -46,8 +85,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
     console.log("Form submission:", formValues);
 
     try {
-      // Replace YOUR_ZAPIER_WEBHOOK_URL with your actual webhook URL
-      const response = await fetch("YOUR_ZAPIER_WEBHOOK_URL", {
+      const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
