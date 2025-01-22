@@ -77,17 +77,6 @@ export const ProgressBar = ({
             strokeLinecap="round"
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span 
-            className={cn(
-              "text-7xl font-bold",
-              "animate-scale-in"
-            )}
-            style={{ color }}
-          >
-            {Math.round(animatedValue)}
-          </span>
-        </div>
       </div>
     );
   }
