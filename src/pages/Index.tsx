@@ -7,7 +7,7 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-start justify-center relative overflow-hidden"
       style={{
         backgroundImage: "url('https://static.wixstatic.com/media/af616c_493e2c122a7049cf84997445a1c30517~mv2.webp')",
         backgroundSize: 'cover',
@@ -16,14 +16,14 @@ const Index = () => {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-8 md:space-y-12">
+      <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-6 md:space-y-8 pt-20 md:pt-28">
         <img 
           src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
           alt="Freedomology Logo" 
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight font-sans px-2 md:px-4">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight font-sans px-2 md:px-4">
           How Free Are You?
         </h1>
 
