@@ -9,23 +9,21 @@ const Index = () => {
     <div 
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
       style={{
-        backgroundImage: "url('https://static.wixstatic.com/media/af616c_236c8c1137ba4146a1d6fbd7874561ed~mv2.png')",
+        backgroundImage: "url('https://static.wixstatic.com/media/af616c_493e2c122a7049cf84997445a1c30517~mv2.webp')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
-      
-      <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-8 md:space-y-12 bg-black/40 backdrop-blur-sm rounded-3xl m-4">
+      <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-8 md:space-y-12">
         <img 
           src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
           alt="Freedomology Logo" 
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-league-spartan px-2 md:px-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight font-sans px-2 md:px-4">
           How Free Are You?
         </h1>
 
@@ -39,7 +37,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base text-white font-medium">Finances</span>
+            <span className="text-sm md:text-base text-foreground font-medium">Finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -50,7 +48,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base text-white font-medium">Health</span>
+            <span className="text-sm md:text-base text-foreground font-medium">Health</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -61,11 +59,11 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base text-white font-medium">Relationships</span>
+            <span className="text-sm md:text-base text-foreground font-medium">Relationships</span>
           </div>
         </div>
 
-        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light text-white/90 leading-relaxed px-2 md:px-0">
+        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light text-foreground leading-relaxed px-2 md:px-0">
           <p>
             Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
