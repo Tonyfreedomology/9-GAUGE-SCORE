@@ -42,9 +42,9 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
         <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
         
-        {/* Introduction text - left aligned with consistent spacing */}
+        {/* Introduction text - centered with consistent spacing */}
         <div 
-          className="text-lg text-left w-full text-foreground [&>p]:mb-4 last:[&>p]:mb-0" 
+          className="text-lg text-center w-full text-foreground [&>p]:mb-4 last:[&>p]:mb-0" 
           dangerouslySetInnerHTML={{ __html: introText }} 
         />
         
