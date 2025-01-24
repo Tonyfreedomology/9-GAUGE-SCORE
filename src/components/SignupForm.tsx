@@ -111,7 +111,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
         <p className="text-xl">Sign up for a FREE 40-day challenge NOW!</p>
       </div>
       
-      <div className="bg-[#f3f3f3] p-6 rounded-lg shadow-sm">
+      <div className="bg-[#f4f4f4] p-6 rounded-lg shadow-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name fields row */}
           <div className="grid grid-cols-2 gap-4">
