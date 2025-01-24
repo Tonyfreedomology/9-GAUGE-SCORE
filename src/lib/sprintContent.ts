@@ -18,7 +18,7 @@ It's super easy. Sign up below, and each day for 40 days, you'll get an email an
   },
   "Financial": {
     heading: "Financial Freedom Awaits",
-    body: `Looks like your finances could use some improvement, but that's okay! We built something just for you!
+    body: `Looks like your finances could use some improvement, but that's okay!
 
 <p>We've created a FREE 40-day challenge called <strong>F40</strong> to help people improve their finances and start down the path to financial freedom.</p>
 
