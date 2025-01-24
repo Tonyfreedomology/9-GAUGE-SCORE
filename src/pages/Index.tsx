@@ -23,7 +23,7 @@ const Index = () => {
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-sans px-2 md:px-4 text-[#3A4348]">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight font-sans px-2 md:px-4 text-[#3A4348]">
           How Free Are You?
         </h1>
 
