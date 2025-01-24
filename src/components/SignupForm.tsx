@@ -6,7 +6,7 @@ import { EmailInput } from "./signup/EmailInput";
 import { Input } from "./ui/input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 type SignupFormProps = {
   defaultSprint?: string;
@@ -111,7 +111,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
         <p className="text-xl">Sign up for a FREE 40-day challenge NOW!</p>
       </div>
       
-      <div className="bg-white p-6 rounded-lg shadow-sm">
+      <div className="bg-[#f3f3f3] p-6 rounded-lg shadow-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name fields row */}
           <div className="grid grid-cols-2 gap-4">
