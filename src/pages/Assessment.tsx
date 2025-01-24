@@ -75,7 +75,7 @@ const Assessment = () => {
       <div 
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: "url('https://static.wixstatic.com/media/af616c_4d08ecf98af74aeeaccabf857293ca3f~mv2.png')",
+          backgroundImage: "url('https://static.wixstatic.com/media/af616c_493e2c122a7049cf84997445a1c30517~mv2.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
