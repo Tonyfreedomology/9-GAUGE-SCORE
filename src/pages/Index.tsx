@@ -16,15 +16,13 @@ const Index = () => {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Logo in top right corner */}
-      <img 
-        src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
-        alt="Freedomology Logo" 
-        className="absolute top-6 right-6 h-12 md:h-16 z-20 cursor-pointer hover:scale-105 transition-transform"
-        onClick={() => navigate("/")}
-      />
-      
       <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-6 md:space-y-8 pt-20 md:pt-28">
+        <img 
+          src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
+          alt="Freedomology Logo" 
+          className="h-16 md:h-20 mx-auto mb-4"
+        />
+        
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-sans px-2 md:px-4 text-[#3A4348]">
           How Free Are You?
         </h1>
