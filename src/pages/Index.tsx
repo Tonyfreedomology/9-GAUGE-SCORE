@@ -23,7 +23,7 @@ const Index = () => {
           className="h-16 md:h-20 mx-auto mb-4"
         />
         
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight font-sans px-2 md:px-4">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-sans px-2 md:px-4 text-[#3A4348]">
           How Free Are You?
         </h1>
 
@@ -37,7 +37,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base text-foreground font-medium">Finances</span>
+            <span className="text-sm md:text-base font-medium text-[#3A4348]">Finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -48,7 +48,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base text-foreground font-medium">Health</span>
+            <span className="text-sm md:text-base font-medium text-[#3A4348]">Health</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -59,11 +59,11 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base text-foreground font-medium">Relationships</span>
+            <span className="text-sm md:text-base font-medium text-[#3A4348]">Relationships</span>
           </div>
         </div>
 
-        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light text-foreground leading-relaxed px-2 md:px-0">
+        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light leading-relaxed px-2 md:px-0 text-[#3A4348]">
           <p>
             Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
