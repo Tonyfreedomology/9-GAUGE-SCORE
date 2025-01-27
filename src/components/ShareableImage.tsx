@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Text } from "fabric";
+import { questions, calculatePillarScore } from "@/lib/questions";
 
 type ShareableImageProps = {
   answers: Record<string, number>;
