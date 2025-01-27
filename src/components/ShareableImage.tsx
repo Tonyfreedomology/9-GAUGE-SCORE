@@ -23,8 +23,7 @@ export const ShareableImage = ({
 
     const canvas = new FabricCanvas(canvasRef.current, {
       width,
-      height,
-      backgroundColor: "#293230"
+      height
     });
 
     // Calculate scores
