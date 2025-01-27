@@ -31,22 +31,29 @@ export const createImageLayout = (
 
   // Set background image using the new Fabric.js v6 API
   return new Promise<void>((resolve) => {
-    Image.fromURL(
-      '/lovable-uploads/1eec1686-e3f5-4287-8ab7-7de36d47fd73.png',
-      { crossOrigin: 'anonymous' }
-    ).then((img) => {
+    Image.fromURL('/lovable-uploads/1eec1686-e3f5-4287-8ab7-7de36d47fd73.png', {
+      crossOrigin: 'anonymous'
+    }).then((img) => {
       console.log('Background image loaded successfully');
       
       // Scale the image to fit canvas
       const scaleX = canvasWidth / img.width!;
       const scaleY = canvasHeight / img.height!;
-      img.scale(Math.max(scaleX, scaleY));
+      const scale = Math.max(scaleX, scaleY);
       
-      // Center the image
-      img.center();
+      // Center the image using the new v6 API
+      img.set({
+        scaleX: scale,
+        scaleY: scale,
+        left: canvasWidth / 2,
+        top: canvasHeight / 2,
+        originX: 'center',
+        originY: 'center'
+      });
       
-      // Set as background
-      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+      // Set as background using the new v6 API
+      canvas.backgroundImage = img;
+      canvas.renderAll();
 
       // Scale factors for responsive layout
       const scaleFactor = Math.min(canvasWidth / 1200, canvasHeight / 630);
