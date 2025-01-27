@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Text } from "fabric";
-import { questions, calculatePillarScore } from "@/lib/questions";
+import { Canvas as FabricCanvas } from "fabric";
+import { calculateScores } from "@/lib/utils/scoreUtils";
+import { createImageLayout } from "./shareable/ImageLayout";
 
 type ShareableImageProps = {
   answers: Record<string, number>;
@@ -15,94 +16,31 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
 
     const canvas = new FabricCanvas(canvasRef.current, {
       width: 1200,
-      height: 630, // Twitter card size
+      height: 630,
       backgroundColor: "#293230"
     });
 
     // Calculate scores
-    const pillarScores = questions.map(pillar => ({
-      name: pillar.name,
-      score: calculatePillarScore(pillar, answers)
-    }));
+    const { pillarScores, overallScore } = calculateScores(answers);
 
-    const overallScore = Math.round(
-      pillarScores.reduce((acc, pillar) => acc + pillar.score, 0) / pillarScores.length
-    );
+    // Create layout
+    createImageLayout(canvas, overallScore, pillarScores);
 
-    // TODO: Replace with actual template image once provided by designer
-    // For now, create a placeholder design
-    canvas.add(new Text("Freedomology Assessment", {
-      left: 600,
-      top: 100,
-      fontSize: 48,
-      fill: "#FFFFFF",
-      fontFamily: "League Spartan",
-      originX: "center",
-      textAlign: "center"
-    }));
-
-    // Add overall score
-    canvas.add(new Text(`${overallScore}`, {
-      left: 600,
-      top: 200,
-      fontSize: 120,
-      fill: "#17BEBB",
-      fontFamily: "League Spartan",
-      originX: "center",
-      textAlign: "center"
-    }));
-
-    // Add pillar scores
-    pillarScores.forEach((pillar, index) => {
-      const x = 300 + (index * 300);
-      canvas.add(new Text(pillar.name, {
-        left: x,
-        top: 400,
-        fontSize: 24,
-        fill: "#FFFFFF",
-        fontFamily: "League Spartan",
-        originX: "center",
-        textAlign: "center"
-      }));
-
-      canvas.add(new Text(`${pillar.score}`, {
-        left: x,
-        top: 450,
-        fontSize: 64,
-        fill: getPillarColor(pillar.name),
-        fontFamily: "League Spartan",
-        originX: "center",
-        textAlign: "center"
-      }));
-    });
-
-    // Generate image and cleanup
+    // Generate image
     const dataUrl = canvas.toDataURL({
       format: "png",
       quality: 1,
-      multiplier: 2 // Added for better quality
+      multiplier: 2
     });
+    
     onImageGenerated(dataUrl);
     canvas.dispose();
   }, [answers, onImageGenerated]);
 
-  const getPillarColor = (pillarName: string): string => {
-    switch (pillarName) {
-      case "Financial":
-        return "#17BEBB";
-      case "Health":
-        return "#EDB88B";
-      case "Relationships":
-        return "#EF3E36";
-      default:
-        return "#FFFFFF";
-    }
-  };
-
   return (
     <canvas 
       ref={canvasRef}
-      className="hidden" // Hide the canvas element as we only need it for generation
+      className="hidden"
     />
   );
 };
