@@ -10,14 +10,17 @@ export const createImageLayout = (
 ) => {
   console.log('Creating image layout with scores:', { overallScore, pillarScores });
 
-  // Load background image
-  Image.fromURL('/lovable-uploads/01d825b5-d5ab-452c-b2d5-cee2a8cd87de.png', (img) => {
+  // Load background image using the proper Fabric.js v6 method
+  Image.fromURL('/lovable-uploads/01d825b5-d5ab-452c-b2d5-cee2a8cd87de.png', {
+    crossOrigin: 'anonymous',
+  }).then((img) => {
     // Scale image to canvas size
     img.scaleToWidth(canvasWidth);
     img.scaleToHeight(canvasHeight);
     
-    // Set as background
-    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+    // Set as background using the correct v6 property
+    canvas.backgroundImage = img;
+    canvas.renderAll();
 
     // Scale factors for responsive layout
     const scaleFactor = Math.min(canvasWidth / 1200, canvasHeight / 630);
@@ -58,9 +61,6 @@ export const createImageLayout = (
       }));
     });
 
-    canvas.renderAll();
     console.log('Image layout created successfully');
-  }, {
-    crossOrigin: 'anonymous'
   });
 };
