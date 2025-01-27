@@ -14,15 +14,9 @@ export const createImageLayout = (
   const CANVAS_HEIGHT = 630;
   const CENTER_X = CANVAS_WIDTH / 2;
   
-  // Set background image
-  canvas.setBackgroundImage(
-    'public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png',
-    canvas.renderAll.bind(canvas),
-    {
-      scaleX: CANVAS_WIDTH / 1200,
-      scaleY: CANVAS_HEIGHT / 630,
-    }
-  );
+  // Set background image using the new Fabric.js v6 API
+  canvas.backgroundImage = 'public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png';
+  canvas.renderAll();
 
   // Add "Freedomology Score" text at the top
   canvas.add(createTextElement({
