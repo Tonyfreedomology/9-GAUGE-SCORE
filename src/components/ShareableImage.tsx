@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas } from "fabric";
-import { questions, calculatePillarScore } from "@/lib/questions";
+import { Canvas as FabricCanvas, Text } from "fabric";
 
 type ShareableImageProps = {
   answers: Record<string, number>;
@@ -31,7 +30,7 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
 
     // TODO: Replace with actual template image once provided by designer
     // For now, create a placeholder design
-    canvas.add(new fabric.Text("Freedomology Assessment", {
+    canvas.add(new Text("Freedomology Assessment", {
       left: 600,
       top: 100,
       fontSize: 48,
@@ -42,7 +41,7 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
     }));
 
     // Add overall score
-    canvas.add(new fabric.Text(`${overallScore}`, {
+    canvas.add(new Text(`${overallScore}`, {
       left: 600,
       top: 200,
       fontSize: 120,
@@ -55,7 +54,7 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
     // Add pillar scores
     pillarScores.forEach((pillar, index) => {
       const x = 300 + (index * 300);
-      canvas.add(new fabric.Text(pillar.name, {
+      canvas.add(new Text(pillar.name, {
         left: x,
         top: 400,
         fontSize: 24,
@@ -65,7 +64,7 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
         textAlign: "center"
       }));
 
-      canvas.add(new fabric.Text(`${pillar.score}`, {
+      canvas.add(new Text(`${pillar.score}`, {
         left: x,
         top: 450,
         fontSize: 64,
@@ -79,7 +78,8 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
     // Generate image and cleanup
     const dataUrl = canvas.toDataURL({
       format: "png",
-      quality: 1
+      quality: 1,
+      multiplier: 2 // Added for better quality
     });
     onImageGenerated(dataUrl);
     canvas.dispose();
