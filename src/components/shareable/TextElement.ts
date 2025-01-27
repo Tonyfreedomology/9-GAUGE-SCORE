@@ -1,8 +1,8 @@
-import { Text } from "fabric";
+import { Text, ITextOptions } from "fabric";
 
 type TextElementProps = {
   text: string;
-  options: fabric.ITextOptions;
+  options: ITextOptions;
 };
 
 export const createTextElement = ({ text, options }: TextElementProps): Text => {
