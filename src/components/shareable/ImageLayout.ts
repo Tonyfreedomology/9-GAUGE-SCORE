@@ -15,7 +15,9 @@ export const createImageLayout = (
   const CENTER_X = CANVAS_WIDTH / 2;
   
   // Set background image using the proper Fabric.js v6 method
-  Image.fromURL('public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png', (img) => {
+  Image.fromURL('public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png', {
+    crossOrigin: 'anonymous',
+  }).then((img) => {
     img.scaleToWidth(CANVAS_WIDTH);
     img.scaleToHeight(CANVAS_HEIGHT);
     canvas.backgroundImage = img;
