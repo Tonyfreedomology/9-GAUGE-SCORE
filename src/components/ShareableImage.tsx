@@ -6,17 +6,24 @@ import { createImageLayout } from "./shareable/ImageLayout";
 type ShareableImageProps = {
   answers: Record<string, number>;
   onImageGenerated: (dataUrl: string) => void;
+  width?: number;
+  height?: number;
 };
 
-export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProps) => {
+export const ShareableImage = ({ 
+  answers, 
+  onImageGenerated,
+  width = 1200,
+  height = 630 
+}: ShareableImageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
     const canvas = new FabricCanvas(canvasRef.current, {
-      width: 1200,
-      height: 630,
+      width,
+      height,
       backgroundColor: "#293230"
     });
 
@@ -24,7 +31,7 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
     const { pillarScores, overallScore } = calculateScores(answers);
 
     // Create layout
-    createImageLayout(canvas, overallScore, pillarScores);
+    createImageLayout(canvas, overallScore, pillarScores, width, height);
 
     // Generate image
     const dataUrl = canvas.toDataURL({
@@ -35,7 +42,7 @@ export const ShareableImage = ({ answers, onImageGenerated }: ShareableImageProp
     
     onImageGenerated(dataUrl);
     canvas.dispose();
-  }, [answers, onImageGenerated]);
+  }, [answers, onImageGenerated, width, height]);
 
   return (
     <canvas 

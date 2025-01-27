@@ -5,32 +5,35 @@ import { getPillarColor } from "@/lib/utils/scoreUtils";
 export const createImageLayout = (
   canvas: FabricCanvas,
   overallScore: number,
-  pillarScores: Array<{ name: string; score: number }>
+  pillarScores: Array<{ name: string; score: number }>,
+  canvasWidth = 1200,
+  canvasHeight = 630
 ) => {
   console.log('Creating image layout with scores:', { overallScore, pillarScores });
 
   // Constants for layout
-  const CANVAS_WIDTH = 1200;
-  const CANVAS_HEIGHT = 630;
-  const CENTER_X = CANVAS_WIDTH / 2;
+  const CENTER_X = canvasWidth / 2;
   
   // Set background image using the proper Fabric.js v6 method
   Image.fromURL('public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png', {
     crossOrigin: 'anonymous',
   }).then((img) => {
-    img.scaleToWidth(CANVAS_WIDTH);
-    img.scaleToHeight(CANVAS_HEIGHT);
+    img.scaleToWidth(canvasWidth);
+    img.scaleToHeight(canvasHeight);
     canvas.backgroundImage = img;
     canvas.renderAll();
   });
 
+  // Scale factors for responsive layout
+  const scaleFactor = Math.min(canvasWidth / 1200, canvasHeight / 630);
+  
   // Add "Freedomology Score" text at the top
   canvas.add(createTextElement({
     text: "Freedomology Score",
     options: {
       left: CENTER_X,
-      top: 80,
-      fontSize: 48,
+      top: 80 * scaleFactor,
+      fontSize: 48 * scaleFactor,
       fontFamily: 'League Spartan',
       fill: "#FFFFFF",
       originX: 'center',
@@ -43,8 +46,8 @@ export const createImageLayout = (
     text: `${overallScore}`,
     options: {
       left: CENTER_X,
-      top: 150,
-      fontSize: 96,
+      top: 150 * scaleFactor,
+      fontSize: 96 * scaleFactor,
       fontFamily: 'League Spartan',
       fill: "#FFFFFF",
       originX: 'center',
@@ -53,11 +56,11 @@ export const createImageLayout = (
   }));
 
   // Add pillar scores in translucent boxes
-  const BOX_WIDTH = 280;
-  const BOX_HEIGHT = 200;
-  const BOX_Y = 350;
-  const BOX_SPACING = 320;
-  const SCORE_OFFSET_Y = 70;
+  const BOX_WIDTH = 280 * scaleFactor;
+  const BOX_HEIGHT = 200 * scaleFactor;
+  const BOX_Y = 350 * scaleFactor;
+  const BOX_SPACING = 320 * scaleFactor;
+  const SCORE_OFFSET_Y = 70 * scaleFactor;
 
   pillarScores.forEach((pillar, index) => {
     const x = CENTER_X + (index - 1) * BOX_SPACING;
@@ -79,8 +82,8 @@ export const createImageLayout = (
       text: pillar.name,
       options: {
         left: x,
-        top: BOX_Y + 40,
-        fontSize: 28,
+        top: BOX_Y + 40 * scaleFactor,
+        fontSize: 28 * scaleFactor,
         fontFamily: 'Avenir',
         fill: "#FFFFFF",
         originX: 'center'
@@ -93,7 +96,7 @@ export const createImageLayout = (
       options: {
         left: x,
         top: BOX_Y + SCORE_OFFSET_Y,
-        fontSize: 64,
+        fontSize: 64 * scaleFactor,
         fontFamily: 'League Spartan',
         fill: "#FFFFFF",
         originX: 'center',
@@ -107,8 +110,8 @@ export const createImageLayout = (
     text: "How free are YOU? | freedomology-scorecard.lovable.app",
     options: {
       left: CENTER_X,
-      top: CANVAS_HEIGHT - 50,
-      fontSize: 24,
+      top: canvasHeight - 50 * scaleFactor,
+      fontSize: 24 * scaleFactor,
       fontFamily: 'League Spartan',
       fill: "#FFFFFF",
       originX: 'center'
