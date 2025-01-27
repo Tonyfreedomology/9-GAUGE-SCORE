@@ -11,11 +11,11 @@ export const createImageLayout = (
   console.log('Creating image layout with scores:', { overallScore, pillarScores });
 
   // Set background image using the new Fabric.js v6 API
-  Image.fromURL('https://static.wixstatic.com/media/af616c_62a4381d8580414faf04da933f2286ee~mv2.jpg', {
-    crossOrigin: 'anonymous',
-    scaleX: canvasWidth / 1200,
-    scaleY: canvasHeight / 630,
-  }).then(img => {
+  Image.fromURL('https://static.wixstatic.com/media/af616c_62a4381d8580414faf04da933f2286ee~mv2.jpg', (img) => {
+    // Scale the image after it's loaded
+    img.scaleX = canvasWidth / 1200;
+    img.scaleY = canvasHeight / 630;
+    
     canvas.backgroundImage = img;
     canvas.renderAll();
 
@@ -60,5 +60,5 @@ export const createImageLayout = (
 
     canvas.renderAll();
     console.log('Image layout created successfully');
-  });
+  }, { crossOrigin: 'anonymous' }); // Only pass crossOrigin in the options
 };
