@@ -1,4 +1,4 @@
-import { Canvas as FabricCanvas, Text, Rect } from "fabric";
+import { Canvas as FabricCanvas, Text, Rect, Image } from "fabric";
 import { createTextElement } from "./TextElement";
 import { getPillarColor } from "@/lib/utils/scoreUtils";
 
@@ -14,9 +14,12 @@ export const createImageLayout = (
   const CANVAS_HEIGHT = 630;
   const CENTER_X = CANVAS_WIDTH / 2;
   
-  // Set background image using the new Fabric.js v6 API
-  canvas.backgroundImage = 'public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png';
-  canvas.renderAll();
+  // Set background image using the proper Fabric.js v6 method
+  fabric.Image.fromURL('public/lovable-uploads/ce6f8dfa-3fae-4a43-9e79-9efc3e745359.png', (img) => {
+    img.scaleToWidth(CANVAS_WIDTH);
+    img.scaleToHeight(CANVAS_HEIGHT);
+    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+  });
 
   // Add "Freedomology Score" text at the top
   canvas.add(createTextElement({
