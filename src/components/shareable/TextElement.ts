@@ -2,7 +2,7 @@ import { Text, TOptions } from "fabric";
 
 type TextElementProps = {
   text: string;
-  options: TOptions;
+  options: TOptions<Text>;
 };
 
 export const createTextElement = ({ text, options }: TextElementProps): Text => {
