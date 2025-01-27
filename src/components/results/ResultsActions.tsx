@@ -3,9 +3,10 @@ import { ShareResults } from "../ShareResults";
 type ResultsActionsProps = {
   onStartOver: () => void;
   containerRef: React.RefObject<HTMLDivElement>;
+  answers: Record<string, number>;
 };
 
-export const ResultsActions = ({ onStartOver, containerRef }: ResultsActionsProps) => {
+export const ResultsActions = ({ onStartOver, containerRef, answers }: ResultsActionsProps) => {
   return (
     <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
       <button
@@ -15,7 +16,7 @@ export const ResultsActions = ({ onStartOver, containerRef }: ResultsActionsProp
       >
         Start Over
       </button>
-      <ShareResults containerRef={containerRef} />
+      <ShareResults containerRef={containerRef} answers={answers} />
     </div>
   );
 };
