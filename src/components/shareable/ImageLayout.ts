@@ -31,7 +31,7 @@ export const createImageLayout = (
 
   // Set background image using the new Fabric.js v6 API
   return new Promise<void>((resolve) => {
-    Image.fromURL('/lovable-uploads/1eec1686-e3f5-4287-8ab7-7de36d47fd73.png', {
+    Image.fromURL('https://static.wixstatic.com/media/af616c_62a4381d8580414faf04da933f2286ee~mv2.jpg', {
       crossOrigin: 'anonymous'
     }).then((img) => {
       console.log('Background image loaded successfully');
