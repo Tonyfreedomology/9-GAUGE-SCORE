@@ -17,7 +17,7 @@ const Index = () => {
       }}
     >
       <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-6 md:space-y-8 pt-12 md:pt-16">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-heading tracking-tighter lowercase text-[#3A4348]">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-heading tracking-tighter lowercase text-white">
           how free are you?
         </h1>
 
@@ -82,6 +82,7 @@ const Index = () => {
             <ArrowRight className="h-5 w-5" />
           </span>
         </button>
+
       </div>
 
       <img 
