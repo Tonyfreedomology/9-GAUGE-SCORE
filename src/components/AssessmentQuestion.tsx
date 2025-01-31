@@ -40,7 +40,6 @@ export const AssessmentQuestion = ({
 }: AssessmentQuestionProps) => {
   const [key, setKey] = useState(0);
 
-  // Reset animation key when question changes
   useEffect(() => {
     setKey(prev => prev + 1);
     console.log("Question changed, triggering animation");
@@ -53,7 +52,7 @@ export const AssessmentQuestion = ({
       <div className="space-y-6 animate-[fade-in_0.5s_ease-out]">
         <div className="flex items-center justify-center gap-3">
           {getPillarIcon(pillarName)}
-          <h1 className="text-3xl md:text-4xl font-bold text-center text-white">
+          <h1 className="text-3xl md:text-4xl font-heading font-bold text-center text-white tracking-tighter lowercase">
             {pillarName}
           </h1>
         </div>
