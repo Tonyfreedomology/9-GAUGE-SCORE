@@ -17,8 +17,8 @@ const Index = () => {
       }}
     >
       <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-6 md:space-y-8 pt-12 md:pt-16">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight font-sans px-2 md:px-4 text-[#3A4348]">
-          How Free Are You?
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-heading tracking-tighter lowercase text-[#3A4348]">
+          how free are you?
         </h1>
 
         <div className="flex justify-center space-x-6 md:space-x-16">
@@ -31,7 +31,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base font-medium text-[#3A4348]">Finances</span>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#3A4348]">finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -42,7 +42,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base font-medium text-[#3A4348]">Health</span>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#3A4348]">health</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -53,7 +53,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base font-medium text-[#3A4348]">Relationships</span>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#3A4348]">relationships</span>
           </div>
         </div>
 

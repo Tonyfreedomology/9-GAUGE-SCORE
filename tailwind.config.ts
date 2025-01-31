@@ -21,6 +21,10 @@ export default {
       fontFamily: {
         sans: ['Avenir', 'system-ui', 'sans-serif'],
         'league-spartan': ['League Spartan', 'sans-serif'],
+        heading: ['Helvetica', 'Arial', 'sans-serif'],
+      },
+      letterSpacing: {
+        'tighter': '-0.05em',
       },
       colors: {
         border: "hsl(var(--border))",
