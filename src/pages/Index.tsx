@@ -17,8 +17,8 @@ const Index = () => {
       }}
     >
       <div className="relative z-10 w-full max-w-3xl mx-auto p-4 md:p-8 text-center space-y-6 md:space-y-8 pt-12 md:pt-16">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight font-sans px-2 md:px-4 text-[#3A4348]">
-          How Free Are You?
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-heading tracking-ultra-tight lowercase text-[#3A4348]">
+          how free are you?
         </h1>
 
         <div className="flex justify-center space-x-6 md:space-x-16">
@@ -31,7 +31,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base font-medium text-[#3A4348]">Finances</span>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#3A4348]">finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -42,7 +42,7 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base font-medium text-[#3A4348]">Health</span>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#3A4348]">health</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
@@ -53,16 +53,16 @@ const Index = () => {
                 className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
               />
             </div>
-            <span className="text-sm md:text-base font-medium text-[#3A4348]">Relationships</span>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#3A4348]">relationships</span>
           </div>
         </div>
 
-        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light leading-relaxed px-2 md:px-0 text-[#3A4348]">
-          <p>
-            Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
+        <div className="space-y-4 md:space-y-6">
+          <p className="text-base md:text-lg lg:text-xl font-heading font-bold tracking-tighter lowercase leading-relaxed px-2 md:px-0 text-[#3A4348]">
+            discover your freedomology score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
-          <p>
-            Take our quick 10-minute assessment to understand where you stand and identify areas for growth in your journey to true freedom.
+          <p className="text-base md:text-lg lg:text-xl font-heading font-bold tracking-tighter lowercase leading-relaxed px-2 md:px-0 text-[#3A4348]">
+            take our quick 10-minute assessment to understand where you stand and identify areas for growth in your journey to true freedom.
           </p>
         </div>
 
@@ -77,8 +77,8 @@ const Index = () => {
             after:absolute after:top-0 after:right-0 after:bottom-0 after:left-0 after:bg-gradient-to-r 
             after:from-transparent after:via-white/20 after:to-transparent after:animate-shimmer"
         >
-          <span className="relative z-10 flex items-center gap-2">
-            Find Out Your Score
+          <span className="relative z-10 flex items-center gap-2 font-heading font-bold tracking-tighter lowercase">
+            find out your score
             <ArrowRight className="h-5 w-5" />
           </span>
         </button>
