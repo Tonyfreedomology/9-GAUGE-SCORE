@@ -21,7 +21,6 @@ export default {
       fontFamily: {
         sans: ['Avenir', 'system-ui', 'sans-serif'],
         'league-spartan': ['League Spartan', 'sans-serif'],
-        'heading': ['Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -116,10 +115,6 @@ export default {
         "fade-out": "fade-out 0.5s ease-out forwards",
         "scale-in": "scale-in 0.2s ease-out",
         "shimmer": "shimmer 2.5s linear infinite"
-      },
-      letterSpacing: {
-        'tighter': '-0.05em',
-        'ultra-tight': '-0.075em',
       },
     },
   },
