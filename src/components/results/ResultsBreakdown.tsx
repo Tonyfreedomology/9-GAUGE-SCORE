@@ -21,7 +21,7 @@ export const ResultsBreakdown = ({ answers }: ResultsBreakdownProps) => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-serif font-bold text-white text-center mb-8">
+      <h2 className="text-2xl font-heading font-bold text-white text-center mb-8 tracking-tighter lowercase">
         Your Results Breakdown
       </h2>
       

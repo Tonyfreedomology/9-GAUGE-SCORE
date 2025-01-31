@@ -13,7 +13,7 @@ export const ScoreExplanation = () => {
     <div className="max-w-3xl mx-auto text-white">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <div className="space-y-6">
-          <h2 className="text-3xl font-serif font-bold mb-6 text-center">
+          <h2 className="text-3xl font-heading font-bold mb-6 text-center tracking-tighter lowercase">
             Your Score Explained
           </h2>
           

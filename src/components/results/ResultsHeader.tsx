@@ -14,7 +14,7 @@ export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
       
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-2">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tighter lowercase">
             Overall Freedomology Score
           </h1>
           <TooltipProvider delayDuration={0}>
