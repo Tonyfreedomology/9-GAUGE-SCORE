@@ -40,6 +40,18 @@ const Assessment = () => {
   const questions = currentCategory.questions;
   const currentQuestion = questions[currentQuestionIndex];
   
+  const getPillarFromCategory = (categoryName: string) => {
+    if (categoryName.includes('Physical') || categoryName.includes('Mental') || categoryName.includes('Environmental')) {
+      return 'Health';
+    }
+    if (categoryName.includes('Income') || categoryName.includes('Independence') || categoryName.includes('Impact')) {
+      return 'Financial';
+    }
+    return 'Relationships';
+  };
+
+  const pillarName = getPillarFromCategory(currentCategory.display_name);
+  
   const handleAnswer = (value: number) => {
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
     
@@ -123,13 +135,13 @@ const Assessment = () => {
             />
           ) : (
             <AssessmentQuestion
-              category={currentCategory.display_name}
+              category={pillarName}
               questionText={currentQuestion.question_text}
               progress={progress}
               currentValue={answers[currentQuestion.id] || 0}
               currentStep={currentQuestionNumber}
               totalSteps={totalQuestions}
-              options={options}
+              options={currentQuestion.options}
               onAnswer={handleAnswer}
               onPrevious={handlePrevious}
               onNext={handleNext}

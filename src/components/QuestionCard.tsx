@@ -26,20 +26,12 @@ export const QuestionCard = ({
       category === 'Relationships' && "border-relationships"
     )}>
       <div className="space-y-10">
-        <div className="space-y-4">
-          <h2 
-            className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-foreground/80 to-foreground opacity-0 animate-fade-in"
-            style={{ animationDelay: '0ms' }}
-          >
-            {category}
-          </h2>
-          <p 
-            className="text-xl md:text-2xl font-semibold leading-relaxed text-foreground/90 opacity-0 animate-fade-in"
-            style={{ animationDelay: '200ms' }}
-          >
-            {questionText}
-          </p>
-        </div>
+        <p 
+          className="text-xl md:text-2xl font-semibold leading-relaxed text-foreground/90 opacity-0 animate-fade-in"
+          style={{ animationDelay: '200ms' }}
+        >
+          {questionText}
+        </p>
         
         <div 
           className="opacity-0 animate-fade-in"
