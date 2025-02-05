@@ -1,3 +1,4 @@
+
 import { Text, TOptions } from "fabric";
 
 type TextElementProps = {
@@ -13,3 +14,4 @@ export const createTextElement = ({ text, options }: TextElementProps): Text => 
     ...options
   });
 };
+

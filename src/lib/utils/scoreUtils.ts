@@ -1,3 +1,4 @@
+
 import { questions, calculatePillarScore } from "@/lib/questions";
 
 export const calculateScores = (answers: Record<string, number>) => {

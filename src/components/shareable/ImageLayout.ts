@@ -1,3 +1,4 @@
+
 import { Canvas as FabricCanvas, Image, Text } from "fabric";
 import { createTextElement } from "./TextElement";
 
