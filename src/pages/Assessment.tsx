@@ -1,27 +1,42 @@
+
 import { useState } from "react";
-import { questions } from "@/lib/questions";
+import { useQuery } from "@tanstack/react-query";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
 import { AssessmentResults } from "@/components/AssessmentResults";
+import { fetchAssessmentData } from "@/lib/services/assessmentService";
 
 type Answers = Record<string, number>;
 
 const Assessment = () => {
-  const [currentPillarIndex, setCurrentPillarIndex] = useState(0);
+  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [showResults, setShowResults] = useState(false);
 
-  const currentPillar = questions[currentPillarIndex];
-  const allQuestions = currentPillar.categories.flatMap(category => category.questions);
-  const currentQuestion = allQuestions[currentQuestionIndex];
+  const { data: assessmentData, isLoading } = useQuery({
+    queryKey: ['assessment'],
+    queryFn: fetchAssessmentData
+  });
+
+  if (isLoading || !assessmentData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-white text-xl">Loading assessment...</div>
+      </div>
+    );
+  }
+
+  const currentCategory = assessmentData[currentCategoryIndex];
+  const questions = currentCategory.questions;
+  const currentQuestion = questions[currentQuestionIndex];
   
   const handleAnswer = (value: number) => {
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
     
-    if (currentQuestionIndex < allQuestions.length - 1) {
+    if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentPillarIndex < questions.length - 1) {
-      setCurrentPillarIndex(currentPillarIndex + 1);
+    } else if (currentCategoryIndex < assessmentData.length - 1) {
+      setCurrentCategoryIndex(currentCategoryIndex + 1);
       setCurrentQuestionIndex(0);
     } else {
       setShowResults(true);
@@ -30,7 +45,7 @@ const Assessment = () => {
 
   const handleStartOver = () => {
     setShowResults(false);
-    setCurrentPillarIndex(0);
+    setCurrentCategoryIndex(0);
     setCurrentQuestionIndex(0);
     setAnswers({});
   };
@@ -38,36 +53,36 @@ const Assessment = () => {
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
-    } else if (currentPillarIndex > 0) {
-      const previousPillar = questions[currentPillarIndex - 1];
-      const previousPillarQuestions = previousPillar.categories.flatMap(category => category.questions);
-      setCurrentPillarIndex(currentPillarIndex - 1);
-      setCurrentQuestionIndex(previousPillarQuestions.length - 1);
+    } else if (currentCategoryIndex > 0) {
+      const previousCategory = assessmentData[currentCategoryIndex - 1];
+      setCurrentCategoryIndex(currentCategoryIndex - 1);
+      setCurrentQuestionIndex(previousCategory.questions.length - 1);
     }
   };
 
   const handleNext = () => {
-    if (currentQuestionIndex < allQuestions.length - 1) {
+    if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentPillarIndex < questions.length - 1) {
-      setCurrentPillarIndex(currentPillarIndex + 1);
+    } else if (currentCategoryIndex < assessmentData.length - 1) {
+      setCurrentCategoryIndex(currentCategoryIndex + 1);
       setCurrentQuestionIndex(0);
     }
   };
 
-  const totalQuestions = questions.reduce((acc, pillar) => 
-    acc + pillar.categories.reduce((sum, category) => 
-      sum + category.questions.length, 0), 0);
+  const totalQuestions = assessmentData.reduce(
+    (acc, category) => acc + category.questions.length, 
+    0
+  );
 
-  const currentQuestionNumber = questions.slice(0, currentPillarIndex).reduce((acc, pillar) => 
-    acc + pillar.categories.reduce((sum, category) => 
-      sum + category.questions.length, 0), 0) + currentQuestionIndex + 1;
+  const currentQuestionNumber = assessmentData
+    .slice(0, currentCategoryIndex)
+    .reduce((acc, category) => acc + category.questions.length, 0) + currentQuestionIndex + 1;
 
   const progress = (currentQuestionNumber / totalQuestions) * 100;
 
-  const isFirstQuestion = currentPillarIndex === 0 && currentQuestionIndex === 0;
-  const isLastQuestion = currentPillarIndex === questions.length - 1 && 
-    currentQuestionIndex === allQuestions.length - 1;
+  const isFirstQuestion = currentCategoryIndex === 0 && currentQuestionIndex === 0;
+  const isLastQuestion = currentCategoryIndex === assessmentData.length - 1 && 
+    currentQuestionIndex === questions.length - 1;
 
   return (
     <div className="relative min-h-screen">
@@ -91,18 +106,18 @@ const Assessment = () => {
           {showResults ? (
             <AssessmentResults 
               answers={answers}
+              categories={assessmentData}
               onStartOver={handleStartOver}
             />
           ) : (
             <AssessmentQuestion
-              pillarName={currentPillar.name}
-              category={currentQuestion.category}
-              questionText={currentQuestion.text}
+              categoryName={currentCategory.display_name}
+              questionText={currentQuestion.question_text}
               progress={progress}
               currentValue={answers[currentQuestion.id] || 0}
               currentStep={currentQuestionNumber}
               totalSteps={totalQuestions}
-              options={currentQuestion.options}
+              options={JSON.parse(currentQuestion.options as string)}
               onAnswer={handleAnswer}
               onPrevious={handlePrevious}
               onNext={handleNext}
