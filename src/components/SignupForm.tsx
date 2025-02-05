@@ -107,7 +107,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2">Ready to start?</h2>
+        <h2 className="text-3xl font-heading font-bold tracking-tighter lowercase mb-2">Ready to start?</h2>
         <p className="text-xl">Sign up for a FREE 40-day challenge NOW!</p>
       </div>
       
