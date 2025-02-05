@@ -117,7 +117,7 @@ const Assessment = () => {
               currentValue={answers[currentQuestion.id] || 0}
               currentStep={currentQuestionNumber}
               totalSteps={totalQuestions}
-              options={JSON.parse(currentQuestion.options as string)}
+              options={currentQuestion.options}
               onAnswer={handleAnswer}
               onPrevious={handlePrevious}
               onNext={handleNext}
