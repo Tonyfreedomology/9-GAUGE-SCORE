@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
@@ -22,18 +21,28 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
   useEffect(() => {
     if (inView) {
       const scoreTimer = setTimeout(() => {
-        const duration = 1500;
-        const steps = 60;
+        const duration = 2000; // Increased duration for smoother animation
+        const steps = 100; // More steps for smoother counting
         const increment = score / steps;
         let current = 0;
         
+        const easeInOutQuad = (t: number) => {
+          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        };
+        
+        let step = 0;
         const timer = setInterval(() => {
-          if (current < score) {
-            current += increment;
-            setCurrentScore(Math.min(Math.round(current), score));
-            setArrowPosition(Math.min((current / 100) * 100, score));
+          if (step < steps) {
+            const progress = easeInOutQuad(step / steps);
+            current = score * progress;
+            setCurrentScore(Math.round(current));
+            setArrowPosition((current / 100) * 100);
+            step++;
           } else {
             clearInterval(timer);
+            // Ensure we end exactly at the target score
+            setCurrentScore(score);
+            setArrowPosition(score);
           }
         }, duration / steps);
 
