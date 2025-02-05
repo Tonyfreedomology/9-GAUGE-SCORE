@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
+import { getPillarIcon } from "@/lib/getPillarIcon";
 
 type ScoreLineProps = {
   score: number;
@@ -85,7 +86,10 @@ type PillarScoresProps = {
 
 const PillarScores = ({ title, scores, color }: PillarScoresProps) => (
   <div className="space-y-6">
-    <h3 className="text-3xl font-heading font-bold text-white tracking-tighter lowercase">{title}</h3>
+    <div className="flex items-center gap-3">
+      {getPillarIcon(title)}
+      <h3 className="text-3xl font-heading font-bold text-white tracking-tighter lowercase">{title}</h3>
+    </div>
     <div className="space-y-8">
       {scores.map((score, index) => (
         <ScoreLine
@@ -108,8 +112,15 @@ export const ScoreLineChart = ({ answers, categories }: {
   answers: Record<string, number>;
   categories: Category[];
 }) => {
+  // Group categories by pillar
   const groupedCategories = categories.reduce((acc, category) => {
-    const pillar = category.display_name;
+    const pillar = category.display_name.includes('Physical') || 
+                  category.display_name.includes('Mental') || 
+                  category.display_name.includes('Environmental') ? 'Health' :
+                  category.display_name.includes('Income') || 
+                  category.display_name.includes('Independence') || 
+                  category.display_name.includes('Impact') ? 'Financial' : 'Relationships';
+    
     if (!acc[pillar]) {
       acc[pillar] = [];
     }

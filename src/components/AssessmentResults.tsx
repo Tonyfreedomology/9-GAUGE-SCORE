@@ -36,7 +36,11 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
       }
     });
 
-    return lowestCategory;
+    return lowestCategory.includes('Physical') || lowestCategory.includes('Mental') || lowestCategory.includes('Environmental') 
+      ? 'Health' 
+      : lowestCategory.includes('Income') || lowestCategory.includes('Independence') || lowestCategory.includes('Impact')
+      ? 'Financial'
+      : 'Relationships';
   };
 
   const lowestCategory = findLowestCategory();
