@@ -17,7 +17,7 @@ export const createImageLayout = async (
   
   // Load background image
   return new Promise<void>((resolve) => {
-    Image.fromURL('/lovable-uploads/ed122584-22ff-4404-acfb-e1af41ae6284.png', {
+    Image.fromURL('https://static.wixstatic.com/media/af616c_22e0ac03919447c8adb4424b1dca5fce~mv2.jpg', {
       crossOrigin: 'anonymous'
     }).then((img) => {
       console.log('Background image loaded successfully');
@@ -37,9 +37,20 @@ export const createImageLayout = async (
         opacity: 0.85
       });
       
-      canvas.backgroundImage = img;
-      canvas.renderAll();
+      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
 
+      addCanvasElements();
+      
+    }).catch(error => {
+      console.error('Error loading background image:', error);
+      // Set a fallback background color and continue with the layout
+      canvas.backgroundColor = '#293230';
+      canvas.renderAll();
+      
+      addCanvasElements();
+    });
+
+    function addCanvasElements() {
       // Scale factor for responsive layout
       const scaleFactor = Math.min(canvasWidth / 1200, canvasHeight / 630);
       
@@ -52,7 +63,7 @@ export const createImageLayout = async (
           fontSize: 120 * scaleFactor,
           fill: "#FFFFFF",
           fontWeight: '700',
-          fontFamily: 'Helvetica'
+          fontFamily: 'Helvetica',
         }
       });
 
@@ -124,11 +135,6 @@ export const createImageLayout = async (
 
       canvas.renderAll();
       resolve();
-    }).catch(error => {
-      console.error('Error loading background image:', error);
-      canvas.backgroundColor = '#293230';
-      canvas.renderAll();
-      resolve();
-    });
+    }
   });
 };
