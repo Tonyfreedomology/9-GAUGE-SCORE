@@ -1,3 +1,4 @@
+
 import { sprintContent } from "@/lib/sprintContent";
 import { programs } from "@/lib/programContent";
 import { WeekContent } from "./WeekContent";
@@ -10,15 +11,18 @@ type SprintCardProps = {
 };
 
 export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
-  const content = sprintContent[lowestPillar];
-  const program = programs[lowestPillar];
+  // Capitalize the first letter to match the keys in sprintContent
+  const capitalizedPillar = lowestPillar.charAt(0).toUpperCase() + lowestPillar.slice(1);
+  const content = sprintContent[capitalizedPillar];
+  const program = programs[capitalizedPillar];
+  
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
   
   const getLogo = () => {
-    switch (lowestPillar) {
+    switch (capitalizedPillar) {
       case "Relationships":
         return "https://static.wixstatic.com/media/c32598_2430f4e26a1d4123b1b40978409d938e~mv2.png";
       case "Health":
@@ -30,16 +34,17 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     }
   };
 
+  // Guard clause
+  if (!content || !program) return null;
+
   // Split the content body at the specific line
   const splitBody = content.body.split("<p>Here's what we cover:</p>");
   const introText = splitBody[0];
 
-  if (!program) return null;
-
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
       <div className="flex flex-col items-center space-y-6">
-        <img src={getLogo()} alt={`${lowestPillar} Sprint Logo`} className="h-24 object-contain" />
+        <img src={getLogo()} alt={`${capitalizedPillar} Sprint Logo`} className="h-24 object-contain" />
         <h2 className="text-3xl font-serif text-foreground">{content.heading}</h2>
         
         {/* Introduction text - centered with consistent spacing */}
@@ -51,13 +56,13 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         {/* Weeks section with flanking icons */}
         <div className="flex items-center justify-center space-x-6 mt-8">
           <div className="w-12 h-12 flex items-center justify-center">
-            {getPillarIcon(lowestPillar)}
+            {getPillarIcon(capitalizedPillar)}
           </div>
           <h3 className="text-4xl font-serif font-bold text-foreground text-center">
             THE SIX WEEKS
           </h3>
           <div className="w-12 h-12 flex items-center justify-center">
-            {getPillarIcon(lowestPillar)}
+            {getPillarIcon(capitalizedPillar)}
           </div>
         </div>
         
@@ -74,7 +79,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         </div>
 
         <div className="w-full max-w-md mx-auto mt-12">
-          <SignupForm defaultSprint={lowestPillar} />
+          <SignupForm defaultSprint={capitalizedPillar} />
         </div>
       </div>
     </div>

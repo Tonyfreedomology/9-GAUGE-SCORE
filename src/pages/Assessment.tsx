@@ -119,6 +119,7 @@ const Assessment = () => {
             <AssessmentResults 
               answers={answers}
               categories={assessmentData}
+              onStartOver={handleStartOver}
             />
           ) : (
             <AssessmentQuestion
