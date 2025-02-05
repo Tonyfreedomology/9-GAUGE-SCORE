@@ -41,12 +41,6 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
     <div className="relative py-6">
       <div className="flex justify-between items-center mb-2">
         <span className="text-white/80 text-sm">{label}</span>
-        <span 
-          className="text-3xl font-bold text-white"
-          style={{ color }}
-        >
-          {currentScore}
-        </span>
       </div>
       
       <div className="relative">
@@ -62,6 +56,18 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
           }} 
         />
         
+        {/* Score number */}
+        <div 
+          className="absolute -top-8 transition-all duration-300"
+          style={{ 
+            left: `${arrowPosition}%`,
+            transform: 'translateX(-50%)',
+            color: color,
+          }}
+        >
+          <span className="text-3xl font-bold">{currentScore}</span>
+        </div>
+
         {/* Arrow */}
         <div 
           className="absolute -bottom-2 w-0 h-0 transition-all duration-300"
