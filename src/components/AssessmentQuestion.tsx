@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { FreedomologyLogo } from "./FreedomologyLogo";
@@ -8,7 +9,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type AssessmentQuestionProps = {
-  pillarName: string;
   category: string;
   questionText: string;
   progress: number;
@@ -24,7 +24,6 @@ type AssessmentQuestionProps = {
 };
 
 export const AssessmentQuestion = ({
-  pillarName,
   category,
   questionText,
   progress,
@@ -51,9 +50,9 @@ export const AssessmentQuestion = ({
       
       <div className="space-y-6 animate-[fade-in_0.5s_ease-out]">
         <div className="flex items-center justify-center gap-3">
-          {getPillarIcon(pillarName)}
+          {getPillarIcon(category)}
           <h1 className="text-3xl md:text-4xl font-heading font-bold text-center text-white tracking-tighter lowercase">
-            {pillarName}
+            {category}
           </h1>
         </div>
         
@@ -67,7 +66,6 @@ export const AssessmentQuestion = ({
       <div className="transition-all duration-500">
         <QuestionCard
           key={key}
-          pillarName={pillarName}
           category={category}
           questionText={questionText}
           currentValue={currentValue}

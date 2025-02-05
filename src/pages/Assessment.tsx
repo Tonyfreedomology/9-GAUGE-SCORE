@@ -111,7 +111,7 @@ const Assessment = () => {
             />
           ) : (
             <AssessmentQuestion
-              categoryName={currentCategory.display_name}
+              category={currentCategory.display_name}
               questionText={currentQuestion.question_text}
               progress={progress}
               currentValue={answers[currentQuestion.id] || 0}

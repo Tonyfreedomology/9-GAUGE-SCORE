@@ -1,42 +1,45 @@
+
 import { useRef } from "react";
-import { questions, calculatePillarScore } from "@/lib/questions";
 import { NextSteps } from "./NextSteps";
 import { ResultsHeader } from "./results/ResultsHeader";
 import { ResultsActions } from "./results/ResultsActions";
 import { ResultsBreakdown } from "./results/ResultsBreakdown";
 import { ScoreCard } from "./ScoreCard";
 import { ScoreExplanation } from "./results/ScoreExplanation";
+import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
+import { Database } from "@/integrations/supabase/types";
+
+type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
+  questions: Database['public']['Tables']['assessment_questions']['Row'][];
+};
 
 type AssessmentResultsProps = {
   answers: Record<string, number>;
+  categories: AssessmentCategory[];
   onStartOver: () => void;
 };
 
-export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsProps) => {
+export const AssessmentResults = ({ answers, categories, onStartOver }: AssessmentResultsProps) => {
   const resultsRef = useRef<HTMLDivElement>(null);
   
-  const calculateOverallScore = () => {
-    const pillarScores = questions.map(pillar => calculatePillarScore(pillar, answers));
-    return Math.round(pillarScores.reduce((a, b) => a + b, 0) / pillarScores.length);
-  };
+  const overallScore = calculateOverallScore(categories, answers);
 
-  const findLowestPillar = () => {
+  const findLowestCategory = () => {
     let lowestScore = Infinity;
-    let lowestPillar = questions[0].name;
+    let lowestCategory = categories[0].display_name;
 
-    questions.forEach(pillar => {
-      const score = calculatePillarScore(pillar, answers);
+    categories.forEach(category => {
+      const score = calculateCategoryScore(category.questions, answers);
       if (score < lowestScore) {
         lowestScore = score;
-        lowestPillar = pillar.name;
+        lowestCategory = category.display_name;
       }
     });
 
-    return lowestPillar;
+    return lowestCategory;
   };
 
-  const overallScore = calculateOverallScore();
-  const lowestPillar = findLowestPillar();
+  const lowestCategory = findLowestCategory();
 
   return (
     <div className="relative z-10 max-w-5xl mx-auto space-y-12">
@@ -61,7 +64,7 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
           />
         </div>
 
-        <ResultsBreakdown answers={answers} />
+        <ResultsBreakdown answers={answers} categories={categories} />
         
         <ResultsActions 
           onStartOver={onStartOver} 
@@ -73,8 +76,10 @@ export const AssessmentResults = ({ answers, onStartOver }: AssessmentResultsPro
       </div>
 
       <div className="w-full max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase">Next Steps</h2>
-        <NextSteps lowestPillar={lowestPillar} onStartOver={onStartOver} />
+        <h2 className="text-3xl font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase">
+          Next Steps
+        </h2>
+        <NextSteps lowestPillar={lowestCategory} onStartOver={onStartOver} />
       </div>
     </div>
   );
