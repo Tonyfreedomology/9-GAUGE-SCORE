@@ -1,6 +1,6 @@
 
 import type { Config } from "tailwindcss";
-import { keyframes, animations } from "./lib/config/animations";
+import { keyframes, animations } from "./src/lib/config/animations";
 
 export default {
   darkMode: ["class"],
