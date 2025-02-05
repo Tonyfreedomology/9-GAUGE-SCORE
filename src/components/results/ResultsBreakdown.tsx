@@ -1,5 +1,5 @@
 
-import { ScoreLineChart } from "../ScoreLineChart";
+import { ScoreCard } from "../ScoreCard";
 import { calculateCategoryScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 
@@ -26,33 +26,22 @@ export const ResultsBreakdown = ({ answers, categories }: ResultsBreakdownProps)
     }
   };
 
-  // Group categories by pillar
-  const groupedCategories = categories.reduce<Record<string, AssessmentCategory[]>>((acc, category) => {
-    const pillar = category.display_name;
-    if (!acc[pillar]) acc[pillar] = [];
-    acc[pillar].push(category);
-    return acc;
-  }, {});
-
   return (
-    <div className="space-y-12">
+    <div className="space-y-6">
       <h2 className="text-2xl font-heading font-bold text-white text-center mb-8 tracking-tighter lowercase">
         Your Results Breakdown
       </h2>
       
-      {Object.entries(groupedCategories).map(([pillar, categories]) => (
-        <div key={pillar} className="space-y-4">
-          <h3 className="text-xl font-bold text-white mb-6">{pillar}</h3>
-          <ScoreLineChart
-            scores={categories.map(category => ({
-              name: category.display_name,
-              value: calculateCategoryScore(category.questions, answers),
-              pillar: pillar
-            }))}
-            color={getPillarColor(pillar)}
+      <div className="grid gap-8 md:grid-cols-3">
+        {categories.map((category) => (
+          <ScoreCard
+            key={category.id}
+            title={category.display_name}
+            score={calculateCategoryScore(category.questions, answers)}
+            color={getPillarColor(category.display_name)}
           />
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

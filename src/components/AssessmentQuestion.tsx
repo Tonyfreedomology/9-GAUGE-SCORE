@@ -1,11 +1,12 @@
 
-import React, { useEffect, useState } from 'react';
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { FreedomologyLogo } from "./FreedomologyLogo";
 import { getPillarIcon } from "@/lib/getPillarIcon";
 import { AssessmentProgress } from "./AssessmentProgress";
 import { QuestionCard } from "./QuestionCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type AssessmentQuestionProps = {
   category: string;
@@ -40,23 +41,8 @@ export const AssessmentQuestion = ({
 
   useEffect(() => {
     setKey(prev => prev + 1);
+    console.log("Question changed, triggering animation");
   }, [questionText]);
-
-  // Map category to pillar
-  const getPillar = (category: string) => {
-    if (['Physical Health', 'Mental Health', 'Environmental Health'].includes(category)) {
-      return 'Health';
-    }
-    if (['Income', 'Independence', 'Impact'].includes(category)) {
-      return 'Financial';
-    }
-    if (['Self', 'Close Relationships', 'Community'].includes(category)) {
-      return 'Relationships';
-    }
-    return category;
-  };
-
-  const pillar = getPillar(category);
 
   return (
     <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12">
@@ -64,9 +50,9 @@ export const AssessmentQuestion = ({
       
       <div className="space-y-6 animate-[fade-in_0.5s_ease-out]">
         <div className="flex items-center justify-center gap-3">
-          {getPillarIcon(pillar)}
+          {getPillarIcon(category)}
           <h1 className="text-3xl md:text-4xl font-heading font-bold text-center text-white tracking-tighter lowercase">
-            {pillar}
+            {category}
           </h1>
         </div>
         
@@ -80,6 +66,7 @@ export const AssessmentQuestion = ({
       <div className="transition-all duration-500">
         <QuestionCard
           key={key}
+          category={category}
           questionText={questionText}
           currentValue={currentValue}
           options={options}
