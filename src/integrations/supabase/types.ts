@@ -9,6 +9,68 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      assessment_categories: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_name: string
+          id: number
+          name: Database["public"]["Enums"]["assessment_category"]
+          weight: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_name: string
+          id?: number
+          name: Database["public"]["Enums"]["assessment_category"]
+          weight?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_name?: string
+          id?: number
+          name?: Database["public"]["Enums"]["assessment_category"]
+          weight?: number | null
+        }
+        Relationships: []
+      }
+      assessment_questions: {
+        Row: {
+          category_id: number | null
+          created_at: string | null
+          id: number
+          options: Json
+          question_text: string
+          weight: number | null
+        }
+        Insert: {
+          category_id?: number | null
+          created_at?: string | null
+          id?: number
+          options: Json
+          question_text: string
+          weight?: number | null
+        }
+        Update: {
+          category_id?: number | null
+          created_at?: string | null
+          id?: number
+          options?: Json
+          question_text?: string
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_questions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       secrets: {
         Row: {
           created_at: string
@@ -38,7 +100,16 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      assessment_category:
+        | "physical_health"
+        | "mental_health"
+        | "environmental_health"
+        | "income"
+        | "independence"
+        | "impact"
+        | "relationships_with_others"
+        | "relationship_with_self"
+        | "relationship_with_god"
     }
     CompositeTypes: {
       [_ in never]: never
