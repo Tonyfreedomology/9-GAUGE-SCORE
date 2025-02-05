@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { cn } from "@/lib/utils";
+import { Database } from "@/integrations/supabase/types";
 
 type ScoreLineProps = {
   score: number;
@@ -100,13 +100,13 @@ const PillarScores = ({ title, scores, color }: PillarScoresProps) => (
   </div>
 );
 
+type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
+  questions: Database['public']['Tables']['assessment_questions']['Row'][];
+};
+
 export const ScoreLineChart = ({ answers, categories }: { 
   answers: Record<string, number>;
-  categories: {
-    id: string;
-    display_name: string;
-    questions: any[];
-  }[];
+  categories: Category[];
 }) => {
   const groupedCategories = categories.reduce((acc, category) => {
     const pillar = category.display_name;
@@ -120,7 +120,7 @@ export const ScoreLineChart = ({ answers, categories }: {
     );
     
     acc[pillar].push({
-      label: category.name || category.display_name,
+      label: category.display_name,
       score
     });
     

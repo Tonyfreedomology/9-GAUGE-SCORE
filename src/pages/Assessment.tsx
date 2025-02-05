@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
@@ -106,7 +105,7 @@ const Assessment = () => {
   const isLastQuestion = currentCategoryIndex === assessmentData.length - 1 && 
     currentQuestionIndex === questions.length - 1;
 
-  const options = currentQuestion.options as QuestionOption[];
+  const options = currentQuestion.options as { value: number; label: string }[];
 
   return (
     <div className="relative min-h-screen">
