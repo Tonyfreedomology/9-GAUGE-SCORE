@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import {
@@ -18,7 +19,7 @@ export const ScoreExplanation = () => {
           </h2>
           
           <p className="text-lg">
-            Your Freedomology Score measures your well-being across Finance, Health (physical and mental), and Relationships.
+            Your 9-Gauge Score measures your well-being across Finance, Health (physical and mental), and Relationships.
           </p>
 
           <CollapsibleTrigger className="flex items-center justify-center w-full gap-2 text-white/80 hover:text-white transition-colors">
