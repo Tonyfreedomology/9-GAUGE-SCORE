@@ -4,6 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
 import { AssessmentResults } from "@/components/AssessmentResults";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
+import { Database } from "@/integrations/supabase/types";
+
+type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
+  questions: Database['public']['Tables']['assessment_questions']['Row'][];
+};
+
+type QuestionOption = {
+  value: number;
+  label: string;
+};
 
 type Answers = Record<string, number>;
 
@@ -84,6 +94,8 @@ const Assessment = () => {
   const isLastQuestion = currentCategoryIndex === assessmentData.length - 1 && 
     currentQuestionIndex === questions.length - 1;
 
+  const options = currentQuestion.options as QuestionOption[];
+
   return (
     <div className="relative min-h-screen">
       {/* Background image */}
@@ -107,7 +119,6 @@ const Assessment = () => {
             <AssessmentResults 
               answers={answers}
               categories={assessmentData}
-              onStartOver={handleStartOver}
             />
           ) : (
             <AssessmentQuestion
@@ -117,7 +128,7 @@ const Assessment = () => {
               currentValue={answers[currentQuestion.id] || 0}
               currentStep={currentQuestionNumber}
               totalSteps={totalQuestions}
-              options={currentQuestion.options}
+              options={options}
               onAnswer={handleAnswer}
               onPrevious={handlePrevious}
               onNext={handleNext}
