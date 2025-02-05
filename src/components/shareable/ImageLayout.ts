@@ -1,8 +1,9 @@
 
-import { Canvas as FabricCanvas, Image, Text } from "fabric";
+import { Canvas as FabricCanvas, Image, Text, Rect } from "fabric";
 import { createTextElement } from "./TextElement";
+import { getPillarColor } from "@/lib/utils/scoreUtils";
 
-export const createImageLayout = (
+export const createImageLayout = async (
   canvas: FabricCanvas,
   overallScore: number,
   pillarScores: Array<{ name: string; score: number }>,
@@ -14,49 +15,32 @@ export const createImageLayout = (
   // Clear any existing content
   canvas.clear();
   
-  // Set canvas background color while image loads
-  canvas.backgroundColor = '#293230';
-  canvas.renderAll();
-  
-  // Load and check if League Spartan font is available
-  const checkFont = () => {
-    const testText = new Text('Test', {
-      fontFamily: 'League Spartan',
-    });
-    return testText.fontFamily === 'League Spartan';
-  };
-
-  if (!checkFont()) {
-    console.warn('League Spartan font not loaded, falling back to system font');
-  }
-
-  // Set background image using the new Fabric.js v6 API
+  // Load background image
   return new Promise<void>((resolve) => {
-    Image.fromURL('https://static.wixstatic.com/media/af616c_62a4381d8580414faf04da933f2286ee~mv2.jpg', {
+    Image.fromURL('/lovable-uploads/ed122584-22ff-4404-acfb-e1af41ae6284.png', {
       crossOrigin: 'anonymous'
     }).then((img) => {
       console.log('Background image loaded successfully');
       
-      // Scale the image to fit canvas
+      // Scale and position the background image
       const scaleX = canvasWidth / img.width!;
       const scaleY = canvasHeight / img.height!;
       const scale = Math.max(scaleX, scaleY);
       
-      // Center the image using the new v6 API
       img.set({
         scaleX: scale,
         scaleY: scale,
         left: canvasWidth / 2,
         top: canvasHeight / 2,
         originX: 'center',
-        originY: 'center'
+        originY: 'center',
+        opacity: 0.85
       });
       
-      // Set as background using the new v6 API
       canvas.backgroundImage = img;
       canvas.renderAll();
 
-      // Scale factors for responsive layout
+      // Scale factor for responsive layout
       const scaleFactor = Math.min(canvasWidth / 1200, canvasHeight / 630);
       
       // Add overall score
@@ -64,45 +48,84 @@ export const createImageLayout = (
         text: `${Math.round(overallScore)}`,
         options: {
           left: canvasWidth / 2,
-          top: 150 * scaleFactor,
-          fontSize: 96 * scaleFactor,
+          top: 120 * scaleFactor,
+          fontSize: 120 * scaleFactor,
           fill: "#FFFFFF",
-          fontWeight: '700'
+          fontWeight: '700',
+          fontFamily: 'Helvetica'
         }
       });
 
-      canvas.add(overallScoreText);
-      console.log('Added overall score:', overallScore);
+      // Add "Overall Score" label
+      const overallLabel = createTextElement({
+        text: "OVERALL SCORE",
+        options: {
+          left: canvasWidth / 2,
+          top: 200 * scaleFactor,
+          fontSize: 24 * scaleFactor,
+          fill: "#FFFFFF",
+          fontWeight: '500',
+          fontFamily: 'Helvetica'
+        }
+      });
 
-      // Add pillar scores
-      const BOX_Y = 350 * scaleFactor;
+      canvas.add(overallScoreText, overallLabel);
+
+      // Add pillar scores with score boxes
+      const BOX_Y = 400 * scaleFactor;
       const BOX_SPACING = 320 * scaleFactor;
+      const BOX_WIDTH = 250 * scaleFactor;
+      const BOX_HEIGHT = 150 * scaleFactor;
 
       pillarScores.forEach((pillar, index) => {
         const x = (canvasWidth / 2) + (index - 1) * BOX_SPACING;
+        const pillarColor = getPillarColor(pillar.name);
         
+        // Score box with glassmorphism effect
+        const scoreBox = new Rect({
+          left: x - BOX_WIDTH / 2,
+          top: BOX_Y,
+          width: BOX_WIDTH,
+          height: BOX_HEIGHT,
+          fill: '#FFFFFF',
+          opacity: 0.1,
+          rx: 10,
+          ry: 10
+        });
+
         // Pillar score
         const scoreText = createTextElement({
           text: `${Math.round(pillar.score)}`,
           options: {
             left: x,
-            top: BOX_Y,
+            top: BOX_Y + 40 * scaleFactor,
             fontSize: 64 * scaleFactor,
-            fill: "#FFFFFF",
-            fontWeight: '700'
+            fill: pillarColor,
+            fontWeight: '700',
+            fontFamily: 'Helvetica'
           }
         });
 
-        canvas.add(scoreText);
-        console.log(`Added pillar score for ${pillar.name}:`, pillar.score);
+        // Pillar name
+        const nameText = createTextElement({
+          text: pillar.name,
+          options: {
+            left: x,
+            top: BOX_Y + 110 * scaleFactor,
+            fontSize: 24 * scaleFactor,
+            fill: "#FFFFFF",
+            fontWeight: '500',
+            fontFamily: 'Helvetica'
+          }
+        });
+
+        canvas.add(scoreBox, scoreText, nameText);
       });
 
       canvas.renderAll();
-      console.log('Image layout created successfully');
       resolve();
     }).catch(error => {
       console.error('Error loading background image:', error);
-      // Still resolve but with a basic background
       canvas.backgroundColor = '#293230';
       canvas.renderAll();
       resolve();

@@ -8,10 +8,9 @@ type TextElementProps = {
 
 export const createTextElement = ({ text, options }: TextElementProps): Text => {
   return new Text(text, {
-    fontFamily: "League Spartan",
+    fontFamily: options.fontFamily || "League Spartan",
     originX: "center",
     textAlign: "center",
     ...options
   });
 };
-
