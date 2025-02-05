@@ -86,7 +86,7 @@ type PillarScoresProps = {
 
 const PillarScores = ({ title, scores, color }: PillarScoresProps) => (
   <div className="space-y-6">
-    <div className="flex items-center gap-3">
+    <div className="flex items-center justify-center gap-3">
       {getPillarIcon(title)}
       <h3 className="text-3xl font-heading font-bold text-white tracking-tighter lowercase">{title}</h3>
     </div>
