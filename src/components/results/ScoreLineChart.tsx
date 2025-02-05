@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
+import { useInView } from 'react-intersection-observer';
 
 type ScoreLineProps = {
   score: number;
@@ -13,32 +14,38 @@ type ScoreLineProps = {
 const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
   const [currentScore, setCurrentScore] = useState(0);
   const [arrowPosition, setArrowPosition] = useState(0);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2
+  });
 
   useEffect(() => {
-    const scoreTimer = setTimeout(() => {
-      const duration = 1500;
-      const steps = 60;
-      const increment = score / steps;
-      let current = 0;
-      
-      const timer = setInterval(() => {
-        if (current < score) {
-          current += increment;
-          setCurrentScore(Math.min(Math.round(current), score));
-          setArrowPosition(Math.min((current / 100) * 100, score));
-        } else {
-          clearInterval(timer);
-        }
-      }, duration / steps);
+    if (inView) {
+      const scoreTimer = setTimeout(() => {
+        const duration = 1500;
+        const steps = 60;
+        const increment = score / steps;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          if (current < score) {
+            current += increment;
+            setCurrentScore(Math.min(Math.round(current), score));
+            setArrowPosition(Math.min((current / 100) * 100, score));
+          } else {
+            clearInterval(timer);
+          }
+        }, duration / steps);
 
-      return () => clearInterval(timer);
-    }, delay);
+        return () => clearInterval(timer);
+      }, delay);
 
-    return () => clearTimeout(scoreTimer);
-  }, [score, delay]);
+      return () => clearTimeout(scoreTimer);
+    }
+  }, [score, delay, inView]);
 
   return (
-    <div className="relative py-6">
+    <div className="relative py-6" ref={ref}>
       <div className="flex justify-between items-center mb-2">
         <span className="text-white/80 text-sm">{label}</span>
       </div>
@@ -62,10 +69,9 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
           style={{ 
             left: `${arrowPosition}%`,
             transform: 'translateX(-50%)',
-            color: color,
           }}
         >
-          <span className="text-3xl font-bold">{currentScore}</span>
+          <span className="text-3xl font-bold text-white">{currentScore}</span>
         </div>
 
         {/* Arrow */}
