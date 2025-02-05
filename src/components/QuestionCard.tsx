@@ -1,8 +1,8 @@
+
 import { LikertScale } from "@/components/LikertScale";
 import { cn } from "@/lib/utils";
 
 type QuestionCardProps = {
-  pillarName: string;
   category: string;
   questionText: string;
   currentValue: number;
@@ -11,7 +11,6 @@ type QuestionCardProps = {
 };
 
 export const QuestionCard = ({
-  pillarName,
   category,
   questionText,
   currentValue,
@@ -22,9 +21,9 @@ export const QuestionCard = ({
     <div className={cn(
       "p-8 md:p-10 shadow-lg backdrop-blur-sm bg-gradient-to-b from-white to-[#F9FAFB]/90 rounded-2xl",
       "border-0 shadow-[0_4px_10px_rgba(0,0,0,0.1)]",
-      pillarName === 'Financial' && "border-financial",
-      pillarName === 'Health' && "border-health",
-      pillarName === 'Relationships' && "border-relationships"
+      category === 'Financial' && "border-financial",
+      category === 'Health' && "border-health",
+      category === 'Relationships' && "border-relationships"
     )}>
       <div className="space-y-10">
         <div className="space-y-4">
