@@ -37,7 +37,9 @@ export const createImageLayout = async (
         opacity: 0.85
       });
       
-      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+      // Set the background image using the property instead of the method
+      canvas.backgroundImage = img;
+      canvas.renderAll();
 
       addCanvasElements();
       
