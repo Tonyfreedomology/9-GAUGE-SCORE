@@ -35,11 +35,11 @@ export const createScoreRow = ({
   });
   elements.push(gradientLine);
 
-  // Score text - made 10% smaller (25px) and adjusted position
+  // Score text - moved down to -10
   const scoreText = new Text(score.toString(), {
-    left: x + lineWidth + 55, // Increased from 45 to 55 to move right
-    top: y - 12, // Moved down slightly (was -15)
-    fontSize: 25, // Reduced from 28
+    left: x + lineWidth + 55,
+    top: y - 10, // Changed from -12 to -10
+    fontSize: 25,
     fontFamily: 'Helvetica',
     fill: 'white',
     fontWeight: 'bold',
