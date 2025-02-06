@@ -10,7 +10,7 @@ type PillarTitleProps = {
 
 export const createPillarTitle = ({ text, x, y, panelWidth }: PillarTitleProps) => {
   return new Text(text.toLowerCase(), {
-    left: x + (panelWidth / 2),
+    left: x + (panelWidth / 2) + 20, // Added 20px offset to match panel adjustment
     top: y,
     fontSize: 42,
     fontFamily: 'Helvetica',
