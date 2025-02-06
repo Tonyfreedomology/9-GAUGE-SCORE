@@ -10,7 +10,7 @@ type ScorePanelProps = {
 
 export const createScorePanel = ({ x, y, width, height }: ScorePanelProps) => {
   return new Rect({
-    left: x - 40, // Shift left to better center the content
+    left: x - 20, // Split the difference between original and previous adjustment
     top: y,
     width,
     height,
