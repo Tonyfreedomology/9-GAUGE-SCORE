@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Image, Line, Text, Rect, Shadow } from "fabric";
 import { calculateCategoryScore } from "@/lib/services/assessmentService";
@@ -66,13 +65,13 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 120; // Moved up further
+      const startY = 70; // Moved up further from 120
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 40; // Shifted more to the right
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 120; // Increased offset from 40 to 120
       const panelHeight = categorySpacing * 3;
-      const headingOffset = 100; // Space between heading and panel
+      const headingOffset = 100;
 
       pillars.forEach((pillar, pillarIndex) => {
         const x = startX + pillarIndex * pillarSpacing - 40;
