@@ -1,8 +1,6 @@
 
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas } from "fabric";
-import { calculateScores } from "@/lib/utils/scoreUtils";
-import { createImageLayout } from "./shareable/ImageLayout";
 
 type ShareableImageProps = {
   answers: Record<string, number>;
@@ -12,7 +10,6 @@ type ShareableImageProps = {
 };
 
 export const ShareableImage = ({ 
-  answers, 
   onImageGenerated,
   width = 1200,
   height = 630 
@@ -29,13 +26,11 @@ export const ShareableImage = ({
       backgroundColor: '#293230'
     });
 
-    // Calculate scores
-    const { pillarScores, overallScore } = calculateScores(answers);
-    console.log('Calculated scores:', { pillarScores, overallScore });
-
-    // Create layout
-    createImageLayout(canvas, overallScore, pillarScores, width, height)
-      .then(() => {
+    // Load background image
+    canvas.setBackgroundImage(
+      'https://static.wixstatic.com/media/af616c_22e0ac03919447c8adb4424b1dca5fce~mv2.jpg',
+      () => {
+        console.log('Background image loaded successfully');
         // Generate image
         const dataUrl = canvas.toDataURL({
           format: "png",
@@ -45,14 +40,17 @@ export const ShareableImage = ({
         
         console.log('Image generated successfully');
         onImageGenerated(dataUrl);
-      })
-      .catch(error => {
-        console.error('Error generating image:', error);
-      })
-      .finally(() => {
         canvas.dispose();
-      });
-  }, [answers, onImageGenerated, width, height]);
+      },
+      {
+        crossOrigin: 'anonymous',
+        scaleX: width / 1200,
+        scaleY: height / 630,
+        opacity: 0.85
+      }
+    );
+
+  }, [onImageGenerated, width, height]);
 
   return (
     <canvas 
