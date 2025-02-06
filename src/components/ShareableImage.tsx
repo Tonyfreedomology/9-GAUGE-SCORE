@@ -66,11 +66,11 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 140; // Moved up to better center content
+      const startY = 120; // Moved up further
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 20; // Shifted right slightly
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 40; // Shifted more to the right
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100; // Space between heading and panel
 
@@ -81,12 +81,12 @@ export const ShareableImage = ({
         // Add semi-transparent dark panel background
         const panel = new Rect({
           left: x,
-          top: startY - 30, // Adjusted panel position
+          top: startY - 30,
           width: panelWidth,
-          height: panelHeight + 20, // Slightly taller to better contain content
+          height: panelHeight + 20,
           rx: 12,
           ry: 12,
-          fill: 'rgba(0, 0, 0, 0.85)', // Made panels darker for better contrast
+          fill: 'rgba(0, 0, 0, 0.9)', // Made panels even darker
           stroke: 'rgba(255, 255, 255, 0.1)',
           strokeWidth: 1,
           shadow: new Shadow({
@@ -98,7 +98,7 @@ export const ShareableImage = ({
         });
         canvas.add(panel);
 
-        // Centered pillar title with more space above panel
+        // Centered pillar title
         const pillarName = pillar.name.toLowerCase();
         const titleText = new Text(pillarName, {
           left: x + (panelWidth / 2),
@@ -146,7 +146,7 @@ export const ShareableImage = ({
 
           // Score text with enhanced positioning
           const scoreText = new Text(score.toString(), {
-            left: x + lineWidth + 45, // Moved slightly more right
+            left: x + lineWidth + 50, // Moved even more right
             top: y - 15,
             fontSize: 32,
             fontFamily: 'Helvetica',
@@ -161,7 +161,7 @@ export const ShareableImage = ({
             })
           });
 
-          // Category text with enhanced shadow
+          // Category text
           const categoryText = new Text(categoryName, {
             left: x + 40,
             top: y - 25,
