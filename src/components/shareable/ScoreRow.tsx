@@ -35,11 +35,11 @@ export const createScoreRow = ({
   });
   elements.push(gradientLine);
 
-  // Score text
+  // Score text - made smaller (28px instead of 32px)
   const scoreText = new Text(score.toString(), {
-    left: x + lineWidth + 50,
+    left: x + lineWidth + 45, // Slightly adjusted left position
     top: y - 15,
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: 'Helvetica',
     fill: 'white',
     fontWeight: 'bold',
@@ -53,14 +53,14 @@ export const createScoreRow = ({
   });
   elements.push(scoreText);
 
-  // Category text
+  // Category text - changed to regular weight
   const categoryText = new Text(categoryName, {
     left: x + 40,
     top: y - 25,
     fontSize: 22,
-    fontFamily: 'Helvetica',
+    fontFamily: 'Avenir',
     fill: 'white',
-    fontWeight: '600',
+    fontWeight: '400', // Changed from 600 to 400
     shadow: new Shadow({
       color: 'rgba(0, 0, 0, 0.6)',
       blur: 4,
@@ -70,11 +70,11 @@ export const createScoreRow = ({
   });
   elements.push(categoryText);
 
-  // Triangle indicator - adjusted to be below the line
+  // Triangle indicator
   const triangleSize = 10;
   const triangle = new Text('▲', {
     left: x + 40 + (lineWidth * score / 100) - triangleSize/2,
-    top: y + 8, // Changed from y - 4 to y + 8 to position below the line
+    top: y + 8,
     fontSize: triangleSize * 2,
     fontFamily: 'Arial',
     fill: 'white',
@@ -89,4 +89,3 @@ export const createScoreRow = ({
 
   return elements;
 };
-

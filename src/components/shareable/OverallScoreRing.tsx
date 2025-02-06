@@ -11,17 +11,24 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
   const elements = [];
   const radius = 70;
 
-  // Add glow effect with multiple rings
-  [16, 12, 8].forEach(strokeWidth => {
+  // Create softer glow effect with transparent circles
+  const glowColors = [
+    'rgba(23, 190, 187, 0.08)',
+    'rgba(23, 190, 187, 0.06)',
+    'rgba(23, 190, 187, 0.04)'
+  ];
+
+  glowColors.forEach((color, index) => {
+    const glowRadius = radius + (index * 4);
     const glowRing = new Circle({
-      left: centerX - radius,
-      top: centerY - radius,
-      radius: radius,
+      left: centerX - glowRadius,
+      top: centerY - glowRadius,
+      radius: glowRadius,
       fill: 'transparent',
-      stroke: 'rgba(23, 190, 187, 0.15)',
-      strokeWidth: strokeWidth,
-      strokeDashArray: [Math.PI * radius * 2],
-      strokeDashOffset: Math.PI * radius * 2 * (1 - score / 100),
+      stroke: color,
+      strokeWidth: 15,
+      strokeDashArray: [Math.PI * glowRadius * 2],
+      strokeDashOffset: Math.PI * glowRadius * 2 * (1 - score / 100),
     });
     elements.push(glowRing);
   });
@@ -50,7 +57,7 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
   });
   elements.push(scoreCircle);
 
-  // Score text
+  // Score text - adjusted positioning and added textAlign
   const scoreText = new Text(Math.round(score).toString(), {
     left: centerX,
     top: centerY,
@@ -60,6 +67,7 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
     fill: 'white',
     originX: 'center',
     originY: 'center',
+    textAlign: 'center',
     shadow: new Shadow({
       color: 'rgba(23, 190, 187, 0.5)',
       blur: 15,
@@ -71,4 +79,3 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
 
   return elements;
 };
-
