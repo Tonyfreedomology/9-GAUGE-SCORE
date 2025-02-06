@@ -66,11 +66,11 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 120; // Moved up further
+      const startY = 90; // Moved up even further
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 40; // Shifted more to the right
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 80; // Shifted more to the right
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100; // Space between heading and panel
 
@@ -218,3 +218,4 @@ export const ShareableImage = ({
     />
   );
 };
+
