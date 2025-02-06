@@ -36,24 +36,28 @@ export const ShareableImage = ({
     ).then((img) => {
       console.log('Background image loaded successfully');
       
-      // Set image as background without scaling
+      // Calculate scaling to fit image within canvas while maintaining aspect ratio
+      const scaleX = width / img.width!;
+      const scaleY = height / img.height!;
+      const scale = Math.min(scaleX, scaleY);
+      
+      // Set image properties
       img.set({
-        originX: 'center',
-        originY: 'center',
-        left: width / 2,
-        top: height / 2,
-        opacity: 0.85
+        scaleX: scale,
+        scaleY: scale,
+        originX: 'left',
+        originY: 'top',
+        left: 0,
+        top: 0
       });
       
       // Add image to canvas as background
-      canvas.backgroundImage = img;
-      canvas.renderAll();
+      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
       
       // Generate image
       const dataUrl = canvas.toDataURL({
         format: "png",
-        quality: 1,
-        multiplier: 2
+        quality: 1
       });
       
       console.log('Image generated successfully');
