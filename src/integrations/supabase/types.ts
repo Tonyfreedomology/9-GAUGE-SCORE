@@ -36,6 +36,74 @@ export type Database = {
         }
         Relationships: []
       }
+      assessment_overall_scores: {
+        Row: {
+          assessment_id: number | null
+          created_at: string | null
+          id: number
+          score: number
+        }
+        Insert: {
+          assessment_id?: number | null
+          created_at?: string | null
+          id?: number
+          score: number
+        }
+        Update: {
+          assessment_id?: number | null
+          created_at?: string | null
+          id?: number
+          score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_overall_scores_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_pillar_scores: {
+        Row: {
+          assessment_id: number | null
+          category_id: number | null
+          created_at: string | null
+          id: number
+          score: number
+        }
+        Insert: {
+          assessment_id?: number | null
+          category_id?: number | null
+          created_at?: string | null
+          id?: number
+          score: number
+        }
+        Update: {
+          assessment_id?: number | null
+          category_id?: number | null
+          created_at?: string | null
+          id?: number
+          score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_pillar_scores_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_pillar_scores_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       assessment_questions: {
         Row: {
           category_id: number | null
@@ -70,6 +138,21 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      assessments: {
+        Row: {
+          created_at: string | null
+          id: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+        }
+        Relationships: []
       }
       secrets: {
         Row: {
