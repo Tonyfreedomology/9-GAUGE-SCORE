@@ -37,7 +37,6 @@ export const ShareableImage = ({
       }
     ).then((img) => {
       console.log('Background image loaded successfully');
-      console.log('Current answers:', answers);
       
       // Calculate scaling to fit image within canvas while maintaining aspect ratio
       const scaleX = width / img.width!;
@@ -90,18 +89,17 @@ export const ShareableImage = ({
         pillar.categories.forEach((category, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
           
-          // Calculate category score by matching question IDs that contain the category name
-          const categoryQuestions = Object.entries(answers).filter(([key]) => 
-            key.toLowerCase().includes(category.toLowerCase())
+          // Calculate score based on the category
+          const categoryPrefix = category.toLowerCase();
+          const categoryAnswers = Object.entries(answers).filter(([key]) => 
+            key.toLowerCase().startsWith(categoryPrefix)
           );
           
           let score = 0;
-          if (categoryQuestions.length > 0) {
-            const total = categoryQuestions.reduce((sum, [_, value]) => sum + value, 0);
-            score = Math.round((total / categoryQuestions.length / 5) * 100);
+          if (categoryAnswers.length > 0) {
+            const total = categoryAnswers.reduce((sum, [_, value]) => sum + value, 0);
+            score = Math.round((total / categoryAnswers.length / 5) * 100);
           }
-
-          console.log(`Category: ${category}, Score: ${score}, Questions:`, categoryQuestions);
 
           // Add score line
           const line = new Line([0, 0, lineWidth, 0], {
