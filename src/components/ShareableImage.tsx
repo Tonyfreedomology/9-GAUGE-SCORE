@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Image } from "fabric";
 import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
@@ -41,7 +40,7 @@ export const ShareableImage = ({
     });
 
     Image.fromURL(
-      'https://static.wixstatic.com/media/af616c_22e0ac03919447c8adb4424b1dca5fce~mv2.jpg',
+      'https://static.wixstatic.com/media/af616c_bd1398522b9e4a849abc238c69f97b09~mv2.jpg',
       {
         crossOrigin: 'anonymous',
         signal: new AbortController().signal
@@ -66,7 +65,7 @@ export const ShareableImage = ({
 
       // Add overall score ring
       const overallScore = calculateOverallScore(assessmentData, answers);
-      const centerX = width * 0.25 + 250; // 250px offset from 25% of width
+      const centerX = width * 0.25 + 300; // Increased from 250 to 300 to move 50px right
       const centerY = height - 120; // Position towards the bottom
 
       const scoreRingElements = createOverallScoreRing({
@@ -160,4 +159,3 @@ export const ShareableImage = ({
     />
   );
 };
-
