@@ -36,10 +36,14 @@ export const ShareableImage = ({
     ).then((img) => {
       console.log('Background image loaded successfully');
       
-      // Set image properties
-      img.scaleX = width / 1200;
-      img.scaleY = height / 630;
-      img.opacity = 0.85;
+      // Set image as background without scaling
+      img.set({
+        originX: 'center',
+        originY: 'center',
+        left: width / 2,
+        top: height / 2,
+        opacity: 0.85
+      });
       
       // Add image to canvas as background
       canvas.backgroundImage = img;
