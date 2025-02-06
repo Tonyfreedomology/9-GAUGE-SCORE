@@ -88,7 +88,10 @@ export const ShareableImage = ({
         // Add score lines and labels for each category
         pillar.categories.forEach((category, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
-          const score = Math.round(Math.random() * 40 + 40); // Replace with actual score calculation
+          
+          // Calculate the actual score for this category
+          const categoryQuestions = (answers || {});
+          const score = Math.round(calculateCategoryScore(categoryQuestions, answers));
 
           // Add score line
           const line = new Line([0, 0, lineWidth, 0], {
