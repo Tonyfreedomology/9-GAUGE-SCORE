@@ -29,32 +29,32 @@ export const ShareableImage = ({
     // Load background image using fabric.Image.fromURL
     Image.fromURL(
       'https://static.wixstatic.com/media/af616c_22e0ac03919447c8adb4424b1dca5fce~mv2.jpg',
+      (img) => {
+        console.log('Background image loaded successfully');
+        
+        // Set image properties
+        img.scaleX = width / 1200;
+        img.scaleY = height / 630;
+        img.opacity = 0.85;
+        
+        // Add image to canvas as background
+        canvas.backgroundImage = img;
+        canvas.renderAll();
+        
+        // Generate image
+        const dataUrl = canvas.toDataURL({
+          format: "png",
+          quality: 1,
+          multiplier: 2
+        });
+        
+        console.log('Image generated successfully');
+        onImageGenerated(dataUrl);
+        canvas.dispose();
+      },
       {
         crossOrigin: 'anonymous',
-        signal: new AbortController().signal,
-        loaded: (img) => {
-          console.log('Background image loaded successfully');
-          
-          // Set image properties
-          img.scaleX = width / 1200;
-          img.scaleY = height / 630;
-          img.opacity = 0.85;
-          
-          // Add image to canvas as background
-          canvas.backgroundImage = img;
-          canvas.renderAll();
-          
-          // Generate image
-          const dataUrl = canvas.toDataURL({
-            format: "png",
-            quality: 1,
-            multiplier: 2
-          });
-          
-          console.log('Image generated successfully');
-          onImageGenerated(dataUrl);
-          canvas.dispose();
-        }
+        signal: new AbortController().signal
       }
     );
 
