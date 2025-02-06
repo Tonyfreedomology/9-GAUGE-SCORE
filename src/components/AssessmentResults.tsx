@@ -95,7 +95,7 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
       </div>
 
       <div className="w-full max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase">
+        <h2 className="text-[10rem] font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase">
           Next Steps
         </h2>
         <NextSteps lowestPillar={lowestCategory} onStartOver={onStartOver} />
