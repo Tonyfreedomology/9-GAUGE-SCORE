@@ -73,7 +73,8 @@ export const ShareableImage = ({
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2;
+      // Adjust startX to move everything more to the left
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 - 100; // Subtract 100px to shift everything left
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100;
       const panelWidth = lineWidth + 80;
