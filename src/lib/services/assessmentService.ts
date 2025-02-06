@@ -69,3 +69,56 @@ export const calculateOverallScore = (
     categoryScores.reduce((sum, score) => sum + score, 0) / categories.length
   );
 };
+
+export const saveAssessmentScores = async (
+  categories: (AssessmentCategory & { questions: AssessmentQuestion[] })[],
+  answers: Record<string, number>
+) => {
+  // Create a new assessment
+  const { data: assessment, error: assessmentError } = await supabase
+    .from('assessments')
+    .insert({})
+    .select()
+    .single();
+
+  if (assessmentError) {
+    console.error('Error creating assessment:', assessmentError);
+    throw assessmentError;
+  }
+
+  // Calculate and save overall score
+  const overallScore = calculateOverallScore(categories, answers);
+  const { error: overallError } = await supabase
+    .from('assessment_overall_scores')
+    .insert({
+      assessment_id: assessment.id,
+      score: overallScore
+    });
+
+  if (overallError) {
+    console.error('Error saving overall score:', overallError);
+    throw overallError;
+  }
+
+  // Calculate and save pillar scores
+  const pillarScores = categories.map(category => ({
+    assessment_id: assessment.id,
+    category_id: category.id,
+    score: calculateCategoryScore(category.questions, answers)
+  }));
+
+  const { error: pillarError } = await supabase
+    .from('assessment_pillar_scores')
+    .insert(pillarScores);
+
+  if (pillarError) {
+    console.error('Error saving pillar scores:', pillarError);
+    throw pillarError;
+  }
+
+  return {
+    assessmentId: assessment.id,
+    overallScore,
+    pillarScores
+  };
+};

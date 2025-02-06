@@ -1,13 +1,14 @@
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { NextSteps } from "./NextSteps";
 import { ResultsHeader } from "./results/ResultsHeader";
 import { ResultsActions } from "./results/ResultsActions";
 import { ResultsBreakdown } from "./results/ResultsBreakdown";
 import { ScoreCard } from "./ScoreCard";
 import { ScoreExplanation } from "./results/ScoreExplanation";
-import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
+import { calculateCategoryScore, calculateOverallScore, saveAssessmentScores } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
+import { toast } from "sonner";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
@@ -23,6 +24,20 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
   const resultsRef = useRef<HTMLDivElement>(null);
   
   const overallScore = calculateOverallScore(categories, answers);
+
+  useEffect(() => {
+    const saveScores = async () => {
+      try {
+        await saveAssessmentScores(categories, answers);
+        console.log('Assessment scores saved successfully');
+      } catch (error) {
+        console.error('Error saving assessment scores:', error);
+        toast.error('There was an error saving your results');
+      }
+    };
+    
+    saveScores();
+  }, [categories, answers]);
 
   const findLowestCategory = () => {
     let lowestScore = Infinity;
