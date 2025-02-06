@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Image, Circle, Text } from "fabric";
+import { Canvas as FabricCanvas, Image, Circle, Text, Shadow } from "fabric";
 import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
@@ -119,7 +119,7 @@ export const ShareableImage = ({
         fill: 'white',
         originX: 'center',
         originY: 'center',
-        shadow: new fabric.Shadow({
+        shadow: new Shadow({
           color: 'rgba(23, 190, 187, 0.5)',
           blur: 15,
           offsetX: 0,
@@ -211,3 +211,4 @@ export const ShareableImage = ({
     />
   );
 };
+
