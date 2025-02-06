@@ -66,14 +66,14 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 140; // Moved up more
+      const startY = 160; // Moved down to create more space for headings
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
       const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2;
-      const panelHeight = categorySpacing * 3; // Increased height to cover category names
+      const panelHeight = categorySpacing * 3;
+      const headingOffset = 100; // Increased space between heading and panel
 
-      // Add panel backgrounds for each pillar
       pillars.forEach((pillar, pillarIndex) => {
         const x = startX + pillarIndex * pillarSpacing - 40;
         const panelWidth = lineWidth + 80;
@@ -81,12 +81,12 @@ export const ShareableImage = ({
         // Add semi-transparent dark panel background
         const panel = new Rect({
           left: x,
-          top: startY - 40, // Moved up to cover category names
+          top: startY - 20,
           width: panelWidth,
           height: panelHeight,
           rx: 12,
           ry: 12,
-          fill: 'rgba(0, 0, 0, 0.6)', // Slightly darker
+          fill: 'rgba(0, 0, 0, 0.75)', // Slightly darker
           stroke: 'rgba(255, 255, 255, 0.1)',
           strokeWidth: 1,
           shadow: new Shadow({
@@ -98,11 +98,11 @@ export const ShareableImage = ({
         });
         canvas.add(panel);
 
-        // Centered pillar title
+        // Centered pillar title with more space above panel
         const pillarName = pillar.name.toLowerCase();
         const titleText = new Text(pillarName, {
           left: x + (panelWidth / 2),
-          top: startY - 80,
+          top: startY - headingOffset, // Increased spacing between heading and panel
           fontSize: 42,
           fontFamily: 'Helvetica',
           fill: 'white',
@@ -144,14 +144,15 @@ export const ShareableImage = ({
             })
           });
 
-          // Score text with enhanced shadow (moved further right and up)
+          // Score text with enhanced shadow and positioning
           const scoreText = new Text(score.toString(), {
-            left: x + lineWidth + 35, // Moved further right
-            top: y - 15, // Moved up slightly
+            left: x + lineWidth + 40,
+            top: y - 15,
             fontSize: 32,
             fontFamily: 'Helvetica',
             fill: 'white',
             fontWeight: 'bold',
+            originX: 'left',
             shadow: new Shadow({
               color: 'rgba(0, 0, 0, 0.6)',
               blur: 5,
