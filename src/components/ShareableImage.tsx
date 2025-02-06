@@ -1,6 +1,7 @@
+
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Image } from "fabric";
-import { calculateCategoryScore } from "@/lib/services/assessmentService";
+import { Canvas as FabricCanvas, Image, Circle, Text } from "fabric";
+import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
@@ -62,6 +63,49 @@ export const ShareableImage = ({
       
       canvas.backgroundImage = img;
 
+      // Add overall score ring
+      const overallScore = calculateOverallScore(assessmentData, answers);
+      const radius = 70;
+      const centerX = width / 2;
+      const centerY = 60; // Position at the top of the image
+
+      // Background circle (gray ring)
+      const backgroundCircle = new Circle({
+        left: centerX - radius,
+        top: centerY - radius,
+        radius: radius,
+        fill: 'transparent',
+        stroke: 'rgba(255,255,255,0.2)',
+        strokeWidth: 8,
+      });
+      canvas.add(backgroundCircle);
+
+      // Score circle with gradient (foreground ring)
+      const scoreCircle = new Circle({
+        left: centerX - radius,
+        top: centerY - radius,
+        radius: radius,
+        fill: 'transparent',
+        stroke: 'url(#blue-gradient)',
+        strokeWidth: 8,
+        strokeDashArray: [Math.PI * radius * 2],
+        strokeDashOffset: Math.PI * radius * 2 * (1 - overallScore / 100),
+      });
+      canvas.add(scoreCircle);
+
+      // Score text
+      const scoreText = new Text(Math.round(overallScore).toString(), {
+        left: centerX,
+        top: centerY,
+        fontSize: 48,
+        fontFamily: 'Helvetica',
+        fontWeight: 'bold',
+        fill: 'white',
+        originX: 'center',
+        originY: 'center',
+      });
+      canvas.add(scoreText);
+
       const pillars = [
         { name: 'HEALTH', color: '#EDB88B', categories: ['Mental', 'Physical', 'Environmental'] },
         { name: 'FINANCES', color: '#17BEBB', categories: ['Income', 'Independence', 'Impact'] },
@@ -72,8 +116,7 @@ export const ShareableImage = ({
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      // Adjust startX to move everything slightly right from previous position
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 - 50; // Changed from -100 to -50
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 - 50;
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100;
       const panelWidth = lineWidth + 80;
