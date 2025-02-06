@@ -65,11 +65,11 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 70; // Moved up further from 120
+      const startY = 120; // Original Y position for content
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 120; // Increased offset from 40 to 120
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 40; // Original X offset
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100;
 
@@ -77,15 +77,15 @@ export const ShareableImage = ({
         const x = startX + pillarIndex * pillarSpacing - 40;
         const panelWidth = lineWidth + 80;
         
-        // Add semi-transparent dark panel background
+        // Adjust only the panel position (move up and right)
         const panel = new Rect({
-          left: x,
-          top: startY - 30,
+          left: x + 40, // Move panel right
+          top: startY - 50, // Move panel up
           width: panelWidth,
           height: panelHeight + 20,
           rx: 12,
           ry: 12,
-          fill: 'rgba(0, 0, 0, 0.9)', // Made panels even darker
+          fill: 'rgba(0, 0, 0, 0.9)',
           stroke: 'rgba(255, 255, 255, 0.1)',
           strokeWidth: 1,
           shadow: new Shadow({
@@ -97,7 +97,7 @@ export const ShareableImage = ({
         });
         canvas.add(panel);
 
-        // Centered pillar title
+        // Keep original positioning for title
         const pillarName = pillar.name.toLowerCase();
         const titleText = new Text(pillarName, {
           left: x + (panelWidth / 2),
