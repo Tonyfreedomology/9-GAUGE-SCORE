@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Image, Line, Text, Rect } from "fabric";
+import { Canvas as FabricCanvas, Image, Line, Text, Rect, Shadow } from "fabric";
 import { calculateCategoryScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
@@ -89,7 +89,7 @@ export const ShareableImage = ({
           fill: 'rgba(255, 255, 255, 0.03)',
           stroke: 'rgba(255, 255, 255, 0.1)',
           strokeWidth: 1,
-          shadow: new fabric.Shadow({
+          shadow: new Shadow({
             color: 'rgba(0, 0, 0, 0.3)',
             blur: 15,
             offsetX: 0,
@@ -114,7 +114,7 @@ export const ShareableImage = ({
           charSpacing: -50,
           width: titleWidth,
           textAlign: 'center',
-          shadow: new fabric.Shadow({
+          shadow: new Shadow({
             color: 'rgba(0, 0, 0, 0.5)',
             blur: 4,
             offsetX: 0,
@@ -140,7 +140,7 @@ export const ShareableImage = ({
             strokeWidth: 4,
             left: x,
             top: y,
-            shadow: new fabric.Shadow({
+            shadow: new Shadow({
               color: `${pillar.color}40`,
               blur: 4,
               offsetX: 0,
@@ -156,7 +156,7 @@ export const ShareableImage = ({
             fontFamily: 'Helvetica',
             fill: 'white',
             fontWeight: 'bold',
-            shadow: new fabric.Shadow({
+            shadow: new Shadow({
               color: 'rgba(0, 0, 0, 0.5)',
               blur: 4,
               offsetX: 0,
@@ -171,7 +171,7 @@ export const ShareableImage = ({
             fontSize: 20,
             fontFamily: 'Avenir',
             fill: 'white',
-            shadow: new fabric.Shadow({
+            shadow: new Shadow({
               color: 'rgba(0, 0, 0, 0.5)',
               blur: 4,
               offsetX: 0,
@@ -186,7 +186,7 @@ export const ShareableImage = ({
             fontSize: triangleSize * 2,
             fontFamily: 'Arial',
             fill: 'white',
-            shadow: new fabric.Shadow({
+            shadow: new Shadow({
               color: 'rgba(0, 0, 0, 0.3)',
               blur: 3,
               offsetX: 0,
@@ -220,3 +220,4 @@ export const ShareableImage = ({
     />
   );
 };
+
