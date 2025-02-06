@@ -32,7 +32,7 @@ export const ShareableImage = ({
       {
         crossOrigin: 'anonymous',
         signal: new AbortController().signal,
-        onload: (img) => {
+        loaded: (img) => {
           console.log('Background image loaded successfully');
           
           // Set image properties
