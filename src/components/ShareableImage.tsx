@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Image, Circle, Text } from "fabric";
 import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
@@ -65,7 +66,7 @@ export const ShareableImage = ({
       // Add overall score ring
       const overallScore = calculateOverallScore(assessmentData, answers);
       const radius = 70;
-      const centerX = width * 0.25; // Position towards the left
+      const centerX = width * 0.25 + 50; // Moved 50px to the right
       const centerY = height - 120; // Position towards the bottom
 
       // Background circle (gray ring)
