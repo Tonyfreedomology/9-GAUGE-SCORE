@@ -89,9 +89,13 @@ export const ShareableImage = ({
         pillar.categories.forEach((category, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
           
-          // Calculate the actual score for this category
-          const categoryQuestions = (answers || {});
-          const score = Math.round(calculateCategoryScore(category.questions, answers));
+          // Get category score
+          const score = Math.round(Object.entries(answers).reduce((total, [key, value]) => {
+            if (key.toLowerCase().includes(category.toLowerCase())) {
+              return total + value;
+            }
+            return total;
+          }, 0) / 3); // Divide by number of questions per category
 
           // Add score line
           const line = new Line([0, 0, lineWidth, 0], {
@@ -157,4 +161,3 @@ export const ShareableImage = ({
     />
   );
 };
-
