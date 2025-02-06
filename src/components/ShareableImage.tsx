@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Image, Circle, Text, Shadow } from "fabric";
+import { Canvas as FabricCanvas, Image } from "fabric";
 import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { createPillarTitle } from "./shareable/PillarTitle";
 import { createScoreRow } from "./shareable/ScoreRow";
 import { createScorePanel } from "./shareable/ScorePanel";
+import { createOverallScoreRing } from "./shareable/OverallScoreRing";
 
 type ShareableImageProps = {
   answers: Record<string, number>;
@@ -65,68 +66,16 @@ export const ShareableImage = ({
 
       // Add overall score ring
       const overallScore = calculateOverallScore(assessmentData, answers);
-      const radius = 70;
-      const centerX = width * 0.25 + 175; // Moved another 75px to the right (total 175px)
+      const centerX = width * 0.25 + 250; // 250px offset from 25% of width
       const centerY = height - 120; // Position towards the bottom
 
-      // Add glow effect with multiple rings
-      // Outer glow rings
-      [16, 12, 8].forEach(strokeWidth => {
-        const glowRing = new Circle({
-          left: centerX - radius,
-          top: centerY - radius,
-          radius: radius,
-          fill: 'transparent',
-          stroke: 'rgba(23, 190, 187, 0.15)',
-          strokeWidth: strokeWidth,
-          strokeDashArray: [Math.PI * radius * 2],
-          strokeDashOffset: Math.PI * radius * 2 * (1 - overallScore / 100),
-        });
-        canvas.add(glowRing);
+      const scoreRingElements = createOverallScoreRing({
+        score: overallScore,
+        centerX,
+        centerY
       });
 
-      // Background circle (gray ring)
-      const backgroundCircle = new Circle({
-        left: centerX - radius,
-        top: centerY - radius,
-        radius: radius,
-        fill: 'transparent',
-        stroke: 'rgba(255,255,255,0.2)',
-        strokeWidth: 8,
-      });
-      canvas.add(backgroundCircle);
-
-      // Score circle (foreground ring)
-      const scoreCircle = new Circle({
-        left: centerX - radius,
-        top: centerY - radius,
-        radius: radius,
-        fill: 'transparent',
-        stroke: '#17BEBB',
-        strokeWidth: 8,
-        strokeDashArray: [Math.PI * radius * 2],
-        strokeDashOffset: Math.PI * radius * 2 * (1 - overallScore / 100),
-      });
-      canvas.add(scoreCircle);
-
-      // Score text
-      const scoreText = new Text(Math.round(overallScore).toString(), {
-        left: centerX,
-        top: centerY,
-        fontSize: 48,
-        fontFamily: 'Helvetica',
-        fontWeight: 'bold',
-        fill: 'white',
-        originX: 'center',
-        originY: 'center',
-        shadow: new Shadow({
-          color: 'rgba(23, 190, 187, 0.5)',
-          blur: 15,
-          offsetX: 0,
-          offsetY: 0
-        })
-      });
-      canvas.add(scoreText);
+      scoreRingElements.forEach(element => canvas.add(element));
 
       const pillars = [
         { name: 'HEALTH', color: '#EDB88B', categories: ['Mental', 'Physical', 'Environmental'] },
