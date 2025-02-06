@@ -66,7 +66,7 @@ export const ShareableImage = ({
       // Add overall score ring
       const overallScore = calculateOverallScore(assessmentData, answers);
       const radius = 70;
-      const centerX = width * 0.25 + 50; // Moved 50px to the right
+      const centerX = width * 0.25 + 100; // Moved another 50px to the right (total 100px)
       const centerY = height - 120; // Position towards the bottom
 
       // Background circle (gray ring)
@@ -80,7 +80,7 @@ export const ShareableImage = ({
       });
       canvas.add(backgroundCircle);
 
-      // Score circle with gradient (foreground ring)
+      // Score circle (foreground ring)
       const scoreCircle = new Circle({
         left: centerX - radius,
         top: centerY - radius,
