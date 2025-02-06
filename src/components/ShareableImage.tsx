@@ -55,11 +55,11 @@ export const ShareableImage = ({
       canvas.backgroundImage = img;
       canvas.renderAll();
       
-      // Generate image with required multiplier option
+      // Generate image with higher multiplier for better resolution
       const dataUrl = canvas.toDataURL({
         format: "png",
         quality: 1,
-        multiplier: 1
+        multiplier: 2  // Increased from 1 to 2 for higher resolution
       });
       
       console.log('Image generated successfully');
