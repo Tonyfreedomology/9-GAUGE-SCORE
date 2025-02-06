@@ -10,13 +10,13 @@ type ScorePanelProps = {
 
 export const createScorePanel = ({ x, y, width, height }: ScorePanelProps) => {
   return new Rect({
-    left: x,
+    left: x - 40, // Shift left to better center the content
     top: y,
     width,
     height,
     rx: 12,
     ry: 12,
-    fill: 'rgba(0, 0, 0, 0.9)',
+    fill: 'rgba(0, 0, 0, 0.4)', // Reduced opacity
     stroke: 'rgba(255, 255, 255, 0.1)',
     strokeWidth: 1,
     shadow: new Shadow({
@@ -27,3 +27,4 @@ export const createScorePanel = ({ x, y, width, height }: ScorePanelProps) => {
     })
   });
 };
+
