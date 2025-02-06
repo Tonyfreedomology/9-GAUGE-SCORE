@@ -70,11 +70,11 @@ export const createScoreRow = ({
   });
   elements.push(categoryText);
 
-  // Triangle indicator - adjusted to be below the line
+  // Triangle indicator
   const triangleSize = 10;
   const triangle = new Text('▲', {
     left: x + 40 + (lineWidth * score / 100) - triangleSize/2,
-    top: y + 8, // Changed from y - 4 to y + 8 to position below the line
+    top: y - 4,
     fontSize: triangleSize * 2,
     fontFamily: 'Arial',
     fill: 'white',
@@ -89,4 +89,3 @@ export const createScoreRow = ({
 
   return elements;
 };
-
