@@ -59,9 +59,9 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
 
   // Score text - adjusted positioning and added textAlign
   const scoreText = new Text(Math.round(score).toString(), {
-    left: centerX + 4, // Moved 4px right (doubled from 2)
-    top: centerY + 6, // Moved 6px down (doubled from 3)
-    fontSize: 48,
+    left: centerX + 4,
+    top: centerY + 6,
+    fontSize: 72, // Increased from 48 to 72 (50% larger)
     fontFamily: 'Helvetica',
     fontWeight: 'bold',
     fill: 'white',
