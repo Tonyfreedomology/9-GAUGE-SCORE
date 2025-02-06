@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Image } from "fabric";
 import { calculateCategoryScore } from "@/lib/services/assessmentService";
@@ -73,8 +72,8 @@ export const ShareableImage = ({
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      // Adjust startX to move everything more to the left
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 - 100; // Subtract 100px to shift everything left
+      // Adjust startX to move everything slightly right from previous position
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 - 50; // Changed from -100 to -50
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100;
       const panelWidth = lineWidth + 80;
