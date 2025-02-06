@@ -91,7 +91,7 @@ export const ShareableImage = ({
           
           // Calculate the actual score for this category
           const categoryQuestions = (answers || {});
-          const score = Math.round(calculateCategoryScore(categoryQuestions, answers));
+          const score = Math.round(calculateCategoryScore(category.questions, answers));
 
           // Add score line
           const line = new Line([0, 0, lineWidth, 0], {
@@ -157,3 +157,4 @@ export const ShareableImage = ({
     />
   );
 };
+
