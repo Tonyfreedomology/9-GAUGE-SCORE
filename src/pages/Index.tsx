@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -59,7 +60,7 @@ const Index = () => {
 
         <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light leading-relaxed px-2 md:px-0 text-[#3A4348]">
           <p>
-            Discover your Freedomology Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
+            Discover your 9 Gauge Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
           <p>
             Take our quick 10-minute assessment to understand where you stand and identify areas for growth in your journey to true freedom.
@@ -87,7 +88,7 @@ const Index = () => {
 
       <img 
         src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
-        alt="Freedomology Logo" 
+        alt="9 Gauge Logo" 
         className="h-16 md:h-20 mx-auto mb-8 mt-auto"
       />
     </div>

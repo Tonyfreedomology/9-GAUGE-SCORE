@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,12 +7,12 @@ export const FreedomologyLogo = () => {
   const navigate = useNavigate();
 
   const handleImageError = () => {
-    console.error("Failed to load Freedomology logo");
+    console.error("Failed to load 9 Gauge logo");
     setImageError(true);
   };
 
   const handleImageLoad = () => {
-    console.log("Successfully loaded Freedomology logo");
+    console.log("Successfully loaded 9 Gauge logo");
   };
 
   const handleLogoClick = () => {
@@ -25,7 +26,7 @@ export const FreedomologyLogo = () => {
         onClick={handleLogoClick}
         className="text-xl font-bold text-center mb-8 text-white cursor-pointer hover:opacity-80 transition-opacity"
       >
-        Freedomology
+        9 Gauge
       </div>
     );
   }
@@ -33,7 +34,7 @@ export const FreedomologyLogo = () => {
   return (
     <img 
       src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
-      alt="Freedomology" 
+      alt="9 Gauge" 
       className="h-20 md:h-24 mx-auto mb-8 transform transition-all duration-300 hover:scale-105 cursor-pointer"
       onError={handleImageError}
       onLoad={handleImageLoad}
