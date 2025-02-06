@@ -35,11 +35,11 @@ export const createScoreRow = ({
   });
   elements.push(gradientLine);
 
-  // Score text - made smaller (28px instead of 32px)
+  // Score text - made 10% smaller (25px) and adjusted position
   const scoreText = new Text(score.toString(), {
-    left: x + lineWidth + 45, // Slightly adjusted left position
-    top: y - 15,
-    fontSize: 28,
+    left: x + lineWidth + 55, // Increased from 45 to 55 to move right
+    top: y - 12, // Moved down slightly (was -15)
+    fontSize: 25, // Reduced from 28
     fontFamily: 'Helvetica',
     fill: 'white',
     fontWeight: 'bold',
@@ -53,14 +53,14 @@ export const createScoreRow = ({
   });
   elements.push(scoreText);
 
-  // Category text - changed to regular weight
+  // Category text
   const categoryText = new Text(categoryName, {
     left: x + 40,
     top: y - 25,
     fontSize: 22,
     fontFamily: 'Avenir',
     fill: 'white',
-    fontWeight: '400', // Changed from 600 to 400
+    fontWeight: '400',
     shadow: new Shadow({
       color: 'rgba(0, 0, 0, 0.6)',
       blur: 4,
