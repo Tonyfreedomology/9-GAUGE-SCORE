@@ -66,7 +66,7 @@ export const ShareableImage = ({
       // Add overall score ring
       const overallScore = calculateOverallScore(assessmentData, answers);
       const radius = 70;
-      const centerX = width * 0.25 + 100; // Moved another 50px to the right (total 100px)
+      const centerX = width * 0.25 + 175; // Moved another 75px to the right (total 175px)
       const centerY = height - 120; // Position towards the bottom
 
       // Background circle (gray ring)
