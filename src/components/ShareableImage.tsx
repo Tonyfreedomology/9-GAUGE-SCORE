@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Image } from "fabric";
 import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
@@ -40,7 +41,7 @@ export const ShareableImage = ({
     });
 
     Image.fromURL(
-      'https://static.wixstatic.com/media/af616c_bd1398522b9e4a849abc238c69f97b09~mv2.jpg',
+      'https://static.wixstatic.com/media/af616c_d1b7e6e443d8475081ecab80d4ff81cb~mv2.jpg',
       {
         crossOrigin: 'anonymous',
         signal: new AbortController().signal
