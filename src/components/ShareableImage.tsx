@@ -69,6 +69,22 @@ export const ShareableImage = ({
       const centerX = width * 0.25 + 175; // Moved another 75px to the right (total 175px)
       const centerY = height - 120; // Position towards the bottom
 
+      // Add glow effect with multiple rings
+      // Outer glow rings
+      [16, 12, 8].forEach(strokeWidth => {
+        const glowRing = new Circle({
+          left: centerX - radius,
+          top: centerY - radius,
+          radius: radius,
+          fill: 'transparent',
+          stroke: 'rgba(23, 190, 187, 0.15)',
+          strokeWidth: strokeWidth,
+          strokeDashArray: [Math.PI * radius * 2],
+          strokeDashOffset: Math.PI * radius * 2 * (1 - overallScore / 100),
+        });
+        canvas.add(glowRing);
+      });
+
       // Background circle (gray ring)
       const backgroundCircle = new Circle({
         left: centerX - radius,
@@ -103,6 +119,12 @@ export const ShareableImage = ({
         fill: 'white',
         originX: 'center',
         originY: 'center',
+        shadow: new fabric.Shadow({
+          color: 'rgba(23, 190, 187, 0.5)',
+          blur: 15,
+          offsetX: 0,
+          offsetY: 0
+        })
       });
       canvas.add(scoreText);
 
