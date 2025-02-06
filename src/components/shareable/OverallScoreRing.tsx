@@ -32,6 +32,12 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
     strokeWidth: 8,
     strokeDashArray: [Math.PI * radius * 2],
     strokeDashOffset: Math.PI * radius * 2 * (1 - score / 100),
+    shadow: new Shadow({
+      color: 'rgba(23, 190, 187, 0.5)',
+      blur: 15,
+      offsetX: 0,
+      offsetY: 0
+    })
   });
   elements.push(scoreCircle);
 
