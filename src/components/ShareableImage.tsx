@@ -51,13 +51,15 @@ export const ShareableImage = ({
         top: 0
       });
       
-      // Add image to canvas as background
-      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+      // Set background image directly using the property
+      canvas.backgroundImage = img;
+      canvas.renderAll();
       
-      // Generate image
+      // Generate image with required multiplier option
       const dataUrl = canvas.toDataURL({
         format: "png",
-        quality: 1
+        quality: 1,
+        multiplier: 1
       });
       
       console.log('Image generated successfully');
