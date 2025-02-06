@@ -66,8 +66,22 @@ export const ShareableImage = ({
       // Add overall score ring
       const overallScore = calculateOverallScore(assessmentData, answers);
       const radius = 70;
-      const centerX = width / 2;
-      const centerY = 60; // Position at the top of the image
+      const centerX = width * 0.25; // Position towards the left
+      const centerY = height - 120; // Position towards the bottom
+
+      // Create gradient definition
+      const gradient = {
+        colorStops: [
+          { offset: 0, color: '#17BEBB' },
+          { offset: 1, color: '#00D4FF' }
+        ],
+        coords: {
+          x1: -radius,
+          y1: -radius,
+          x2: radius,
+          y2: radius
+        }
+      };
 
       // Background circle (gray ring)
       const backgroundCircle = new Circle({
@@ -86,7 +100,7 @@ export const ShareableImage = ({
         top: centerY - radius,
         radius: radius,
         fill: 'transparent',
-        stroke: 'url(#blue-gradient)',
+        stroke: gradient,
         strokeWidth: 8,
         strokeDashArray: [Math.PI * radius * 2],
         strokeDashOffset: Math.PI * radius * 2 * (1 - overallScore / 100),
