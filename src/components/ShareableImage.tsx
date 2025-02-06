@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Image, Line, Text } from "fabric";
+import { Canvas as FabricCanvas, Image, Line, Text, Rect } from "fabric";
 import { calculateCategoryScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
@@ -72,18 +72,54 @@ export const ShareableImage = ({
       const categorySpacing = 100;
       const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2;
 
+      // Add panel backgrounds for each pillar
+      pillars.forEach((pillar, pillarIndex) => {
+        const x = startX + pillarIndex * pillarSpacing - 40; // Wider than content
+        const panelWidth = lineWidth + 80; // Add padding
+        const panelHeight = categorySpacing * 3 + 60; // Cover all categories plus padding
+        
+        // Add subtle panel background
+        const panel = new Rect({
+          left: x,
+          top: startY - 20,
+          width: panelWidth,
+          height: panelHeight,
+          rx: 8, // Rounded corners
+          ry: 8,
+          fill: 'rgba(255, 255, 255, 0.03)',
+          stroke: 'rgba(255, 255, 255, 0.1)',
+          strokeWidth: 1,
+          shadow: new fabric.Shadow({
+            color: 'rgba(0, 0, 0, 0.3)',
+            blur: 15,
+            offsetX: 0,
+            offsetY: 4
+          })
+        });
+        canvas.add(panel);
+      });
+
       pillars.forEach((pillar, pillarIndex) => {
         const x = startX + pillarIndex * pillarSpacing;
 
-        // Pillar title with Helvetica
+        // Centered pillar title with Helvetica
+        const titleWidth = 200; // Approximate width for centering
         const titleText = new Text(pillar.name.toLowerCase(), {
-          left: x,
+          left: x - (titleWidth - lineWidth) / 2,
           top: startY - 60,
           fontSize: 36,
           fontFamily: 'Helvetica',
           fill: 'white',
           fontWeight: 'bold',
-          charSpacing: -50 // Tighter letter spacing
+          charSpacing: -50,
+          width: titleWidth,
+          textAlign: 'center',
+          shadow: new fabric.Shadow({
+            color: 'rgba(0, 0, 0, 0.5)',
+            blur: 4,
+            offsetX: 0,
+            offsetY: 2
+          })
         });
         canvas.add(titleText);
 
@@ -98,32 +134,49 @@ export const ShareableImage = ({
             ? calculateCategoryScore(category.questions, answers)
             : 0;
 
-          console.log(`Category: ${categoryName}, Score: ${score}`);
-
-          const line = new Line([0, 0, lineWidth, 0], {
+          // Create gradient line effect
+          const gradientLine = new Line([0, 0, lineWidth, 0], {
             stroke: pillar.color,
             strokeWidth: 4,
             left: x,
-            top: y
+            top: y,
+            shadow: new fabric.Shadow({
+              color: `${pillar.color}40`,
+              blur: 4,
+              offsetX: 0,
+              offsetY: 2
+            })
           });
 
-          // Score text with Helvetica
+          // Score text with shadow
           const scoreText = new Text(score.toString(), {
             left: x + lineWidth + 10,
             top: y - 15,
             fontSize: 28,
             fontFamily: 'Helvetica',
             fill: 'white',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            shadow: new fabric.Shadow({
+              color: 'rgba(0, 0, 0, 0.5)',
+              blur: 4,
+              offsetX: 0,
+              offsetY: 2
+            })
           });
 
-          // Category text with Avenir
+          // Category text with shadow
           const categoryText = new Text(categoryName, {
             left: x,
             top: y + 10,
             fontSize: 20,
             fontFamily: 'Avenir',
-            fill: 'white'
+            fill: 'white',
+            shadow: new fabric.Shadow({
+              color: 'rgba(0, 0, 0, 0.5)',
+              blur: 4,
+              offsetX: 0,
+              offsetY: 2
+            })
           });
 
           const triangleSize = 8;
@@ -132,10 +185,16 @@ export const ShareableImage = ({
             top: y - triangleSize,
             fontSize: triangleSize * 2,
             fontFamily: 'Arial',
-            fill: 'white'
+            fill: 'white',
+            shadow: new fabric.Shadow({
+              color: 'rgba(0, 0, 0, 0.3)',
+              blur: 3,
+              offsetX: 0,
+              offsetY: 1
+            })
           });
 
-          canvas.add(line, scoreText, categoryText, triangle);
+          canvas.add(gradientLine, scoreText, categoryText, triangle);
         });
       });
 
