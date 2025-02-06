@@ -66,12 +66,12 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 200; // Moved down slightly
+      const startY = 160; // Moved up further
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
       const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2;
-      const panelHeight = categorySpacing * 2.8; // Reduced height to avoid logo overlap
+      const panelHeight = categorySpacing * 2.5; // Reduced height more
 
       // Add panel backgrounds for each pillar
       pillars.forEach((pillar, pillarIndex) => {
@@ -84,16 +84,16 @@ export const ShareableImage = ({
           top: startY - 20,
           width: panelWidth,
           height: panelHeight,
-          rx: 8,
-          ry: 8,
-          fill: 'rgba(0, 0, 0, 0.3)', // Changed to dark semi-transparent
+          rx: 12, // Increased corner radius
+          ry: 12,
+          fill: 'rgba(0, 0, 0, 0.45)', // Darker background
           stroke: 'rgba(255, 255, 255, 0.1)',
           strokeWidth: 1,
           shadow: new Shadow({
-            color: 'rgba(0, 0, 0, 0.4)',
-            blur: 20,
+            color: 'rgba(0, 0, 0, 0.5)',
+            blur: 25,
             offsetX: 0,
-            offsetY: 8
+            offsetY: 10
           })
         });
         canvas.add(panel);
@@ -102,19 +102,19 @@ export const ShareableImage = ({
         const pillarName = pillar.name.toLowerCase();
         const titleText = new Text(pillarName, {
           left: x + (panelWidth / 2),
-          top: startY - 80,
-          fontSize: 36,
+          top: startY - 90, // Moved up slightly
+          fontSize: 42, // Increased size
           fontFamily: 'Helvetica',
           fill: 'white',
-          fontWeight: 'bold',
+          fontWeight: '800', // Bolder font
           charSpacing: -50,
-          originX: 'center', // This ensures true centering
+          originX: 'center',
           textAlign: 'center',
           shadow: new Shadow({
-            color: 'rgba(0, 0, 0, 0.5)',
-            blur: 4,
+            color: 'rgba(0, 0, 0, 0.6)',
+            blur: 5,
             offsetX: 0,
-            offsetY: 2
+            offsetY: 3
           })
         });
         canvas.add(titleText);
@@ -133,12 +133,12 @@ export const ShareableImage = ({
           // Create gradient line effect
           const gradientLine = new Line([0, 0, lineWidth, 0], {
             stroke: pillar.color,
-            strokeWidth: 4,
-            left: x + 40, // Adjusted position
-            top: y,
+            strokeWidth: 6, // Thicker lines
+            left: x + 40,
+            top: y + 5, // Adjusted to prevent score overlap
             shadow: new Shadow({
-              color: `${pillar.color}40`,
-              blur: 4,
+              color: `${pillar.color}60`,
+              blur: 6,
               offsetX: 0,
               offsetY: 2
             })
@@ -146,15 +146,15 @@ export const ShareableImage = ({
 
           // Score text with enhanced shadow
           const scoreText = new Text(score.toString(), {
-            left: x + lineWidth + 20, // Adjusted position
-            top: y - 15,
-            fontSize: 28,
+            left: x + lineWidth + 25, // Moved further right
+            top: y - 10, // Adjusted position
+            fontSize: 32, // Larger font
             fontFamily: 'Helvetica',
             fill: 'white',
             fontWeight: 'bold',
             shadow: new Shadow({
-              color: 'rgba(0, 0, 0, 0.5)',
-              blur: 4,
+              color: 'rgba(0, 0, 0, 0.6)',
+              blur: 5,
               offsetX: 0,
               offsetY: 2
             })
@@ -162,28 +162,29 @@ export const ShareableImage = ({
 
           // Category text with enhanced shadow
           const categoryText = new Text(categoryName, {
-            left: x + 40, // Adjusted position
-            top: y + 10,
-            fontSize: 20,
-            fontFamily: 'Avenir',
+            left: x + 40,
+            top: y - 25, // Moved above the line
+            fontSize: 22, // Slightly larger
+            fontFamily: 'Helvetica',
             fill: 'white',
+            fontWeight: '600', // Semi-bold
             shadow: new Shadow({
-              color: 'rgba(0, 0, 0, 0.5)',
+              color: 'rgba(0, 0, 0, 0.6)',
               blur: 4,
               offsetX: 0,
               offsetY: 2
             })
           });
 
-          const triangleSize = 8;
+          const triangleSize = 10; // Slightly larger triangle
           const triangle = new Text('▲', {
-            left: x + 40 + (lineWidth * score / 100) - triangleSize/2, // Adjusted position
-            top: y - triangleSize,
+            left: x + 40 + (lineWidth * score / 100) - triangleSize/2,
+            top: y - 4, // Adjusted to sit on the line
             fontSize: triangleSize * 2,
             fontFamily: 'Arial',
             fill: 'white',
             shadow: new Shadow({
-              color: 'rgba(0, 0, 0, 0.3)',
+              color: 'rgba(0, 0, 0, 0.4)',
               blur: 3,
               offsetX: 0,
               offsetY: 1
