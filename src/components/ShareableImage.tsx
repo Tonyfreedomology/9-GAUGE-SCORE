@@ -89,13 +89,15 @@ export const ShareableImage = ({
         pillar.categories.forEach((category, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
           
-          // Get category score
-          const score = Math.round(Object.entries(answers).reduce((total, [key, value]) => {
-            if (key.toLowerCase().includes(category.toLowerCase())) {
-              return total + value;
-            }
-            return total;
-          }, 0) / 3); // Divide by number of questions per category
+          // Get category score by matching keys containing the category name
+          const relevantQuestions = Object.entries(answers).filter(([key]) => 
+            key.split('_')[0].toLowerCase() === category.toLowerCase()
+          );
+          const score = relevantQuestions.length > 0 
+            ? Math.round(relevantQuestions.reduce((sum, [_, value]) => sum + value, 0) / relevantQuestions.length * 20)
+            : 0;
+
+          console.log(`Category: ${category}, Score: ${score}, Questions:`, relevantQuestions);
 
           // Add score line
           const line = new Line([0, 0, lineWidth, 0], {
@@ -161,3 +163,4 @@ export const ShareableImage = ({
     />
   );
 };
+
