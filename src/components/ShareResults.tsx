@@ -53,11 +53,12 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       <Button
         onClick={generateAndShareImage}
         disabled={isGenerating}
-        className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl text-lg font-semibold
-          transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center gap-2"
+        className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl 
+          text-lg font-heading font-bold tracking-tighter lowercase flex items-center gap-2
+          transition-all duration-300 hover:shadow-lg hover:scale-105"
       >
         <Share2 className="w-5 h-5" />
-        {isGenerating ? "Generating..." : "Share Results"}
+        {isGenerating ? "generating..." : "share results"}
       </Button>
       
       {isGenerating && (

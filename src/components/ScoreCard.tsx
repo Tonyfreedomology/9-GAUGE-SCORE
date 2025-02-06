@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { getFeedbackTier } from "@/lib/questions";
@@ -65,19 +66,28 @@ export const ScoreCard = ({
     isOverallScore && "text-8xl"
   );
 
+  // Get gradient style for overall score
+  const getScoreStyle = () => {
+    if (isOverallScore) {
+      return {
+        background: 'linear-gradient(90deg, #17BEBB, #00D4FF)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text'
+      } as React.CSSProperties;
+    }
+    return {
+      color,
+      '--glow-color': getRgbValues(color),
+    } as React.CSSProperties;
+  };
+
   // Convert hex color to RGB for CSS variable
   const getRgbValues = (hex: string) => {
     const rgb = hexToRgba(hex, 1);
     const match = rgb.match(/\d+/g);
     return match ? match.slice(0, 3).join(', ') : '0, 0, 0';
   };
-
-  const scoreStyle = {
-    color,
-    '--glow-color': getRgbValues(color),
-  } as React.CSSProperties;
-
-  console.log('Applying glow with color:', color, 'RGB values:', getRgbValues(color));
 
   return (
     <div className={cardClasses}>
@@ -91,14 +101,14 @@ export const ScoreCard = ({
         <div className="relative flex justify-center items-center">
           <ProgressBar 
             value={isVisible ? score : 0} 
-            color={color} 
+            color={isOverallScore ? 'url(#blue-gradient)' : color} 
             variant="circle"
             size={isOverallScore ? 200 : 160}
           />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
               className={scoreClasses}
-              style={scoreStyle}
+              style={getScoreStyle()}
             >
               {Math.round(animatedScore)}
             </span>
