@@ -21,7 +21,6 @@ export const ShareableImage = ({
 }: ShareableImageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  // Fetch assessment data to get categories and questions
   const { data: assessmentData } = useQuery({
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
@@ -76,25 +75,25 @@ export const ShareableImage = ({
       pillars.forEach((pillar, pillarIndex) => {
         const x = startX + pillarIndex * pillarSpacing;
 
-        const titleText = new Text(pillar.name, {
+        // Pillar title with Helvetica
+        const titleText = new Text(pillar.name.toLowerCase(), {
           left: x,
           top: startY - 60,
           fontSize: 36,
-          fontFamily: 'Arial',
+          fontFamily: 'Helvetica',
           fill: 'white',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          charSpacing: -50 // Tighter letter spacing
         });
         canvas.add(titleText);
 
         pillar.categories.forEach((categoryName, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
           
-          // Find the matching category from assessment data
           const category = assessmentData.find(c => 
             c.display_name.toLowerCase().includes(categoryName.toLowerCase())
           );
           
-          // Calculate score using the assessment service function
           const score = category 
             ? calculateCategoryScore(category.questions, answers)
             : 0;
@@ -108,20 +107,22 @@ export const ShareableImage = ({
             top: y
           });
 
+          // Score text with Helvetica
           const scoreText = new Text(score.toString(), {
             left: x + lineWidth + 10,
             top: y - 15,
             fontSize: 28,
-            fontFamily: 'Arial',
+            fontFamily: 'Helvetica',
             fill: 'white',
             fontWeight: 'bold'
           });
 
+          // Category text with Avenir
           const categoryText = new Text(categoryName, {
             left: x,
             top: y + 10,
             fontSize: 20,
-            fontFamily: 'Arial',
+            fontFamily: 'Avenir',
             fill: 'white'
           });
 
