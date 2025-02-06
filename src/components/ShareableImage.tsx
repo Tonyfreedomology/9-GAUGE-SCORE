@@ -1,9 +1,13 @@
+
 import { useEffect, useRef } from "react";
-import { Canvas as FabricCanvas, Image, Line, Text, Rect, Shadow } from "fabric";
+import { Canvas as FabricCanvas, Image } from "fabric";
 import { calculateCategoryScore } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
+import { createPillarTitle } from "./shareable/PillarTitle";
+import { createScoreRow } from "./shareable/ScoreRow";
+import { createScorePanel } from "./shareable/ScorePanel";
 
 type ShareableImageProps = {
   answers: Record<string, number>;
@@ -65,59 +69,37 @@ export const ShareableImage = ({
         { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
       ];
 
-      const startY = 120; // Original Y position for content
+      const startY = 120;
       const lineWidth = 200;
       const pillarSpacing = 350;
       const categorySpacing = 100;
-      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2 + 40; // Original X offset
+      const startX = (width - (pillarSpacing * 2 + lineWidth)) / 2;
       const panelHeight = categorySpacing * 3;
       const headingOffset = 100;
+      const panelWidth = lineWidth + 80;
 
       pillars.forEach((pillar, pillarIndex) => {
-        const x = startX + pillarIndex * pillarSpacing - 40;
-        const panelWidth = lineWidth + 80;
-        
-        // Adjust only the panel position (move up and right)
-        const panel = new Rect({
-          left: x + 40, // Move panel right
-          top: startY - 50, // Move panel up
+        const x = startX + pillarIndex * pillarSpacing;
+
+        // Create and add panel
+        const panel = createScorePanel({
+          x: x + 40,
+          y: startY - 50,
           width: panelWidth,
-          height: panelHeight + 20,
-          rx: 12,
-          ry: 12,
-          fill: 'rgba(0, 0, 0, 0.9)',
-          stroke: 'rgba(255, 255, 255, 0.1)',
-          strokeWidth: 1,
-          shadow: new Shadow({
-            color: 'rgba(0, 0, 0, 0.5)',
-            blur: 25,
-            offsetX: 0,
-            offsetY: 10
-          })
+          height: panelHeight + 20
         });
         canvas.add(panel);
 
-        // Keep original positioning for title
-        const pillarName = pillar.name.toLowerCase();
-        const titleText = new Text(pillarName, {
-          left: x + (panelWidth / 2),
-          top: startY - headingOffset,
-          fontSize: 42,
-          fontFamily: 'Helvetica',
-          fill: 'white',
-          fontWeight: '800',
-          charSpacing: -50,
-          originX: 'center',
-          textAlign: 'center',
-          shadow: new Shadow({
-            color: 'rgba(0, 0, 0, 0.6)',
-            blur: 5,
-            offsetX: 0,
-            offsetY: 3
-          })
+        // Create and add title
+        const title = createPillarTitle({
+          text: pillar.name,
+          x,
+          y: startY - headingOffset,
+          panelWidth: panelWidth
         });
-        canvas.add(titleText);
+        canvas.add(title);
 
+        // Create and add score rows
         pillar.categories.forEach((categoryName, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
           
@@ -129,69 +111,16 @@ export const ShareableImage = ({
             ? calculateCategoryScore(category.questions, answers)
             : 0;
 
-          // Create gradient line effect
-          const gradientLine = new Line([0, 0, lineWidth, 0], {
-            stroke: pillar.color,
-            strokeWidth: 6,
-            left: x + 40,
-            top: y + 5,
-            shadow: new Shadow({
-              color: `${pillar.color}60`,
-              blur: 6,
-              offsetX: 0,
-              offsetY: 2
-            })
+          const rowElements = createScoreRow({
+            categoryName,
+            score,
+            x,
+            y,
+            lineWidth,
+            color: pillar.color
           });
 
-          // Score text with enhanced positioning
-          const scoreText = new Text(score.toString(), {
-            left: x + lineWidth + 50, // Moved even more right
-            top: y - 15,
-            fontSize: 32,
-            fontFamily: 'Helvetica',
-            fill: 'white',
-            fontWeight: 'bold',
-            originX: 'left',
-            shadow: new Shadow({
-              color: 'rgba(0, 0, 0, 0.6)',
-              blur: 5,
-              offsetX: 0,
-              offsetY: 2
-            })
-          });
-
-          // Category text
-          const categoryText = new Text(categoryName, {
-            left: x + 40,
-            top: y - 25,
-            fontSize: 22,
-            fontFamily: 'Helvetica',
-            fill: 'white',
-            fontWeight: '600',
-            shadow: new Shadow({
-              color: 'rgba(0, 0, 0, 0.6)',
-              blur: 4,
-              offsetX: 0,
-              offsetY: 2
-            })
-          });
-
-          const triangleSize = 10;
-          const triangle = new Text('▲', {
-            left: x + 40 + (lineWidth * score / 100) - triangleSize/2,
-            top: y - 4,
-            fontSize: triangleSize * 2,
-            fontFamily: 'Arial',
-            fill: 'white',
-            shadow: new Shadow({
-              color: 'rgba(0, 0, 0, 0.4)',
-              blur: 3,
-              offsetX: 0,
-              offsetY: 1
-            })
-          });
-
-          canvas.add(gradientLine, scoreText, categoryText, triangle);
+          rowElements.forEach(element => canvas.add(element));
         });
       });
 
