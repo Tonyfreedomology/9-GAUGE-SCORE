@@ -7,12 +7,10 @@ import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
-  questions: Database['public']['Tables']['assessment_questions']['Row'][];
-};
-
-type QuestionOption = {
-  value: number;
-  label: string;
+  questions: (Database['public']['Tables']['assessment_questions']['Row'] & {
+    originalCategoryName: string;
+    pillar: string;
+  })[];
 };
 
 type Answers = Record<string, number>;
@@ -39,18 +37,6 @@ const Assessment = () => {
   const currentCategory = assessmentData[currentCategoryIndex];
   const questions = currentCategory.questions;
   const currentQuestion = questions[currentQuestionIndex];
-  
-  const getPillarFromCategory = (categoryName: string) => {
-    if (categoryName.includes('Physical') || categoryName.includes('Mental') || categoryName.includes('Environmental')) {
-      return 'Health';
-    }
-    if (categoryName.includes('Income') || categoryName.includes('Independence') || categoryName.includes('Impact')) {
-      return 'Financial';
-    }
-    return 'Relationships';
-  };
-
-  const pillarName = getPillarFromCategory(currentCategory.display_name);
   
   const handleAnswer = (value: number) => {
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
@@ -136,7 +122,7 @@ const Assessment = () => {
             />
           ) : (
             <AssessmentQuestion
-              category={pillarName}
+              category={currentQuestion.pillar}
               questionText={currentQuestion.question_text}
               progress={progress}
               currentValue={answers[currentQuestion.id] || 0}
@@ -157,4 +143,3 @@ const Assessment = () => {
 };
 
 export default Assessment;
-

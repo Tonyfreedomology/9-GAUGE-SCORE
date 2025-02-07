@@ -1,9 +1,18 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'];
 type AssessmentQuestion = Database['public']['Tables']['assessment_questions']['Row'];
+
+const getPillarFromCategory = (categoryName: string) => {
+  if (categoryName.includes('Physical') || categoryName.includes('Mental') || categoryName.includes('Environmental')) {
+    return 'Health';
+  }
+  if (categoryName.includes('Income') || categoryName.includes('Independence') || categoryName.includes('Impact')) {
+    return 'Financial';
+  }
+  return 'Relationships';
+};
 
 export const fetchAssessmentData = async () => {
   // Fetch categories first
@@ -37,12 +46,16 @@ export const fetchAssessmentData = async () => {
   // Get the maximum number of questions in any category
   const maxQuestions = Math.max(...questionsByCategory.map(cat => cat.questions.length));
 
-  // Create an interleaved array of questions
-  const interleavedQuestions: AssessmentQuestion[] = [];
+  // Create an interleaved array of questions with category information
+  const interleavedQuestions = [];
   for (let i = 0; i < maxQuestions; i++) {
     for (const category of questionsByCategory) {
       if (category.questions[i]) {
-        interleavedQuestions.push(category.questions[i]);
+        interleavedQuestions.push({
+          ...category.questions[i],
+          originalCategoryName: category.display_name,
+          pillar: getPillarFromCategory(category.display_name)
+        });
       }
     }
   }
