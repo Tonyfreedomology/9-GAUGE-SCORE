@@ -11,9 +11,9 @@ import { Database } from "@/integrations/supabase/types";
 type ShareResultsProps = {
   containerRef: React.RefObject<HTMLDivElement>;
   answers: Record<string, number>;
-  categories: Database['public']['Tables']['assessment_categories']['Row'] & {
+  categories: (Database['public']['Tables']['assessment_categories']['Row'] & {
     questions: Database['public']['Tables']['assessment_questions']['Row'][];
-  }[];
+  })[];
 };
 
 export const ShareResults = ({ answers, categories, containerRef }: ShareResultsProps) => {

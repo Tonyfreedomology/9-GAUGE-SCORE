@@ -89,6 +89,7 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
           onStartOver={onStartOver} 
           containerRef={resultsRef}
           answers={answers}
+          categories={categories}
         />
         
         <ScoreExplanation />

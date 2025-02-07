@@ -1,13 +1,17 @@
 
 import { ShareResults } from "../ShareResults";
+import { Database } from "@/integrations/supabase/types";
 
 type ResultsActionsProps = {
   onStartOver: () => void;
   containerRef: React.RefObject<HTMLDivElement>;
   answers: Record<string, number>;
+  categories: (Database['public']['Tables']['assessment_categories']['Row'] & {
+    questions: Database['public']['Tables']['assessment_questions']['Row'][];
+  })[];
 };
 
-export const ResultsActions = ({ onStartOver, containerRef, answers }: ResultsActionsProps) => {
+export const ResultsActions = ({ onStartOver, containerRef, answers, categories }: ResultsActionsProps) => {
   return (
     <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
       <button
@@ -18,7 +22,7 @@ export const ResultsActions = ({ onStartOver, containerRef, answers }: ResultsAc
       >
         start over
       </button>
-      <ShareResults containerRef={containerRef} answers={answers} />
+      <ShareResults containerRef={containerRef} answers={answers} categories={categories} />
     </div>
   );
 };
