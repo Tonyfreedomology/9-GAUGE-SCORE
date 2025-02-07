@@ -29,7 +29,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
       const response = await fetch(dataUrl);
       const blob = await response.blob();
       
-      const shareUrl = `${window.location.origin}/assessment`;
+      const shareUrl = `https://9gauge.freedomology.com/assessment`;
       const fileShareData = {
         title: 'My Freedomology Assessment Results',
         text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score? Take the assessment here: ${shareUrl}`,
@@ -40,16 +40,14 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
         try {
           await navigator.share(fileShareData);
           toast.success("Thanks for sharing your results!");
-          return; // Exit early if sharing was successful
+          return;
         } catch (error) {
           console.error('Error sharing with file:', error);
-          // Only fallback to download if it's not a user cancellation
           if (error instanceof Error && error.name !== 'AbortError') {
             fallbackToDownload(blob);
           }
         }
       } else {
-        // If Web Share API is not available, use fallback
         fallbackToDownload(blob);
       }
     } catch (error) {
@@ -101,7 +99,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
         <div className="flex flex-col items-center gap-4 bg-white/10 backdrop-blur-lg p-6 rounded-xl">
           <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
           <SocialSharePopover 
-            shareUrl={window.location.href}
+            shareUrl="https://9gauge.freedomology.com/assessment"
             title="Check out my Freedomology Assessment results!"
             imageUrl={imageUrl}
             score={score}
