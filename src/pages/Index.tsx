@@ -58,7 +58,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light leading-relaxed px-2 md:px-0 text-[#3A4348]">
+        <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light leading-relaxed px-2 md:px-0 text-[#3A4348] md:bg-transparent bg-white/70 backdrop-blur-sm rounded-lg p-4 md:p-0">
           <p>
             Discover your 9 Gauge Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions.
           </p>
