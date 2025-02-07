@@ -24,7 +24,6 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   });
 
   const overallScore = assessmentData ? calculateOverallScore(assessmentData, answers) : 0;
-  const shareText = `I just scored ${overallScore} on the 9-gauge assessment. What's your score?`;
 
   const handleImageGenerated = async (dataUrl: string) => {
     try {
@@ -34,8 +33,8 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       const blob = await response.blob();
       
       const fileShareData = {
-        title: shareText,
-        text: shareText,
+        title: `I just scored ${overallScore} on the 9-gauge assessment. What's your score?`,
+        text: `Check out my 9-gauge score!`,
         files: [new File([blob], '9-gauge-results.png', { type: 'image/png' })]
       };
       
@@ -78,62 +77,46 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center gap-4">
-        {!imageUrl ? (
-          <Button
-            onClick={generateAndShareImage}
-            disabled={isGenerating}
-            className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl 
-              text-lg font-heading font-bold tracking-tighter lowercase flex items-center gap-2
-              transition-all duration-300 hover:shadow-lg hover:scale-105"
-          >
-            <Share2 className="w-5 h-5" />
-            {isGenerating ? "generating..." : "share results"}
-          </Button>
-        ) : (
-          <div className="flex flex-col items-center gap-4 bg-[#293230]/90 backdrop-blur-lg p-6 rounded-xl w-full max-w-md">
-            <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
-            <SocialSharePopover 
-              shareUrl={window.location.href}
-              title={shareText}
-              imageUrl={imageUrl}
-              score={overallScore}
-            />
-            <Button
-              variant="outline"
-              onClick={() => {
-                setImageUrl(null);
-                setIsGenerating(false);
-              }}
-              className="mt-4 text-white hover:text-white hover:bg-white/20 border-white w-full"
-            >
-              Generate New Image
-            </Button>
-          </div>
-        )}
-      </div>
-      
-      {isGenerating && (
-        <div id="image-generator-container" style={{ 
-          position: 'fixed', 
-          left: '-9999px', 
-          top: '-9999px',
-          opacity: 0,
-          visibility: 'hidden',
-          pointerEvents: 'none',
-          width: 0,
-          height: 0,
-          overflow: 'hidden',
-          zIndex: -1
-        }}>
-          <ShareableImage 
-            answers={answers}
-            onImageGenerated={handleImageGenerated}
+    <div className="flex flex-col items-center gap-4">
+      {!imageUrl ? (
+        <Button
+          onClick={generateAndShareImage}
+          disabled={isGenerating}
+          className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl 
+            text-lg font-heading font-bold tracking-tighter lowercase flex items-center gap-2
+            transition-all duration-300 hover:shadow-lg hover:scale-105"
+        >
+          <Share2 className="w-5 h-5" />
+          {isGenerating ? "generating..." : "share results"}
+        </Button>
+      ) : (
+        <div className="flex flex-col items-center gap-4 bg-[#293230]/90 backdrop-blur-lg p-6 rounded-xl w-full max-w-md">
+          <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
+          <SocialSharePopover 
+            shareUrl={window.location.href}
+            title={`I just scored ${overallScore} on the 9-gauge assessment. What's your score?`}
+            imageUrl={imageUrl}
+            score={overallScore}
           />
+          <Button
+            variant="outline"
+            onClick={() => {
+              setImageUrl(null);
+              setIsGenerating(false);
+            }}
+            className="mt-4 text-white hover:text-white hover:bg-white/20 border-white w-full"
+          >
+            Generate New Image
+          </Button>
         </div>
       )}
-    </>
+      
+      {isGenerating && (
+        <ShareableImage 
+          answers={answers}
+          onImageGenerated={handleImageGenerated}
+        />
+      )}
+    </div>
   );
 };
-
