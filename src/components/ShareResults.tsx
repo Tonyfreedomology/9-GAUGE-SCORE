@@ -40,14 +40,16 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
         try {
           await navigator.share(fileShareData);
           toast.success("Thanks for sharing your results!");
+          return; // Exit early if sharing was successful
         } catch (error) {
           console.error('Error sharing with file:', error);
+          // Only fallback to download if it's not a user cancellation
           if (error instanceof Error && error.name !== 'AbortError') {
             fallbackToDownload(blob);
           }
         }
       } else {
-        // If Web Share API is not available, directly use fallback
+        // If Web Share API is not available, use fallback
         fallbackToDownload(blob);
       }
     } catch (error) {
