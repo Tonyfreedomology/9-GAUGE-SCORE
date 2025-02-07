@@ -125,15 +125,15 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
 
 // Define the exact mapping for the nine scores grouped by pillar
 const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
-  'Mental': { pillar: 'Health', displayName: 'Mental Health' },
-  'Physical': { pillar: 'Health', displayName: 'Physical Health' },
-  'Environmental': { pillar: 'Health', displayName: 'Environmental Health' },
+  'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
+  'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
+  'Environmental Health': { pillar: 'Health', displayName: 'Environmental Health' },
   'Income': { pillar: 'Financial', displayName: 'Income' },
   'Independence': { pillar: 'Financial', displayName: 'Independence' },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
-  'Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
-  'God': { pillar: 'Relationships', displayName: 'Relationship with God' },
-  'Others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
+  'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
+  'Relationship with God': { pillar: 'Relationships', displayName: 'Relationship with God' },
+  'Relationship with Others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
 };
 
 export const ScoreLineChart = ({ answers, categories }: { 
@@ -144,9 +144,9 @@ export const ScoreLineChart = ({ answers, categories }: {
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
     
-    // Find the matching mapping entry by checking if the category name includes any of our keys
+    // Find the exact matching mapping entry
     const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
-      categoryName.toLowerCase().includes(key.toLowerCase())
+      key === categoryName
     );
     
     if (matchingEntry) {
