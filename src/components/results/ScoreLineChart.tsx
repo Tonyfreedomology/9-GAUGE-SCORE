@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
@@ -142,13 +141,13 @@ export const ScoreLineChart = ({ answers, categories }: {
 }) => {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
-    // Find the matching mapping entry
-    const matchingKey = Object.keys(categoryToPillarMapping).find(key => 
-      category.display_name.includes(key)
+    // Find the matching mapping entry by checking if the category name includes any of our keys
+    const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
+      category.display_name.toLowerCase().includes(key.toLowerCase())
     );
     
-    if (matchingKey) {
-      const { pillar, displayName } = categoryToPillarMapping[matchingKey];
+    if (matchingEntry) {
+      const [_, { pillar, displayName }] = matchingEntry;
       
       if (!acc[pillar]) {
         acc[pillar] = [];
@@ -192,4 +191,3 @@ export const ScoreLineChart = ({ answers, categories }: {
     </div>
   );
 };
-
