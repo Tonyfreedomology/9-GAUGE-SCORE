@@ -11,7 +11,7 @@ type SocialSharePopoverProps = {
 
 export const SocialSharePopover = ({ shareUrl, title, imageUrl, score }: SocialSharePopoverProps) => {
   const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(`I just scored ${score}/100 on the 9-gauge assessment. What's your score? #assessment`);
+  const encodedTitle = encodeURIComponent(`I just scored ${score}/100 on the 9-gauge assessment. What's your score?`);
 
   const shareLinks = [
     {

@@ -31,7 +31,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
       
       const fileShareData = {
         title: 'My Freedomology Assessment Results',
-        text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score? #assessment`,
+        text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score?`,
         files: [new File([blob], 'freedomology-results.png', { type: 'image/png' })]
       };
       
@@ -39,7 +39,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
         try {
           await navigator.share(fileShareData);
           toast.success("Thanks for sharing your results!", {
-            className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold"
+            className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold shadow-lg"
           });
           return;
         } catch (error) {
@@ -52,7 +52,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
     } catch (error) {
       console.error("Error processing image:", error);
       toast.error("Sorry, there was an error sharing your results", {
-        className: "bg-white border-2 border-red-500 text-[#293230] font-semibold"
+        className: "bg-white border-2 border-red-500 text-[#293230] font-semibold shadow-lg"
       });
     } finally {
       setIsGenerating(false);
@@ -65,7 +65,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
     link.download = 'freedomology-results.png';
     link.click();
     toast.success("Results image downloaded!", {
-      className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold"
+      className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold shadow-lg"
     });
   };
 
