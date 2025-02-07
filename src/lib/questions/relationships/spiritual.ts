@@ -1,13 +1,14 @@
+
 import { Category } from '../../types/assessment';
 
 export const spiritualCategory: Category = {
-  name: 'Spiritual/Higher Power',
+  name: 'Relationship with God',
   weight: 0.15,
   questions: [
     { 
       id: 'r12', 
       text: 'Do you feel guided by a higher purpose or spiritual belief?', 
-      category: 'Spiritual/Higher Power', 
+      category: 'Relationship with God', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Not at all' },
@@ -20,7 +21,7 @@ export const spiritualCategory: Category = {
     { 
       id: 'r13', 
       text: 'How often do you engage in spiritual or faith-based practices (prayer, meditation, gathering)?', 
-      category: 'Spiritual/Higher Power', 
+      category: 'Relationship with God', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Never' },
@@ -33,7 +34,7 @@ export const spiritualCategory: Category = {
     { 
       id: 'r14', 
       text: 'Does your spiritual life bring you peace or comfort in tough times?', 
-      category: 'Spiritual/Higher Power', 
+      category: 'Relationship with God', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Not at all' },

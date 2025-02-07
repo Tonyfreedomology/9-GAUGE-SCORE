@@ -1,13 +1,13 @@
 import { Category } from '../../types/assessment';
 
 export const incomeSavingsCategory: Category = {
-  name: 'Income & Savings',
+  name: 'Income',
   weight: 0.25,
   questions: [
     { 
       id: 'f1', 
       text: 'How confident are you that you could cover an unexpected $3,000 expense without taking on new debt?', 
-      category: 'Income & Savings', 
+      category: 'Income', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Not confident at all' },
@@ -20,7 +20,7 @@ export const incomeSavingsCategory: Category = {
     { 
       id: 'f2', 
       text: 'Roughly what % of your monthly income do you save or invest?', 
-      category: 'Income & Savings', 
+      category: 'Income', 
       pillar: 'financial',
       options: [
         { value: 1, label: '0%' },
@@ -33,7 +33,7 @@ export const incomeSavingsCategory: Category = {
     { 
       id: 'f3', 
       text: 'How often do you rely on credit cards or loans to cover everyday bills or expenses?', 
-      category: 'Income & Savings', 
+      category: 'Income', 
       pillar: 'financial',
       options: [
         { value: 5, label: 'Never' },
@@ -46,7 +46,7 @@ export const incomeSavingsCategory: Category = {
     { 
       id: 'f4', 
       text: 'How stable do you feel your main source of income will be for the next 12 months?', 
-      category: 'Income & Savings', 
+      category: 'Income', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Very unstable' },

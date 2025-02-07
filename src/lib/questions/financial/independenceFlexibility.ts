@@ -1,13 +1,13 @@
 import { Category } from '../../types/assessment';
 
 export const independenceFlexibilityCategory: Category = {
-  name: 'Independence & Flexibility',
+  name: 'Independence',
   weight: 0.25,
   questions: [
     { 
       id: 'f8', 
       text: 'If you wanted to take a 7-day trip overseas next month, how financially possible would that be?', 
-      category: 'Independence & Flexibility', 
+      category: 'Independence', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Impossible' },
@@ -20,7 +20,7 @@ export const independenceFlexibilityCategory: Category = {
     { 
       id: 'f9', 
       text: 'If you had to miss 3-4 weeks of work unpaid, could you handle it financially?', 
-      category: 'Independence & Flexibility', 
+      category: 'Independence', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Not at all' },
@@ -33,7 +33,7 @@ export const independenceFlexibilityCategory: Category = {
     { 
       id: 'f10', 
       text: 'How often do you make major life decisions driven by passion rather than finances?', 
-      category: 'Independence & Flexibility', 
+      category: 'Independence', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Never' },
@@ -46,7 +46,7 @@ export const independenceFlexibilityCategory: Category = {
     { 
       id: 'f11', 
       text: 'Could you reduce/change your work hours without stressing about covering your bills?', 
-      category: 'Independence & Flexibility', 
+      category: 'Independence', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Not at all' },

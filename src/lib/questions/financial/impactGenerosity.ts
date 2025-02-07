@@ -1,13 +1,13 @@
 import { Category } from '../../types/assessment';
 
 export const impactGenerosityCategory: Category = {
-  name: 'Impact & Generosity',
+  name: 'Impact',
   weight: 0.15,
   questions: [
     { 
       id: 'f15', 
       text: 'How often do you give money (beyond small amounts) to causes you care about?', 
-      category: 'Impact & Generosity', 
+      category: 'Impact', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Never' },
@@ -20,7 +20,7 @@ export const impactGenerosityCategory: Category = {
     { 
       id: 'f16', 
       text: 'In a typical month, how many hours do you spend helping your community?', 
-      category: 'Impact & Generosity', 
+      category: 'Impact', 
       pillar: 'financial',
       options: [
         { value: 1, label: '0 hrs' },
@@ -33,7 +33,7 @@ export const impactGenerosityCategory: Category = {
     { 
       id: 'f17', 
       text: 'How comfortable are you with financially supporting causes that matter most to you?', 
-      category: 'Impact & Generosity', 
+      category: 'Impact', 
       pillar: 'financial',
       options: [
         { value: 1, label: 'Not comfortable at all' },
