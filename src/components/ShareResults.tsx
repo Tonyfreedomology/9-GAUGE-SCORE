@@ -17,14 +17,11 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
 
   const handleImageGenerated = async (dataUrl: string) => {
     try {
-      // Store the generated image URL
       setImageUrl(dataUrl);
       
-      // Convert data URL to blob for potential fallback
       const response = await fetch(dataUrl);
       const blob = await response.blob();
       
-      // Try Web Share API as fallback
       const fileShareData = {
         title: 'My Freedomology Assessment Results',
         text: 'Check out my Freedomology Assessment results!',
@@ -34,7 +31,9 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       if (navigator.share && navigator.canShare && navigator.canShare(fileShareData)) {
         try {
           await navigator.share(fileShareData);
-          toast.success("Thanks for sharing your results!");
+          toast.success("Thanks for sharing your results!", {
+            className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold"
+          });
           return;
         } catch (error) {
           console.error('Error sharing with file:', error);
@@ -45,7 +44,9 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       }
     } catch (error) {
       console.error("Error processing image:", error);
-      toast.error("Sorry, there was an error sharing your results");
+      toast.error("Sorry, there was an error sharing your results", {
+        className: "bg-white border-2 border-red-500 text-[#293230] font-semibold"
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -56,7 +57,9 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
     link.href = URL.createObjectURL(blob);
     link.download = 'freedomology-results.png';
     link.click();
-    toast.success("Results image downloaded!");
+    toast.success("Results image downloaded!", {
+      className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold"
+    });
   };
 
   const generateAndShareImage = () => {
@@ -77,8 +80,8 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
           {isGenerating ? "generating..." : "share results"}
         </Button>
       ) : (
-        <div className="flex flex-col items-center gap-4">
-          <h3 className="text-lg font-semibold text-center">Share your results</h3>
+        <div className="flex flex-col items-center gap-4 bg-white/10 backdrop-blur-lg p-6 rounded-xl">
+          <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
           <SocialSharePopover 
             shareUrl={window.location.href}
             title="Check out my Freedomology Assessment results!"
@@ -90,7 +93,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
               setImageUrl(null);
               setIsGenerating(false);
             }}
-            className="mt-2"
+            className="mt-4 text-white hover:text-white hover:bg-white/20"
           >
             Generate New Image
           </Button>
