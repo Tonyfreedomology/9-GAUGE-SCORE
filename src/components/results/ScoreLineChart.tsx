@@ -131,7 +131,7 @@ const categoryToPillarMapping: Record<string, { pillar: string; displayName: str
   'Income': { pillar: 'Financial', displayName: 'Income' },
   'Independence': { pillar: 'Financial', displayName: 'Independence' },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
-  'Close Relationships': { pillar: 'Relationships', displayName: 'Relationships with Others' },
+  'Close Relationships': { pillar: 'Relationships', displayName: 'Close Relationships' },
   'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
   'Relationship with God': { pillar: 'Relationships', displayName: 'Relationship with God' }
 };
@@ -143,14 +143,13 @@ export const ScoreLineChart = ({ answers, categories }: {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
+    console.log('Processing category:', categoryName); // Debug log
     
-    // Find the matching mapping entry
-    const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
-      categoryName === key
-    );
+    const matchingEntry = categoryToPillarMapping[categoryName];
+    console.log('Matching entry:', matchingEntry); // Debug log
     
     if (matchingEntry) {
-      const [_, { pillar, displayName }] = matchingEntry;
+      const { pillar, displayName } = matchingEntry;
       
       if (!acc[pillar]) {
         acc[pillar] = [];
@@ -165,6 +164,8 @@ export const ScoreLineChart = ({ answers, categories }: {
         label: displayName,
         score
       });
+    } else {
+      console.log('No matching entry found for category:', categoryName); // Debug log
     }
     
     return acc;
