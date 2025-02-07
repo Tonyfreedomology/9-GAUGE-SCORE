@@ -7,11 +7,12 @@ type SocialSharePopoverProps = {
   shareUrl: string;
   title: string;
   imageUrl?: string;
+  score: number;
 };
 
-export const SocialSharePopover = ({ shareUrl, title, imageUrl }: SocialSharePopoverProps) => {
-  const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(title);
+export const SocialSharePopover = ({ shareUrl, title, imageUrl, score }: SocialSharePopoverProps) => {
+  const shareText = `I just scored ${score} on the 9-gauge assessment. What's your score?`;
+  const encodedTitle = encodeURIComponent(shareText);
   const assessmentUrl = encodeURIComponent("https://freedomology.com/9-gauge-assessment");
 
   const shareLinks = [
@@ -36,7 +37,6 @@ export const SocialSharePopover = ({ shareUrl, title, imageUrl }: SocialSharePop
   ];
 
   const handleShare = (url: string, platform: string) => {
-    // Show a toast explaining how to share with the image
     toast.info(
       `To share your results with the image, save the image first and then upload it when posting to ${platform}.`, 
       {
