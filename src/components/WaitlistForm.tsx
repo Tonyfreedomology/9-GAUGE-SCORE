@@ -12,6 +12,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [ghlApiKey, setGhlApiKey] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -28,7 +29,8 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
           return;
         }
 
-        if (data) {
+        if (data?.value) {
+          console.log("GHL API key found");
           setGhlApiKey(data.value);
         } else {
           console.error("GHL API key not found in secrets");
@@ -43,6 +45,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!ghlApiKey) {
       console.error("GHL API key not found");
@@ -51,16 +54,17 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
         description: "Unable to process signup. Please try again later.",
         variant: "destructive",
       });
+      setIsLoading(false);
       return;
     }
 
     try {
-      // Create contact in Go High Level
+      console.log("Attempting to create contact in GHL...");
       const response = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${ghlApiKey}`,
+          Authorization: `Bearer ${ghlApiKey.trim()}`,
         },
         body: JSON.stringify({
           firstName,
@@ -70,8 +74,11 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
         }),
       });
 
+      const responseData = await response.json();
+      console.log("GHL API Response:", responseData);
+
       if (!response.ok) {
-        throw new Error("Failed to create contact in GHL");
+        throw new Error(responseData.msg || "Failed to create contact in GHL");
       }
 
       toast({
@@ -90,6 +97,8 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
         description: "Unable to join waitlist. Please try again later.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -131,9 +140,10 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-[#17BEBB] rounded-full hover:bg-[#14a8a5] transition-colors"
+            disabled={isLoading}
+            className="w-full px-4 py-2 text-white bg-[#17BEBB] rounded-full hover:bg-[#14a8a5] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Join Waitlist
+            {isLoading ? "Submitting..." : "Join Waitlist"}
           </button>
         </form>
       </div>
