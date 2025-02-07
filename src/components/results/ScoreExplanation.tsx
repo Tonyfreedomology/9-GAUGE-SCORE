@@ -8,27 +8,27 @@ export const ScoreExplanation = () => {
         </h2>
         
         <p className="text-lg">
-          Your 9-Gauge Score measures your well-being across Finance, Health (physical and mental), and Relationships.
+          Your <span className="font-bold">9-Gauge Score</span> measures your well-being across Finance, Health (physical and mental), and Relationships.
         </p>
 
         <p className="text-lg">
-          Our culture pushes the hustle and grind mindset as the path to success, but we see it differently.
+          Our culture pushes the <span className="font-bold">hustle and grind mindset</span> as the path to success, but we see it differently.
         </p>
         
         <p className="text-lg">
-          We've worked with over 11,000 people in the past 15 years and learned that <span className="font-bold italic">balance</span> is the key to building a beautiful life.
+          We've worked with over <span className="font-bold">11,000 people</span> in the past 15 years and learned that <span className="font-bold italic">balance</span> is the key to building a beautiful life.
         </p>
         
         <p className="text-lg">
-          Balance is a superpower, and hustle culture is a disease. When your finances, health, and relationships work in harmony, life becomes more free, fulfilling, and fun.
+          Balance is a <span className="font-bold">superpower</span>, and hustle culture is a disease. When your finances, health, and relationships work in harmony, life becomes more free, fulfilling, and fun.
         </p>
         
-        <p className="text-lg">
+        <h3 className="text-2xl font-heading font-bold tracking-tighter lowercase mt-8">
           So how did we arrive at your score?
-        </p>
+        </h3>
         
         <p className="text-lg">
-          Each pillar gets a rating from 0 to 100, based on questions about key areas—like debt, investments, generosity, mental health, and your connection to the people around you.
+          Each pillar gets a rating from <span className="font-bold">0 to 100</span>, based on questions about key areas—like debt, investments, generosity, mental health, and your connection to the people around you.
         </p>
         
         <p className="text-lg">
