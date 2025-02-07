@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "./ui/input";
@@ -11,77 +11,25 @@ type WaitlistFormProps = {
 export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
-  const [ghlApiKey, setGhlApiKey] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    const fetchGhlApiKey = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("secrets")
-          .select("value")
-          .eq("name", "GHL_API_KEY")
-          .maybeSingle();
-
-        if (error) {
-          console.error("Error fetching GHL API key:", error);
-          return;
-        }
-
-        if (data?.value) {
-          console.log("GHL API key found");
-          setGhlApiKey(data.value);
-        } else {
-          console.error("GHL API key not found in secrets");
-        }
-      } catch (error) {
-        console.error("Error in fetchGhlApiKey:", error);
-      }
-    };
-
-    fetchGhlApiKey();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!ghlApiKey) {
-      console.error("GHL API key not found");
-      toast({
-        title: "Error",
-        description: "Unable to process signup. Please try again later.",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      console.log("Attempting to create contact in GHL...");
-      const cleanKey = ghlApiKey.trim().replace(/^"(.*)"$/, '$1'); // Remove any quotes if present
-      console.log("Using API endpoint:", "https://rest.gohighlevel.com/v1/contacts/");
-      
-      const response = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${cleanKey}`,
-        },
-        body: JSON.stringify({
-          firstName,
+      console.log("Submitting to waitlist...");
+      const { error } = await supabase
+        .from("waitlist_entries")
+        .insert({
+          first_name: firstName,
           email,
-          tags: ["waitlist"],
           source: defaultSprint ? `Waitlist - ${defaultSprint}` : "Waitlist",
-        }),
-      });
+        });
 
-      const responseData = await response.json();
-      console.log("GHL API Response:", responseData);
-
-      if (!response.ok) {
-        throw new Error(responseData.msg || "Failed to create contact in GHL");
+      if (error) {
+        throw error;
       }
 
       toast({
