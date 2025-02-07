@@ -2,7 +2,7 @@
 import { Category } from '../../types/assessment';
 
 export const spiritualCategory: Category = {
-  name: 'Spiritual / Higher Power',
+  name: 'Relationship with God',
   weight: 0.15,
   questions: [
     { 

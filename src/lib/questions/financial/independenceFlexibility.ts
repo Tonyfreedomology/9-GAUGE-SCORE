@@ -2,7 +2,7 @@
 import { Category } from '../../types/assessment';
 
 export const independenceFlexibilityCategory: Category = {
-  name: 'Independence & Flexibility',
+  name: 'Independence',
   weight: 0.25,
   questions: [
     { 

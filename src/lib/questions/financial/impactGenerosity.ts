@@ -2,7 +2,7 @@
 import { Category } from '../../types/assessment';
 
 export const impactGenerosityCategory: Category = {
-  name: 'Impact & Investment',
+  name: 'Impact',
   weight: 0.15,
   questions: [
     { 
