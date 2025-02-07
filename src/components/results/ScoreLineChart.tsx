@@ -58,10 +58,8 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
       </div>
       
       <div className="relative">
-        {/* Background line */}
         <div className="h-0.5 w-full bg-white/20 rounded-full" />
         
-        {/* Score line */}
         <div 
           className="absolute top-0 left-0 h-0.5 rounded-full transition-all duration-300"
           style={{ 
@@ -70,7 +68,6 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
           }} 
         />
         
-        {/* Score number */}
         <div 
           className="absolute -top-8 transition-all duration-300"
           style={{ 
@@ -81,7 +78,6 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
           <span className="text-3xl font-bold text-white">{currentScore}</span>
         </div>
 
-        {/* Arrow */}
         <div 
           className="absolute -bottom-2 w-0 h-0 transition-all duration-300"
           style={{ 
@@ -127,20 +123,17 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
 };
 
-// Define the mapping of display names to their respective pillars
+// Define the exact mapping for the nine scores grouped by pillar
 const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
   'Mental': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical': { pillar: 'Health', displayName: 'Physical Health' },
   'Environmental': { pillar: 'Health', displayName: 'Environmental Health' },
-  'Income': { pillar: 'Financial', displayName: 'Income & Savings' },
-  'Debt': { pillar: 'Financial', displayName: 'Debt & Credit' },
-  'Independence': { pillar: 'Financial', displayName: 'Independence & Flexibility' },
-  'Investment': { pillar: 'Financial', displayName: 'Investment & Growth' },
-  'Impact': { pillar: 'Financial', displayName: 'Impact & Generosity' },
-  'Self': { pillar: 'Relationships', displayName: 'Self Relationship' },
-  'Others': { pillar: 'Relationships', displayName: 'Close Relationships' },
-  'Community': { pillar: 'Relationships', displayName: 'Community & Social' },
-  'God': { pillar: 'Relationships', displayName: 'Spiritual' }
+  'Income': { pillar: 'Financial', displayName: 'Income' },
+  'Independence': { pillar: 'Financial', displayName: 'Independence' },
+  'Impact': { pillar: 'Financial', displayName: 'Impact' },
+  'Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
+  'God': { pillar: 'Relationships', displayName: 'Relationship with God' },
+  'Others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
 };
 
 export const ScoreLineChart = ({ answers, categories }: { 
@@ -199,3 +192,4 @@ export const ScoreLineChart = ({ answers, categories }: {
     </div>
   );
 };
+
