@@ -32,14 +32,10 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
         throw supabaseError;
       }
 
-      // Then create contact in GHL
-      const ghlResponse = await fetch(
-        'https://kcuhvqemmkghjauefzdx.supabase.co/functions/v1/create-ghl-contact',
+      // Then create contact in GHL using Supabase Edge Function
+      const { data: ghlData, error: ghlError } = await supabase.functions.invoke(
+        'create-ghl-contact',
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify({
             firstName,
             email,
@@ -48,8 +44,8 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
         }
       );
 
-      if (!ghlResponse.ok) {
-        console.error('GHL API Error:', await ghlResponse.json());
+      if (ghlError) {
+        console.error('GHL API Error:', ghlError);
         // We don't throw here because the entry is already in Supabase
         toast({
           title: "Partial Success",
