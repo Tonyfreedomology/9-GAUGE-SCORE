@@ -60,11 +60,14 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
 
     try {
       console.log("Attempting to create contact in GHL...");
+      const cleanKey = ghlApiKey.trim().replace(/^"(.*)"$/, '$1'); // Remove any quotes if present
+      console.log("Using API endpoint:", "https://rest.gohighlevel.com/v1/contacts/");
+      
       const response = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${ghlApiKey.trim()}`,
+          "Authorization": `Bearer ${cleanKey}`,
         },
         body: JSON.stringify({
           firstName,
