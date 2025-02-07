@@ -1,7 +1,7 @@
 
 import { Category } from '../../types/assessment';
 
-export const closeRelationshipsCategory: Category = {
+export const relationshipsWithOthersCategory: Category = {
   name: 'Relationships with Others',
   weight: 0.30,
   questions: [
