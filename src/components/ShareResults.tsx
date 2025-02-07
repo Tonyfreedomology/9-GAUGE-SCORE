@@ -40,13 +40,15 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
         try {
           await navigator.share(fileShareData);
           toast.success("Thanks for sharing your results!");
-          return;
         } catch (error) {
           console.error('Error sharing with file:', error);
           if (error instanceof Error && error.name !== 'AbortError') {
             fallbackToDownload(blob);
           }
         }
+      } else {
+        // If Web Share API is not available, directly use fallback
+        fallbackToDownload(blob);
       }
     } catch (error) {
       console.error("Error processing image:", error);
@@ -60,7 +62,10 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'freedomology-results.png';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
     toast.success("Results image downloaded!");
   };
 
