@@ -29,9 +29,10 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
       const response = await fetch(dataUrl);
       const blob = await response.blob();
       
+      const shareUrl = `${window.location.origin}/assessment`;
       const fileShareData = {
         title: 'My Freedomology Assessment Results',
-        text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score?`,
+        text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score? Take the assessment here: ${shareUrl}`,
         files: [new File([blob], 'freedomology-results.png', { type: 'image/png' })]
       };
       
