@@ -22,34 +22,47 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
 
       // Debug logging
       console.log('Checking Web Share API support...');
-      console.log('navigator.share exists:', !!navigator.share);
-      console.log('navigator.canShare exists:', !!navigator.canShare);
       
-      const shareData = {
-        files: [file],
+      // First try sharing without the file
+      const textShareData = {
         title: 'My Freedomology Assessment Results',
         text: 'Check out my Freedomology Assessment results!'
       };
+
+      const fileShareData = {
+        ...textShareData,
+        files: [file]
+      };
       
-      console.log('Testing canShare with data:', shareData);
-      
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        console.log('Web Share API supported and can share files');
+      // Check if we can share with file first
+      if (navigator.share && navigator.canShare && navigator.canShare(fileShareData)) {
+        console.log('Full Web Share API supported, sharing with file...');
         try {
-          await navigator.share(shareData);
+          await navigator.share(fileShareData);
           toast.success("Thanks for sharing your results!");
+          return;
         } catch (error) {
-          console.error('Error sharing:', error);
+          console.error('Error sharing with file:', error);
+        }
+      }
+
+      // Try sharing just text if file sharing failed
+      if (navigator.share) {
+        console.log('Attempting text-only share...');
+        try {
+          await navigator.share(textShareData);
+          toast.success("Thanks for sharing your results!");
+          // Download the image separately since we couldn't share it
+          fallbackToDownload(blob);
+        } catch (error) {
+          console.error('Error sharing text:', error);
           if (error instanceof Error && error.name !== 'AbortError') {
-            console.log('Share error, falling back to download');
+            console.log('Share failed completely, falling back to download only');
             fallbackToDownload(blob);
           }
         }
       } else {
-        console.log('Web Share API not fully supported:');
-        console.log('- navigator.share:', !!navigator.share);
-        console.log('- navigator.canShare:', !!navigator.canShare);
-        console.log('- canShare result:', navigator.canShare ? navigator.canShare(shareData) : false);
+        console.log('Web Share API not supported at all, falling back to download');
         fallbackToDownload(blob);
       }
     } catch (error) {
@@ -94,4 +107,3 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
     </>
   );
 };
-
