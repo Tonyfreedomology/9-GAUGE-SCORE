@@ -5,9 +5,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ShareableImage } from "./ShareableImage";
 import { SocialSharePopover } from "./SocialSharePopover";
-import { calculateOverallScore } from "@/lib/services/assessmentService";
-import { useQuery } from "@tanstack/react-query";
-import { fetchAssessmentData } from "@/lib/services/assessmentService";
 
 type ShareResultsProps = {
   containerRef: React.RefObject<HTMLDivElement>;
@@ -18,13 +15,6 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const { data: assessmentData } = useQuery({
-    queryKey: ['assessment'],
-    queryFn: fetchAssessmentData
-  });
-
-  const overallScore = assessmentData ? calculateOverallScore(assessmentData, answers) : 0;
-
   const handleImageGenerated = async (dataUrl: string) => {
     try {
       setImageUrl(dataUrl);
@@ -33,9 +23,9 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       const blob = await response.blob();
       
       const fileShareData = {
-        title: `I just scored ${overallScore} on the 9-gauge assessment. What's your score?`,
-        text: `Check out my 9-gauge score!`,
-        files: [new File([blob], '9-gauge-results.png', { type: 'image/png' })]
+        title: 'My Freedomology Assessment Results',
+        text: 'Check out my Freedomology Assessment results!',
+        files: [new File([blob], 'freedomology-results.png', { type: 'image/png' })]
       };
       
       if (navigator.share && navigator.canShare && navigator.canShare(fileShareData)) {
@@ -65,7 +55,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   const fallbackToDownload = (blob: Blob) => {
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = '9-gauge-results.png';
+    link.download = 'freedomology-results.png';
     link.click();
     toast.success("Results image downloaded!", {
       className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold"
@@ -90,13 +80,12 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
           {isGenerating ? "generating..." : "share results"}
         </Button>
       ) : (
-        <div className="flex flex-col items-center gap-4 bg-[#293230]/90 backdrop-blur-lg p-6 rounded-xl w-full max-w-md">
+        <div className="flex flex-col items-center gap-4 bg-white/10 backdrop-blur-lg p-6 rounded-xl">
           <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
           <SocialSharePopover 
             shareUrl={window.location.href}
-            title={`I just scored ${overallScore} on the 9-gauge assessment. What's your score?`}
+            title="Check out my Freedomology Assessment results!"
             imageUrl={imageUrl}
-            score={overallScore}
           />
           <Button
             variant="outline"
@@ -104,7 +93,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
               setImageUrl(null);
               setIsGenerating(false);
             }}
-            className="mt-4 text-white hover:text-white hover:bg-white/20 border-white w-full"
+            className="mt-4 text-white hover:text-white hover:bg-white/20"
           >
             Generate New Image
           </Button>
