@@ -1,13 +1,14 @@
+
 import { Category } from '../../types/assessment';
 
 export const closeRelationshipsCategory: Category = {
-  name: 'Close Relationships',
+  name: 'Relationships with Others',
   weight: 0.30,
   questions: [
     { 
       id: 'r4', 
       text: 'How supported do you feel by the people closest to you?', 
-      category: 'Close Relationships', 
+      category: 'Relationships with Others', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Not at all' },
@@ -20,7 +21,7 @@ export const closeRelationshipsCategory: Category = {
     { 
       id: 'r5', 
       text: 'How comfortable are you having tough or vulnerable conversations?', 
-      category: 'Close Relationships', 
+      category: 'Relationships with Others', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Very uncomfortable' },
@@ -33,7 +34,7 @@ export const closeRelationshipsCategory: Category = {
     { 
       id: 'r6', 
       text: 'When disagreements happen, do they get resolved respectfully?', 
-      category: 'Close Relationships', 
+      category: 'Relationships with Others', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Never' },
@@ -46,7 +47,7 @@ export const closeRelationshipsCategory: Category = {
     { 
       id: 'r7', 
       text: 'How often do you spend meaningful time with your closest loved ones?', 
-      category: 'Close Relationships', 
+      category: 'Relationships with Others', 
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Rarely' },

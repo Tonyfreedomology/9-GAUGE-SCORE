@@ -131,7 +131,7 @@ const categoryToPillarMapping: Record<string, { pillar: string; displayName: str
   'Income': { pillar: 'Financial', displayName: 'Income' },
   'Independence': { pillar: 'Financial', displayName: 'Independence' },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
-  'Close Relationships': { pillar: 'Relationships', displayName: 'Close Relationships' },
+  'Relationships with Others': { pillar: 'Relationships', displayName: 'Relationships with Others' },
   'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
   'Relationship with God': { pillar: 'Relationships', displayName: 'Relationship with God' }
 };
