@@ -13,7 +13,7 @@ type SocialSharePopoverProps = {
 export const SocialSharePopover = ({ shareUrl, title, imageUrl, score }: SocialSharePopoverProps) => {
   const shareText = `I just scored ${score} on the 9-gauge assessment. What's your score?`;
   const encodedTitle = encodeURIComponent(shareText);
-  const assessmentUrl = encodeURIComponent("https://freedomology.com/9-gauge-assessment");
+  const assessmentUrl = encodeURIComponent(shareUrl);
 
   const shareLinks = [
     {

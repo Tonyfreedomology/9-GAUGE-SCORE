@@ -78,48 +78,56 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 relative">
-      {!imageUrl ? (
-        <Button
-          onClick={generateAndShareImage}
-          disabled={isGenerating}
-          className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl 
-            text-lg font-heading font-bold tracking-tighter lowercase flex items-center gap-2
-            transition-all duration-300 hover:shadow-lg hover:scale-105"
-        >
-          <Share2 className="w-5 h-5" />
-          {isGenerating ? "generating..." : "share results"}
-        </Button>
-      ) : (
-        <div className="flex flex-col items-center gap-4 bg-[#293230]/90 backdrop-blur-lg p-6 rounded-xl w-full max-w-md">
-          <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
-          <SocialSharePopover 
-            shareUrl={window.location.href}
-            title={shareText}
-            imageUrl={imageUrl}
-            score={overallScore}
-          />
+    <>
+      <div className="flex flex-col items-center gap-4">
+        {!imageUrl ? (
           <Button
-            variant="outline"
-            onClick={() => {
-              setImageUrl(null);
-              setIsGenerating(false);
-            }}
-            className="mt-4 text-white hover:text-white hover:bg-white/20 border-white w-full"
+            onClick={generateAndShareImage}
+            disabled={isGenerating}
+            className="bg-gradient-to-r from-[#17BEBB] to-[#00D4FF] text-white px-8 py-4 rounded-xl 
+              text-lg font-heading font-bold tracking-tighter lowercase flex items-center gap-2
+              transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
-            Generate New Image
+            <Share2 className="w-5 h-5" />
+            {isGenerating ? "generating..." : "share results"}
           </Button>
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col items-center gap-4 bg-[#293230]/90 backdrop-blur-lg p-6 rounded-xl w-full max-w-md">
+            <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
+            <SocialSharePopover 
+              shareUrl={window.location.href}
+              title={shareText}
+              imageUrl={imageUrl}
+              score={overallScore}
+            />
+            <Button
+              variant="outline"
+              onClick={() => {
+                setImageUrl(null);
+                setIsGenerating(false);
+              }}
+              className="mt-4 text-white hover:text-white hover:bg-white/20 border-white w-full"
+            >
+              Generate New Image
+            </Button>
+          </div>
+        )}
+      </div>
       
-      <div className="absolute top-0 left-0 opacity-0 pointer-events-none">
-        {isGenerating && (
+      {isGenerating && (
+        <div style={{ 
+          position: 'fixed', 
+          left: '-9999px', 
+          top: '-9999px',
+          visibility: 'hidden',
+          pointerEvents: 'none'
+        }}>
           <ShareableImage 
             answers={answers}
             onImageGenerated={handleImageGenerated}
           />
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
