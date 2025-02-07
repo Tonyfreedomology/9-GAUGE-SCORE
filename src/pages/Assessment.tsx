@@ -34,8 +34,7 @@ const Assessment = () => {
     );
   }
 
-  const currentCategory = assessmentData[currentCategoryIndex];
-  const questions = currentCategory.questions;
+  const questions = assessmentData.assessmentCategory.questions;
   const currentQuestion = questions[currentQuestionIndex];
   
   const handleAnswer = (value: number) => {
@@ -43,9 +42,6 @@ const Assessment = () => {
     
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentCategoryIndex < assessmentData.length - 1) {
-      setCurrentCategoryIndex(currentCategoryIndex + 1);
-      setCurrentQuestionIndex(0);
     } else {
       setShowResults(true);
     }
@@ -53,7 +49,6 @@ const Assessment = () => {
 
   const handleStartOver = () => {
     setShowResults(false);
-    setCurrentCategoryIndex(0);
     setCurrentQuestionIndex(0);
     setAnswers({});
   };
@@ -61,36 +56,21 @@ const Assessment = () => {
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
-    } else if (currentCategoryIndex > 0) {
-      const previousCategory = assessmentData[currentCategoryIndex - 1];
-      setCurrentCategoryIndex(currentCategoryIndex - 1);
-      setCurrentQuestionIndex(previousCategory.questions.length - 1);
     }
   };
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentCategoryIndex < assessmentData.length - 1) {
-      setCurrentCategoryIndex(currentCategoryIndex + 1);
-      setCurrentQuestionIndex(0);
     }
   };
 
-  const totalQuestions = assessmentData.reduce(
-    (acc, category) => acc + category.questions.length, 
-    0
-  );
-
-  const currentQuestionNumber = assessmentData
-    .slice(0, currentCategoryIndex)
-    .reduce((acc, category) => acc + category.questions.length, 0) + currentQuestionIndex + 1;
-
+  const totalQuestions = questions.length;
+  const currentQuestionNumber = currentQuestionIndex + 1;
   const progress = (currentQuestionNumber / totalQuestions) * 100;
 
-  const isFirstQuestion = currentCategoryIndex === 0 && currentQuestionIndex === 0;
-  const isLastQuestion = currentCategoryIndex === assessmentData.length - 1 && 
-    currentQuestionIndex === questions.length - 1;
+  const isFirstQuestion = currentQuestionIndex === 0;
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   // Properly type assert the options from Json to our expected structure
   const options = (currentQuestion.options as { value: number; label: string }[] | null) ?? [];
@@ -117,7 +97,7 @@ const Assessment = () => {
           {showResults ? (
             <AssessmentResults 
               answers={answers}
-              categories={assessmentData}
+              categories={assessmentData.originalCategories}
               onStartOver={handleStartOver}
             />
           ) : (

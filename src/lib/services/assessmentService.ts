@@ -1,3 +1,4 @@
+
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
@@ -60,17 +61,20 @@ export const fetchAssessmentData = async () => {
     }
   }
 
-  // Return the data with interleaved questions under the first category
-  // Maintaining the required category properties
-  return [{
-    ...categories[0], // Use the first category as a base to maintain type compatibility
-    id: 1,
-    display_name: "Assessment",
-    description: "Combined assessment questions",
-    name: "physical_health" as const, // Use a valid enum value
-    weight: 1,
-    questions: interleavedQuestions
-  }];
+  // Return both the interleaved questions for the assessment flow
+  // and the original categories for the results display
+  return {
+    assessmentCategory: {
+      ...categories[0], // Use the first category as a base to maintain type compatibility
+      id: 1,
+      display_name: "Assessment",
+      description: "Combined assessment questions",
+      name: "physical_health" as const,
+      weight: 1,
+      questions: interleavedQuestions
+    },
+    originalCategories: questionsByCategory
+  };
 };
 
 export const calculateCategoryScore = (
