@@ -1,3 +1,4 @@
+
 export type SprintContent = {
   heading: string;
   body: string;
@@ -9,9 +10,11 @@ export type SprintContent = {
 export const sprintContent: Record<string, SprintContent> = {
   "Health": {
     heading: "Your Health Matters",
-    body: "It looks like your health has some room for improvement, but that's okay! We have something that might help.\n\n\
-We've built a FREE 40-day challenge called <strong>H40</strong> that's designed to completely transform both your physical and mental health. We've had over 5000 people go through H40 and have seen <strong><em>incredible</em></strong> results.\n\n\
-It's super easy. Sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) on an aspect of health. We'll show you the exact steps you need to take to increase your energy, build muscle, lose fat AND improve your mental health.",
+    body: `It looks like your health has some room for improvement, but that's okay! We have something that might help.
+
+<p>We've built a FREE 40-day challenge called <strong>H40</strong> that's designed to completely transform both your physical and mental health. We've had over 5000 people go through H40 and have seen <strong><em>incredible</em></strong> results.</p>
+
+<p>It's super easy. Sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) on an aspect of health. We'll show you the exact steps you need to take to increase your energy, build muscle, lose fat AND improve your mental health.</p>`,
     cta: "Join H40",
     icon: "heart",
     color: "health"
@@ -31,10 +34,13 @@ It's super easy. Sign up below, and each day for 40 days, you'll get an email an
   },
   "Relationships": {
     heading: "Transform Every Relationship in Your Life",
-    body: "It looks like your relationships have some room for growth, but that's okay! We have something that might help.\n\n\
-We've built a FREE 40-day challenge called <strong>R40</strong> that's designed to transform and improve every relationship in your life.\n\n\
-It's super easy. Just sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) about an aspect of relationships. We'll show you the exact steps you need to take to become more attractive, build deeper, more meaningful connections, and improve your relationship with yourself.\n\n\
-Here's what we cover:",
+    body: `It looks like your relationships have some room for growth, but that's okay! We have something that might help.
+
+<p>We've built a FREE 40-day challenge called <strong>R40</strong> that's designed to transform and improve every relationship in your life.</p>
+
+<p>It's super easy. Just sign up below, and each day for 40 days, you'll get an email and one video micro-lesson (10 mins or less) about an aspect of relationships. We'll show you the exact steps you need to take to become more attractive, build deeper, more meaningful connections, and improve your relationship with yourself.</p>
+
+<p>Here's what we cover:</p>`,
     cta: "Join R40",
     icon: "users",
     color: "relationships"
