@@ -115,12 +115,17 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       </div>
       
       {isGenerating && (
-        <div style={{ 
+        <div id="image-generator-container" style={{ 
           position: 'fixed', 
           left: '-9999px', 
           top: '-9999px',
+          opacity: 0,
           visibility: 'hidden',
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          width: 0,
+          height: 0,
+          overflow: 'hidden',
+          zIndex: -1
         }}>
           <ShareableImage 
             answers={answers}
@@ -131,3 +136,4 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
     </>
   );
 };
+
