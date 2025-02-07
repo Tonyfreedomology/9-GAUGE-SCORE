@@ -1,38 +1,29 @@
 
 import { serve } from "https://deno.fresh.run/std@0.177.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.0";
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 serve(async (req) => {
   try {
     // Handle CORS
     if (req.method === 'OPTIONS') {
-      return new Response('ok', {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        }
-      });
+      return new Response(null, { headers: corsHeaders });
     }
 
     const { firstName, email, source } = await req.json();
     
-    // Create Supabase client
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
-    );
+    // Get GHL API key directly from Edge Function secrets
+    const GHL_API_KEY = Deno.env.get('GHL_API_KEY');
 
-    // Get GHL API key from Supabase secrets
-    const { data: { value: GHL_API_KEY }, error: secretError } = await supabaseClient
-      .from('secrets')
-      .select('value')
-      .eq('name', 'GHL_API_KEY')
-      .single();
-
-    if (secretError || !GHL_API_KEY) {
-      throw new Error('Unable to retrieve GHL API key');
+    if (!GHL_API_KEY) {
+      throw new Error('GHL API key not configured');
     }
+
+    console.log('Creating contact in GHL for email:', email);
 
     // Create contact in GHL
     const ghlResponse = await fetch('https://rest.gohighlevel.com/v1/contacts/', {
@@ -55,23 +46,17 @@ serve(async (req) => {
     }
 
     const ghlData = await ghlResponse.json();
+    console.log('Successfully created GHL contact:', ghlData);
 
-    // Update the waitlist entry to mark it as processed
-    const { error: updateError } = await supabaseClient
-      .from('waitlist_entries')
-      .update({ processed: true })
-      .eq('email', email);
-
-    if (updateError) {
-      console.error('Error updating waitlist entry:', updateError);
-    }
-
-    return new Response(JSON.stringify({ success: true, data: ghlData }), {
-      headers: { 
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+    return new Response(
+      JSON.stringify({ success: true, data: ghlData }), 
+      { 
+        headers: { 
+          'Content-Type': 'application/json',
+          ...corsHeaders
+        }
       }
-    });
+    );
 
   } catch (error) {
     console.error('Error in create-ghl-contact function:', error);
@@ -81,7 +66,7 @@ serve(async (req) => {
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          ...corsHeaders
         }
       }
     );
