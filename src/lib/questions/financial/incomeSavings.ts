@@ -1,7 +1,8 @@
+
 import { Category } from '../../types/assessment';
 
 export const incomeSavingsCategory: Category = {
-  name: 'Income',
+  name: 'Income & Savings',
   weight: 0.25,
   questions: [
     { 
