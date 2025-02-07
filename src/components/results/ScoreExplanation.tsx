@@ -23,7 +23,7 @@ export const ScoreExplanation = () => {
           Balance is a <span className="font-bold">superpower</span>, and hustle culture is a disease. When your finances, health, and relationships work in harmony, life becomes more free, fulfilling, and fun.
         </p>
         
-        <h3 className="text-2xl font-heading font-bold tracking-tighter lowercase mt-8">
+        <h3 className="text-2xl font-heading font-bold tracking-tighter lowercase mt-8 text-center">
           So how did we arrive at your score?
         </h3>
         
