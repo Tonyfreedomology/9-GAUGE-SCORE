@@ -19,8 +19,8 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
     setIsLoading(true);
 
     try {
-      console.log("Submitting to waitlist...");
-      const { error } = await supabase
+      // First, save to Supabase
+      const { error: supabaseError } = await supabase
         .from("waitlist_entries")
         .insert({
           first_name: firstName,
@@ -28,15 +28,41 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
           source: defaultSprint ? `Waitlist - ${defaultSprint}` : "Waitlist",
         });
 
-      if (error) {
-        throw error;
+      if (supabaseError) {
+        throw supabaseError;
       }
 
-      toast({
-        title: "Success!",
-        description: "You've been added to the waitlist.",
-        className: "bg-white border border-gray-200",
-      });
+      // Then create contact in GHL
+      const ghlResponse = await fetch(
+        'https://kcuhvqemmkghjauefzdx.supabase.co/functions/v1/create-ghl-contact',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName,
+            email,
+            source: defaultSprint ? `Waitlist - ${defaultSprint}` : "Waitlist",
+          }),
+        }
+      );
+
+      if (!ghlResponse.ok) {
+        console.error('GHL API Error:', await ghlResponse.json());
+        // We don't throw here because the entry is already in Supabase
+        toast({
+          title: "Partial Success",
+          description: "You've been added to the waitlist, but there was an issue with our notification system.",
+          className: "bg-white border border-gray-200",
+        });
+      } else {
+        toast({
+          title: "Success!",
+          description: "You've been added to the waitlist.",
+          className: "bg-white border border-gray-200",
+        });
+      }
 
       // Reset form
       setFirstName("");
