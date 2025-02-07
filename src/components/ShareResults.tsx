@@ -20,25 +20,36 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       const blob = await response.blob();
       const file = new File([blob], 'freedomology-results.png', { type: 'image/png' });
 
-      // Check if Web Share API is supported and can share files
-      if (navigator.share && navigator.canShare({ files: [file] })) {
-        console.log('Sharing via Web Share API...');
+      // Debug logging
+      console.log('Checking Web Share API support...');
+      console.log('navigator.share exists:', !!navigator.share);
+      console.log('navigator.canShare exists:', !!navigator.canShare);
+      
+      const shareData = {
+        files: [file],
+        title: 'My Freedomology Assessment Results',
+        text: 'Check out my Freedomology Assessment results!'
+      };
+      
+      console.log('Testing canShare with data:', shareData);
+      
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        console.log('Web Share API supported and can share files');
         try {
-          await navigator.share({
-            files: [file],
-            title: 'My Freedomology Assessment Results',
-            text: 'Check out my Freedomology Assessment results!'
-          });
+          await navigator.share(shareData);
           toast.success("Thanks for sharing your results!");
         } catch (error) {
           console.error('Error sharing:', error);
-          // If user cancels share, don't show error toast
           if (error instanceof Error && error.name !== 'AbortError') {
+            console.log('Share error, falling back to download');
             fallbackToDownload(blob);
           }
         }
       } else {
-        console.log('Web Share API not supported, falling back to download...');
+        console.log('Web Share API not fully supported:');
+        console.log('- navigator.share:', !!navigator.share);
+        console.log('- navigator.canShare:', !!navigator.canShare);
+        console.log('- canShare result:', navigator.canShare ? navigator.canShare(shareData) : false);
         fallbackToDownload(blob);
       }
     } catch (error) {
@@ -83,3 +94,4 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
     </>
   );
 };
+
