@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "./ui/input";
@@ -14,7 +14,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
   const [webhookUrl, setWebhookUrl] = useState("");
   const { toast } = useToast();
 
-  useState(() => {
+  useEffect(() => {
     const fetchWebhookUrl = async () => {
       try {
         const { data, error } = await supabase
