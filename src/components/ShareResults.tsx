@@ -38,9 +38,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
       if (navigator.share && navigator.canShare && navigator.canShare(fileShareData)) {
         try {
           await navigator.share(fileShareData);
-          toast.success("Thanks for sharing your results!", {
-            className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold shadow-lg"
-          });
+          toast.success("Thanks for sharing your results!");
           return;
         } catch (error) {
           console.error('Error sharing with file:', error);
@@ -51,9 +49,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
       }
     } catch (error) {
       console.error("Error processing image:", error);
-      toast.error("Sorry, there was an error sharing your results", {
-        className: "bg-white border-2 border-red-500 text-[#293230] font-semibold shadow-lg"
-      });
+      toast.error("Sorry, there was an error sharing your results");
     } finally {
       setIsGenerating(false);
     }
@@ -64,9 +60,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
     link.href = URL.createObjectURL(blob);
     link.download = 'freedomology-results.png';
     link.click();
-    toast.success("Results image downloaded!", {
-      className: "bg-white border-2 border-[#17BEBB] text-[#293230] font-semibold shadow-lg"
-    });
+    toast.success("Results image downloaded!");
   };
 
   const generateAndShareImage = () => {
