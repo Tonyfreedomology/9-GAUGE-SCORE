@@ -3,7 +3,7 @@ import { sprintContent } from "@/lib/sprintContent";
 import { programs } from "@/lib/programContent";
 import { WeekContent } from "./WeekContent";
 import { useInView } from "react-intersection-observer";
-import { SignupForm } from "./SignupForm";
+import { WaitlistForm } from "./WaitlistForm";
 import { getPillarIcon } from "@/lib/getPillarIcon";
 
 type SprintCardProps = {
@@ -74,7 +74,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         </div>
 
         <div className="w-full max-w-md mx-auto mt-12">
-          <SignupForm defaultSprint={capitalizedPillar} />
+          <WaitlistForm defaultSprint={capitalizedPillar} />
         </div>
       </div>
     </div>
