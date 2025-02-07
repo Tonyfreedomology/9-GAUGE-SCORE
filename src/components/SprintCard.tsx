@@ -42,26 +42,26 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg text-foreground">
       <div className="flex flex-col items-center space-y-6">
         <img src={getLogo()} alt={`${capitalizedPillar} Sprint Logo`} className="h-24 object-contain" />
-        <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tighter lowercase text-foreground">{content.heading}</h2>
+        <h2 className="text-2xl md:text-4xl font-heading font-bold tracking-tighter lowercase text-foreground md:whitespace-normal whitespace-nowrap">{content.heading}</h2>
         
         <div 
-          className="text-lg text-center w-full text-foreground [&>p]:mb-4 last:[&>p]:mb-0" 
+          className="text-base md:text-lg text-center w-full text-foreground [&>p]:mb-4 last:[&>p]:mb-0" 
           dangerouslySetInnerHTML={{ __html: introText }} 
         />
         
-        <div className="flex items-center justify-center space-x-6 mt-8">
-          <div className="w-12 h-12 flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-4 md:space-x-6 mt-8">
+          <div className="w-8 h-8 md:w-12 md:h-12 flex items-center justify-center">
             {getPillarIcon(capitalizedPillar)}
           </div>
-          <h3 className="text-4xl font-heading font-bold tracking-tighter lowercase text-foreground text-center">
+          <h3 className="text-2xl md:text-4xl font-heading font-bold tracking-tighter lowercase text-foreground text-center">
             THE SIX WEEKS
           </h3>
-          <div className="w-12 h-12 flex items-center justify-center">
+          <div className="w-8 h-8 md:w-12 md:h-12 flex items-center justify-center">
             {getPillarIcon(capitalizedPillar)}
           </div>
         </div>
         
-        <div ref={ref} className="w-full space-y-12">
+        <div ref={ref} className="w-full space-y-8 md:space-y-12">
           {program.weeks.map((week, index) => (
             <WeekContent
               key={week.number}

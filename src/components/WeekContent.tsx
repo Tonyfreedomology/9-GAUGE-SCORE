@@ -26,12 +26,12 @@ export const WeekContent = ({ number, title, description, color, isOpen, index }
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="flex flex-col items-center gap-4 mb-8">
-        <h3 className="text-foreground text-xl font-heading font-bold tracking-tighter lowercase">
+      <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8">
+        <h3 className="text-lg md:text-xl font-heading font-bold tracking-tighter lowercase text-foreground px-4">
           <span className={`text-${color}/60`}>WEEK {number}: </span>
           {title}
         </h3>
-        <p className="text-foreground text-lg leading-relaxed max-w-2xl mx-auto">{description}</p>
+        <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto px-4">{description}</p>
       </div>
     </div>
   );
