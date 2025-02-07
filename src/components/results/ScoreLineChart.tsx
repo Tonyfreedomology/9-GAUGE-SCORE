@@ -131,9 +131,9 @@ const categoryToPillarMapping: Record<string, { pillar: string; displayName: str
   'Income': { pillar: 'Financial', displayName: 'Income' },
   'Independence': { pillar: 'Financial', displayName: 'Independence' },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
-  'relationship with self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
-  'relationship with god': { pillar: 'Relationships', displayName: 'Relationship with God' },
-  'relationship with others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
+  'Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
+  'God': { pillar: 'Relationships', displayName: 'Relationship with God' },
+  'Others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
 };
 
 export const ScoreLineChart = ({ answers, categories }: { 
@@ -142,11 +142,11 @@ export const ScoreLineChart = ({ answers, categories }: {
 }) => {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
-    const categoryNameLower = category.display_name.toLowerCase();
+    const categoryName = category.display_name;
     
-    // Find the matching mapping entry
+    // Find the matching mapping entry by checking if the category name includes any of our keys
     const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
-      categoryNameLower.includes(key.toLowerCase())
+      categoryName.toLowerCase().includes(key.toLowerCase())
     );
     
     if (matchingEntry) {
