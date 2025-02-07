@@ -1,5 +1,5 @@
 
-import { Twitter, Facebook, Linkedin, X } from "lucide-react";
+import { Twitter, Facebook, Instagram, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -26,13 +26,13 @@ export const SocialSharePopover = ({ shareUrl, title, imageUrl, score }: SocialS
       name: "Facebook",
       icon: <Facebook className="w-5 h-5" />,
       color: "bg-[#4267B2] hover:bg-[#365899] text-white",
-      url: `https://www.facebook.com/sharer/sharer.php?u=${assessmentUrl}`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=${assessmentUrl}&quote=${encodedTitle}`,
     },
     {
-      name: "LinkedIn",
-      icon: <Linkedin className="w-5 h-5" />,
-      color: "bg-[#0077b5] hover:bg-[#006399] text-white",
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${assessmentUrl}`,
+      name: "Instagram",
+      icon: <Instagram className="w-5 h-5" />,
+      color: "bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white",
+      url: `https://instagram.com`,
     },
   ];
 

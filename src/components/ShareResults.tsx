@@ -24,6 +24,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   });
 
   const overallScore = assessmentData ? calculateOverallScore(assessmentData, answers) : 0;
+  const shareText = `I just scored ${overallScore} on the 9-gauge assessment. What's your score?`;
 
   const handleImageGenerated = async (dataUrl: string) => {
     try {
@@ -33,8 +34,8 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       const blob = await response.blob();
       
       const fileShareData = {
-        title: `I just scored ${overallScore} on the 9-gauge assessment. What's your score?`,
-        text: `Check out my 9-gauge score!`,
+        title: shareText,
+        text: shareText,
         files: [new File([blob], '9-gauge-results.png', { type: 'image/png' })]
       };
       
@@ -94,7 +95,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
           <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
           <SocialSharePopover 
             shareUrl={window.location.href}
-            title={`I just scored ${overallScore} on the 9-gauge assessment. What's your score?`}
+            title={shareText}
             imageUrl={imageUrl}
             score={overallScore}
           />
