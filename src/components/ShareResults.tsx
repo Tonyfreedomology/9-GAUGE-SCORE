@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Share2 } from "lucide-react";
+import { Share2, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ShareableImage } from "./ShareableImage";
@@ -75,6 +75,15 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
     setIsGenerating(true);
   };
 
+  const handleManualDownload = () => {
+    if (imageUrl) {
+      fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => fallbackToDownload(blob))
+        .catch(() => toast.error("Error downloading image"));
+    }
+  };
+
   return (
     <div className="flex flex-col items-center gap-4">
       {!imageUrl ? (
@@ -97,16 +106,25 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
             imageUrl={imageUrl}
             score={score}
           />
-          <Button
-            variant="outline"
-            onClick={() => {
-              setImageUrl(null);
-              setIsGenerating(false);
-            }}
-            className="mt-4 text-white hover:text-white hover:bg-white/20"
-          >
-            Generate New Image
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setImageUrl(null);
+                setIsGenerating(false);
+              }}
+              className="mt-4 text-white hover:text-white hover:bg-white/20"
+            >
+              Generate New Image
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleManualDownload}
+              className="mt-4 text-white hover:text-white hover:bg-white/20"
+            >
+              <Download className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
       )}
       
