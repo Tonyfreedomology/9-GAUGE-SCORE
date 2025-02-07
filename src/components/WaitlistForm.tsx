@@ -21,7 +21,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
           .from("secrets")
           .select("value")
           .eq("name", "GHL_API_KEY")
-          .single();
+          .maybeSingle();
 
         if (error) {
           console.error("Error fetching GHL API key:", error);
@@ -30,6 +30,8 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
 
         if (data) {
           setGhlApiKey(data.value);
+        } else {
+          console.error("GHL API key not found in secrets");
         }
       } catch (error) {
         console.error("Error in fetchGhlApiKey:", error);
