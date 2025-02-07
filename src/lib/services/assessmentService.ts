@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
@@ -28,13 +27,32 @@ export const fetchAssessmentData = async () => {
     throw questionsError;
   }
 
-  // Organize questions by category
-  const organizedData = categories.map(category => ({
+  // First, organize questions by category
+  const questionsByCategory = categories.map(category => ({
     ...category,
     questions: questions.filter(q => q.category_id === category.id)
   }));
 
-  return organizedData;
+  // Get the maximum number of questions in any category
+  const maxQuestions = Math.max(...questionsByCategory.map(cat => cat.questions.length));
+
+  // Create an interleaved array of questions
+  const interleavedQuestions: AssessmentQuestion[] = [];
+  for (let i = 0; i < maxQuestions; i++) {
+    for (const category of questionsByCategory) {
+      if (category.questions[i]) {
+        interleavedQuestions.push(category.questions[i]);
+      }
+    }
+  }
+
+  // Return the data with a single category containing all interleaved questions
+  return [{
+    id: 1,
+    display_name: "Assessment",
+    created_at: new Date().toISOString(),
+    questions: interleavedQuestions
+  }];
 };
 
 export const calculateCategoryScore = (
