@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
@@ -21,10 +22,8 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
   useEffect(() => {
     if (inView) {
       const scoreTimer = setTimeout(() => {
-        const duration = 2000; // Increased duration for smoother animation
-        const steps = 100; // More steps for smoother counting
-        const increment = score / steps;
-        let current = 0;
+        const duration = 2000;
+        const steps = 100;
         
         const easeInOutQuad = (t: number) => {
           return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
@@ -34,13 +33,12 @@ const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) => {
         const timer = setInterval(() => {
           if (step < steps) {
             const progress = easeInOutQuad(step / steps);
-            current = score * progress;
+            const current = score * progress;
             setCurrentScore(Math.round(current));
             setArrowPosition((current / 100) * 100);
             step++;
           } else {
             clearInterval(timer);
-            // Ensure we end exactly at the target score
             setCurrentScore(score);
             setArrowPosition(score);
           }
@@ -129,32 +127,50 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
 };
 
+// Define the mapping of display names to their respective pillars
+const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
+  'Mental': { pillar: 'Health', displayName: 'Mental Health' },
+  'Physical': { pillar: 'Health', displayName: 'Physical Health' },
+  'Environmental': { pillar: 'Health', displayName: 'Environmental Health' },
+  'Income': { pillar: 'Financial', displayName: 'Income & Savings' },
+  'Debt': { pillar: 'Financial', displayName: 'Debt & Credit' },
+  'Independence': { pillar: 'Financial', displayName: 'Independence & Flexibility' },
+  'Investment': { pillar: 'Financial', displayName: 'Investment & Growth' },
+  'Impact': { pillar: 'Financial', displayName: 'Impact & Generosity' },
+  'Self': { pillar: 'Relationships', displayName: 'Self Relationship' },
+  'Others': { pillar: 'Relationships', displayName: 'Close Relationships' },
+  'Community': { pillar: 'Relationships', displayName: 'Community & Social' },
+  'God': { pillar: 'Relationships', displayName: 'Spiritual' }
+};
+
 export const ScoreLineChart = ({ answers, categories }: { 
   answers: Record<string, number>;
   categories: Category[];
 }) => {
-  // Group categories by pillar
+  // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
-    const pillar = category.display_name.includes('Physical') || 
-                  category.display_name.includes('Mental') || 
-                  category.display_name.includes('Environmental') ? 'Health' :
-                  category.display_name.includes('Income') || 
-                  category.display_name.includes('Independence') || 
-                  category.display_name.includes('Impact') ? 'Financial' : 'Relationships';
-    
-    if (!acc[pillar]) {
-      acc[pillar] = [];
-    }
-    
-    const score = Math.round(
-      category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0) / 
-      category.questions.length * 20
+    // Find the matching mapping entry
+    const matchingKey = Object.keys(categoryToPillarMapping).find(key => 
+      category.display_name.includes(key)
     );
     
-    acc[pillar].push({
-      label: category.display_name,
-      score
-    });
+    if (matchingKey) {
+      const { pillar, displayName } = categoryToPillarMapping[matchingKey];
+      
+      if (!acc[pillar]) {
+        acc[pillar] = [];
+      }
+      
+      const score = Math.round(
+        category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0) / 
+        category.questions.length * 20
+      );
+      
+      acc[pillar].push({
+        label: displayName,
+        score
+      });
+    }
     
     return acc;
   }, {} as Record<string, { label: string; score: number; }[]>);
@@ -165,16 +181,21 @@ export const ScoreLineChart = ({ answers, categories }: {
     'Relationships': '#EF3E36'
   };
 
+  // Define the order of pillars
+  const pillarOrder = ['Health', 'Financial', 'Relationships'];
+
   return (
     <div className="grid gap-16">
-      {Object.entries(groupedCategories).map(([pillar, scores]) => (
-        <PillarScores
-          key={pillar}
-          title={pillar}
-          scores={scores}
-          color={pillarColors[pillar as keyof typeof pillarColors]}
-        />
-      ))}
+      {pillarOrder.map(pillar => 
+        groupedCategories[pillar] && (
+          <PillarScores
+            key={pillar}
+            title={pillar}
+            scores={groupedCategories[pillar]}
+            color={pillarColors[pillar as keyof typeof pillarColors]}
+          />
+        )
+      )}
     </div>
   );
 };
