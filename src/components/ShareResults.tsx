@@ -78,7 +78,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 relative">
       {!imageUrl ? (
         <Button
           onClick={generateAndShareImage}
@@ -112,12 +112,14 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
         </div>
       )}
       
-      {isGenerating && (
-        <ShareableImage 
-          answers={answers}
-          onImageGenerated={handleImageGenerated}
-        />
-      )}
+      <div className="absolute top-0 left-0 opacity-0 pointer-events-none">
+        {isGenerating && (
+          <ShareableImage 
+            answers={answers}
+            onImageGenerated={handleImageGenerated}
+          />
+        )}
+      </div>
     </div>
   );
 };
