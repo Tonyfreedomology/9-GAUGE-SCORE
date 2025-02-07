@@ -5,15 +5,22 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ShareableImage } from "./ShareableImage";
 import { SocialSharePopover } from "./SocialSharePopover";
+import { calculateOverallScore } from "@/lib/services/assessmentService";
+import { Database } from "@/integrations/supabase/types";
 
 type ShareResultsProps = {
   containerRef: React.RefObject<HTMLDivElement>;
   answers: Record<string, number>;
+  categories: Database['public']['Tables']['assessment_categories']['Row'] & {
+    questions: Database['public']['Tables']['assessment_questions']['Row'][];
+  }[];
 };
 
-export const ShareResults = ({ answers }: ShareResultsProps) => {
+export const ShareResults = ({ answers, categories, containerRef }: ShareResultsProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  
+  const score = calculateOverallScore(categories, answers);
 
   const handleImageGenerated = async (dataUrl: string) => {
     try {
@@ -24,7 +31,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       
       const fileShareData = {
         title: 'My Freedomology Assessment Results',
-        text: 'Check out my Freedomology Assessment results!',
+        text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score? #assessment`,
         files: [new File([blob], 'freedomology-results.png', { type: 'image/png' })]
       };
       
@@ -86,6 +93,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
             shareUrl={window.location.href}
             title="Check out my Freedomology Assessment results!"
             imageUrl={imageUrl}
+            score={score}
           />
           <Button
             variant="outline"
