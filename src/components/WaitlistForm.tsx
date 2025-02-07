@@ -11,39 +11,39 @@ type WaitlistFormProps = {
 export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
-  const [webhookUrl, setWebhookUrl] = useState("");
+  const [ghlApiKey, setGhlApiKey] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
-    const fetchWebhookUrl = async () => {
+    const fetchGhlApiKey = async () => {
       try {
         const { data, error } = await supabase
           .from("secrets")
           .select("value")
-          .eq("name", "ZAPIER_WEBHOOK_URL")
+          .eq("name", "GHL_API_KEY")
           .single();
 
         if (error) {
-          console.error("Error fetching webhook URL:", error);
+          console.error("Error fetching GHL API key:", error);
           return;
         }
 
         if (data) {
-          setWebhookUrl(data.value);
+          setGhlApiKey(data.value);
         }
       } catch (error) {
-        console.error("Error in fetchWebhookUrl:", error);
+        console.error("Error in fetchGhlApiKey:", error);
       }
     };
 
-    fetchWebhookUrl();
+    fetchGhlApiKey();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!webhookUrl) {
-      console.error("Webhook URL not found");
+    if (!ghlApiKey) {
+      console.error("GHL API key not found");
       toast({
         title: "Error",
         description: "Unable to process signup. Please try again later.",
@@ -53,21 +53,23 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
     }
 
     try {
-      const response = await fetch(webhookUrl, {
+      // Create contact in Go High Level
+      const response = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${ghlApiKey}`,
         },
         body: JSON.stringify({
           firstName,
           email,
-          sprint: defaultSprint,
-          type: "waitlist",
+          tags: ["waitlist"],
+          source: defaultSprint ? `Waitlist - ${defaultSprint}` : "Waitlist",
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Failed to create contact in GHL");
       }
 
       toast({
