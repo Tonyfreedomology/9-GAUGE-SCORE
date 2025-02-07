@@ -20,28 +20,41 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
       const blob = await response.blob();
       const file = new File([blob], 'freedomology-results.png', { type: 'image/png' });
 
-      // Share or download the image
+      // Check if Web Share API is supported and can share files
       if (navigator.share && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: 'My Freedomology Assessment Results',
-          text: 'Check out my Freedomology Assessment results!'
-        });
-        toast.success("Thanks for sharing your results!");
+        console.log('Sharing via Web Share API...');
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'My Freedomology Assessment Results',
+            text: 'Check out my Freedomology Assessment results!'
+          });
+          toast.success("Thanks for sharing your results!");
+        } catch (error) {
+          console.error('Error sharing:', error);
+          // If user cancels share, don't show error toast
+          if (error instanceof Error && error.name !== 'AbortError') {
+            fallbackToDownload(blob);
+          }
+        }
       } else {
-        // Fallback to download if sharing isn't supported
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'freedomology-results.png';
-        link.click();
-        toast.success("Results image downloaded!");
+        console.log('Web Share API not supported, falling back to download...');
+        fallbackToDownload(blob);
       }
     } catch (error) {
-      console.error("Error sharing image:", error);
+      console.error("Error processing image:", error);
       toast.error("Sorry, there was an error sharing your results");
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const fallbackToDownload = (blob: Blob) => {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'freedomology-results.png';
+    link.click();
+    toast.success("Results image downloaded!");
   };
 
   const generateAndShareImage = () => {
