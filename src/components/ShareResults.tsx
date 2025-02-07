@@ -80,7 +80,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
           {isGenerating ? "generating..." : "share results"}
         </Button>
       ) : (
-        <div className="flex flex-col items-center gap-4 bg-white/10 backdrop-blur-lg p-6 rounded-xl">
+        <div className="flex flex-col items-center gap-4 bg-[#293230]/90 backdrop-blur-lg p-6 rounded-xl w-full max-w-md">
           <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
           <SocialSharePopover 
             shareUrl={window.location.href}
@@ -93,7 +93,7 @@ export const ShareResults = ({ answers }: ShareResultsProps) => {
               setImageUrl(null);
               setIsGenerating(false);
             }}
-            className="mt-4 text-white hover:text-white hover:bg-white/20"
+            className="mt-4 text-white hover:text-white hover:bg-white/20 border-white w-full"
           >
             Generate New Image
           </Button>

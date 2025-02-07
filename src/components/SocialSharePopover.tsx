@@ -17,7 +17,7 @@ export const SocialSharePopover = ({ shareUrl, title, imageUrl }: SocialSharePop
       name: "X (Twitter)",
       icon: <X className="w-5 h-5" />,
       color: "bg-white hover:bg-gray-100 text-black",
-      url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
+      url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}${imageUrl ? `&image=${encodeURIComponent(imageUrl)}` : ''}`,
     },
     {
       name: "Facebook",
