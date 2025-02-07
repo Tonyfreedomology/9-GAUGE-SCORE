@@ -29,7 +29,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
       const response = await fetch(dataUrl);
       const blob = await response.blob();
       
-      const shareUrl = `https://9gauge.freedomology.com/assessment`;
+      const shareUrl = `https://9gauge.freedomology.com`;
       const fileShareData = {
         title: 'My Freedomology Assessment Results',
         text: `I just scored ${score}/100 on the 9-gauge assessment. What's your score? Take the assessment here: ${shareUrl}`,
@@ -99,7 +99,7 @@ export const ShareResults = ({ answers, categories, containerRef }: ShareResults
         <div className="flex flex-col items-center gap-4 bg-white/10 backdrop-blur-lg p-6 rounded-xl">
           <h3 className="text-xl font-heading font-bold text-white text-center mb-2">Share your results</h3>
           <SocialSharePopover 
-            shareUrl="https://9gauge.freedomology.com/assessment"
+            shareUrl="https://9gauge.freedomology.com"
             title="Check out my Freedomology Assessment results!"
             imageUrl={imageUrl}
             score={score}
