@@ -1,5 +1,5 @@
 
-import { Twitter, Facebook, Linkedin, X } from "lucide-react";
+import { Twitter, Facebook, Linkedin, X, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type SocialSharePopoverProps = {
@@ -31,6 +31,12 @@ export const SocialSharePopover = ({ shareUrl, title, imageUrl, score }: SocialS
       icon: <Linkedin className="w-5 h-5" />,
       color: "bg-[#0077b5] hover:bg-[#006399] text-white",
       url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    },
+    {
+      name: "Instagram",
+      icon: <Instagram className="w-5 h-5" />,
+      color: "bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-90 text-white",
+      url: `instagram://library?AssetPath=${imageUrl}`,
     },
   ];
 
