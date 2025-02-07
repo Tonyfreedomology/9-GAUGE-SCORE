@@ -65,9 +65,9 @@ export const ShareableImage = ({
       canvas.backgroundImage = img;
 
       // Add overall score ring
-      const overallScore = calculateOverallScore(assessmentData, answers);
-      const centerX = width * 0.25 + 300; // Increased from 250 to 300 to move 50px right
-      const centerY = height - 120; // Position towards the bottom
+      const overallScore = calculateOverallScore(assessmentData.originalCategories, answers);
+      const centerX = width * 0.25 + 300;
+      const centerY = height - 120;
 
       const scoreRingElements = createOverallScoreRing({
         score: overallScore,
@@ -117,7 +117,7 @@ export const ShareableImage = ({
         pillar.categories.forEach((categoryName, categoryIndex) => {
           const y = startY + categoryIndex * categorySpacing;
           
-          const category = assessmentData.find(c => 
+          const category = assessmentData.originalCategories.find(c => 
             c.display_name.toLowerCase().includes(categoryName.toLowerCase())
           );
           
@@ -160,3 +160,4 @@ export const ShareableImage = ({
     />
   );
 };
+
