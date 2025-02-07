@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
@@ -130,9 +131,9 @@ const categoryToPillarMapping: Record<string, { pillar: string; displayName: str
   'Income': { pillar: 'Financial', displayName: 'Income' },
   'Independence': { pillar: 'Financial', displayName: 'Independence' },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
-  'Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
-  'God': { pillar: 'Relationships', displayName: 'Relationship with God' },
-  'Others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
+  'relationship with self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
+  'relationship with god': { pillar: 'Relationships', displayName: 'Relationship with God' },
+  'relationship with others': { pillar: 'Relationships', displayName: 'Relationship with Others' }
 };
 
 export const ScoreLineChart = ({ answers, categories }: { 
@@ -141,9 +142,11 @@ export const ScoreLineChart = ({ answers, categories }: {
 }) => {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
-    // Find the matching mapping entry by checking if the category name includes any of our keys
+    const categoryNameLower = category.display_name.toLowerCase();
+    
+    // Find the matching mapping entry
     const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
-      category.display_name.toLowerCase().includes(key.toLowerCase())
+      categoryNameLower.includes(key.toLowerCase())
     );
     
     if (matchingEntry) {
