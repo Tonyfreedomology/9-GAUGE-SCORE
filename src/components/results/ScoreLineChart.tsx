@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
@@ -123,7 +122,6 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
 };
 
-// Simplify the mapping to match exact category names from question files
 const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
   'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
@@ -140,13 +138,10 @@ export const ScoreLineChart = ({ answers, categories }: {
   answers: Record<string, number>;
   categories: Category[];
 }) => {
-  // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
-    console.log('Processing category:', categoryName); // Debug log
     
     const matchingEntry = categoryToPillarMapping[categoryName];
-    console.log('Matching entry:', matchingEntry); // Debug log
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
@@ -164,8 +159,6 @@ export const ScoreLineChart = ({ answers, categories }: {
         label: displayName,
         score
       });
-    } else {
-      console.log('No matching entry found for category:', categoryName); // Debug log
     }
     
     return acc;
@@ -177,7 +170,6 @@ export const ScoreLineChart = ({ answers, categories }: {
     'Relationships': '#EF3E36'
   };
 
-  // Define the order of pillars
   const pillarOrder = ['Health', 'Financial', 'Relationships'];
 
   return (
