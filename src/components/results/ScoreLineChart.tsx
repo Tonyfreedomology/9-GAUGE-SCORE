@@ -123,6 +123,7 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
 };
 
+// Simplify the mapping to match exact category names from question files
 const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
   'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
@@ -142,14 +143,10 @@ export const ScoreLineChart = ({ answers, categories }: {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
-    console.log('Processing category:', categoryName);
-    console.log('Category questions:', category.questions);
-    console.log('Answers for this category:', category.questions.map(q => ({
-      questionId: q.id,
-      answer: answers[q.id]
-    })));
+    console.log('Processing category:', categoryName); // Debug log
     
     const matchingEntry = categoryToPillarMapping[categoryName];
+    console.log('Matching entry:', matchingEntry); // Debug log
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
@@ -158,25 +155,17 @@ export const ScoreLineChart = ({ answers, categories }: {
         acc[pillar] = [];
       }
       
-      // Calculate total points and maximum possible points
-      const totalPoints = category.questions.reduce((sum, q) => {
-        const answer = answers[q.id];
-        console.log(`Question ${q.id} answer:`, answer);
-        return sum + (answer || 0);
-      }, 0);
-      console.log('Total points for', categoryName, ':', totalPoints);
-      
-      const maxPossiblePoints = category.questions.length * 5;
-      console.log('Max possible points:', maxPossiblePoints);
-      
-      // Calculate percentage score (0-100)
-      const score = maxPossiblePoints > 0 ? Math.round((totalPoints / maxPossiblePoints) * 100) : 0;
-      console.log('Final score for', categoryName, ':', score);
+      const score = Math.round(
+        category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0) / 
+        category.questions.length * 20
+      );
       
       acc[pillar].push({
         label: displayName,
         score
       });
+    } else {
+      console.log('No matching entry found for category:', categoryName); // Debug log
     }
     
     return acc;
