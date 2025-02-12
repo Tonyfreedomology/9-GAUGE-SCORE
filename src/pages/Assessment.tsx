@@ -21,12 +21,12 @@ const Assessment = () => {
   const [answers, setAnswers] = useState<Answers>({});
   const [showResults, setShowResults] = useState(false);
 
-  const { data: assessmentData, isLoading } = useQuery({
+  const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
   });
 
-  if (isLoading || !assessmentData) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-pulse text-white text-xl">Loading assessment...</div>
@@ -34,8 +34,24 @@ const Assessment = () => {
     );
   }
 
+  if (error || !assessmentData?.assessmentCategory?.questions) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white text-xl">Error loading assessment. Please try again.</div>
+      </div>
+    );
+  }
+
   const questions = assessmentData.assessmentCategory.questions;
   const currentQuestion = questions[currentQuestionIndex];
+  
+  if (!currentQuestion) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white text-xl">No questions available.</div>
+      </div>
+    );
+  }
   
   const handleAnswer = (value: number) => {
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));

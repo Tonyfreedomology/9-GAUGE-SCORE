@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
@@ -24,7 +23,8 @@ export const fetchAssessmentData = async () => {
       name,
       display_name,
       pillar,
-      weight
+      weight,
+      created_at
     `)
     .order('id');
 
@@ -41,7 +41,8 @@ export const fetchAssessmentData = async () => {
       question_text,
       options,
       weight,
-      category_id
+      category_id,
+      created_at
     `)
     .order('id');
 
@@ -53,10 +54,7 @@ export const fetchAssessmentData = async () => {
   // First, organize questions by category
   const questionsByCategory = categories.map(category => ({
     ...category,
-    questions: questions.filter(q => {
-      console.log(`Checking question ${q.id} with category_id ${q.category_id} against category ${category.id}`);
-      return q.category_id === category.id;
-    })
+    questions: questions.filter(q => q.category_id === category.id)
   }));
 
   // Get the maximum number of questions in any category
@@ -70,17 +68,15 @@ export const fetchAssessmentData = async () => {
         interleavedQuestions.push({
           ...category.questions[i],
           originalCategoryName: category.display_name,
-          pillar: category.pillar // Use the pillar directly from the category
+          pillar: category.pillar
         });
       }
     }
   }
 
-  // Return both the interleaved questions for the assessment flow
-  // and the original categories for the results display
   return {
     assessmentCategory: {
-      ...categories[0], // Use the first category as a base to maintain type compatibility
+      ...categories[0],
       id: 1,
       display_name: "Assessment",
       name: "assessment",
