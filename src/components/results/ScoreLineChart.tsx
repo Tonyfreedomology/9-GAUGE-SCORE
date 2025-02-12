@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Database } from "@/integrations/supabase/types";
 import { getPillarIcon } from "@/lib/getPillarIcon";
@@ -127,7 +128,7 @@ const categoryToPillarMapping: Record<string, { pillar: string; displayName: str
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
   'Environmental Health': { pillar: 'Health', displayName: 'Environmental Health' },
   'Income': { pillar: 'Financial', displayName: 'Income' },
-  'Independence & Flexibility': { pillar: 'Financial', displayName: 'Independence' },
+  'Independence': { pillar: 'Financial', displayName: 'Independence' }, // Fixed: Removed "& Flexibility"
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
   'Relationships with Others': { pillar: 'Relationships', displayName: 'Relationships with Others' },
   'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
@@ -142,9 +143,8 @@ export const ScoreLineChart = ({ answers, categories }: {
     const categoryName = category.display_name;
     console.log('Processing category:', categoryName);
     
-    const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
-      categoryName.includes(key.split(' & ')[0])
-    )?.[1];
+    // Simplified matching - just use exact category name
+    const matchingEntry = categoryToPillarMapping[categoryName];
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
@@ -160,7 +160,11 @@ export const ScoreLineChart = ({ answers, categories }: {
         return sum + answer;
       }, 0);
       
-      const score = Math.round((totalScore / totalQuestions) * 20);
+      // Guard against division by zero
+      const score = totalQuestions > 0 
+        ? Math.round((totalScore / totalQuestions) * 20)
+        : 0;
+        
       console.log(`Category ${categoryName} - Total: ${totalScore}, Questions: ${totalQuestions}, Final Score: ${score}`);
       
       acc[pillar].push({
