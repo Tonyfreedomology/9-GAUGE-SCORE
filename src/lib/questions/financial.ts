@@ -1,8 +1,8 @@
 
 import { Pillar } from '../types/assessment';
-import { incomeSavingsCategory } from './financial/incomeSavings';
-import { independenceFlexibilityCategory } from './financial/independenceFlexibility';
-import { impactGenerosityCategory } from './financial/impactGenerosity';
+import { incomeSavingsCategory } from './financial/income';
+import { independenceFlexibilityCategory } from './financial/independence';
+import { impactGenerosityCategory } from './financial/impact';
 
 export const financialPillar: Pillar = {
   name: 'Financial',
