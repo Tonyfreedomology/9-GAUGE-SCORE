@@ -52,7 +52,7 @@ export const impactGenerosityCategory: Category = {
       options: [
         { value: 1, label: "Strongly Disagree – I don't feel I have a positive impact." },
         { value: 2, label: 'Disagree – I rarely feel proud of making a difference.' },
-        { value: 3, label: 'Neutral – I make some impact, but it doesn't feel significant.' },
+        { value: 3, label: "Neutral – I make some impact, but it doesn't feel significant." },
         { value: 4, label: 'Agree – I see ways I contribute positively and it feels good.' },
         { value: 5, label: 'Strongly Agree – I make a meaningful difference and feel proud of it.' }
       ]
