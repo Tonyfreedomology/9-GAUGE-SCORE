@@ -127,7 +127,7 @@ const categoryToPillarMapping: Record<string, { pillar: string; displayName: str
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
   'Environmental Health': { pillar: 'Health', displayName: 'Environmental Health' },
   'Income': { pillar: 'Financial', displayName: 'Income' },
-  'Independence': { pillar: 'Financial', displayName: 'Independence' },
+  'Independence & Flexibility': { pillar: 'Financial', displayName: 'Independence' },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
   'Relationships with Others': { pillar: 'Relationships', displayName: 'Relationships with Others' },
   'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
@@ -140,8 +140,11 @@ export const ScoreLineChart = ({ answers, categories }: {
 }) => {
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
+    console.log('Processing category:', categoryName);
     
-    const matchingEntry = categoryToPillarMapping[categoryName];
+    const matchingEntry = Object.entries(categoryToPillarMapping).find(([key]) => 
+      categoryName.includes(key.split(' & ')[0])
+    )?.[1];
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
@@ -150,15 +153,22 @@ export const ScoreLineChart = ({ answers, categories }: {
         acc[pillar] = [];
       }
       
-      const score = Math.round(
-        category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0) / 
-        category.questions.length * 20
-      );
+      const totalQuestions = category.questions.length;
+      const totalScore = category.questions.reduce((sum, q) => {
+        const answer = answers[q.id] || 0;
+        console.log(`Question ${q.id} answer:`, answer);
+        return sum + answer;
+      }, 0);
+      
+      const score = Math.round((totalScore / totalQuestions) * 20);
+      console.log(`Category ${categoryName} - Total: ${totalScore}, Questions: ${totalQuestions}, Final Score: ${score}`);
       
       acc[pillar].push({
         label: displayName,
         score
       });
+    } else {
+      console.warn('No matching entry found for category:', categoryName);
     }
     
     return acc;
