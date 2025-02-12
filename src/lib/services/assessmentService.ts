@@ -1,13 +1,20 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'];
 type AssessmentQuestion = Database['public']['Tables']['assessment_questions']['Row'];
 
+const getPillarFromCategory = (categoryName: string) => {
+  if (categoryName.includes('Physical') || categoryName.includes('Mental') || categoryName.includes('Environmental')) {
+    return 'Health';
+  }
+  if (categoryName.includes('Income') || categoryName.includes('Independence') || categoryName.includes('Impact')) {
+    return 'Financial';
+  }
+  return 'Relationships';
+};
+
 export const fetchAssessmentData = async () => {
-  console.log('Fetching assessment data...');
-  
   // Fetch categories first
   const { data: categories, error: categoriesError } = await supabase
     .from('assessment_categories')
@@ -25,8 +32,6 @@ export const fetchAssessmentData = async () => {
     console.error('Error fetching categories:', categoriesError);
     throw categoriesError;
   }
-
-  console.log('Fetched categories:', categories);
 
   // Fetch questions with explicit field selection
   const { data: questions, error: questionsError } = await supabase
@@ -46,26 +51,14 @@ export const fetchAssessmentData = async () => {
     throw questionsError;
   }
 
-  console.log('Fetched questions:', questions);
-
-  if (!categories.length || !questions.length) {
-    console.error('No categories or questions found:', { categories, questions });
-    throw new Error('No assessment data available');
-  }
-
   // First, organize questions by category
-  const questionsByCategory = categories.map(category => {
-    const categoryQuestions = questions.filter(q => q.category_id === category.id);
-    console.log(`Found ${categoryQuestions.length} questions for category ${category.id}`);
-    return {
-      ...category,
-      questions: categoryQuestions
-    };
-  });
+  const questionsByCategory = categories.map(category => ({
+    ...category,
+    questions: questions.filter(q => q.category_id === category.id)
+  }));
 
   // Get the maximum number of questions in any category
   const maxQuestions = Math.max(...questionsByCategory.map(cat => cat.questions.length));
-  console.log('Max questions in any category:', maxQuestions);
 
   // Create an interleaved array of questions with category information
   const interleavedQuestions = [];
@@ -79,12 +72,6 @@ export const fetchAssessmentData = async () => {
         });
       }
     }
-  }
-
-  console.log('Final interleaved questions:', interleavedQuestions);
-
-  if (!interleavedQuestions.length) {
-    throw new Error('No questions available after processing');
   }
 
   return {
