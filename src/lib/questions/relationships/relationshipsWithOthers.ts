@@ -24,7 +24,7 @@ export const relationshipsWithOthersCategory: Category = {
       category: 'Relationships with Others', 
       pillar: 'relationships',
       options: [
-        { value: 1, label: "Strongly Disagree – I often feel isolated or disconnected." },
+        { value: 1, label: 'Strongly Disagree – I often feel isolated or disconnected.' },
         { value: 2, label: "Disagree – I sometimes feel like I don't really belong anywhere." },
         { value: 3, label: "Neutral – I have some connections but don't always feel included." },
         { value: 4, label: 'Agree – I generally feel accepted and like I belong.' },
@@ -51,11 +51,11 @@ export const relationshipsWithOthersCategory: Category = {
       pillar: 'relationships',
       options: [
         { value: 1, label: "Strongly Disagree – I don't feel prepared for a deep, committed relationship." },
-        { value: 2, label: 'Disagree – I have made some progress, but I'm not sure I'm ready.' },
+        { value: 2, label: "Disagree – I have made some progress, but I'm not sure I'm ready." },
         { value: 3, label: "Neutral – I think I could be a good partner, but I'm not fully confident." },
         { value: 4, label: "Agree – I've put in the work to be a great partner." },
-        { value: 5, label: 'Strongly Agree – I know I'm fully ready for (or have) a deep, committed relationship.' }
+        { value: 5, label: "Strongly Agree – I know I'm fully ready for (or have) a deep, committed relationship." }
       ]
-    },
-  ],
+    }
+  ]
 };
