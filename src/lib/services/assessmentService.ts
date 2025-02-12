@@ -19,7 +19,13 @@ export const fetchAssessmentData = async () => {
   // Fetch categories first
   const { data: categories, error: categoriesError } = await supabase
     .from('assessment_categories')
-    .select('*')
+    .select(`
+      id,
+      name,
+      display_name,
+      pillar,
+      weight
+    `)
     .order('id');
 
   if (categoriesError) {
@@ -27,10 +33,16 @@ export const fetchAssessmentData = async () => {
     throw categoriesError;
   }
 
-  // Fetch questions
+  // Fetch questions with explicit field selection
   const { data: questions, error: questionsError } = await supabase
     .from('assessment_questions')
-    .select('*')
+    .select(`
+      id,
+      question_text,
+      options,
+      weight,
+      category_id
+    `)
     .order('id');
 
   if (questionsError) {
@@ -58,7 +70,7 @@ export const fetchAssessmentData = async () => {
         interleavedQuestions.push({
           ...category.questions[i],
           originalCategoryName: category.display_name,
-          pillar: getPillarFromCategory(category.display_name)
+          pillar: category.pillar // Use the pillar directly from the category
         });
       }
     }
@@ -71,9 +83,8 @@ export const fetchAssessmentData = async () => {
       ...categories[0], // Use the first category as a base to maintain type compatibility
       id: 1,
       display_name: "Assessment",
-      description: "Combined assessment questions",
-      name: "physical_health" as const,
-      weight: 1,
+      name: "assessment",
+      pillar: "Assessment",
       questions: interleavedQuestions
     },
     originalCategories: questionsByCategory
