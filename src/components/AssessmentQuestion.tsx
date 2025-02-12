@@ -49,13 +49,6 @@ export const AssessmentQuestion = ({
       <FreedomologyLogo />
       
       <div className="space-y-6 animate-[fade-in_0.5s_ease-out]">
-        <div className="flex items-center justify-center gap-3">
-          {getPillarIcon(category)}
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-center text-white tracking-tighter lowercase">
-            {category}
-          </h1>
-        </div>
-        
         <AssessmentProgress
           currentStep={currentStep}
           totalSteps={totalSteps}
