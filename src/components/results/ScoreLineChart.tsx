@@ -164,13 +164,13 @@ export const ScoreLineChart = ({ answers, categories }: {
       const totalQuestions = category.questions.length;
       const totalScore = category.questions.reduce((sum, q) => {
         const answer = answers[q.id] || 0;
-        console.log(`Question ${q.id} answer:`, answer);
+        console.log(`Question ${q.id} (${q.question_text}) answer:`, answer);
         return sum + answer;
       }, 0);
       
       // Guard against division by zero
       const score = totalQuestions > 0 
-        ? Math.round((totalScore / totalQuestions) * 20)
+        ? Math.round((totalScore / (totalQuestions * 5)) * 100)
         : 0;
         
       console.log(`Category ${categoryName} - Total: ${totalScore}, Questions: ${totalQuestions}, Final Score: ${score}`);
