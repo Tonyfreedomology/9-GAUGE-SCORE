@@ -1,20 +1,11 @@
+
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
-
-type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'];
-type AssessmentQuestion = Database['public']['Tables']['assessment_questions']['Row'];
-
-const getPillarFromCategory = (categoryName: string) => {
-  if (categoryName.includes('Physical') || categoryName.includes('Mental') || categoryName.includes('Environmental')) {
-    return 'Health';
-  }
-  if (categoryName.includes('Income') || categoryName.includes('Independence') || categoryName.includes('Impact')) {
-    return 'Financial';
-  }
-  return 'Relationships';
-};
+import { toast } from "sonner";
 
 export const fetchAssessmentData = async () => {
+  console.log('Fetching assessment data from Supabase...');
+  
   // Fetch categories first
   const { data: categories, error: categoriesError } = await supabase
     .from('assessment_categories')
@@ -30,6 +21,7 @@ export const fetchAssessmentData = async () => {
 
   if (categoriesError) {
     console.error('Error fetching categories:', categoriesError);
+    toast.error('Error loading assessment questions');
     throw categoriesError;
   }
 
@@ -48,6 +40,7 @@ export const fetchAssessmentData = async () => {
 
   if (questionsError) {
     console.error('Error fetching questions:', questionsError);
+    toast.error('Error loading assessment questions');
     throw questionsError;
   }
 
@@ -88,7 +81,7 @@ export const fetchAssessmentData = async () => {
 };
 
 export const calculateCategoryScore = (
-  questions: AssessmentQuestion[],
+  questions: Database['public']['Tables']['assessment_questions']['Row'][],
   answers: Record<string, number>
 ): number => {
   if (!questions.length) return 0;
@@ -108,7 +101,9 @@ export const calculateCategoryScore = (
 };
 
 export const calculateOverallScore = (
-  categories: (AssessmentCategory & { questions: AssessmentQuestion[] })[],
+  categories: (Database['public']['Tables']['assessment_categories']['Row'] & { 
+    questions: Database['public']['Tables']['assessment_questions']['Row'][] 
+  })[],
   answers: Record<string, number>
 ): number => {
   const categoryScores = categories.map(category => 
@@ -121,54 +116,66 @@ export const calculateOverallScore = (
 };
 
 export const saveAssessmentScores = async (
-  categories: (AssessmentCategory & { questions: AssessmentQuestion[] })[],
+  categories: (Database['public']['Tables']['assessment_categories']['Row'] & { 
+    questions: Database['public']['Tables']['assessment_questions']['Row'][] 
+  })[],
   answers: Record<string, number>
 ) => {
-  // Create a new assessment
-  const { data: assessment, error: assessmentError } = await supabase
-    .from('assessments')
-    .insert({})
-    .select()
-    .single();
+  try {
+    // Create a new assessment
+    const { data: assessment, error: assessmentError } = await supabase
+      .from('assessments')
+      .insert({})
+      .select()
+      .single();
 
-  if (assessmentError) {
-    console.error('Error creating assessment:', assessmentError);
-    throw assessmentError;
-  }
+    if (assessmentError) {
+      console.error('Error creating assessment:', assessmentError);
+      toast.error('Error saving assessment results');
+      throw assessmentError;
+    }
 
-  // Calculate and save overall score
-  const overallScore = calculateOverallScore(categories, answers);
-  const { error: overallError } = await supabase
-    .from('assessment_overall_scores')
-    .insert({
+    // Calculate and save overall score
+    const overallScore = calculateOverallScore(categories, answers);
+    const { error: overallError } = await supabase
+      .from('assessment_overall_scores')
+      .insert({
+        assessment_id: assessment.id,
+        score: overallScore
+      });
+
+    if (overallError) {
+      console.error('Error saving overall score:', overallError);
+      toast.error('Error saving assessment results');
+      throw overallError;
+    }
+
+    // Calculate and save pillar scores
+    const pillarScores = categories.map(category => ({
       assessment_id: assessment.id,
-      score: overallScore
-    });
+      category_id: category.id,
+      score: calculateCategoryScore(category.questions, answers)
+    }));
 
-  if (overallError) {
-    console.error('Error saving overall score:', overallError);
-    throw overallError;
+    const { error: pillarError } = await supabase
+      .from('assessment_pillar_scores')
+      .insert(pillarScores);
+
+    if (pillarError) {
+      console.error('Error saving pillar scores:', pillarError);
+      toast.error('Error saving assessment results');
+      throw pillarError;
+    }
+
+    console.log('Assessment scores saved successfully');
+    return {
+      assessmentId: assessment.id,
+      overallScore,
+      pillarScores
+    };
+  } catch (error) {
+    console.error('Error in saveAssessmentScores:', error);
+    toast.error('Error saving assessment results');
+    throw error;
   }
-
-  // Calculate and save pillar scores
-  const pillarScores = categories.map(category => ({
-    assessment_id: assessment.id,
-    category_id: category.id,
-    score: calculateCategoryScore(category.questions, answers)
-  }));
-
-  const { error: pillarError } = await supabase
-    .from('assessment_pillar_scores')
-    .insert(pillarScores);
-
-  if (pillarError) {
-    console.error('Error saving pillar scores:', pillarError);
-    throw pillarError;
-  }
-
-  return {
-    assessmentId: assessment.id,
-    overallScore,
-    pillarScores
-  };
 };
