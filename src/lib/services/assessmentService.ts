@@ -41,7 +41,10 @@ export const fetchAssessmentData = async () => {
   // First, organize questions by category
   const questionsByCategory = categories.map(category => ({
     ...category,
-    questions: questions.filter(q => q.category_id === category.id)
+    questions: questions.filter(q => {
+      console.log(`Checking question ${q.id} with category_id ${q.category_id} against category ${category.id}`);
+      return q.category_id === category.id;
+    })
   }));
 
   // Get the maximum number of questions in any category
