@@ -20,15 +20,15 @@ export const incomeSavingsCategory: Category = {
     },
     { 
       id: 'f2', 
-      text: 'I could handle a major unexpected expense (like a large car repair) without financial strain.', 
+      text: 'What percentage of your monthly income is used to pay off high-interest debts, such as credit cards?', 
       category: 'Income', 
       pillar: 'financial',
       options: [
-        { value: 1, label: 'Never – An emergency expense would be devastating to my finances.' },
-        { value: 2, label: 'Rarely – I would struggle significantly to cover it.' },
-        { value: 3, label: 'Sometimes – I could manage it, but it would require cutting back elsewhere.' },
-        { value: 4, label: 'Often – I have savings or resources that would cover it with little stress.' },
-        { value: 5, label: 'Always – I am fully prepared for emergencies financially.' }
+        { value: 5, label: '0%' },
+        { value: 4, label: '1-10%' },
+        { value: 3, label: '11-20%' },
+        { value: 2, label: '21-30%' },
+        { value: 1, label: '30%+' }
       ]
     },
     { 
@@ -46,15 +46,15 @@ export const incomeSavingsCategory: Category = {
     },
     { 
       id: 'f4', 
-      text: 'I feel in control of my financial situation, rather than feeling controlled by money.', 
+      text: 'Do you regularly invest (like retirement accounts, stocks, real estate)?', 
       category: 'Income', 
       pillar: 'financial',
       options: [
-        { value: 1, label: 'Strongly Disagree – I feel very out of control; money problems dominate my life.' },
-        { value: 2, label: 'Disagree – I often worry about money and feel constrained by it.' },
-        { value: 3, label: 'Neutral – I sometimes feel in control, other times not.' },
-        { value: 4, label: 'Agree – I mostly feel on top of my finances, with occasional stress.' },
-        { value: 5, label: 'Strongly Agree – I feel fully in control of my financial life.' }
+        { value: 1, label: 'Never' },
+        { value: 2, label: 'Rarely' },
+        { value: 3, label: 'Sometimes' },
+        { value: 4, label: 'Most months' },
+        { value: 5, label: 'Every month' }
       ]
     },
   ],
