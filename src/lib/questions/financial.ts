@@ -6,3 +6,4 @@ export const financialPillar: Pillar = {
   color: '#17BEBB',
   categories: []  // Categories and questions are now loaded from the database
 };
+

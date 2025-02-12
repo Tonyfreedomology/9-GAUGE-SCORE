@@ -18,3 +18,4 @@ export type Pillar = {
   categories: Category[];
   color: string;
 };
+
