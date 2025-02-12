@@ -123,7 +123,6 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
 };
 
-// Simplify the mapping to match exact category names from question files
 const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
   'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
@@ -143,10 +142,7 @@ export const ScoreLineChart = ({ answers, categories }: {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
-    console.log('Processing category:', categoryName); // Debug log
-    
     const matchingEntry = categoryToPillarMapping[categoryName];
-    console.log('Matching entry:', matchingEntry); // Debug log
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
@@ -155,17 +151,17 @@ export const ScoreLineChart = ({ answers, categories }: {
         acc[pillar] = [];
       }
       
-      const score = Math.round(
-        category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0) / 
-        category.questions.length * 20
-      );
+      // Calculate total points and maximum possible points
+      const totalPoints = category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0);
+      const maxPossiblePoints = category.questions.length * 5; // Each question has a max score of 5
+      
+      // Calculate percentage score (0-100)
+      const score = maxPossiblePoints > 0 ? Math.round((totalPoints / maxPossiblePoints) * 100) : 0;
       
       acc[pillar].push({
         label: displayName,
         score
       });
-    } else {
-      console.log('No matching entry found for category:', categoryName); // Debug log
     }
     
     return acc;
