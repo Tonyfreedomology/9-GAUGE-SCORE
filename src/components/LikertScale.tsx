@@ -1,3 +1,4 @@
+
 import { cn } from "@/lib/utils";
 
 type LikertScaleProps = {
@@ -13,7 +14,7 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
 
   return (
     <div className={cn(
-      "grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-between gap-3 w-full max-w-2xl mx-auto",
+      "flex flex-col space-y-3 w-full max-w-2xl mx-auto",
       className
     )}>
       {displayOptions.map((option) => {
@@ -26,14 +27,14 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
             key={optionValue}
             onClick={() => onChange(optionValue)}
             className={cn(
-              "w-full lg:w-auto lg:min-w-[100px] py-3 px-4 rounded-full transition-all duration-300",
-              "text-sm lg:text-base font-medium flex items-center justify-center text-center",
+              "w-full py-4 px-6 rounded-lg transition-all duration-300",
+              "text-sm md:text-base font-medium text-left",
               "hover:bg-[#F9FAFB] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]",
               isSelected ? [
-                "border-2 border-[#3ECF8E] animate-[scale-in_0.2s_ease-out]",
-                "bg-gradient-to-b from-[#F0FFF4] to-white",
-                "shadow-[0_2px_8px_rgba(62,207,142,0.15)]",
-                "scale-105"
+                "border-2 border-[#9b87f5]",
+                "bg-gradient-to-r from-[#E5DEFF] to-white",
+                "shadow-[0_2px_8px_rgba(155,135,245,0.15)]",
+                "translate-x-1"
               ] : [
                 "bg-white/80 border-2 border-transparent",
                 "shadow-[0_2px_4px_rgba(0,0,0,0.05)]"
