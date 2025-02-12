@@ -3,7 +3,7 @@ import { Category } from '../../types/assessment';
 
 export const independenceFlexibilityCategory: Category = {
   name: 'Independence',
-  weight: 0.25,
+  weight: 0.35,
   questions: [
     { 
       id: 'f8', 

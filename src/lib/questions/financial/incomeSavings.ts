@@ -3,7 +3,7 @@ import { Category } from '../../types/assessment';
 
 export const incomeSavingsCategory: Category = {
   name: 'Income',
-  weight: 0.25,
+  weight: 0.35,
   questions: [
     { 
       id: 'f1', 
