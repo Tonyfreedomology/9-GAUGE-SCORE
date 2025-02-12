@@ -9,7 +9,7 @@ export const spiritualCategory: Category = {
       id: 'r12', 
       text: 'I feel a connection with God in my life.', 
       category: 'Relationship with God', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Strongly Disagree – I do not feel any connection with God or a higher power.' },
         { value: 2, label: 'Disagree – I rarely feel spiritually connected.' },
@@ -22,7 +22,7 @@ export const spiritualCategory: Category = {
       id: 'r13', 
       text: 'My faith or spiritual practice gives me guidance and strength in daily life.', 
       category: 'Relationship with God', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Strongly Disagree – My faith does not play a role in my daily life.' },
         { value: 2, label: 'Disagree – My spiritual beliefs occasionally help, but not consistently.' },
@@ -35,7 +35,7 @@ export const spiritualCategory: Category = {
       id: 'r14', 
       text: 'How often do you talk to God?', 
       category: 'Relationship with God', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: "Never – I don't talk to God at all." },
         { value: 2, label: 'Rarely – In crisis, I sometimes ask God for help.' },
@@ -48,7 +48,7 @@ export const spiritualCategory: Category = {
       id: 'r15',
       text: 'I strive to live in alignment with my core values and principles in my daily actions.',
       category: 'Relationship with God',
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: "Strongly Disagree – I don't think about my spiritual values in daily life." },
         { value: 2, label: "Disagree – I occasionally consider my values, but my actions don't always align." },

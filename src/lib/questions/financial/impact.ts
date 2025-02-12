@@ -9,7 +9,7 @@ export const impactGenerosityCategory: Category = {
       id: 'f15', 
       text: 'I regularly volunteer or dedicate time to help my community or causes I care about.', 
       category: 'Impact', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Never – I do not volunteer or contribute time.' },
         { value: 2, label: 'Rarely – I help occasionally but not consistently.' },
@@ -22,7 +22,7 @@ export const impactGenerosityCategory: Category = {
       id: 'f16', 
       text: 'When I see someone in need or a problem I can help with, I take action if possible.', 
       category: 'Impact', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: "Strongly Disagree – I usually don't get involved." },
         { value: 2, label: "Disagree – I sometimes think about helping but don't act." },
@@ -35,7 +35,7 @@ export const impactGenerosityCategory: Category = {
       id: 'f17', 
       text: 'I find a sense of purpose in contributing to something bigger than myself.', 
       category: 'Impact', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: "Strongly Disagree – I don't find meaning in contributing beyond my own needs." },
         { value: 2, label: 'Disagree – I rarely feel a sense of purpose from contributing.' },
@@ -48,7 +48,7 @@ export const impactGenerosityCategory: Category = {
       id: 'f18', 
       text: 'I am proud of the positive impact I have on the world.', 
       category: 'Impact', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: "Strongly Disagree – I don't feel I have a positive impact." },
         { value: 2, label: 'Disagree – I rarely feel proud of making a difference.' },

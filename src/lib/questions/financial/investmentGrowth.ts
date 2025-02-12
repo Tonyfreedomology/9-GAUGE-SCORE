@@ -1,3 +1,4 @@
+
 import { Category } from '../../types/assessment';
 
 export const investmentGrowthCategory: Category = {
@@ -8,7 +9,7 @@ export const investmentGrowthCategory: Category = {
       id: 'f12', 
       text: 'Do you regularly invest (like retirement accounts, stocks, real estate)?', 
       category: 'Investment & Growth', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Never' },
         { value: 2, label: 'Rarely' },
@@ -21,7 +22,7 @@ export const investmentGrowthCategory: Category = {
       id: 'f13', 
       text: 'How confident are you in your plan to grow your wealth over time?', 
       category: 'Investment & Growth', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Not at all' },
         { value: 2, label: 'Slightly' },
@@ -34,7 +35,7 @@ export const investmentGrowthCategory: Category = {
       id: 'f14', 
       text: 'Is your money spread out (stocks, real estate) or mostly in one thing (savings)?', 
       category: 'Investment & Growth', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'All in one place' },
         { value: 2, label: 'Mostly one place' },

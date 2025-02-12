@@ -9,7 +9,7 @@ export const independenceFlexibilityCategory: Category = {
       id: 'f8', 
       text: 'How often do you feel financial stress about covering basic expenses?', 
       category: 'Independence', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Always – I constantly stress about bills and expenses.' },
         { value: 2, label: 'Often – I frequently feel financial pressure.' },
@@ -22,7 +22,7 @@ export const independenceFlexibilityCategory: Category = {
       id: 'f9', 
       text: 'If you wanted to change careers tomorrow, could you survive for 90 days financially without tapping retirement savings?', 
       category: 'Independence', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Impossible – I would be in serious trouble without my current income.' },
         { value: 2, label: 'Very difficult – I would struggle but might find a way.' },
@@ -35,7 +35,7 @@ export const independenceFlexibilityCategory: Category = {
       id: 'f10', 
       text: 'I have the financial flexibility to make choices about my lifestyle and career that reflect my wants, rather than needs', 
       category: 'Independence', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Strongly Disagree – I feel very constrained and unable to pursue my ideal path.' },
         { value: 2, label: 'Disagree – Significant barriers prevent me from pursuing my goals.' },
@@ -48,7 +48,7 @@ export const independenceFlexibilityCategory: Category = {
       id: 'f11', 
       text: 'I have control over how I spend my time each day and who I spend it with.', 
       category: 'Independence', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Strongly Disagree – My schedule is completely dictated by obligations.' },
         { value: 2, label: "Disagree – I often don't have a choice in how I spend my time." },

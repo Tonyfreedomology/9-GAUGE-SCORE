@@ -9,7 +9,7 @@ export const incomeSavingsCategory: Category = {
       id: 'f1', 
       text: 'I have enough income to cover my needs and some wants comfortably.', 
       category: 'Income', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Strongly Disagree – I struggle to afford basic necessities.' },
         { value: 2, label: 'Disagree – I can cover basics, but extra expenses are very difficult.' },
@@ -22,7 +22,7 @@ export const incomeSavingsCategory: Category = {
       id: 'f2', 
       text: 'I could handle a major unexpected expense (like a large car repair) without financial strain.', 
       category: 'Income', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Never – An emergency expense would be devastating to my finances.' },
         { value: 2, label: 'Rarely – I would struggle significantly to cover it.' },
@@ -35,7 +35,7 @@ export const incomeSavingsCategory: Category = {
       id: 'f3', 
       text: 'What percentage of your income do you regularly save or invest?', 
       category: 'Income', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'None (0%)' },
         { value: 2, label: '1–5%' },
@@ -48,7 +48,7 @@ export const incomeSavingsCategory: Category = {
       id: 'f4', 
       text: 'I feel in control of my financial situation, rather than feeling controlled by money.', 
       category: 'Income', 
-      pillar: 'financial',
+      pillar: 'Financial',
       options: [
         { value: 1, label: 'Strongly Disagree – I feel very out of control; money problems dominate my life.' },
         { value: 2, label: 'Disagree – I often worry about money and feel constrained by it.' },

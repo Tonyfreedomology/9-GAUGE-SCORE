@@ -1,3 +1,4 @@
+
 import { Category } from '../../types/assessment';
 
 export const communitySocialCategory: Category = {
@@ -8,7 +9,7 @@ export const communitySocialCategory: Category = {
       id: 'r8', 
       text: 'How strong is your social support network beyond family?', 
       category: 'Community & Social Circle', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Very weak' },
         { value: 2, label: 'Weak' },
@@ -21,7 +22,7 @@ export const communitySocialCategory: Category = {
       id: 'r9', 
       text: 'How often do you meet or engage with friends or groups that bring you joy?', 
       category: 'Community & Social Circle', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Rarely' },
         { value: 2, label: 'Monthly' },
@@ -34,7 +35,7 @@ export const communitySocialCategory: Category = {
       id: 'r10', 
       text: 'Do you feel part of a community or circle that cares about you?', 
       category: 'Community & Social Circle', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Not at all' },
         { value: 2, label: 'Slightly' },
@@ -47,7 +48,7 @@ export const communitySocialCategory: Category = {
       id: 'r11', 
       text: 'Do you actively contribute to your community or social groups?', 
       category: 'Community & Social Circle', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Never' },
         { value: 2, label: 'Rarely' },
