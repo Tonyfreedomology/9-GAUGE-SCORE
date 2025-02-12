@@ -38,7 +38,7 @@ export const selfRelationshipCategory: Category = {
       pillar: 'relationships',
       options: [
         { value: 1, label: 'Strongly Disagree – I often feel lost or without direction.' },
-        { value: 2, label: 'Disagree – I sometimes have purpose, but it's not always clear.' },
+        { value: 2, label: "Disagree – I sometimes have purpose, but it's not always clear." },
         { value: 3, label: "Neutral – I have some sense of meaning but don't always feel deeply connected to it." },
         { value: 4, label: 'Agree – I usually feel that my life has direction and meaning.' },
         { value: 5, label: "Strongly Agree – I have a strong sense of purpose and clarity about my life's direction." }
