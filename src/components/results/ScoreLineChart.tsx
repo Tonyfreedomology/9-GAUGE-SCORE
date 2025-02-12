@@ -123,12 +123,17 @@ type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
 };
 
-const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
+// Create a normalized mapping that handles variations in category names
+const categoryToPillarMapping: Record<string, { pillar: string; displayName: string; alternateNames?: string[] }> = {
   'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
   'Environmental Health': { pillar: 'Health', displayName: 'Environmental Health' },
   'Income': { pillar: 'Financial', displayName: 'Income' },
-  'Independence': { pillar: 'Financial', displayName: 'Independence' }, // Fixed: Removed "& Flexibility"
+  'Independence': { 
+    pillar: 'Financial', 
+    displayName: 'Independence',
+    alternateNames: ['Independence & Flexibility']  // Add alternate name mapping
+  },
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
   'Relationships with Others': { pillar: 'Relationships', displayName: 'Relationships with Others' },
   'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
@@ -143,8 +148,11 @@ export const ScoreLineChart = ({ answers, categories }: {
     const categoryName = category.display_name;
     console.log('Processing category:', categoryName);
     
-    // Simplified matching - just use exact category name
-    const matchingEntry = categoryToPillarMapping[categoryName];
+    // Find matching entry by checking both main name and alternate names
+    const matchingEntry = categoryToPillarMapping[categoryName] || 
+      Object.values(categoryToPillarMapping).find(mapping => 
+        mapping.alternateNames?.includes(categoryName)
+      );
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
