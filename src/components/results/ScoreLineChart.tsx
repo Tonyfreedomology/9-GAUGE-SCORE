@@ -142,6 +142,13 @@ export const ScoreLineChart = ({ answers, categories }: {
   // Group categories by pillar using the mapping
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
+    console.log('Processing category:', categoryName);
+    console.log('Category questions:', category.questions);
+    console.log('Answers for this category:', category.questions.map(q => ({
+      questionId: q.id,
+      answer: answers[q.id]
+    })));
+    
     const matchingEntry = categoryToPillarMapping[categoryName];
     
     if (matchingEntry) {
@@ -152,11 +159,19 @@ export const ScoreLineChart = ({ answers, categories }: {
       }
       
       // Calculate total points and maximum possible points
-      const totalPoints = category.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0);
-      const maxPossiblePoints = category.questions.length * 5; // Each question has a max score of 5
+      const totalPoints = category.questions.reduce((sum, q) => {
+        const answer = answers[q.id];
+        console.log(`Question ${q.id} answer:`, answer);
+        return sum + (answer || 0);
+      }, 0);
+      console.log('Total points for', categoryName, ':', totalPoints);
+      
+      const maxPossiblePoints = category.questions.length * 5;
+      console.log('Max possible points:', maxPossiblePoints);
       
       // Calculate percentage score (0-100)
       const score = maxPossiblePoints > 0 ? Math.round((totalPoints / maxPossiblePoints) * 100) : 0;
+      console.log('Final score for', categoryName, ':', score);
       
       acc[pillar].push({
         label: displayName,
