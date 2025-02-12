@@ -1,8 +1,9 @@
+
 export type Question = {
   id: string;
   text: string;
   category: string;
-  pillar: 'financial' | 'health' | 'relationships';
+  pillar: 'Financial' | 'Health' | 'Relationships';
   options?: { value: number; label: string }[];
 };
 
