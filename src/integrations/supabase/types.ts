@@ -12,26 +12,26 @@ export type Database = {
       assessment_categories: {
         Row: {
           created_at: string | null
-          description: string | null
           display_name: string
           id: number
-          name: Database["public"]["Enums"]["assessment_category"]
+          name: string
+          pillar: string
           weight: number | null
         }
         Insert: {
           created_at?: string | null
-          description?: string | null
           display_name: string
           id?: number
-          name: Database["public"]["Enums"]["assessment_category"]
+          name: string
+          pillar: string
           weight?: number | null
         }
         Update: {
           created_at?: string | null
-          description?: string | null
           display_name?: string
           id?: number
-          name?: Database["public"]["Enums"]["assessment_category"]
+          name?: string
+          pillar?: string
           weight?: number | null
         }
         Relationships: []
