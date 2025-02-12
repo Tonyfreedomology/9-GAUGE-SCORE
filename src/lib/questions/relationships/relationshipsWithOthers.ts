@@ -9,7 +9,7 @@ export const relationshipsWithOthersCategory: Category = {
       id: 'r4', 
       text: 'I feel comfortable sharing my thoughts and feelings with those close to me.', 
       category: 'Relationships with Others', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Never – I rarely express my true thoughts and feelings.' },
         { value: 2, label: 'Rarely – I struggle to be open in important conversations.' },
@@ -22,7 +22,7 @@ export const relationshipsWithOthersCategory: Category = {
       id: 'r5', 
       text: 'I feel a sense of belonging and connection with my community or social circle.', 
       category: 'Relationships with Others', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Strongly Disagree – I often feel isolated or disconnected.' },
         { value: 2, label: "Disagree – I sometimes feel like I don't really belong anywhere." },
@@ -35,7 +35,7 @@ export const relationshipsWithOthersCategory: Category = {
       id: 'r6', 
       text: 'I regularly make time for experiences with friends or family.', 
       category: 'Relationships with Others', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: 'Never – I rarely put effort into maintaining relationships.' },
         { value: 2, label: 'Rarely – I check in with people occasionally but not consistently.' },
@@ -48,7 +48,7 @@ export const relationshipsWithOthersCategory: Category = {
       id: 'r7', 
       text: 'I have built myself into the kind of person who is ready for a strong, lasting relationship.', 
       category: 'Relationships with Others', 
-      pillar: 'relationships',
+      pillar: 'Relationships',
       options: [
         { value: 1, label: "Strongly Disagree – I don't feel prepared for a deep, committed relationship." },
         { value: 2, label: "Disagree – I have made some progress, but I'm not sure I'm ready." },

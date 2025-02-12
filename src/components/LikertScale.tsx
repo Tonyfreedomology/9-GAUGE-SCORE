@@ -12,6 +12,20 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
   const defaultOptions = [1, 2, 3, 4, 5];
   const displayOptions = options || defaultOptions;
 
+  const formatLabel = (label: string) => {
+    if (label.includes(' – ')) {
+      const [first, ...rest] = label.split(' – ');
+      return (
+        <>
+          <span className="font-bold">{first}</span>
+          {' – '}
+          {rest.join(' – ')}
+        </>
+      );
+    }
+    return label;
+  };
+
   return (
     <div className={cn(
       "flex flex-col space-y-3 w-full max-w-2xl mx-auto",
@@ -41,7 +55,7 @@ export const LikertScale = ({ value, onChange, className, options }: LikertScale
               ]
             )}
           >
-            {optionLabel}
+            {formatLabel(optionLabel)}
           </button>
         );
       })}

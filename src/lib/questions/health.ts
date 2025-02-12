@@ -1,3 +1,4 @@
+
 import { Pillar } from '../types/assessment';
 
 export const healthPillar: Pillar = {
@@ -12,7 +13,7 @@ export const healthPillar: Pillar = {
           id: 'h1', 
           text: 'When you wake up, do you usually feel rested or exhausted?', 
           category: 'Mental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Very exhausted' },
             { value: 2, label: 'Somewhat tired' },
@@ -25,7 +26,7 @@ export const healthPillar: Pillar = {
           id: 'h2', 
           text: 'How stressed do you feel most days?', 
           category: 'Mental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Extremely' },
             { value: 2, label: 'Very' },
@@ -38,7 +39,7 @@ export const healthPillar: Pillar = {
           id: 'h3', 
           text: 'How often do you set aside time for journaling, prayer, or meditation?', 
           category: 'Mental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Never' },
             { value: 2, label: 'Rarely' },
@@ -51,7 +52,7 @@ export const healthPillar: Pillar = {
           id: 'h4', 
           text: 'Over the past week, how would you rate your mood overall?', 
           category: 'Mental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Very poor' },
             { value: 2, label: 'Poor' },
@@ -70,7 +71,7 @@ export const healthPillar: Pillar = {
           id: 'h5', 
           text: 'How often do you eat mostly whole foods (fruit, veggies, lean meats) in a typical meal?', 
           category: 'Physical', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Rarely' },
             { value: 2, label: 'Sometimes' },
@@ -83,7 +84,7 @@ export const healthPillar: Pillar = {
           id: 'h6', 
           text: 'How often do you eat fast food or heavily processed meals?', 
           category: 'Physical', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 5, label: 'Never' },
             { value: 4, label: 'Rarely' },
@@ -96,7 +97,7 @@ export const healthPillar: Pillar = {
           id: 'h7', 
           text: 'How many days per week do you get at least 30 min of exercise?', 
           category: 'Physical', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: '0 days' },
             { value: 2, label: '1-2 days' },
@@ -109,7 +110,7 @@ export const healthPillar: Pillar = {
           id: 'h8', 
           text: 'If you could snap your fingers, would you add a lot more muscle, a little more, or are you fine?', 
           category: 'Physical', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Need a lot more' },
             { value: 2, label: 'Need some more' },
@@ -128,7 +129,7 @@ export const healthPillar: Pillar = {
           id: 'h9', 
           text: 'Is your home peaceful or chaotic?', 
           category: 'Environmental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Very chaotic' },
             { value: 2, label: 'Somewhat chaotic' },
@@ -141,7 +142,7 @@ export const healthPillar: Pillar = {
           id: 'h10', 
           text: 'How stressful is your main work area?', 
           category: 'Environmental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Extremely' },
             { value: 2, label: 'Very' },
@@ -154,7 +155,7 @@ export const healthPillar: Pillar = {
           id: 'h11', 
           text: 'How often do you feel overwhelmed by mess?', 
           category: 'Environmental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Always' },
             { value: 2, label: 'Often' },
@@ -167,7 +168,7 @@ export const healthPillar: Pillar = {
           id: 'h12', 
           text: 'How often do you spend time outdoors/in sunlight?', 
           category: 'Environmental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Rarely' },
             { value: 2, label: '1-2 times/week' },
@@ -180,7 +181,7 @@ export const healthPillar: Pillar = {
           id: 'h13', 
           text: 'Do you feel safe and relaxed at home?', 
           category: 'Environmental', 
-          pillar: 'health',
+          pillar: 'Health',
           options: [
             { value: 1, label: 'Never' },
             { value: 2, label: 'Rarely' },
