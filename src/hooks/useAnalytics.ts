@@ -31,6 +31,7 @@ export const useAnalytics = () => {
 
   const fetchAnalytics = async () => {
     try {
+      // Fetch questions first
       const { data: questionData, error: questionError } = await supabase
         .from('assessment_questions')
         .select('id, question_text, options')
@@ -39,6 +40,7 @@ export const useAnalytics = () => {
       if (questionError) throw questionError;
       setQuestions(questionData || []);
 
+      // Get assessment counts
       const { data: assessmentStats, error: assessmentError } = await supabase
         .from('assessments')
         .select('id, completed')
@@ -49,9 +51,11 @@ export const useAnalytics = () => {
       const totalStarted = assessmentStats?.length || 0;
       const totalCompleted = assessmentStats?.filter(a => a.completed)?.length || 0;
 
+      // Get response counts per question
       const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
-        .select('question_id, assessment_id, completed');
+        .select('question_id, assessment_id')
+        .eq('completed', true);
 
       if (responseError) throw responseError;
 
@@ -89,22 +93,32 @@ export const useAnalytics = () => {
 
   const fetchQuestionAnalytics = async (questionId: string) => {
     try {
+      // First get the completed assessment IDs
+      const { data: completedAssessments, error: completedError } = await supabase
+        .from('assessments')
+        .select('id')
+        .eq('completed', true);
+
+      if (completedError) throw completedError;
+
+      const completedIds = completedAssessments?.map(a => a.id) || [];
+
+      // Then get responses only from completed assessments
       const { data: responses, error } = await supabase
         .from('user_responses')
         .select('answer')
         .eq('question_id', parseInt(questionId))
-        .eq('completed', true);
+        .in('assessment_id', completedIds)
+        .not('answer', 'is', null);
 
       if (error) throw error;
 
-      if (responses) {
+      if (responses && responses.length > 0) {
         const totalResponses = responses.length;
         const answerCounts: Record<number, number> = {};
         
         responses.forEach(response => {
-          if (response.answer !== null) {
-            answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
-          }
+          answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
         });
 
         const distribution = Object.entries(answerCounts).map(([value, count]) => ({
@@ -112,11 +126,23 @@ export const useAnalytics = () => {
           count,
           percentage: Math.round((count / totalResponses) * 100),
           label: `Option ${value}`
-        }));
+        })).sort((a, b) => a.value - b.value);
+
+        console.log('Question analytics loaded:', {
+          totalResponses,
+          distribution,
+          responses
+        });
 
         setQuestionAnalytics({
           totalResponses,
           answerDistribution: distribution
+        });
+      } else {
+        // Reset analytics if no responses found
+        setQuestionAnalytics({
+          totalResponses: 0,
+          answerDistribution: []
         });
       }
     } catch (error) {
