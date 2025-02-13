@@ -75,16 +75,21 @@ const Analytics = () => {
       if (questionError) throw questionError;
       setQuestions(questionData || []);
 
-      // Get all responses, including incomplete ones
+      // Get all assessments
+      const { data: assessmentData, error: assessmentError } = await supabase
+        .from('assessments')
+        .select('id');
+
+      if (assessmentError) throw assessmentError;
+      
+      const totalAssessments = assessmentData?.length || 0;
+
+      // Get response counts per question
       const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
-        .select('*');
+        .select('question_id, assessment_id');
 
       if (responseError) throw responseError;
-
-      // Calculate total unique assessments (completed or not)
-      const uniqueAssessments = new Set(responseData?.map(r => r.assessment_id));
-      const totalResponses = uniqueAssessments.size;
 
       // Calculate responses per question
       const questionCounts: Record<string, number> = {};
@@ -98,12 +103,12 @@ const Analytics = () => {
       }));
 
       setAnalytics({
-        totalResponses,
+        totalResponses: totalAssessments,
         questionCompletion: completionData
       });
 
       console.log('Analytics data loaded:', {
-        totalResponses,
+        totalAssessments,
         completionData,
         responseData
       });
@@ -121,7 +126,7 @@ const Analytics = () => {
     try {
       const { data: responses, error } = await supabase
         .from('user_responses')
-        .select('*')
+        .select('answer')
         .eq('question_id', parseInt(questionId));
 
       if (error) throw error;
