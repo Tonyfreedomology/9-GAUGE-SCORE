@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -256,10 +255,10 @@ const Analytics = () => {
         </CardHeader>
         <CardContent>
           <Select onValueChange={handleQuestionSelect} value={selectedQuestion || undefined}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full bg-white">
               <SelectValue placeholder="Select a question" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {questions.map((question) => (
                 <SelectItem key={question.id} value={question.id.toString()}>
                   {question.question_text}
