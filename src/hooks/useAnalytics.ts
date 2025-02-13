@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
@@ -90,22 +89,19 @@ export const useAnalytics = () => {
 
   const fetchQuestionAnalytics = async (questionId: string) => {
     try {
-      // Get all responses for this question from completed assessments
       const { data: responses, error } = await supabase
         .from('user_responses')
-        .select(`
-          answer,
-          assessments!inner (
-            completed
-          )
-        `)
+        .select('answer')
         .eq('question_id', parseInt(questionId))
-        .eq('assessments.completed', true)
         .not('answer', 'is', null);
 
       if (error) throw error;
 
-      console.log('Raw responses:', responses);
+      console.log('Raw responses for question:', {
+        questionId,
+        responses,
+        responseCount: responses?.length || 0
+      });
 
       if (responses && responses.length > 0) {
         const totalResponses = responses.length;
@@ -126,7 +122,8 @@ export const useAnalytics = () => {
 
         console.log('Processed question analytics:', {
           totalResponses,
-          distribution
+          distribution,
+          answerCounts
         });
 
         setQuestionAnalytics({
