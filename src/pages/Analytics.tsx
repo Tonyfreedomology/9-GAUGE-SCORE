@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -63,6 +64,106 @@ const Analytics = () => {
     return data.passphrase === passphrase;
   };
 
+  const fetchAnalytics = async () => {
+    try {
+      // Fetch questions first
+      const { data: questionData, error: questionError } = await supabase
+        .from('assessment_questions')
+        .select('id, question_text, options')
+        .order('id');
+
+      if (questionError) throw questionError;
+      setQuestions(questionData || []);
+
+      // Get all responses, including incomplete ones
+      const { data: responseData, error: responseError } = await supabase
+        .from('user_responses')
+        .select('*');
+
+      if (responseError) throw responseError;
+
+      // Calculate total unique assessments (completed or not)
+      const uniqueAssessments = new Set(responseData?.map(r => r.assessment_id));
+      const totalResponses = uniqueAssessments.size;
+
+      // Calculate responses per question
+      const questionCounts: Record<string, number> = {};
+      responseData?.forEach(response => {
+        questionCounts[response.question_id] = (questionCounts[response.question_id] || 0) + 1;
+      });
+
+      const completionData = Object.entries(questionCounts).map(([id, count]) => ({
+        questionId: id,
+        responses: count
+      }));
+
+      setAnalytics({
+        totalResponses,
+        questionCompletion: completionData
+      });
+
+      console.log('Analytics data loaded:', {
+        totalResponses,
+        completionData,
+        responseData
+      });
+    } catch (error) {
+      console.error('Error fetching analytics:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load analytics data"
+      });
+    }
+  };
+
+  const fetchQuestionAnalytics = async (questionId: string) => {
+    try {
+      const { data: responses, error } = await supabase
+        .from('user_responses')
+        .select('*')
+        .eq('question_id', parseInt(questionId));
+
+      if (error) throw error;
+
+      if (responses) {
+        const totalResponses = responses.length;
+        const answerCounts: Record<number, number> = {};
+        
+        responses.forEach(response => {
+          if (response.answer !== null) {
+            answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
+          }
+        });
+
+        const distribution = Object.entries(answerCounts).map(([value, count]) => ({
+          value: parseInt(value),
+          count,
+          percentage: Math.round((count / totalResponses) * 100),
+          label: `Option ${value}`
+        }));
+
+        console.log('Question analytics loaded:', {
+          totalResponses,
+          distribution,
+          responses
+        });
+
+        setQuestionAnalytics({
+          totalResponses,
+          answerDistribution: distribution
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching question analytics:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load question analytics"
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -96,94 +197,17 @@ const Analytics = () => {
     }
   };
 
-  const fetchAnalytics = async () => {
-    try {
-      const { data: questionData, error: questionError } = await supabase
-        .from('assessment_questions')
-        .select('id, question_text, options')
-        .order('id');
-
-      if (questionError) throw questionError;
-
-      setQuestions(questionData || []);
-
-      const { data: responseData, error: responseError } = await supabase
-        .from('user_responses')
-        .select('question_id, answer')
-        .order('question_id');
-
-      if (responseError) throw responseError;
-
-      if (responseData) {
-        const questionCounts = responseData.reduce((acc: Record<string, number>, curr) => {
-          acc[curr.question_id] = (acc[curr.question_id] || 0) + 1;
-          return acc;
-        }, {});
-
-        const completionData = Object.entries(questionCounts).map(([id, count]) => ({
-          questionId: id,
-          responses: count
-        }));
-
-        setAnalytics({
-          totalResponses: responseData.length,
-          questionCompletion: completionData
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching analytics:', error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load analytics data",
-      });
-    }
-  };
-
-  const fetchQuestionAnalytics = async (questionId: string) => {
-    try {
-      const { data: responses, error } = await supabase
-        .from('user_responses')
-        .select('answer')
-        .eq('question_id', parseInt(questionId)); // Convert string to number here
-
-      if (error) throw error;
-
-      if (responses) {
-        const totalResponses = responses.length;
-        const answerCounts = responses.reduce((acc: Record<number, number>, curr) => {
-          if (curr.answer) {
-            acc[curr.answer] = (acc[curr.answer] || 0) + 1;
-          }
-          return acc;
-        }, {});
-
-        const distribution = Object.entries(answerCounts).map(([value, count]) => ({
-          value: parseInt(value),
-          count,
-          percentage: Math.round((count / totalResponses) * 100),
-          label: `Option ${value}`
-        }));
-
-        setQuestionAnalytics({
-          totalResponses,
-          answerDistribution: distribution
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching question analytics:', error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load question analytics",
-      });
-    }
-  };
-
   const handleQuestionSelect = (questionId: string) => {
     setSelectedQuestion(questionId);
     fetchQuestionAnalytics(questionId);
   };
+
+  // Fetch analytics data when authorized
+  useEffect(() => {
+    if (authorized) {
+      fetchAnalytics();
+    }
+  }, [authorized]);
 
   if (!authorized) {
     return (
@@ -202,7 +226,7 @@ const Analytics = () => {
                 onChange={(e) => setPassphrase(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-full text-white" disabled={loading}>
+              <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Checking..." : "Access Dashboard"}
               </Button>
             </form>
