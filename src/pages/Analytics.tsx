@@ -14,7 +14,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { useToast } from "@/components/ui/use-toast";
 
 const Analytics = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [authorized, setAuthorized] = useState(false);
   const [passphrase, setPassphrase] = useState("");
   const { toast } = useToast();
@@ -24,52 +24,67 @@ const Analytics = () => {
   });
 
   const checkPassphrase = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('dashboard_config')
-        .select('passphrase')
-        .single();
+    const { data, error } = await supabase
+      .from('dashboard_config')
+      .select('passphrase')
+      .maybeSingle();
 
-      if (error) {
-        console.error('Error checking passphrase:', error);
-        return false;
-      }
-
-      return data.passphrase === passphrase;
-    } catch (error) {
+    if (error) {
       console.error('Error checking passphrase:', error);
       return false;
     }
+
+    if (!data) {
+      console.error('No passphrase configuration found');
+      return false;
+    }
+
+    return data.passphrase === passphrase;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const isValid = await checkPassphrase();
-    if (isValid) {
-      setAuthorized(true);
-      await fetchAnalytics();
-      toast({
-        title: "Success",
-        description: "Access granted to analytics dashboard",
-      });
-    } else {
+    try {
+      const isValid = await checkPassphrase();
+      
+      if (isValid) {
+        setAuthorized(true);
+        await fetchAnalytics();
+        toast({
+          title: "Success",
+          description: "Access granted to analytics dashboard",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Invalid passphrase",
+        });
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Invalid passphrase",
+        description: "An error occurred while checking the passphrase",
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const fetchAnalytics = async () => {
     try {
-      const { data: questionData } = await supabase
+      const { data: questionData, error } = await supabase
         .from('user_responses')
         .select('question_id, answer')
         .order('question_id');
+
+      if (error) {
+        throw error;
+      }
 
       if (questionData) {
         const questionCounts = questionData.reduce((acc: Record<string, number>, curr) => {
@@ -89,6 +104,11 @@ const Analytics = () => {
       }
     } catch (error) {
       console.error('Error fetching analytics:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load analytics data",
+      });
     }
   };
 
