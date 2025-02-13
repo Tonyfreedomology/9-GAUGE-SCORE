@@ -43,7 +43,7 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
     
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -55,7 +55,15 @@ const Auth = () => {
         description: error.message,
       });
     } else {
-      navigate("/analytics");
+      console.log("Sign in successful:", data);
+      toast({
+        title: "Success",
+        description: "Successfully signed in!",
+      });
+      // Force a small delay to ensure the session is properly set
+      setTimeout(() => {
+        navigate("/analytics");
+      }, 500);
     }
     setLoading(false);
   };
