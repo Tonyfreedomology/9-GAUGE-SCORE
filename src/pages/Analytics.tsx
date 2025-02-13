@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -202,7 +203,7 @@ const Analytics = () => {
                 onChange={(e) => setPassphrase(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full text-white" disabled={loading}>
                 {loading ? "Checking..." : "Access Dashboard"}
               </Button>
             </form>
