@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -61,10 +60,10 @@ const Auth = () => {
         title: "Success",
         description: "Successfully signed in!",
       });
-      // Force a small delay to ensure the session is properly set
+      // Increase the delay to ensure the session and access are properly set
       setTimeout(() => {
         navigate("/analytics");
-      }, 500);
+      }, 2000);
     }
     setLoading(false);
   };
