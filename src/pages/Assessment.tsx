@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
 import { AssessmentResults } from "@/components/AssessmentResults";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
+import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: (Database['public']['Tables']['assessment_questions']['Row'] & {
@@ -24,6 +24,11 @@ const Assessment = () => {
   const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
+  });
+
+  // Track assessment start when component mounts
+  useState(() => {
+    trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
   });
 
   // Render the layout structure regardless of loading state
@@ -79,11 +84,23 @@ const Assessment = () => {
               const options = (currentQuestion.options as { value: number; label: string }[] | null) ?? [];
 
               const handleAnswer = (value: number) => {
+                // Track question completion
+                trackFacebookEvent(FB_EVENTS.COMPLETE_QUESTION, {
+                  question_number: currentQuestionNumber,
+                  total_questions: totalQuestions,
+                  category: currentQuestion.originalCategoryName,
+                  pillar: currentQuestion.pillar
+                });
+
                 setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
                 
                 if (currentQuestionIndex < questions.length - 1) {
                   setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
+                  // Track assessment completion
+                  trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
+                    total_questions_answered: Object.keys(answers).length + 1
+                  });
                   setShowResults(true);
                 }
               };
@@ -92,6 +109,7 @@ const Assessment = () => {
                 setShowResults(false);
                 setCurrentQuestionIndex(0);
                 setAnswers({});
+                trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
               };
 
               const handlePrevious = () => {
