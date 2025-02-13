@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Assessment from "./pages/Assessment";
 import Analytics from "./pages/Analytics";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/assessment" element={<Assessment />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/auth" element={<Auth />} />
           </Routes>
           <Toaster />
           <Sonner />
