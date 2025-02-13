@@ -145,7 +145,7 @@ const Analytics = () => {
       const { data: responses, error } = await supabase
         .from('user_responses')
         .select('answer')
-        .eq('question_id', questionId);
+        .eq('question_id', parseInt(questionId)); // Convert string to number here
 
       if (error) throw error;
 
