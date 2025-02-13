@@ -15,62 +15,74 @@ const Analytics = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
-  const [analytics, setAnalytics] = useState<any>({
+  const [analytics, setAnalytics] = useState({
     totalResponses: 0,
-    questionCompletion: [],
-    averageScores: []
+    questionCompletion: [] as { questionId: string; responses: number }[],
+    averageScores: [] as any[]
   });
 
   useEffect(() => {
-    checkAccess();
-    fetchAnalytics();
+    const initializeAnalytics = async () => {
+      await checkAccess();
+      await fetchAnalytics();
+    };
+
+    initializeAnalytics();
   }, []);
 
   const checkAccess = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate('/');
+        return;
+      }
+
+      const { data: accessData } = await supabase
+        .from('dashboard_access')
+        .select('*')
+        .eq('email', session.user.email)
+        .single();
+
+      if (!accessData) {
+        navigate('/');
+        return;
+      }
+
+      setAuthorized(true);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error checking access:', error);
       navigate('/');
-      return;
     }
-
-    const { data: accessData } = await supabase
-      .from('dashboard_access')
-      .select('*')
-      .eq('email', session.user.email)
-      .single();
-
-    if (!accessData) {
-      navigate('/');
-      return;
-    }
-
-    setAuthorized(true);
-    setLoading(false);
   };
 
   const fetchAnalytics = async () => {
-    // Get completion rates by question
-    const { data: questionData } = await supabase
-      .from('user_responses')
-      .select('question_id, answer')
-      .order('question_id');
+    try {
+      const { data: questionData } = await supabase
+        .from('user_responses')
+        .select('question_id, answer')
+        .order('question_id');
 
-    if (questionData) {
-      const questionCounts = questionData.reduce((acc: any, curr) => {
-        acc[curr.question_id] = (acc[curr.question_id] || 0) + 1;
-        return acc;
-      }, {});
+      if (questionData) {
+        const questionCounts = questionData.reduce((acc: Record<string, number>, curr) => {
+          acc[curr.question_id] = (acc[curr.question_id] || 0) + 1;
+          return acc;
+        }, {});
 
-      const completionData = Object.entries(questionCounts).map(([id, count]) => ({
-        questionId: id,
-        responses: count
-      }));
+        const completionData = Object.entries(questionCounts).map(([id, count]) => ({
+          questionId: id,
+          responses: count
+        }));
 
-      setAnalytics(prev => ({
-        ...prev,
-        totalResponses: questionData.length,
-        questionCompletion: completionData
-      }));
+        setAnalytics(prev => ({
+          ...prev,
+          totalResponses: questionData.length,
+          questionCompletion: completionData
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching analytics:', error);
     }
   };
 
