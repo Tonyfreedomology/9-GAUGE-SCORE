@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Analytics = () => {
@@ -29,6 +30,15 @@ const Analytics = () => {
 
     initializeAnalytics();
   }, []);
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error signing out:', error);
+    } else {
+      navigate('/auth');
+    }
+  };
 
   const checkAccess = async () => {
     try {
@@ -110,7 +120,10 @@ const Analytics = () => {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Analytics Dashboard</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
+        <Button variant="outline" onClick={handleSignOut}>Sign Out</Button>
+      </div>
       
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
