@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Card,
@@ -9,76 +8,60 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useToast } from "@/components/ui/use-toast";
 
 const Analytics = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
+  const [passphrase, setPassphrase] = useState("");
+  const { toast } = useToast();
   const [analytics, setAnalytics] = useState({
     totalResponses: 0,
     questionCompletion: [] as { questionId: string; responses: number }[],
-    averageScores: [] as any[]
   });
 
-  useEffect(() => {
-    const initializeAnalytics = async () => {
-      await checkAccess();
-      await fetchAnalytics();
-    };
+  const checkPassphrase = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('dashboard_config')
+        .select('passphrase')
+        .single();
 
-    initializeAnalytics();
-  }, []);
+      if (error) {
+        console.error('Error checking passphrase:', error);
+        return false;
+      }
 
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Error signing out:', error);
-    } else {
-      navigate('/auth');
+      return data.passphrase === passphrase;
+    } catch (error) {
+      console.error('Error checking passphrase:', error);
+      return false;
     }
   };
 
-  const checkAccess = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        console.log('No session found, redirecting to auth');
-        navigate('/auth');
-        return;
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-      console.log('Checking access for email:', session.user.email);
-      
-      // Add a small delay to allow the trigger to complete
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const { data: accessData, error } = await supabase
-        .from('dashboard_access')
-        .select('*')
-        .eq('email', session.user.email)
-        .maybeSingle();
-
-      if (error) {
-        console.error('Error checking access:', error);
-        navigate('/');
-        return;
-      }
-
-      if (!accessData) {
-        console.log('No dashboard access found for user:', session.user.email);
-        navigate('/');
-        return;
-      }
-
-      console.log('Access granted for user:', session.user.email);
+    const isValid = await checkPassphrase();
+    if (isValid) {
       setAuthorized(true);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error checking access:', error);
-      navigate('/');
+      await fetchAnalytics();
+      toast({
+        title: "Success",
+        description: "Access granted to analytics dashboard",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Invalid passphrase",
+      });
     }
+    setLoading(false);
   };
 
   const fetchAnalytics = async () => {
@@ -99,30 +82,47 @@ const Analytics = () => {
           responses: count
         }));
 
-        setAnalytics(prev => ({
-          ...prev,
+        setAnalytics({
           totalResponses: questionData.length,
           questionCompletion: completionData
-        }));
+        });
       }
     } catch (error) {
       console.error('Error fetching analytics:', error);
     }
   };
 
-  if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  }
-
   if (!authorized) {
-    return <div className="flex items-center justify-center min-h-screen">Not authorized</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Analytics Dashboard Access</CardTitle>
+            <CardDescription>Enter the passphrase to view analytics</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input
+                type="password"
+                placeholder="Enter passphrase"
+                value={passphrase}
+                onChange={(e) => setPassphrase(e.target.value)}
+                required
+              />
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Checking..." : "Access Dashboard"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto p-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
-        <Button variant="outline" onClick={handleSignOut}>Sign Out</Button>
       </div>
       
       <div className="grid gap-6 md:grid-cols-2">

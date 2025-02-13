@@ -154,6 +154,24 @@ export type Database = {
         }
         Relationships: []
       }
+      dashboard_config: {
+        Row: {
+          created_at: string
+          id: string
+          passphrase: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          passphrase: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          passphrase?: string
+        }
+        Relationships: []
+      }
       secrets: {
         Row: {
           created_at: string
