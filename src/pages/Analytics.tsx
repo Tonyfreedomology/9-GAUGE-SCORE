@@ -30,14 +30,21 @@ interface QuestionAnalytics {
   }[];
 }
 
+interface Analytics {
+  totalStarted: number;
+  totalCompleted: number;
+  questionCompletion: { questionId: string; responses: number }[];
+}
+
 const Analytics = () => {
   const [loading, setLoading] = useState(false);
   const [authorized, setAuthorized] = useState(false);
   const [passphrase, setPassphrase] = useState("");
   const { toast } = useToast();
-  const [analytics, setAnalytics] = useState({
-    totalResponses: 0,
-    questionCompletion: [] as { questionId: string; responses: number }[],
+  const [analytics, setAnalytics] = useState<Analytics>({
+    totalStarted: 0,
+    totalCompleted: 0,
+    questionCompletion: [],
   });
   const [questions, setQuestions] = useState<Array<{ id: number; question_text: string; options: any }>>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
@@ -75,19 +82,21 @@ const Analytics = () => {
       if (questionError) throw questionError;
       setQuestions(questionData || []);
 
-      // Get all assessments
-      const { data: assessmentData, error: assessmentError } = await supabase
+      // Get assessment counts
+      const { data: assessmentStats, error: assessmentError } = await supabase
         .from('assessments')
-        .select('id');
+        .select('id, completed')
+        .order('created_at');
 
       if (assessmentError) throw assessmentError;
       
-      const totalAssessments = assessmentData?.length || 0;
+      const totalStarted = assessmentStats?.length || 0;
+      const totalCompleted = assessmentStats?.filter(a => a.completed)?.length || 0;
 
       // Get response counts per question
       const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
-        .select('question_id, assessment_id');
+        .select('question_id, assessment_id, completed');
 
       if (responseError) throw responseError;
 
@@ -103,12 +112,14 @@ const Analytics = () => {
       }));
 
       setAnalytics({
-        totalResponses: totalAssessments,
+        totalStarted,
+        totalCompleted,
         questionCompletion: completionData
       });
 
       console.log('Analytics data loaded:', {
-        totalAssessments,
+        totalStarted,
+        totalCompleted,
         completionData,
         responseData
       });
@@ -127,7 +138,8 @@ const Analytics = () => {
       const { data: responses, error } = await supabase
         .from('user_responses')
         .select('answer')
-        .eq('question_id', parseInt(questionId));
+        .eq('question_id', parseInt(questionId))
+        .eq('completed', true);
 
       if (error) throw error;
 
@@ -250,29 +262,21 @@ const Analytics = () => {
       <div className="grid gap-6 md:grid-cols-2 mb-8">
         <Card>
           <CardHeader>
-            <CardTitle>Total Responses</CardTitle>
-            <CardDescription>Number of assessment responses</CardDescription>
+            <CardTitle>Total Assessments Started</CardTitle>
+            <CardDescription>Number of people who started the assessment</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-bold">{analytics.totalResponses}</p>
+            <p className="text-4xl font-bold">{analytics.totalStarted}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Question Completion Rates</CardTitle>
-            <CardDescription>Number of responses per question</CardDescription>
+            <CardTitle>Completed Assessments</CardTitle>
+            <CardDescription>Number of people who completed the assessment</CardDescription>
           </CardHeader>
-          <CardContent className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={analytics.questionCompletion}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="questionId" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="responses" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
+          <CardContent>
+            <p className="text-4xl font-bold">{analytics.totalCompleted}</p>
           </CardContent>
         </Card>
       </div>

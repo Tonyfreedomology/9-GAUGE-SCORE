@@ -141,14 +141,20 @@ export type Database = {
       }
       assessments: {
         Row: {
+          completed: boolean | null
+          completion_time: string | null
           created_at: string | null
           id: number
         }
         Insert: {
+          completed?: boolean | null
+          completion_time?: string | null
           created_at?: string | null
           id?: number
         }
         Update: {
+          completed?: boolean | null
+          completion_time?: string | null
           created_at?: string | null
           id?: number
         }
