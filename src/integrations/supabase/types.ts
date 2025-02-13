@@ -154,6 +154,27 @@ export type Database = {
         }
         Relationships: []
       }
+      dashboard_access: {
+        Row: {
+          access_token: string | null
+          created_at: string | null
+          email: string
+          id: string
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       secrets: {
         Row: {
           created_at: string
@@ -174,6 +195,54 @@ export type Database = {
           value?: string
         }
         Relationships: []
+      }
+      user_responses: {
+        Row: {
+          answer: number | null
+          assessment_id: number | null
+          completed: boolean | null
+          created_at: string | null
+          email: string | null
+          id: number
+          question_id: number | null
+          session_id: string | null
+        }
+        Insert: {
+          answer?: number | null
+          assessment_id?: number | null
+          completed?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          id?: number
+          question_id?: number | null
+          session_id?: string | null
+        }
+        Update: {
+          answer?: number | null
+          assessment_id?: number | null
+          completed?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          id?: number
+          question_id?: number | null
+          session_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_responses_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_responses_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_questions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       waitlist_entries: {
         Row: {
