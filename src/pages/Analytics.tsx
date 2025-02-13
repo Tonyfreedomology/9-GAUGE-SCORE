@@ -34,9 +34,15 @@ const Analytics = () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
+        console.log('No session found, redirecting to auth');
         navigate('/auth');
         return;
       }
+
+      console.log('Checking access for email:', session.user.email);
+      
+      // Add a small delay to allow the trigger to complete
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       const { data: accessData, error } = await supabase
         .from('dashboard_access')
@@ -51,11 +57,12 @@ const Analytics = () => {
       }
 
       if (!accessData) {
-        console.log('No dashboard access found for user');
+        console.log('No dashboard access found for user:', session.user.email);
         navigate('/');
         return;
       }
 
+      console.log('Access granted for user:', session.user.email);
       setAuthorized(true);
       setLoading(false);
     } catch (error) {
