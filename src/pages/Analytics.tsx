@@ -34,17 +34,24 @@ const Analytics = () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
+        navigate('/auth');
+        return;
+      }
+
+      const { data: accessData, error } = await supabase
+        .from('dashboard_access')
+        .select('*')
+        .eq('email', session.user.email)
+        .maybeSingle();
+
+      if (error) {
+        console.error('Error checking access:', error);
         navigate('/');
         return;
       }
 
-      const { data: accessData } = await supabase
-        .from('dashboard_access')
-        .select('*')
-        .eq('email', session.user.email)
-        .single();
-
       if (!accessData) {
+        console.log('No dashboard access found for user');
         navigate('/');
         return;
       }
