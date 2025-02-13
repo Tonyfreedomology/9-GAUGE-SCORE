@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -10,8 +9,25 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface QuestionAnalytics {
+  totalResponses: number;
+  answerDistribution: {
+    value: number;
+    count: number;
+    percentage: number;
+    label: string;
+  }[];
+}
 
 const Analytics = () => {
   const [loading, setLoading] = useState(false);
@@ -22,6 +38,11 @@ const Analytics = () => {
     totalResponses: 0,
     questionCompletion: [] as { questionId: string; responses: number }[],
   });
+  const [questions, setQuestions] = useState<Array<{ id: number; question_text: string; options: any }>>([]);
+  const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
+  const [questionAnalytics, setQuestionAnalytics] = useState<QuestionAnalytics | null>(null);
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
   const checkPassphrase = async () => {
     const { data, error } = await supabase
@@ -77,17 +98,24 @@ const Analytics = () => {
 
   const fetchAnalytics = async () => {
     try {
-      const { data: questionData, error } = await supabase
+      const { data: questionData, error: questionError } = await supabase
+        .from('assessment_questions')
+        .select('id, question_text, options')
+        .order('id');
+
+      if (questionError) throw questionError;
+
+      setQuestions(questionData || []);
+
+      const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
         .select('question_id, answer')
         .order('question_id');
 
-      if (error) {
-        throw error;
-      }
+      if (responseError) throw responseError;
 
-      if (questionData) {
-        const questionCounts = questionData.reduce((acc: Record<string, number>, curr) => {
+      if (responseData) {
+        const questionCounts = responseData.reduce((acc: Record<string, number>, curr) => {
           acc[curr.question_id] = (acc[curr.question_id] || 0) + 1;
           return acc;
         }, {});
@@ -98,7 +126,7 @@ const Analytics = () => {
         }));
 
         setAnalytics({
-          totalResponses: questionData.length,
+          totalResponses: responseData.length,
           questionCompletion: completionData
         });
       }
@@ -110,6 +138,51 @@ const Analytics = () => {
         description: "Failed to load analytics data",
       });
     }
+  };
+
+  const fetchQuestionAnalytics = async (questionId: string) => {
+    try {
+      const { data: responses, error } = await supabase
+        .from('user_responses')
+        .select('answer')
+        .eq('question_id', questionId);
+
+      if (error) throw error;
+
+      if (responses) {
+        const totalResponses = responses.length;
+        const answerCounts = responses.reduce((acc: Record<number, number>, curr) => {
+          if (curr.answer) {
+            acc[curr.answer] = (acc[curr.answer] || 0) + 1;
+          }
+          return acc;
+        }, {});
+
+        const distribution = Object.entries(answerCounts).map(([value, count]) => ({
+          value: parseInt(value),
+          count,
+          percentage: Math.round((count / totalResponses) * 100),
+          label: `Option ${value}`
+        }));
+
+        setQuestionAnalytics({
+          totalResponses,
+          answerDistribution: distribution
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching question analytics:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load question analytics",
+      });
+    }
+  };
+
+  const handleQuestionSelect = (questionId: string) => {
+    setSelectedQuestion(questionId);
+    fetchQuestionAnalytics(questionId);
   };
 
   if (!authorized) {
@@ -145,7 +218,7 @@ const Analytics = () => {
         <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
       </div>
       
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 mb-8">
         <Card>
           <CardHeader>
             <CardTitle>Total Responses</CardTitle>
@@ -174,6 +247,73 @@ const Analytics = () => {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle>Question Analysis</CardTitle>
+          <CardDescription>Select a question to view detailed response analytics</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Select onValueChange={handleQuestionSelect} value={selectedQuestion || undefined}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a question" />
+            </SelectTrigger>
+            <SelectContent>
+              {questions.map((question) => (
+                <SelectItem key={question.id} value={question.id.toString()}>
+                  {question.question_text}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {questionAnalytics && (
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold mb-4">Response Distribution</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <div className="space-y-4">
+                    {questionAnalytics.answerDistribution.map((answer) => (
+                      <div key={answer.value} className="flex justify-between items-center">
+                        <span>Option {answer.value}</span>
+                        <div className="flex items-center gap-4">
+                          <div className="w-48 bg-gray-200 rounded-full h-2.5">
+                            <div
+                              className="bg-primary h-2.5 rounded-full"
+                              style={{ width: `${answer.percentage}%` }}
+                            />
+                          </div>
+                          <span className="text-sm font-medium">{answer.percentage}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="h-[300px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={questionAnalytics.answerDistribution}
+                        dataKey="count"
+                        nameKey="label"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                      >
+                        {questionAnalytics.answerDistribution.map((_, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };
