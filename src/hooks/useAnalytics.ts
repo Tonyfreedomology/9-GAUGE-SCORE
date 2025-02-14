@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
@@ -39,7 +38,6 @@ export const useAnalytics = () => {
       if (questionError) throw questionError;
       setQuestions(questionData || []);
 
-      // Get assessment counts
       const { data: assessmentStats, error: assessmentError } = await supabase
         .from('assessments')
         .select('id, completed')
@@ -50,10 +48,10 @@ export const useAnalytics = () => {
       const totalStarted = assessmentStats?.length || 0;
       const totalCompleted = assessmentStats?.filter(a => a.completed)?.length || 0;
 
-      // Get all responses to see what we're getting
       const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
-        .select('*');
+        .select('*')
+        .eq('completed', true);
 
       if (responseError) throw responseError;
 
@@ -74,13 +72,6 @@ export const useAnalytics = () => {
         totalCompleted,
         questionCompletion: completionData
       });
-
-      console.log('Analytics data loaded:', {
-        totalStarted,
-        totalCompleted,
-        completionData,
-        responseData
-      });
     } catch (error) {
       console.error('Error fetching analytics:', error);
       toast({
@@ -93,19 +84,19 @@ export const useAnalytics = () => {
 
   const fetchQuestionAnalytics = async (questionId: string) => {
     try {
-      // First, let's see all responses for this question without any filters
       const { data: responses, error } = await supabase
         .from('user_responses')
-        .select('*')
-        .eq('question_id', parseInt(questionId));
+        .select('answer')
+        .eq('question_id', parseInt(questionId))
+        .eq('completed', true)
+        .not('answer', 'is', null);
 
       if (error) throw error;
 
       console.log('Raw responses for question:', {
         questionId,
         responses,
-        responseCount: responses?.length || 0,
-        fullResponseData: responses
+        responseCount: responses?.length || 0
       });
 
       if (responses && responses.length > 0) {
@@ -113,9 +104,7 @@ export const useAnalytics = () => {
         const answerCounts: Record<number, number> = {};
         
         responses.forEach(response => {
-          if (response.answer !== null) {
-            answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
-          }
+          answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
         });
 
         const distribution = Object.entries(answerCounts)
@@ -127,7 +116,7 @@ export const useAnalytics = () => {
           }))
           .sort((a, b) => a.value - b.value);
 
-        console.log('Processed question analytics:', {
+        console.log('Processed analytics:', {
           totalResponses,
           distribution,
           answerCounts
@@ -138,7 +127,6 @@ export const useAnalytics = () => {
           answerDistribution: distribution
         });
       } else {
-        console.log('No responses found for question:', questionId);
         setQuestionAnalytics({
           totalResponses: 0,
           answerDistribution: []

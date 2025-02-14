@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
@@ -59,13 +58,22 @@ const Assessment = () => {
           assessment_id: assessmentId,
           question_id: questionId,
           answer: answer,
-          completed: false // Will be updated to true when assessment is completed
+          completed: false
         });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error saving response:', error);
+        throw error;
+      }
+
+      console.log('Saved response:', {
+        assessment_id: assessmentId,
+        question_id: questionId,
+        answer: answer
+      });
     } catch (error) {
       console.error('Error saving response:', error);
-      // Don't show error toast to user to avoid disrupting their experience
+      toast.error('Error saving response');
     }
   };
 
@@ -138,12 +146,14 @@ const Assessment = () => {
                 if (currentQuestionIndex < questions.length - 1) {
                   setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
-                  // Mark responses as completed and save final scores
                   try {
-                    await supabase
+                    // Mark responses as completed
+                    const { error: updateError } = await supabase
                       .from('user_responses')
                       .update({ completed: true })
                       .eq('assessment_id', assessmentId);
+
+                    if (updateError) throw updateError;
 
                     // Track assessment completion
                     trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
