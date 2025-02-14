@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
@@ -38,6 +39,7 @@ export const useAnalytics = () => {
       if (questionError) throw questionError;
       setQuestions(questionData || []);
 
+      // Get assessment counts
       const { data: assessmentStats, error: assessmentError } = await supabase
         .from('assessments')
         .select('id, completed')
@@ -48,12 +50,14 @@ export const useAnalytics = () => {
       const totalStarted = assessmentStats?.length || 0;
       const totalCompleted = assessmentStats?.filter(a => a.completed)?.length || 0;
 
+      // Get all responses to see what we're getting
       const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
-        .select('question_id, assessment_id')
-        .eq('completed', true);
+        .select('*');
 
       if (responseError) throw responseError;
+
+      console.log('All responses from database:', responseData);
 
       const questionCounts: Record<string, number> = {};
       responseData?.forEach(response => {
@@ -89,18 +93,19 @@ export const useAnalytics = () => {
 
   const fetchQuestionAnalytics = async (questionId: string) => {
     try {
+      // First, let's see all responses for this question without any filters
       const { data: responses, error } = await supabase
         .from('user_responses')
-        .select('answer')
-        .eq('question_id', parseInt(questionId))
-        .not('answer', 'is', null);
+        .select('*')
+        .eq('question_id', parseInt(questionId));
 
       if (error) throw error;
 
       console.log('Raw responses for question:', {
         questionId,
         responses,
-        responseCount: responses?.length || 0
+        responseCount: responses?.length || 0,
+        fullResponseData: responses
       });
 
       if (responses && responses.length > 0) {
@@ -108,7 +113,9 @@ export const useAnalytics = () => {
         const answerCounts: Record<number, number> = {};
         
         responses.forEach(response => {
-          answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
+          if (response.answer !== null) {
+            answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
+          }
         });
 
         const distribution = Object.entries(answerCounts)
