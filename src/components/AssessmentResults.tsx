@@ -1,9 +1,13 @@
 
+import { useRef, useEffect } from "react";
 import { NextSteps } from "./NextSteps";
-import { ResultsContainer } from "./results/ResultsContainer";
+import { ResultsHeader } from "./results/ResultsHeader";
+import { ResultsActions } from "./results/ResultsActions";
+import { ResultsBreakdown } from "./results/ResultsBreakdown";
+import { ScoreCard } from "./ScoreCard";
+import { ScoreExplanation } from "./results/ScoreExplanation";
+import { calculateCategoryScore, calculateOverallScore, saveAssessmentScores } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
-import { useEffect } from "react";
-import { calculateCategoryScore, saveAssessmentScores } from "@/lib/services/assessmentService";
 import { toast } from "sonner";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
@@ -17,6 +21,10 @@ type AssessmentResultsProps = {
 };
 
 export const AssessmentResults = ({ answers, categories, onStartOver }: AssessmentResultsProps) => {
+  const resultsRef = useRef<HTMLDivElement>(null);
+  
+  const overallScore = calculateOverallScore(categories, answers);
+
   useEffect(() => {
     const saveScores = async () => {
       try {
@@ -54,11 +62,38 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
 
   return (
     <div className="relative z-10 max-w-5xl mx-auto space-y-12">
-      <ResultsContainer 
-        answers={answers}
-        categories={categories}
-        onStartOver={onStartOver}
-      />
+      <div 
+        ref={resultsRef}
+        className="space-y-12 p-8 rounded-3xl"
+        style={{
+          background: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)'
+        }}
+      >
+        <ResultsHeader overallScore={overallScore} />
+
+        <div className="mb-12 max-w-2xl mx-auto">
+          <ScoreCard
+            title=""
+            score={overallScore}
+            color="#17BEBB"
+            isOverallScore={true}
+            hideSubtext={true}
+          />
+        </div>
+
+        <ResultsBreakdown answers={answers} categories={categories} />
+        
+        <ResultsActions 
+          onStartOver={onStartOver} 
+          containerRef={resultsRef}
+          answers={answers}
+          categories={categories}
+        />
+        
+        <ScoreExplanation />
+      </div>
 
       <div className="w-full max-w-4xl mx-auto px-4 py-16">
         <h2 className="text-[6rem] md:text-[10rem] font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase">

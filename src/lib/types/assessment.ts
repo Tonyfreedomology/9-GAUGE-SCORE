@@ -1,26 +1,21 @@
 
-import { Database } from "@/integrations/supabase/types";
-
-type DbQuestion = Database['public']['Tables']['assessment_questions']['Row'];
-type DbCategory = Database['public']['Tables']['assessment_categories']['Row'];
-
-// Extend the base question type
-export interface Question extends Omit<DbQuestion, 'id' | 'options'> {
-  id: string; // Override id to allow string IDs for our static questions
+export type Question = {
+  id: string;
+  text: string;
   category: string;
-  pillar: string;
-  options: { value: number; label: string }[]; // Make options required and specific
-}
+  pillar: 'Financial' | 'Health' | 'Relationships';
+  options?: { value: number; label: string }[];
+};
 
-export interface Category extends Omit<DbCategory, 'id'> {
-  id?: number; // Make ID optional since our static categories might not have IDs yet
+export type Category = {
   name: string;
   weight: number;
   questions: Question[];
-}
+};
 
-export interface Pillar {
+export type Pillar = {
   name: string;
-  color: string;
   categories: Category[];
-}
+  color: string;
+};
+
