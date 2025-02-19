@@ -7,7 +7,10 @@ export const spiritualCategory: Category = {
   questions: [
     { 
       id: 'r12', 
-      text: 'I feel a connection with God in my life.', 
+      category_id: null,
+      created_at: new Date().toISOString(),
+      question_text: 'I feel a connection with God in my life.',
+      weight: 1,
       category: 'Relationship with God', 
       pillar: 'Relationships',
       options: [
@@ -19,8 +22,11 @@ export const spiritualCategory: Category = {
       ]
     },
     { 
-      id: 'r13', 
-      text: 'My faith or spiritual practice gives me guidance and strength in daily life.', 
+      id: 'r13',
+      category_id: null,
+      created_at: new Date().toISOString(),
+      question_text: 'My faith or spiritual practice gives me guidance and strength in daily life.',
+      weight: 1,
       category: 'Relationship with God', 
       pillar: 'Relationships',
       options: [
@@ -32,8 +38,11 @@ export const spiritualCategory: Category = {
       ]
     },
     { 
-      id: 'r14', 
-      text: 'How often do you talk to God?', 
+      id: 'r14',
+      category_id: null,
+      created_at: new Date().toISOString(),
+      question_text: 'How often do you talk to God?',
+      weight: 1,
       category: 'Relationship with God', 
       pillar: 'Relationships',
       options: [
@@ -46,7 +55,10 @@ export const spiritualCategory: Category = {
     },
     {
       id: 'r15',
-      text: 'I strive to live in alignment with my core values and principles in my daily actions.',
+      category_id: null,
+      created_at: new Date().toISOString(),
+      question_text: 'I strive to live in alignment with my core values and principles in my daily actions.',
+      weight: 1,
       category: 'Relationship with God',
       pillar: 'Relationships',
       options: [
