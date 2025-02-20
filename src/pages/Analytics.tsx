@@ -4,22 +4,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { LoginCard } from "@/components/analytics/LoginCard";
 import { StatCard } from "@/components/analytics/StatCard";
-import { QuestionAnalytics } from "@/components/analytics/QuestionAnalytics";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Analytics = () => {
   const [loading, setLoading] = useState(false);
   const [authorized, setAuthorized] = useState(false);
   const [passphrase, setPassphrase] = useState("");
-  const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
+  const [stats, setStats] = useState({
+    totalStarted: 0,
+    totalCompleted: 0
+  });
+  const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
+  const [questions, setQuestions] = useState<Array<{ id: number; question_text: string }>>([]);
   const { toast } = useToast();
-  const { 
-    analytics, 
-    questions, 
-    questionAnalytics, 
-    fetchAnalytics, 
-    fetchQuestionAnalytics 
-  } = useAnalytics();
 
   const checkPassphrase = async () => {
     const { data, error } = await supabase
@@ -32,12 +29,40 @@ const Analytics = () => {
       return false;
     }
 
-    if (!data) {
-      console.error('No passphrase configuration found');
-      return false;
-    }
+    return data?.passphrase === passphrase;
+  };
 
-    return data.passphrase === passphrase;
+  const fetchBasicStats = async () => {
+    try {
+      // Get assessment completion stats
+      const { data: assessments, error: assessmentError } = await supabase
+        .from('assessments')
+        .select('completed');
+
+      if (assessmentError) throw assessmentError;
+
+      const totalStarted = assessments?.length || 0;
+      const totalCompleted = assessments?.filter(a => a.completed)?.length || 0;
+
+      setStats({ totalStarted, totalCompleted });
+
+      // Fetch questions
+      const { data: questionData, error: questionError } = await supabase
+        .from('assessment_questions')
+        .select('id, question_text')
+        .order('id');
+
+      if (questionError) throw questionError;
+      setQuestions(questionData || []);
+
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load analytics data"
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +74,7 @@ const Analytics = () => {
       
       if (isValid) {
         setAuthorized(true);
-        await fetchAnalytics();
+        await fetchBasicStats();
         toast({
           title: "Success",
           description: "Access granted to analytics dashboard",
@@ -73,14 +98,9 @@ const Analytics = () => {
     }
   };
 
-  const handleQuestionSelect = (questionId: string) => {
-    setSelectedQuestion(questionId);
-    fetchQuestionAnalytics(questionId);
-  };
-
   useEffect(() => {
     if (authorized) {
-      fetchAnalytics();
+      fetchBasicStats();
     }
   }, [authorized]);
 
@@ -105,21 +125,23 @@ const Analytics = () => {
         <StatCard
           title="Total Assessments Started"
           description="Number of people who started the assessment"
-          value={analytics.totalStarted}
+          value={stats.totalStarted}
         />
         <StatCard
           title="Completed Assessments"
           description="Number of people who completed the assessment"
-          value={analytics.totalCompleted}
+          value={stats.totalCompleted}
         />
       </div>
 
-      <QuestionAnalytics
-        questions={questions}
-        selectedQuestion={selectedQuestion}
-        onQuestionSelect={handleQuestionSelect}
-        analytics={questionAnalytics}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle>Question Analysis</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-500">Question analysis features will be added here step by step.</p>
+        </CardContent>
+      </Card>
     </div>
   );
 };
