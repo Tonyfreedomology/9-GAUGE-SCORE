@@ -31,62 +31,48 @@ export const useAnalytics = () => {
 
   const fetchAnalytics = async () => {
     try {
-      // Log the start of analytics fetching
-      console.log('Starting analytics fetch...');
-
+      // Fetch questions first
       const { data: questionData, error: questionError } = await supabase
         .from('assessment_questions')
         .select('id, question_text, options')
         .order('id');
 
       if (questionError) throw questionError;
-      
-      console.log('Questions fetched:', questionData?.length, 'questions found');
       setQuestions(questionData || []);
 
+      // Get assessment completion stats
       const { data: assessmentStats, error: assessmentError } = await supabase
         .from('assessments')
         .select('id, completed')
         .order('created_at');
 
       if (assessmentError) throw assessmentError;
-      
-      console.log('Assessment stats:', {
-        total: assessmentStats?.length,
-        completed: assessmentStats?.filter(a => a.completed)?.length
-      });
-      
+
       const totalStarted = assessmentStats?.length || 0;
       const totalCompleted = assessmentStats?.filter(a => a.completed)?.length || 0;
 
+      // Get all completed responses
       const { data: responseData, error: responseError } = await supabase
         .from('user_responses')
-        .select('*')
-        .eq('completed', true);
+        .select('question_id, answer')
+        .eq('completed', true)
+        .not('answer', 'is', null);
 
       if (responseError) throw responseError;
 
-      console.log('Response data structure:', {
-        totalResponses: responseData?.length,
-        sampleResponse: responseData?.[0],
-        uniqueQuestions: [...new Set(responseData?.map(r => r.question_id) || [])]
-      });
-
-      const questionCounts: Record<string, number> = {};
-      responseData?.forEach(response => {
-        questionCounts[response.question_id] = (questionCounts[response.question_id] || 0) + 1;
-      });
+      // Process response data
+      const questionCounts = responseData?.reduce((acc, response) => {
+        const id = response.question_id?.toString();
+        if (id) {
+          acc[id] = (acc[id] || 0) + 1;
+        }
+        return acc;
+      }, {} as Record<string, number>) || {};
 
       const completionData = Object.entries(questionCounts).map(([id, count]) => ({
         questionId: id,
         responses: count
       }));
-
-      console.log('Processed analytics:', {
-        totalStarted,
-        totalCompleted,
-        questionCompletionSample: completionData.slice(0, 3)
-      });
 
       setAnalytics({
         totalStarted,
@@ -105,53 +91,45 @@ export const useAnalytics = () => {
 
   const fetchQuestionAnalytics = async (questionId: string) => {
     try {
-      console.log('Fetching analytics for question:', questionId);
-
+      // Get responses for specific question
       const { data: responses, error } = await supabase
         .from('user_responses')
-        .select('answer, completed')
+        .select('answer, assessment_id')
         .eq('question_id', parseInt(questionId))
         .eq('completed', true)
         .not('answer', 'is', null);
 
       if (error) throw error;
 
-      console.log('Question response data:', {
-        questionId,
-        totalResponses: responses?.length,
-        responseValues: responses?.map(r => r.answer),
-        completedOnly: responses?.filter(r => r.completed)?.length
-      });
-
       if (responses && responses.length > 0) {
+        // Count responses by answer value
+        const answerCounts = responses.reduce((acc, response) => {
+          const answer = response.answer;
+          if (typeof answer === 'number') {
+            acc[answer] = (acc[answer] || 0) + 1;
+          }
+          return acc;
+        }, {} as Record<number, number>);
+
+        // Calculate percentages and create distribution
         const totalResponses = responses.length;
-        const answerCounts: Record<number, number> = {};
-        
-        responses.forEach(response => {
-          answerCounts[response.answer] = (answerCounts[response.answer] || 0) + 1;
-        });
-
         const distribution = Object.entries(answerCounts)
-          .map(([value, count]) => ({
-            value: parseInt(value),
-            count,
-            percentage: Math.round((count / totalResponses) * 100),
-            label: `Option ${value}`
-          }))
+          .map(([value, count]) => {
+            const percentage = Math.round((count / totalResponses) * 100);
+            return {
+              value: parseInt(value),
+              count,
+              percentage,
+              label: `Option ${value}`
+            };
+          })
           .sort((a, b) => a.value - b.value);
-
-        console.log('Processed question analytics:', {
-          totalResponses,
-          distribution,
-          answerCounts
-        });
 
         setQuestionAnalytics({
           totalResponses,
           answerDistribution: distribution
         });
       } else {
-        console.log('No responses found for question:', questionId);
         setQuestionAnalytics({
           totalResponses: 0,
           answerDistribution: []
