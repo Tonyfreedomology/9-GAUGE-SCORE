@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { LoginCard } from "@/components/analytics/LoginCard";
@@ -40,12 +40,19 @@ const Analytics = () => {
 
   const fetchAnalytics = async () => {
     try {
+      console.log('Fetching analytics data...');
+      
       // Get total assessments started
       const { data: assessments, error: assessmentError } = await supabase
         .from('assessments')
         .select('completed');
 
-      if (assessmentError) throw assessmentError;
+      if (assessmentError) {
+        console.error('Error fetching assessments:', assessmentError);
+        throw assessmentError;
+      }
+
+      console.log('Assessments data:', assessments);
 
       const totalStarted = assessments?.length || 0;
       const totalCompleted = assessments?.filter(a => a.completed)?.length || 0;
@@ -58,15 +65,25 @@ const Analytics = () => {
         .select('id, question_text')
         .order('id');
 
-      if (questionsError) throw questionsError;
+      if (questionsError) {
+        console.error('Error fetching questions:', questionsError);
+        throw questionsError;
+      }
+
+      console.log('Questions data:', questions);
 
       // Get response counts for each question
       const { data: responses, error: responsesError } = await supabase
         .from('user_responses')
-        .select('question_id')
+        .select('question_id, answer')
         .not('answer', 'is', null);
 
-      if (responsesError) throw responsesError;
+      if (responsesError) {
+        console.error('Error fetching responses:', responsesError);
+        throw responsesError;
+      }
+
+      console.log('Responses data:', responses);
 
       // Calculate completion rates
       const questionStats = questions?.map(question => {
@@ -78,6 +95,11 @@ const Analytics = () => {
           completionRate: totalStarted > 0 ? Math.round((responsesForQuestion / totalStarted) * 100) : 0
         };
       }) || [];
+
+      // Sort by question ID to ensure proper ordering
+      questionStats.sort((a, b) => a.questionId - b.questionId);
+
+      console.log('Calculated question stats:', questionStats);
 
       setQuestionCompletions(questionStats);
 
