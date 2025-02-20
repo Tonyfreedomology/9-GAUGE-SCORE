@@ -279,7 +279,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_question_completion_stats: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          question_id: number
+          response_count: number
+        }[]
+      }
     }
     Enums: {
       assessment_category:

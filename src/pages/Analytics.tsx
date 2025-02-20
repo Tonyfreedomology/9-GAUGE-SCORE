@@ -13,6 +13,11 @@ interface QuestionCompletion {
   completionRate: number;
 }
 
+interface QuestionCompletionStat {
+  question_id: number;
+  response_count: number;
+}
+
 const Analytics = () => {
   const [loading, setLoading] = useState(false);
   const [authorized, setAuthorized] = useState(false);
@@ -61,7 +66,7 @@ const Analytics = () => {
 
       // Get all responses grouped by question_id
       const { data: responseData, error: responseError } = await supabase
-        .rpc('get_question_completion_stats');
+        .rpc<QuestionCompletionStat>('get_question_completion_stats');
 
       if (responseError) {
         console.error('Error fetching response stats:', responseError);
