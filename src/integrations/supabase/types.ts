@@ -141,40 +141,16 @@ export type Database = {
       }
       assessments: {
         Row: {
-          completed: boolean | null
-          completion_time: string | null
           created_at: string | null
           id: number
         }
         Insert: {
-          completed?: boolean | null
-          completion_time?: string | null
           created_at?: string | null
           id?: number
         }
         Update: {
-          completed?: boolean | null
-          completion_time?: string | null
           created_at?: string | null
           id?: number
-        }
-        Relationships: []
-      }
-      dashboard_config: {
-        Row: {
-          created_at: string
-          id: string
-          passphrase: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          passphrase: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          passphrase?: string
         }
         Relationships: []
       }
@@ -198,54 +174,6 @@ export type Database = {
           value?: string
         }
         Relationships: []
-      }
-      user_responses: {
-        Row: {
-          answer: number | null
-          assessment_id: number | null
-          completed: boolean | null
-          created_at: string | null
-          email: string | null
-          id: number
-          question_id: number | null
-          session_id: string | null
-        }
-        Insert: {
-          answer?: number | null
-          assessment_id?: number | null
-          completed?: boolean | null
-          created_at?: string | null
-          email?: string | null
-          id?: number
-          question_id?: number | null
-          session_id?: string | null
-        }
-        Update: {
-          answer?: number | null
-          assessment_id?: number | null
-          completed?: boolean | null
-          created_at?: string | null
-          email?: string | null
-          id?: number
-          question_id?: number | null
-          session_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_responses_assessment_id_fkey"
-            columns: ["assessment_id"]
-            isOneToOne: false
-            referencedRelation: "assessments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_responses_question_id_fkey"
-            columns: ["question_id"]
-            isOneToOne: false
-            referencedRelation: "assessment_questions"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       waitlist_entries: {
         Row: {
@@ -279,13 +207,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_question_completion_stats: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          question_id: number
-          response_count: number
-        }[]
-      }
+      [_ in never]: never
     }
     Enums: {
       assessment_category:

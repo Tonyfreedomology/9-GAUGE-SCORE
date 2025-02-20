@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
 import { AssessmentResults } from "@/components/AssessmentResults";
-import { fetchAssessmentData, saveAssessmentScores } from "@/lib/services/assessmentService";
+import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: (Database['public']['Tables']['assessment_questions']['Row'] & {
@@ -22,60 +20,16 @@ const Assessment = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [showResults, setShowResults] = useState(false);
-  const [assessmentId, setAssessmentId] = useState<number | null>(null);
 
   const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
   });
 
-  // Create a new assessment when the component mounts
-  useState(async () => {
+  // Track assessment start when component mounts
+  useState(() => {
     trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
-    try {
-      const { data, error } = await supabase
-        .from('assessments')
-        .insert({})
-        .select()
-        .single();
-
-      if (error) throw error;
-      setAssessmentId(data.id);
-    } catch (error) {
-      console.error('Error creating assessment:', error);
-      toast.error('Error starting assessment');
-    }
   });
-
-  // Save individual response as soon as user answers
-  const saveResponse = async (questionId: number, answer: number) => {
-    if (!assessmentId) return;
-
-    try {
-      const { error } = await supabase
-        .from('user_responses')
-        .insert({
-          assessment_id: assessmentId,
-          question_id: questionId,
-          answer: answer,
-          completed: false
-        });
-
-      if (error) {
-        console.error('Error saving response:', error);
-        throw error;
-      }
-
-      console.log('Saved response:', {
-        assessment_id: assessmentId,
-        question_id: questionId,
-        answer: answer
-      });
-    } catch (error) {
-      console.error('Error saving response:', error);
-      toast.error('Error saving response');
-    }
-  };
 
   // Render the layout structure regardless of loading state
   return (
@@ -129,10 +83,7 @@ const Assessment = () => {
               const isLastQuestion = currentQuestionIndex === questions.length - 1;
               const options = (currentQuestion.options as { value: number; label: string }[] | null) ?? [];
 
-              const handleAnswer = async (value: number) => {
-                // Save the response immediately
-                await saveResponse(currentQuestion.id, value);
-
+              const handleAnswer = (value: number) => {
                 // Track question completion
                 trackFacebookEvent(FB_EVENTS.COMPLETE_QUESTION, {
                   question_number: currentQuestionNumber,
@@ -146,31 +97,11 @@ const Assessment = () => {
                 if (currentQuestionIndex < questions.length - 1) {
                   setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
-                  try {
-                    // Mark responses as completed
-                    const { error: updateError } = await supabase
-                      .from('user_responses')
-                      .update({ completed: true })
-                      .eq('assessment_id', assessmentId);
-
-                    if (updateError) throw updateError;
-
-                    // Track assessment completion
-                    trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
-                      total_questions_answered: Object.keys(answers).length + 1
-                    });
-
-                    // Save overall scores
-                    await saveAssessmentScores(assessmentData.originalCategories, {
-                      ...answers,
-                      [currentQuestion.id]: value
-                    });
-
-                    setShowResults(true);
-                  } catch (error) {
-                    console.error('Error finalizing assessment:', error);
-                    toast.error('Error saving final results');
-                  }
+                  // Track assessment completion
+                  trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
+                    total_questions_answered: Object.keys(answers).length + 1
+                  });
+                  setShowResults(true);
                 }
               };
 

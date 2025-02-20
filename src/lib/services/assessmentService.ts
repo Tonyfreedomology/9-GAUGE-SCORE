@@ -135,24 +135,6 @@ export const saveAssessmentScores = async (
       throw assessmentError;
     }
 
-    // Save individual responses first
-    const userResponses = Object.entries(answers).map(([questionId, answer]) => ({
-      assessment_id: assessment.id,
-      question_id: parseInt(questionId),
-      answer: answer,
-      completed: true
-    }));
-
-    const { error: responsesError } = await supabase
-      .from('user_responses')
-      .insert(userResponses);
-
-    if (responsesError) {
-      console.error('Error saving user responses:', responsesError);
-      toast.error('Error saving assessment results');
-      throw responsesError;
-    }
-
     // Calculate and save overall score
     const overallScore = calculateOverallScore(categories, answers);
     const { error: overallError } = await supabase
@@ -185,7 +167,7 @@ export const saveAssessmentScores = async (
       throw pillarError;
     }
 
-    console.log('Assessment scores and responses saved successfully');
+    console.log('Assessment scores saved successfully');
     return {
       assessmentId: assessment.id,
       overallScore,
