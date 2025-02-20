@@ -42,10 +42,10 @@ const Analytics = () => {
     try {
       console.log('Fetching analytics data...');
       
-      // Get total assessments started
+      // Get total assessments started and completed
       const { data: assessments, error: assessmentError } = await supabase
         .from('assessments')
-        .select('completed');
+        .select('*');
 
       if (assessmentError) {
         console.error('Error fetching assessments:', assessmentError);
@@ -59,7 +59,18 @@ const Analytics = () => {
 
       setStats({ totalStarted, totalCompleted });
 
-      // Get all questions
+      // Get all responses grouped by question_id
+      const { data: responseData, error: responseError } = await supabase
+        .rpc('get_question_completion_stats');
+
+      if (responseError) {
+        console.error('Error fetching response stats:', responseError);
+        throw responseError;
+      }
+
+      console.log('Response stats:', responseData);
+
+      // Get all questions for mapping
       const { data: questions, error: questionsError } = await supabase
         .from('assessment_questions')
         .select('id, question_text')
@@ -70,34 +81,18 @@ const Analytics = () => {
         throw questionsError;
       }
 
-      console.log('Questions data:', questions);
-
-      // Get response counts for each question
-      const { data: responses, error: responsesError } = await supabase
-        .from('user_responses')
-        .select('question_id, answer')
-        .not('answer', 'is', null);
-
-      if (responsesError) {
-        console.error('Error fetching responses:', responsesError);
-        throw responsesError;
-      }
-
-      console.log('Responses data:', responses);
-
-      // Calculate completion rates
+      // Map questions to completion stats
       const questionStats = questions?.map(question => {
-        const responsesForQuestion = responses?.filter(r => r.question_id === question.id).length || 0;
+        const stats = responseData?.find(r => r.question_id === question.id);
         return {
           questionId: question.id,
           questionText: question.question_text,
-          totalResponses: responsesForQuestion,
-          completionRate: totalStarted > 0 ? Math.round((responsesForQuestion / totalStarted) * 100) : 0
+          totalResponses: stats?.response_count || 0,
+          completionRate: totalStarted > 0 
+            ? Math.round(((stats?.response_count || 0) / totalStarted) * 100)
+            : 0
         };
       }) || [];
-
-      // Sort by question ID to ensure proper ordering
-      questionStats.sort((a, b) => a.questionId - b.questionId);
 
       console.log('Calculated question stats:', questionStats);
 
