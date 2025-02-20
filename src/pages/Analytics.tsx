@@ -1,9 +1,17 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { LoginCard } from "@/components/analytics/LoginCard";
 import { StatCard } from "@/components/analytics/StatCard";
-import { QuestionDistribution } from "@/components/analytics/QuestionDistribution";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+interface QuestionCompletion {
+  questionId: number;
+  questionText: string;
+  totalResponses: number;
+  completionRate: number;
+}
 
 const Analytics = () => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +21,7 @@ const Analytics = () => {
     totalStarted: 0,
     totalCompleted: 0
   });
-  const [questions, setQuestions] = useState<Array<{ id: number; question_text: string }>>([]);
+  const [questionCompletions, setQuestionCompletions] = useState<QuestionCompletion[]>([]);
   const { toast } = useToast();
 
   const checkPassphrase = async () => {
@@ -30,9 +38,9 @@ const Analytics = () => {
     return data?.passphrase === passphrase;
   };
 
-  const fetchBasicStats = async () => {
+  const fetchAnalytics = async () => {
     try {
-      // Get assessment completion stats
+      // Get total assessments started
       const { data: assessments, error: assessmentError } = await supabase
         .from('assessments')
         .select('completed');
@@ -44,17 +52,37 @@ const Analytics = () => {
 
       setStats({ totalStarted, totalCompleted });
 
-      // Fetch questions
-      const { data: questionData, error: questionError } = await supabase
+      // Get all questions
+      const { data: questions, error: questionsError } = await supabase
         .from('assessment_questions')
         .select('id, question_text')
         .order('id');
 
-      if (questionError) throw questionError;
-      setQuestions(questionData || []);
+      if (questionsError) throw questionsError;
+
+      // Get response counts for each question
+      const { data: responses, error: responsesError } = await supabase
+        .from('user_responses')
+        .select('question_id')
+        .not('answer', 'is', null);
+
+      if (responsesError) throw responsesError;
+
+      // Calculate completion rates
+      const questionStats = questions?.map(question => {
+        const responsesForQuestion = responses?.filter(r => r.question_id === question.id).length || 0;
+        return {
+          questionId: question.id,
+          questionText: question.question_text,
+          totalResponses: responsesForQuestion,
+          completionRate: totalStarted > 0 ? Math.round((responsesForQuestion / totalStarted) * 100) : 0
+        };
+      }) || [];
+
+      setQuestionCompletions(questionStats);
 
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('Error fetching analytics:', error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -72,7 +100,7 @@ const Analytics = () => {
       
       if (isValid) {
         setAuthorized(true);
-        await fetchBasicStats();
+        await fetchAnalytics();
         toast({
           title: "Success",
           description: "Access granted to analytics dashboard",
@@ -95,12 +123,6 @@ const Analytics = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (authorized) {
-      fetchBasicStats();
-    }
-  }, [authorized]);
 
   if (!authorized) {
     return (
@@ -132,7 +154,30 @@ const Analytics = () => {
         />
       </div>
 
-      <QuestionDistribution questions={questions} />
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle>Question Completion Rates</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {questionCompletions.map((question) => (
+              <div key={question.questionId} className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="font-medium">Question {question.questionId}</span>
+                  <span>{question.totalResponses} responses ({question.completionRate}%)</span>
+                </div>
+                <div className="h-4 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-blue-500 transition-all duration-500"
+                    style={{ width: `${question.completionRate}%` }}
+                  />
+                </div>
+                <p className="text-sm text-gray-600">{question.questionText}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
