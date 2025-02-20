@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { LoginCard } from "@/components/analytics/LoginCard";
 import { StatCard } from "@/components/analytics/StatCard";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { QuestionDistribution } from "@/components/analytics/QuestionDistribution";
 
 const Analytics = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +13,6 @@ const Analytics = () => {
     totalStarted: 0,
     totalCompleted: 0
   });
-  const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
   const [questions, setQuestions] = useState<Array<{ id: number; question_text: string }>>([]);
   const { toast } = useToast();
 
@@ -134,14 +132,7 @@ const Analytics = () => {
         />
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Question Analysis</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-500">Question analysis features will be added here step by step.</p>
-        </CardContent>
-      </Card>
+      <QuestionDistribution questions={questions} />
     </div>
   );
 };
