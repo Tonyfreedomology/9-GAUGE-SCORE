@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
@@ -30,12 +31,17 @@ export const useAnalytics = () => {
 
   const fetchAnalytics = async () => {
     try {
+      // Log the start of analytics fetching
+      console.log('Starting analytics fetch...');
+
       const { data: questionData, error: questionError } = await supabase
         .from('assessment_questions')
         .select('id, question_text, options')
         .order('id');
 
       if (questionError) throw questionError;
+      
+      console.log('Questions fetched:', questionData?.length, 'questions found');
       setQuestions(questionData || []);
 
       const { data: assessmentStats, error: assessmentError } = await supabase
@@ -44,6 +50,11 @@ export const useAnalytics = () => {
         .order('created_at');
 
       if (assessmentError) throw assessmentError;
+      
+      console.log('Assessment stats:', {
+        total: assessmentStats?.length,
+        completed: assessmentStats?.filter(a => a.completed)?.length
+      });
       
       const totalStarted = assessmentStats?.length || 0;
       const totalCompleted = assessmentStats?.filter(a => a.completed)?.length || 0;
@@ -55,7 +66,11 @@ export const useAnalytics = () => {
 
       if (responseError) throw responseError;
 
-      console.log('All responses from database:', responseData);
+      console.log('Response data structure:', {
+        totalResponses: responseData?.length,
+        sampleResponse: responseData?.[0],
+        uniqueQuestions: [...new Set(responseData?.map(r => r.question_id) || [])]
+      });
 
       const questionCounts: Record<string, number> = {};
       responseData?.forEach(response => {
@@ -66,6 +81,12 @@ export const useAnalytics = () => {
         questionId: id,
         responses: count
       }));
+
+      console.log('Processed analytics:', {
+        totalStarted,
+        totalCompleted,
+        questionCompletionSample: completionData.slice(0, 3)
+      });
 
       setAnalytics({
         totalStarted,
@@ -84,19 +105,22 @@ export const useAnalytics = () => {
 
   const fetchQuestionAnalytics = async (questionId: string) => {
     try {
+      console.log('Fetching analytics for question:', questionId);
+
       const { data: responses, error } = await supabase
         .from('user_responses')
-        .select('answer')
+        .select('answer, completed')
         .eq('question_id', parseInt(questionId))
         .eq('completed', true)
         .not('answer', 'is', null);
 
       if (error) throw error;
 
-      console.log('Raw responses for question:', {
+      console.log('Question response data:', {
         questionId,
-        responses,
-        responseCount: responses?.length || 0
+        totalResponses: responses?.length,
+        responseValues: responses?.map(r => r.answer),
+        completedOnly: responses?.filter(r => r.completed)?.length
       });
 
       if (responses && responses.length > 0) {
@@ -116,7 +140,7 @@ export const useAnalytics = () => {
           }))
           .sort((a, b) => a.value - b.value);
 
-        console.log('Processed analytics:', {
+        console.log('Processed question analytics:', {
           totalResponses,
           distribution,
           answerCounts
@@ -127,6 +151,7 @@ export const useAnalytics = () => {
           answerDistribution: distribution
         });
       } else {
+        console.log('No responses found for question:', questionId);
         setQuestionAnalytics({
           totalResponses: 0,
           answerDistribution: []
