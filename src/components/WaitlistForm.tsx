@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "./ui/input";
@@ -9,6 +10,7 @@ type WaitlistFormProps = {
 };
 
 export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -53,11 +55,8 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
           className: "bg-white border border-gray-200",
         });
       } else {
-        toast({
-          title: "Success!",
-          description: "You've been added to the waitlist.",
-          className: "bg-white border border-gray-200",
-        });
+        // Instead of showing a toast, redirect to thank you page
+        navigate("/assessment/thankyou");
       }
 
       // Reset form
