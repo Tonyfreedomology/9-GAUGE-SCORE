@@ -8,19 +8,7 @@ export const ScoreExplanation = () => {
         </h2>
         
         <p className="text-lg">
-          Your <span className="font-bold">9-Gauge Score</span> measures your well-being across Finance, Health (physical and mental), and Relationships.
-        </p>
-
-        <p className="text-lg">
-          Our culture pushes the <span className="font-bold">hustle and grind mindset</span> as the path to success, but we see it differently.
-        </p>
-        
-        <p className="text-lg">
-          We've worked with over <span className="font-bold">11,000 people</span> in the past 15 years and learned that <span className="font-bold italic">balance</span> is the key to building a beautiful life.
-        </p>
-        
-        <p className="text-lg">
-          Balance is a <span className="font-bold">superpower</span>, and hustle culture is a disease. When your finances, health, and relationships work in harmony, life becomes more free, fulfilling, and fun.
+          Your <span className="font-bold">9-Gauge Score</span> isn't just a number—it's your report card for life. It actively measures YOUR health (physical + environmental + mental), wealth (income + independence, impact) and happiness (great relationships with others + Self + God). While the world preaches nonstop hustle, we've learned over 15 years and 11,000+ lives that balance is the real superpower (and hustle culture?? Well, that can be a disease). When your money, wellness, and connections align, everything feels freer, richer, and a heck of a lot more fun.
         </p>
         
         <h3 className="text-2xl font-heading font-bold tracking-tighter lowercase mt-8 text-center">
@@ -28,15 +16,11 @@ export const ScoreExplanation = () => {
         </h3>
         
         <p className="text-lg">
-          Each pillar gets a rating from <span className="font-bold">0 to 100</span>, based on questions about key areas—like debt, investments, generosity, mental health, and your connection to the people around you.
+          Each pillar gets a rating from 0 to 100, based on things like debt, investments, generosity, mental + physical health, and your vibe with those around you (including YOU). If any key area lags—say, your mental well-being or generosity—your overall score gets capped. Together, let's redefine what SUCCESS really means!
         </p>
         
         <p className="text-lg">
-          If certain areas slip below a healthy level (like generosity or mental well-being), your overall score gets capped. That's because true freedom is about more than just being personally successful—it's about building a life that helps you thrive and also uplifts the people around you.
-        </p>
-        
-        <p className="text-lg">
-          Below, you'll find our suggestions for how to boost your score and live a more balanced life. Whether you need more financial independence, better health habits, or stronger relationships, we've got a 40-day sprint to help you grow where it counts.
+          Scroll down for our tips to boost your score and find more balance (…and live a BETTER life). Whether it's freedom in your health, wealth, or relationships, our 40-day sprints are designed to help you grow where it really counts.
         </p>
       </div>
     </div>
