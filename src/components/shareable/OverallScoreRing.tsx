@@ -28,12 +28,12 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
     top: centerY - radius,
     radius: radius,
     fill: 'transparent',
-    stroke: '#17BEBB',
+    stroke: '#23F1EE',
     strokeWidth: 8,
     strokeDashArray: [Math.PI * radius * 2],
     strokeDashOffset: Math.PI * radius * 2 * (1 - score / 100),
     shadow: new Shadow({
-      color: 'rgba(23, 190, 187, 0.5)',
+      color: 'rgba(35, 241, 238, 0.5)',
       blur: 15,
       offsetX: 0,
       offsetY: 0
@@ -53,7 +53,7 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
     originY: 'center',
     textAlign: 'center',
     shadow: new Shadow({
-      color: 'rgba(23, 190, 187, 0.5)',
+      color: 'rgba(35, 241, 238, 0.5)',
       blur: 15,
       offsetX: 0,
       offsetY: 0

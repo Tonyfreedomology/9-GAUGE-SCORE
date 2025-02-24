@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Canvas as FabricCanvas, Image } from "fabric";
 import { calculateCategoryScore, calculateOverallScore } from "@/lib/services/assessmentService";
@@ -78,9 +77,9 @@ export const ShareableImage = ({
       scoreRingElements.forEach(element => canvas.add(element));
 
       const pillars = [
-        { name: 'HEALTH', color: '#EDB88B', categories: ['Mental', 'Physical', 'Environmental'] },
-        { name: 'FINANCES', color: '#17BEBB', categories: ['Income', 'Independence', 'Impact'] },
-        { name: 'RELATIONSHIPS', color: '#EF3E36', categories: ['Others', 'Self', 'God'] }
+        { name: 'HEALTH', color: '#23F1EE', categories: ['Mental', 'Physical', 'Environmental'] },
+        { name: 'FINANCES', color: '#00FFBA', categories: ['Income', 'Independence', 'Impact'] },
+        { name: 'RELATIONSHIPS', color: '#FF105F', categories: ['Others', 'Self', 'God'] }
       ];
 
       const startY = 120;
@@ -160,4 +159,3 @@ export const ShareableImage = ({
     />
   );
 };
-

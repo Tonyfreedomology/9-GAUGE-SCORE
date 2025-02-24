@@ -20,7 +20,7 @@ export const createScoreRow = ({
 }: ScoreRowProps) => {
   const elements = [];
 
-  // Create gradient line
+  // Create gradient line with new colors
   const gradientLine = new Line([0, 0, lineWidth, 0], {
     stroke: color,
     strokeWidth: 6,
@@ -38,7 +38,7 @@ export const createScoreRow = ({
   // Score text - moved down to -10
   const scoreText = new Text(score.toString(), {
     left: x + lineWidth + 55,
-    top: y - 10, // Changed from -12 to -10
+    top: y - 10,
     fontSize: 25,
     fontFamily: 'Helvetica',
     fill: 'white',
