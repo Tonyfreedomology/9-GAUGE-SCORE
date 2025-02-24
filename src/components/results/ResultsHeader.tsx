@@ -11,7 +11,7 @@ import {
 export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
   return (
     <>
-      <FreedomologyLogo />
+      <FreedomologyLogo variant="9gauge" />
       
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-2">
@@ -45,3 +45,4 @@ export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
     </>
   );
 };
+

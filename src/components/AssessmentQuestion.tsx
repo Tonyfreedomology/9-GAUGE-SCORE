@@ -46,7 +46,7 @@ export const AssessmentQuestion = ({
 
   return (
     <div className="relative z-10 max-w-2xl mx-auto min-h-[80vh] flex flex-col justify-center space-y-12">
-      <FreedomologyLogo />
+      <FreedomologyLogo variant="9gauge" />
       
       <div className="space-y-6 animate-[fade-in_0.5s_ease-out]">
         <AssessmentProgress
@@ -96,3 +96,4 @@ export const AssessmentQuestion = ({
     </div>
   );
 };
+
