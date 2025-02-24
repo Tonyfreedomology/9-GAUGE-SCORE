@@ -15,6 +15,10 @@ type PillarScoresProps = {
 };
 
 export const PillarScores = ({ answers, categories }: PillarScoresProps) => {
+  if (!categories || !Array.isArray(categories)) {
+    return null;
+  }
+
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
     const matchingEntry = categoryToPillarMapping[categoryName];
