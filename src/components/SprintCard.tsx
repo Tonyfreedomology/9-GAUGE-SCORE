@@ -23,11 +23,11 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   const getLogo = () => {
     switch (capitalizedPillar) {
       case "Relationships":
-        return "https://static.wixstatic.com/media/c32598_2430f4e26a1d4123b1b40978409d938e~mv2.png";
+        return "https://static.wixstatic.com/media/af616c_6c7bc94cb73e40feb249900ca0af3168~mv2.png";
       case "Health":
-        return "https://static.wixstatic.com/media/c32598_562d75c90e6646bfb30ae54a5e0267af~mv2.png";
+        return "https://static.wixstatic.com/media/af616c_3876dd4492b3420c990b2a899ba9d956~mv2.png";
       case "Financial":
-        return "https://static.wixstatic.com/media/c32598_42c88deef1e04279ab8800669ac7e634~mv2.png";
+        return "https://static.wixstatic.com/media/af616c_3876dd4492b3420c990b2a899ba9d956~mv2.png";
       default:
         return "";
     }
@@ -80,4 +80,3 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     </div>
   );
 };
-
