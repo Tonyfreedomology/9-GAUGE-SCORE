@@ -8,6 +8,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+const getScoreTagline = (score: number): string => {
+  if (score > 80) return "You're crushing it! Your balanced approach to life is paying off.";
+  if (score > 70) return "You're building something special. Keep nurturing all areas of your life.";
+  if (score > 60) return "You're making progress! Small steps lead to big transformations.";
+  if (score > 50) return "You've taken the first step. Let's build your freedom together.";
+  return "Your journey to freedom starts here. We're here to help you grow.";
+};
+
 export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
   return (
     <>
@@ -39,10 +47,9 @@ export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
           </TooltipProvider>
         </div>
         <p className="text-xl text-white/90 font-medium">
-          You're on the path to thriving freedom. Keep growing!
+          {getScoreTagline(overallScore)}
         </p>
       </div>
     </>
   );
 };
-
