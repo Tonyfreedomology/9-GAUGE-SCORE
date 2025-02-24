@@ -27,7 +27,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
       case "Health":
         return "https://static.wixstatic.com/media/af616c_3876dd4492b3420c990b2a899ba9d956~mv2.png";
       case "Financial":
-        return "https://static.wixstatic.com/media/af616c_3876dd4492b3420c990b2a899ba9d956~mv2.png";
+        return "https://static.wixstatic.com/media/af616c_671c8d7017224371a68ca6b057793509~mv2.png";
       default:
         return "";
     }
