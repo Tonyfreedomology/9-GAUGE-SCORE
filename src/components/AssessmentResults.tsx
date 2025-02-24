@@ -20,6 +20,10 @@ type AssessmentResultsProps = {
 export const AssessmentResults = ({ answers, categories, onStartOver }: AssessmentResultsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  if (!categories || !answers) {
+    return null;
+  }
+
   return (
     <div className="relative min-h-screen bg-black">
       {/* Background image */}
@@ -46,7 +50,12 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
             categories={categories}
             containerRef={containerRef}
           />
-          <ResultsActions onStartOver={onStartOver} />
+          <ResultsActions 
+            onStartOver={onStartOver} 
+            containerRef={containerRef}
+            answers={answers}
+            categories={categories}
+          />
         </div>
       </div>
     </div>
