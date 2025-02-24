@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 import { toast } from "sonner";
@@ -50,19 +49,60 @@ export const fetchAssessmentData = async () => {
     questions: questions.filter(q => q.category_id === category.id)
   }));
 
-  // Get the maximum number of questions in any category
-  const maxQuestions = Math.max(...questionsByCategory.map(cat => cat.questions.length));
-
-  // Create an interleaved array of questions with category information
+  // Create a more balanced interleaving of questions
   const interleavedQuestions = [];
-  for (let i = 0; i < maxQuestions; i++) {
-    for (const category of questionsByCategory) {
-      if (category.questions[i]) {
+  let categoryQueues = questionsByCategory.map(category => ({
+    ...category,
+    remainingQuestions: [...category.questions]
+  }));
+  
+  // Keep track of the last used categories to avoid clusters
+  const lastUsedCategories: string[] = [];
+  const AVOID_RECENT = 2; // Avoid repeating from the last 2 categories used
+
+  while (categoryQueues.some(cat => cat.remainingQuestions.length > 0)) {
+    // Filter out categories we want to avoid (recently used) and empty categories
+    const availableCategories = categoryQueues.filter(cat => 
+      cat.remainingQuestions.length > 0 && 
+      !lastUsedCategories.includes(cat.name)
+    );
+
+    // If no available categories that weren't recently used, reset the history
+    if (availableCategories.length === 0) {
+      const categoriesWithQuestions = categoryQueues.filter(cat => 
+        cat.remainingQuestions.length > 0
+      );
+      if (categoriesWithQuestions.length > 0) {
+        const randomIndex = Math.floor(Math.random() * categoriesWithQuestions.length);
+        const selectedCategory = categoriesWithQuestions[randomIndex];
+        
+        const question = selectedCategory.remainingQuestions.shift()!;
         interleavedQuestions.push({
-          ...category.questions[i],
-          originalCategoryName: category.display_name,
-          pillar: category.pillar
+          ...question,
+          originalCategoryName: selectedCategory.display_name,
+          pillar: selectedCategory.pillar
         });
+
+        lastUsedCategories.push(selectedCategory.name);
+        if (lastUsedCategories.length > AVOID_RECENT) {
+          lastUsedCategories.shift();
+        }
+      }
+    } else {
+      // Randomly select from available categories
+      const randomIndex = Math.floor(Math.random() * availableCategories.length);
+      const selectedCategory = availableCategories[randomIndex];
+      
+      const question = selectedCategory.remainingQuestions.shift()!;
+      interleavedQuestions.push({
+        ...question,
+        originalCategoryName: selectedCategory.display_name,
+        pillar: selectedCategory.pillar
+      });
+
+      lastUsedCategories.push(selectedCategory.name);
+      if (lastUsedCategories.length > AVOID_RECENT) {
+        lastUsedCategories.shift();
       }
     }
   }
