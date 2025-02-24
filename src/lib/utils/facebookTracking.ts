@@ -17,5 +17,6 @@ export const trackFacebookEvent = (eventName: string, params?: object) => {
 export const FB_EVENTS = {
   START_ASSESSMENT: 'StartAssessment',
   COMPLETE_QUESTION: 'CompleteQuestion',
-  COMPLETE_ASSESSMENT: 'CompleteAssessment'
+  COMPLETE_ASSESSMENT: 'CompleteAssessment',
+  COMPLETE_REGISTRATION: 'CompleteRegistration'
 } as const;

@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
-import { AssessmentResults } from "@/components/AssessmentResults";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
@@ -16,10 +17,9 @@ type AssessmentCategory = Database['public']['Tables']['assessment_categories'][
 type Answers = Record<string, number>;
 
 const Assessment = () => {
-  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
+  const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-  const [showResults, setShowResults] = useState(false);
 
   const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
@@ -92,24 +92,25 @@ const Assessment = () => {
                   pillar: currentQuestion.pillar
                 });
 
-                setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
+                const newAnswers = { ...answers, [currentQuestion.id]: value };
+                setAnswers(newAnswers);
                 
                 if (currentQuestionIndex < questions.length - 1) {
                   setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
                   // Track assessment completion
                   trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
-                    total_questions_answered: Object.keys(answers).length + 1
+                    total_questions_answered: Object.keys(newAnswers).length
                   });
-                  setShowResults(true);
+                  
+                  // Navigate to results with the answers and categories
+                  navigate('/assessment/results', {
+                    state: {
+                      answers: newAnswers,
+                      categories: assessmentData.originalCategories
+                    }
+                  });
                 }
-              };
-
-              const handleStartOver = () => {
-                setShowResults(false);
-                setCurrentQuestionIndex(0);
-                setAnswers({});
-                trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
               };
 
               const handlePrevious = () => {
@@ -124,13 +125,7 @@ const Assessment = () => {
                 }
               };
 
-              return showResults ? (
-                <AssessmentResults 
-                  answers={answers}
-                  categories={assessmentData.originalCategories}
-                  onStartOver={handleStartOver}
-                />
-              ) : (
+              return (
                 <AssessmentQuestion
                   category={currentQuestion.pillar}
                   questionText={currentQuestion.question_text}
