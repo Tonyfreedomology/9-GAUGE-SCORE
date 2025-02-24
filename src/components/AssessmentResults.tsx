@@ -104,4 +104,3 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
     </div>
   );
 };
-
