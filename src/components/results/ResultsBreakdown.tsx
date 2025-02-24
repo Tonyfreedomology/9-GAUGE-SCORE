@@ -1,6 +1,7 @@
 
 import { ScoreLineChart } from "./ScoreLineChart";
 import { Database } from "@/integrations/supabase/types";
+import { calculateCategoryScore } from "@/lib/services/assessmentService";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];

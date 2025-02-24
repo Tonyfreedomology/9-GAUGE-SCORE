@@ -18,6 +18,7 @@ type Answers = Record<string, number>;
 
 const Assessment = () => {
   const navigate = useNavigate();
+  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
 
@@ -92,25 +93,30 @@ const Assessment = () => {
                   pillar: currentQuestion.pillar
                 });
 
-                const newAnswers = { ...answers, [currentQuestion.id]: value };
-                setAnswers(newAnswers);
+                setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
                 
                 if (currentQuestionIndex < questions.length - 1) {
                   setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
                   // Track assessment completion
                   trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
-                    total_questions_answered: Object.keys(newAnswers).length
+                    total_questions_answered: Object.keys(answers).length + 1
                   });
                   
-                  // Navigate to results with the answers and categories
+                  // Navigate to results page with state
                   navigate('/assessment/results', {
                     state: {
-                      answers: newAnswers,
+                      answers: { ...answers, [currentQuestion.id]: value },
                       categories: assessmentData.originalCategories
                     }
                   });
                 }
+              };
+
+              const handleStartOver = () => {
+                setCurrentQuestionIndex(0);
+                setAnswers({});
+                trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
               };
 
               const handlePrevious = () => {
