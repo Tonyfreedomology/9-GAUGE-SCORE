@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
-import { AssessmentResults } from "@/components/AssessmentResults";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
@@ -16,10 +17,10 @@ type AssessmentCategory = Database['public']['Tables']['assessment_categories'][
 type Answers = Record<string, number>;
 
 const Assessment = () => {
+  const navigate = useNavigate();
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-  const [showResults, setShowResults] = useState(false);
 
   const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
@@ -101,12 +102,18 @@ const Assessment = () => {
                   trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
                     total_questions_answered: Object.keys(answers).length + 1
                   });
-                  setShowResults(true);
+                  
+                  // Navigate to results page with state
+                  navigate('/assessment/results', {
+                    state: {
+                      answers: { ...answers, [currentQuestion.id]: value },
+                      categories: assessmentData.originalCategories
+                    }
+                  });
                 }
               };
 
               const handleStartOver = () => {
-                setShowResults(false);
                 setCurrentQuestionIndex(0);
                 setAnswers({});
                 trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
@@ -124,13 +131,7 @@ const Assessment = () => {
                 }
               };
 
-              return showResults ? (
-                <AssessmentResults 
-                  answers={answers}
-                  categories={assessmentData.originalCategories}
-                  onStartOver={handleStartOver}
-                />
-              ) : (
+              return (
                 <AssessmentQuestion
                   category={currentQuestion.pillar}
                   questionText={currentQuestion.question_text}
