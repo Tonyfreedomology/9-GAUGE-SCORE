@@ -20,17 +20,17 @@ const Index = () => {
         <div className="flex justify-center space-x-6 md:space-x-16">
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
-              <div className="absolute inset-0 -m-2 rounded-full bg-[radial-gradient(circle,rgba(0,255,186,0.3)_0%,rgba(0,255,186,0)_70%)] animate-pulse" />
-              <img src="https://static.wixstatic.com/media/af616c_eda71941e0a04667a49dd0a12e0ca8ff~mv2.png" alt="Financial icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
-            </div>
-            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#242424]">finances</span>
-          </div>
-          <div className="flex flex-col items-center space-y-2">
-            <div className="relative">
               <div className="absolute inset-0 -m-2 rounded-full bg-[radial-gradient(circle,rgba(35,241,238,0.3)_0%,rgba(35,241,238,0)_70%)] animate-pulse" />
               <img src="https://static.wixstatic.com/media/af616c_46b69360859246a587f805a9af193e54~mv2.png" alt="Health icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
             </div>
             <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#242424]">health</span>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <div className="relative">
+              <div className="absolute inset-0 -m-2 rounded-full bg-[radial-gradient(circle,rgba(0,255,186,0.3)_0%,rgba(0,255,186,0)_70%)] animate-pulse" />
+              <img src="https://static.wixstatic.com/media/af616c_eda71941e0a04667a49dd0a12e0ca8ff~mv2.png" alt="Financial icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
+            </div>
+            <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#242424]">finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
