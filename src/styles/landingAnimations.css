@@ -1,0 +1,223 @@
+/* Animation Keyframes */
+@keyframes floatAnimation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulseGlow {
+  0% { filter: drop-shadow(0 0 2px rgba(23, 190, 187, 0.5)); }
+  50% { filter: drop-shadow(0 0 10px rgba(23, 190, 187, 0.8)); }
+  100% { filter: drop-shadow(0 0 2px rgba(23, 190, 187, 0.5)); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 300%; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(23, 190, 187, 0.6); }
+  50% { box-shadow: 0 0 20px rgba(23, 190, 187, 0.9); }
+  100% { box-shadow: 0 0 10px rgba(23, 190, 187, 0.6); }
+}
+
+@keyframes border-pulse {
+  0% { border-color: rgba(255, 255, 255, 0.2); }
+  50% { border-color: rgba(255, 255, 255, 0.9); }
+  100% { border-color: rgba(255, 255, 255, 0.2); }
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(90deg, #23F1EE, #00FFBA, #FF105F, #23F1EE);
+  background-size: 300% 100%;
+  animation: gradient-shift 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 0px 10px rgba(23, 190, 187, 0.3);
+}
+
+.question-mark {
+  position: relative;
+  display: inline-block;
+  animation: questionMarkPulse 3s ease-in-out infinite;
+}
+
+/* Interactive Icons */
+.category-icon {
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.category-icon:hover {
+  transform: translateY(-5px);
+}
+
+.icon-description {
+  position: absolute;
+  bottom: 130%; /* Position it higher above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 200px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 9999 !important; /* Ensure highest z-index */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.category-icon:hover .icon-description {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+/* Value Cards */
+.value-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced CTA button */
+.cta-button {
+  position: relative;
+  background: linear-gradient(90deg, #17BEBB, #23F1EE);
+  background-size: 200% 100%;
+  animation: gradient-shift 5s ease infinite;
+  color: white;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-weight: 600;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 20px rgba(23, 190, 187, 0.4);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: pulse-glow 2s infinite ease-in-out, border-pulse 3s infinite ease-in-out, gradient-shift 8s infinite ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(23, 190, 187, 0.7);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.cta-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Ambient effects */
+.ambient-light {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+  filter: blur(50px);
+  transition: all 0.3s ease;
+}
+
+/* Parallax container */
+.parallax-container {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Freedom score preview - fixed gauge animation */
+.freedom-gauge {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.gauge-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.gauge-fill {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #23F1EE, #00FFBA);
+  /* Use a static clip-path instead of animation to prevent glitching */
+  clip-path: polygon(50% 50%, 100% 50%, 100% 0, 0 0, 0 50%);
+}
+
+.gauge-center {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #17BEBB;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-cta {
+  background: transparent;
+  border: 2px solid #17BEBB;
+  color: #17BEBB;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.secondary-cta:hover {
+  background: rgba(23, 190, 187, 0.1);
+  transform: translateY(-3px);
+}
+
+.animate-pulse {
+  animation: pulse 3s infinite ease-in-out;
+}
