@@ -238,11 +238,12 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
             scale: headerScale,
             y: headerY
           }}
+          className="mb-8"
         >
           <SprintHeader 
             title={content.heading} 
             color={program.color as SprintType}
-            description=""  
+            description={content.description || ""}  
           />
         </motion.div>
         

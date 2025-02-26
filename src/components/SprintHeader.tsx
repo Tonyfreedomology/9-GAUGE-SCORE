@@ -3,6 +3,7 @@ import { SprintType } from "@/types";
 import { useRef, useState } from "react";
 import { textMaskVariants } from "@/lib/animations/textEffects";
 import { usePerspectiveEffect } from "@/lib/animations/scrollEffects";
+import { getSprintBackgroundImage } from "@/lib/imageUtils";
 
 export const SprintHeader = ({ color, title, description }: { color: SprintType, title: string, description: string }) => {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -51,6 +52,9 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
 
   const colors = getGradientColors();
   
+  // Get background image for this sprint type
+  const backgroundImage = getSprintBackgroundImage(color);
+  
   // Generate CSS styles for the gradient background
   const getGradientStyle = () => {
     return {
@@ -76,9 +80,41 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
       transition={{ duration: 0.5 }}
       className="w-full pt-6 pb-4 mb-2 relative"
     >
+      {/* Hero background image with overlay */}
+      <div className="absolute inset-0 overflow-hidden rounded-xl -mx-4 -my-2">
+        <motion.div 
+          className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
+          initial={{ scale: 1.1, filter: 'brightness(0.3) saturate(0.4)' }}
+          animate={{ 
+            scale: 1.05, 
+            filter: 'brightness(0.4) saturate(0.6)',
+            transition: { duration: 1.5, ease: "easeOut" }
+          }}
+          style={{ 
+            backgroundImage: `url(${backgroundImage.url})`,
+            backgroundPosition: backgroundImage.position,
+          }}
+        />
+        <motion.div 
+          className="absolute inset-0" 
+          initial={{ opacity: 0.7 }}
+          animate={{ opacity: 0.85, transition: { duration: 1.2, delay: 0.3 } }}
+          style={{ 
+            background: `linear-gradient(135deg, ${colors.base}99 0%, ${colors.end}80 100%)`,
+            mixBlendMode: 'multiply'
+          }}
+        />
+        <div 
+          className="absolute bottom-1 right-2 text-xs text-white/50 font-light"
+          style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}
+        >
+          Photo: <a href={backgroundImage.creditUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors">{backgroundImage.credit}</a>
+        </div>
+      </div>
+      
       {/* Background glow effect */}
       <div 
-        className="absolute inset-0 blur-2xl opacity-20 rounded-full"
+        className="absolute inset-0 blur-2xl opacity-40 rounded-full z-10"
         style={{ 
           background: `radial-gradient(circle at center, ${colors.mid1} 0%, transparent 70%)`,
           top: "-50%",
@@ -89,7 +125,7 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
       />
       
       {/* Main heading content with animated gradient background */}
-      <div className="flex justify-center mb-2">
+      <div className="flex justify-center mb-2 relative z-20">
         <motion.div
           ref={perspectiveRef as React.RefObject<HTMLDivElement>}
           className="relative"
@@ -132,7 +168,7 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
       
       {/* Decorative underscore right after the text */}
       <motion.div 
-        className="h-1.5 rounded-full mx-auto mt-2 relative overflow-hidden"
+        className="h-1.5 rounded-full mx-auto mt-2 relative overflow-hidden z-20"
         style={{
           background: `linear-gradient(to right, ${colors.base}, ${colors.accent})`,
           boxShadow: `0 2px 10px ${colors.accent}80`
@@ -143,7 +179,7 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
       />
       
       {/* Description text */}
-      <p className="text-gray-700 text-center text-lg md:text-xl max-w-2xl mx-auto mt-6 font-medium leading-relaxed">
+      <p className="text-gray-200 text-center text-lg md:text-xl max-w-2xl mx-auto mt-6 font-medium leading-relaxed relative z-20" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
         {description}
       </p>
     </motion.div>

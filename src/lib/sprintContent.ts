@@ -4,11 +4,13 @@ export type SprintContent = {
   cta: string;
   icon: 'health' | 'financial' | 'relationships';
   color: string;
+  description?: string;
 };
 
 export const sprintContent: Record<string, SprintContent> = {
   "Health": {
     heading: "your health matters",
+    description: "A 6-week journey to transform your physical and mental wellbeing",
     body: `
 <div class="relative z-10 mb-8">
   <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Your <span class="text-[#1BEBE7] font-extrabold">health</span> drives <em>everything</em>, and we have something that'll help <u>you</u> get even stronger.</h2>
@@ -106,7 +108,8 @@ export const sprintContent: Record<string, SprintContent> = {
     color: "health"
   },
   "Financial": {
-    heading: "financial freedom for everyone",
+    heading: "financial freedom awaits",
+    description: "Build wealth, eliminate debt, and secure your financial future",
     body: `
 <div class="relative z-10 mb-8">
   <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">We live in a world where <span class="text-[#00FFBA] font-extrabold">financial freedom</span> is an incredible gift. We can help you get there <u>faster</u>!</h2>
@@ -205,6 +208,7 @@ export const sprintContent: Record<string, SprintContent> = {
   },
   "Relationships": {
     heading: "transform every relationship in your life",
+    description: "Connect deeper, resolve conflicts, and build lasting bonds",
     body: `
 <div class="relative z-10 mb-8">
   <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">The <span class="text-[#D10045] font-extrabold">KEY</span> to happiness? <span class="relative inline-block"><span class="underline decoration-[#D10045] decoration-2 underline-offset-4">Relationships</span><span class="absolute inset-x-0 bottom-0 h-[2px] bg-[#D10045] overflow-hidden"><span class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-70" style="width: 200%; animation: shine 2s linear infinite;"></span></span></span></h2>
