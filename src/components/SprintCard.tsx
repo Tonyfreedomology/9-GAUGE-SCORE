@@ -9,7 +9,6 @@ import { useParallax } from "@/lib/animations/scrollEffects";
 import ParticleBackground from "./ParticleBackground";
 import TextHighlight from "./TextHighlight";
 import { useRef, useState } from "react";
-import { WeekPreview } from "./WeekPreview";
 import { shineEffectVariants } from "@/lib/animations/textEffects";
 
 import { SprintType } from "@/types";
@@ -177,7 +176,6 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     return colors.primary;
   };
 
-  const [previewWeek, setPreviewWeek] = useState<number | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -261,126 +259,11 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           className="h-24 object-contain mx-auto my-4 relative z-10"
         />
         
-        {/* The timeline section with 6-weeks pill - clean design instead of wavy background */}
-        <div className="w-full relative my-12 overflow-visible" style={{ 
-          minHeight: "160px",
-          padding: "30px 0"
-        }}>
-          <div className="absolute inset-0 bg-gray-50/80 rounded-lg" style={{ 
-            backgroundColor: getBackgroundTint()
-          }}>
-            {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 rounded-lg" style={{
-              background: `linear-gradient(135deg, ${getGradientColors().from}, ${getGradientColors().to})`,
-              opacity: 0.7
-            }}></div>
-            
-            {/* Texture overlay */}
-            <div 
-              className="absolute inset-0 rounded-lg opacity-10"
-              style={{
-                backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNjY2MiPjwvcmVjdD4KPC9zdmc+')",
-                backgroundRepeat: "repeat"
-              }}
-            />
-          </div>
-          
-          {/* Horizontal line through the middle with gradient */}
-          <div 
-            className="absolute left-[5%] right-[5%] top-1/2 h-0.5 transform -translate-y-1/2 z-10"
-            style={{
-              background: `linear-gradient(90deg, transparent, ${getPillarBorderColor()}, transparent)`
-            }}
-          />
-          
-          {/* Pill with the six weeks text */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-            <motion.div 
-              className="px-5 py-2 rounded-full text-white font-medium text-sm flex items-center justify-center"
-              style={getPillColor()}
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: `0 8px 20px rgba(0,0,0,0.2), 0 6px 10px ${getPillarBorderColor()}30`
-              }}
-            >
-              6-Week Program
-            </motion.div>
-          </div>
-            
-          {/* Week dots with preview */}
-          <div className="absolute left-[10%] right-[10%] top-1/2 flex justify-between transform -translate-y-1/2 z-10">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <motion.div 
-                key={index} 
-                className="flex flex-col items-center relative"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 * index }}
-                onMouseEnter={() => setPreviewWeek(index + 1)}
-                onMouseLeave={() => setPreviewWeek(null)}
-              >
-                <div 
-                  className="w-4 h-4 rounded-full bg-white border-2 mb-8 transition-all duration-300" 
-                  style={{ 
-                    borderColor: getPillarBorderColor(),
-                    transform: previewWeek === index + 1 ? 'scale(1.5)' : 'scale(1)',
-                    boxShadow: previewWeek === index + 1 ? `0 0 10px ${getPillarBorderColor()}80` : 'none'
-                  }}
-                />
-                <div 
-                  className="text-xs font-medium transition-all duration-300" 
-                  style={{ 
-                    color: getPillarBorderColor(),
-                    fontWeight: previewWeek === index + 1 ? 700 : 500
-                  }}
-                >
-                  Week {index + 1}
-                </div>
-                
-                {/* Preview tooltip */}
-                {program.weeks[index] && (
-                  <WeekPreview
-                    title={program.weeks[index].title}
-                    content={program.weeks[index].description}
-                    week={index + 1}
-                    color={program.color}
-                    isVisible={previewWeek === index + 1}
-                  />
-                )}
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* Decorative connecting lines */}
-          <svg 
-            className="absolute inset-0 w-full h-full z-5 opacity-30 pointer-events-none" 
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="lineGradient" gradientTransform="rotate(90)">
-                <stop offset="0%" stopColor={getPillarBorderColor()} stopOpacity="0.1" />
-                <stop offset="50%" stopColor={getPillarBorderColor()} stopOpacity="0.5" />
-                <stop offset="100%" stopColor={getPillarBorderColor()} stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-            <path 
-              d="M50,30 Q150,10 250,50 T450,30" 
-              fill="none" 
-              stroke="url(#lineGradient)" 
-              strokeWidth="1"
-              strokeDasharray="5,5"
-            />
-          </svg>
-        </div>
-        
         {/* Enhanced program content with animations */}
         <div className="w-full" ref={ref}>
           {inView && (
             <motion.div 
-              className="rounded-xl p-5 mb-8"
+              className="rounded-xl p-5 mb-8 mt-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -390,14 +273,30 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
                 boxShadow: `0 10px 25px rgba(0,0,0,0.05), 0 5px 10px ${getPillarBorderColor()}15`
               }}
             >
-              <div className="text-center text-xl font-bold mb-4">
-                <TextHighlight 
-                  text="Here's what we cover:" 
-                  color={program.color}
-                  element="span"
-                  underline={true}
-                  animate={true}
-                />
+              <div className="text-center mb-6">
+                <motion.h2 
+                  className="text-2xl md:text-3xl font-bold relative inline-block"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  <span className="relative z-10">Your 6-Week Journey</span>
+                  <motion.div 
+                    className="absolute -bottom-2 left-0 right-0 h-3 z-0 rounded-full opacity-30"
+                    style={{ background: getPillarBorderColor() }}
+                    initial={{ width: 0 }}
+                    animate={{ width: '100%' }}
+                    transition={{ duration: 0.7, delay: 0.5 }}
+                  />
+                </motion.h2>
+                <motion.p 
+                  className="text-gray-600 mt-2 max-w-2xl mx-auto"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                  A comprehensive program designed to transform your {capitalizedPillar.toLowerCase()} in just six weeks
+                </motion.p>
               </div>
             </motion.div>
           )}
