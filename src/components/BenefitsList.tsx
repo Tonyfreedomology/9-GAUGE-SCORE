@@ -32,10 +32,10 @@ export const BenefitsList: React.FC<BenefitProps> = ({
         };
       case 'relationships':
         return {
-          primary: '#FF105F',
+          primary: '#D10045',
           text: '#D10045',
-          bg: 'rgba(255, 16, 95, 0.08)',
-          border: 'rgba(255, 16, 95, 0.2)'
+          bg: 'rgba(209, 0, 69, 0.08)',
+          border: 'rgba(209, 0, 69, 0.2)'
         };
       default:
         return {
@@ -100,7 +100,7 @@ export const BenefitsList: React.FC<BenefitProps> = ({
                 <path 
                   strokeLinecap="round" 
                   strokeLinejoin="round" 
-                  strokeWidth="3" 
+                  strokeWidth="2.5" 
                   d="M5 13l4 4L19 7"
                 />
               </svg>
