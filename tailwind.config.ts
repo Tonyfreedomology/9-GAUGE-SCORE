@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 import { keyframes, animations } from "./src/lib/config/animations";
 
@@ -21,8 +20,12 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Avenir', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
         heading: ['Helvetica', 'Arial', 'sans-serif'],
+        // Uncomment one of these options to apply it globally:
+        // sans: ['Inter', 'system-ui', 'sans-serif'], // Option 1
+        // sans: ['Avenir', 'system-ui', 'sans-serif'], // Option 2
+        // sans: ['Outfit', 'system-ui', 'sans-serif'], // Option 3
       },
       letterSpacing: {
         'tighter': '-0.05em',

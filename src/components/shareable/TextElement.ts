@@ -1,4 +1,3 @@
-
 import { Text, TOptions } from "fabric";
 
 type TextElementProps = {
@@ -8,7 +7,7 @@ type TextElementProps = {
 
 export const createTextElement = ({ text, options }: TextElementProps): Text => {
   return new Text(text, {
-    fontFamily: options.fontFamily || "League Spartan",
+    fontFamily: options.fontFamily || "DM Sans",
     originX: "center",
     textAlign: "center",
     ...options

@@ -1,4 +1,3 @@
-
 import { Line, Text, Shadow } from "fabric";
 
 type ScoreRowProps = {
@@ -58,7 +57,7 @@ export const createScoreRow = ({
     left: x + 40,
     top: y - 25,
     fontSize: 22,
-    fontFamily: 'Avenir',
+    fontFamily: 'DM Sans',
     fill: 'white',
     fontWeight: '400',
     shadow: new Shadow({
@@ -76,7 +75,7 @@ export const createScoreRow = ({
     left: x + 40 + (lineWidth * score / 100) - triangleSize/2,
     top: y + 8,
     fontSize: triangleSize * 2,
-    fontFamily: 'Arial',
+    fontFamily: 'DM Sans',
     fill: 'white',
     shadow: new Shadow({
       color: 'rgba(0, 0, 0, 0.4)',

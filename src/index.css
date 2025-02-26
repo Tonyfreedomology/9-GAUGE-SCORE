@@ -1,3 +1,6 @@
+/* Import DM Sans font - primary body font */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -90,15 +93,12 @@
   }
 }
 
-@layer base {
-  @font-face {
-    font-family: 'Avenir';
-    src: url('/fonts/Avenir.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+/* Subtle pulse animation */
+.pulse-slow {
+  animation: subtle-pulse 4s ease-in-out infinite;
+}
 
+@layer base {
   * {
     @apply border-border;
   }

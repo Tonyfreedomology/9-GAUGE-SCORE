@@ -62,23 +62,23 @@ const Index = () => {
 
         {/* Story section - moved from cards to above the fold */}
         <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 md:p-8 text-left shadow-lg border border-white/30">
-          <p className="text-lg mb-4">
+          <p className="text-base mb-4">
             Your health, finances, and relationships shape the life you live. But how do you measure real freedom?
           </p>
           
           <div className="mb-4">
             <h3 className="text-lg font-bold mb-2">We've worked with over 7,000 people</h3>
-            <p>Coaching them to improve their health, financial independence, and relationships. Our approach is built on real-world experience and designed with scientific principles.</p>
+            <p className="text-base">Coaching them to improve their health, financial independence, and relationships. Our approach is built on real-world experience and designed with scientific principles.</p>
           </div>
           
           <div className="mb-4">
             <h3 className="text-lg font-bold mb-2">Get clarity in just 9 minutes</h3>
-            <p>You'll receive a personalized freedom score — a clear, measurable look at where you stand in health, wealth, and relationships, plus actionable steps to improve.</p>
+            <p className="text-base">You'll receive a personalized freedom score — a clear, measurable look at where you stand in health, wealth, and relationships, plus actionable steps to improve.</p>
           </div>
           
           <div>
             <h3 className="text-lg font-bold mb-2">This isn't just another personality test</h3>
-            <p>The 9-Gauge Score helps you take control, showing you exactly where you're thriving, where you're stuck, and how to create more freedom in every part of your life.</p>
+            <p className="text-base">The 9-Gauge Score helps you take control, showing you exactly where you're thriving, where you're stuck, and how to create more freedom in every part of your life.</p>
           </div>
         </div>
 
@@ -106,7 +106,7 @@ const Index = () => {
         </button>
         
         {/* Social proof */}
-        <div className="text-white/90 text-sm mt-2">
+        <div className="text-white/90 text-base mt-2">
           Join over <span className="font-bold text-white">7,000+</span> people who have discovered their freedom potential
         </div>
 
@@ -115,19 +115,19 @@ const Index = () => {
           <div className="value-card text-center py-6">
             <div className="text-4xl mb-3">🔬</div>
             <h3 className="text-lg font-bold mb-2">Backed by Science</h3>
-            <p className="text-sm">Created with Dr. Morgan Carter, PhD in Neuroscience</p>
+            <p className="text-base">Created with Dr. Morgan Carter, PhD in Neuroscience</p>
           </div>
           
           <div className="value-card text-center py-6">
             <div className="text-4xl mb-3">⚡</div>
             <h3 className="text-lg font-bold mb-2">9-Minute Assessment</h3>
-            <p className="text-sm">Get your personalized freedom score quickly</p>
+            <p className="text-base">Get your personalized freedom score quickly</p>
           </div>
           
           <div className="value-card text-center py-6">
             <div className="text-4xl mb-3">🌱</div>
             <h3 className="text-lg font-bold mb-2">Actionable Growth</h3>
-            <p className="text-sm">Practical steps to improve every area of your life</p>
+            <p className="text-base">Practical steps to improve every area of your life</p>
           </div>
         </div>
         
