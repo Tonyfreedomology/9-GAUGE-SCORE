@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import { WaitlistForm } from "./WaitlistForm";
 import { SprintHeader } from "./SprintHeader";
 import { motion } from "framer-motion";
-import { WavyBackground } from "./ui/wavy-background";
+
 import { SprintType } from "@/types";
 
 type SprintCardProps = {
@@ -87,30 +87,88 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     }
   };
 
-  const getWavyColors = () => {
+  const getPillColor = () => {
+    const colors = getSprintColors(capitalizedPillar);
+    return {
+      background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.secondary} 100%)`,
+      boxShadow: `0 4px 12px rgba(0,0,0,0.2)`
+    };
+  };
+
+  const getBackgroundTint = () => {
     switch (capitalizedPillar) {
       case "Relationships":
-        return ["#FF105F", "#FF3A7A", "#FF5088", "#FF77A3", "#FFABC9"];
+        return "rgba(255,16,95,0.03)"; // Very subtle pink tint
       case "Health":
-        return ["#23F1EE", "#38F3F0", "#60F5F3", "#8AF8F7", "#B0FCFA"];
+        return "rgba(35,241,238,0.03)"; // Very subtle cyan tint
       case "Financial":
-        return ["#00FFBA", "#26FFCD", "#40FFCC", "#73FFD9", "#B0FFEA"];
+        return "rgba(0,255,186,0.03)"; // Very subtle green tint
       default:
-        return ["#23F1EE", "#60F5F3", "#B0FCFA"];
+        return "rgba(255,255,255,0)";
     }
   };
 
-  const getIconColor = () => {
+  const getGradientColors = () => {
     switch (capitalizedPillar) {
       case "Relationships":
-        return "#FF105F";
+        return {
+          from: "rgba(255,255,255,0.9)",
+          to: "rgba(255,240,245,0.85)"
+        };
       case "Health":
-        return "#23F1EE";
+        return {
+          from: "rgba(255,255,255,0.9)",
+          to: "rgba(235,255,255,0.85)"
+        };
       case "Financial":
-        return "#00FFBA";
+        return {
+          from: "rgba(255,255,255,0.9)",
+          to: "rgba(230,255,240,0.85)"
+        };
       default:
-        return "white";
+        return {
+          from: "rgba(255,255,255,0.9)",
+          to: "rgba(255,255,255,0.85)"
+        };
     }
+  };
+
+  const getSprintColors = (pillar: string) => {
+    switch (pillar) {
+      case "Relationships":
+        return {
+          primary: "#D10045",
+          secondary: "#9E0030",
+          darkAccent: "#780032",
+          lightAccent: "rgba(209, 0, 69, 0.1)",
+        };
+      case "Health":
+        return {
+          primary: "#23F1EE",
+          secondary: "#60F5F3",
+          darkAccent: "#00C5C3",
+          lightAccent: "rgba(35, 241, 238, 0.1)",
+        };
+      case "Financial":
+        return {
+          primary: "#00805D",
+          secondary: "#00A57D",
+          darkAccent: "#006647",
+          lightAccent: "rgba(0, 128, 93, 0.1)",
+        };
+      default:
+        return {
+          primary: "#888888",
+          secondary: "#AAAAAA",
+          darkAccent: "#666666",
+          lightAccent: "rgba(136, 136, 136, 0.1)",
+        };
+    }
+  };
+
+  const getPillarBorderColor = () => {
+    const colors = getSprintColors(capitalizedPillar);
+    return colors.primary;
   };
 
   if (!content || !program) return null;
@@ -149,67 +207,51 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           transition={{ duration: 0.5 }}
         />
         
-        {/* The wavy background with 6-weeks pill - after the logo */}
+        {/* The timeline section with 6-weeks pill - clean design instead of wavy background */}
         <div className="w-full relative my-12 overflow-visible" style={{ 
           minHeight: "160px",
           padding: "30px 0"
         }}>
-          {/* Extended container for wavy background with fading edges */}
-          <div className="absolute inset-0 w-[110%] left-[-5%] overflow-hidden" style={{ 
-            top: "-20px", 
-            bottom: "-20px", 
-            height: "calc(100% + 40px)"
+          <div className="absolute inset-0 bg-gray-50/80 rounded-lg" style={{ 
+            backgroundColor: getBackgroundTint()
           }}>
-            <WavyBackground 
-              colors={getWavyColors()} 
-              waveOpacity={0.8}
-              blur={3}
-              backgroundFill="rgba(255,255,255,0)" 
-              waveWidth={15}
-              speed="slow"
-              containerClassName="w-full h-full"
-            />
-            
-            {/* Gradient fades on all edges for smooth transitions */}
-            <div className="absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-white to-transparent z-10"></div>
-            <div className="absolute inset-y-0 right-0 w-[15%] bg-gradient-to-l from-white to-transparent z-10"></div>
-            <div className="absolute inset-x-0 top-0 h-[25%] bg-gradient-to-b from-white to-transparent z-10"></div>
-            <div className="absolute inset-x-0 bottom-0 h-[25%] bg-gradient-to-t from-white to-transparent z-10"></div>
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 rounded-lg" style={{
+              background: `linear-gradient(135deg, ${getGradientColors().from}, ${getGradientColors().to})`,
+              opacity: 0.7
+            }}></div>
           </div>
           
           {/* Horizontal line through the middle */}
-          <div className="absolute left-[5%] right-[5%] top-1/2 h-0.5 bg-gray-100 transform -translate-y-1/2 z-10"></div>
+          <div className="absolute left-[5%] right-[5%] top-1/2 h-0.5 bg-gray-200 transform -translate-y-1/2 z-10"></div>
           
           {/* Pill with the six weeks text */}
-          <div className="relative flex items-center justify-center z-20">
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
             <motion.div 
-              className="px-6 py-3 bg-white bg-opacity-90 rounded-full shadow-lg border border-gray-100 flex items-center justify-center space-x-4"
-              style={{ boxShadow: "0 8px 20px rgba(0,0,0,0.07), 0 2px 5px rgba(0,0,0,0.05)" }}
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              className="px-5 py-2 rounded-full text-white font-medium text-sm flex items-center justify-center"
+              style={getPillColor()}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <motion.div 
-                className="w-10 h-10 flex items-center justify-center"
-                initial={{ rotate: -10 }}
-                animate={{ rotate: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {getIcon()}
-              </motion.div>
-              <h3 className="text-xl md:text-2xl font-heading font-bold tracking-tighter lowercase text-foreground text-center">
-                the six weeks
-              </h3>
-              <motion.div 
-                className="w-10 h-10 flex items-center justify-center"
-                initial={{ rotate: 10 }}
-                animate={{ rotate: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {getIcon()}
-              </motion.div>
+              6-Week Program
             </motion.div>
+          </div>
+            
+          {/* Week dots */}
+          <div className="absolute left-[10%] right-[10%] top-1/2 flex justify-between transform -translate-y-1/2 z-10">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <motion.div 
+                key={index} 
+                className="flex flex-col items-center"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 * index }}
+              >
+                <div className="w-4 h-4 rounded-full bg-white border-2 mb-8" style={{ borderColor: getPillarBorderColor() }}></div>
+                <div className="text-xs font-medium" style={{ color: getPillarBorderColor() }}>Week {index + 1}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
         
@@ -224,7 +266,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
               style={{
                 background: `linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%)`,
                 backdropFilter: 'blur(8px)',
-                boxShadow: `0 10px 25px rgba(0,0,0,0.05), 0 5px 10px ${getWavyColors()[0]}15`
+                boxShadow: `0 10px 25px rgba(0,0,0,0.05), 0 5px 10px ${getPillarBorderColor()}15`
               }}
             >
               <div className="text-center text-xl font-bold mb-4">Here's what we cover:</div>

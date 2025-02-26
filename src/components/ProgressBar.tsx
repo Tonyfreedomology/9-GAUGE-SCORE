@@ -64,16 +64,26 @@ export const ProgressBar = ({
           <defs>
             <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="#23F1EE">
-                <animate attributeName="stop-color" 
+                <animate 
+                  attributeName="stop-color" 
+                  calcMode="spline"
+                  keyTimes="0; 0.5; 1"
                   values="#23F1EE; #00FFBA; #23F1EE" 
-                  dur="8s" 
-                  repeatCount="indefinite" />
+                  keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+                  dur="10s"
+                  repeatCount="indefinite"
+                />
               </stop>
               <stop offset="100%" stopColor="#00FFBA">
-                <animate attributeName="stop-color" 
+                <animate
+                  attributeName="stop-color"
                   values="#00FFBA; #23F1EE; #00FFBA" 
-                  dur="8s" 
-                  repeatCount="indefinite" />
+                  keyTimes="0; 0.5; 1"
+                  calcMode="spline"
+                  keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+                  dur="10s"
+                  repeatCount="indefinite"
+                />
               </stop>
             </linearGradient>
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">

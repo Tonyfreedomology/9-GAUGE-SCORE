@@ -1,4 +1,3 @@
-
 export const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
   'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
@@ -13,7 +12,7 @@ export const categoryToPillarMapping: Record<string, { pillar: string; displayNa
 
 export const pillarColors = {
   'Health': '#23F1EE',
-  'Financial': '#00FFBA',
+  'Financial': '#00805D',
   'Relationships': '#FF105F'
 } as const;
 
