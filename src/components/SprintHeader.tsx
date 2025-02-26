@@ -1,9 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SprintType } from "@/types";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { textMaskVariants } from "@/lib/animations/textEffects";
 import { usePerspectiveEffect } from "@/lib/animations/scrollEffects";
 import { getSprintBackgroundImage } from "@/lib/imageUtils";
+import { BenefitsList } from "./BenefitsList";
+import { getBenefits } from "@/lib/benefits";
+import { createRoot } from 'react-dom/client';
 
 export const SprintHeader = ({ color, title, description }: { color: SprintType, title: string, description: string }) => {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -11,6 +14,27 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
   
   // Get perspective effect for 3D hover
   const { elementRef: perspectiveRef, style: perspectiveStyle } = usePerspectiveEffect(5);
+  
+  // Render benefits in the appropriate container
+  useEffect(() => {
+    const benefitsContainer = document.getElementById(`${color}-benefits-container`);
+    if (benefitsContainer) {
+      // Create a temporary div to render our React component into
+      const tempDiv = document.createElement('div');
+      benefitsContainer.innerHTML = '';
+      benefitsContainer.appendChild(tempDiv);
+      
+      // Use ReactDOM to render the BenefitsList component
+      const root = createRoot(tempDiv);
+      root.render(
+        <BenefitsList 
+          benefits={getBenefits(color)} 
+          color={color} 
+          layout="grid" 
+        />
+      );
+    }
+  }, [color]);
   
   // Gradient colors for all elements
   const getGradientColors = () => {

@@ -11,7 +11,6 @@ import TextHighlight from "./TextHighlight";
 import { useRef, useState } from "react";
 import { shineEffectVariants } from "@/lib/animations/textEffects";
 import { getBenefits } from "@/lib/benefits";
-import { BenefitsList } from "./BenefitsList";
 
 import { SprintType } from "@/types";
 
@@ -299,14 +298,6 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
                 >
                   A comprehensive program designed to transform your {capitalizedPillar.toLowerCase()} in just six weeks
                 </motion.p>
-              </div>
-              {/* Benefits list */}
-              <div className="mb-6">
-                <BenefitsList 
-                  benefits={getBenefits(capitalizedPillar)} 
-                  color={program.color as SprintType}
-                  layout="grid"
-                />
               </div>
             </motion.div>
           )}

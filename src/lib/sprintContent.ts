@@ -24,32 +24,7 @@ export const sprintContent: Record<string, SprintContent> = {
   </div>
 </div>
 
-<div class="flex justify-center flex-wrap gap-3 my-8">
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#1BEBE7]/40 shadow-sm bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path></svg>
-      Fat gone
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#1BEBE7]/40 shadow-sm bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z"></path></svg>
-      Weight down
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#1BEBE7]/40 shadow-sm bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z" transform="rotate(180 10 10)"></path></svg>
-      Muscle up
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-bold text-gray-800 border border-[#1BEBE7]/40 shadow-md bg-gradient-to-r from-[#E4FFFE] to-[#C2FFFC] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 scale-105">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L10 4.414l6.293 6.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-      Energy through the roof
-    </span>
-  </div>
-</div>
+<div id="health-benefits-container" class="my-8"></div>
 
 <div class="relative overflow-hidden bg-gradient-to-br from-[#F5FFFE] via-[#E4FFFE] to-[#D6FFFC] rounded-xl p-6 my-8 text-center border border-[#1BEBE7]/30 shadow-md">
   <div class="absolute top-1 right-2 -rotate-12 scale-110">
@@ -109,46 +84,21 @@ export const sprintContent: Record<string, SprintContent> = {
   },
   "Financial": {
     heading: "financial freedom awaits",
-    description: "Build wealth, eliminate debt, and secure your financial future",
+    description: "A 6-week journey to financial freedom and abundance",
     body: `
 <div class="relative z-10 mb-8">
-  <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">We live in a world where <span class="text-[#00FFBA] font-extrabold">financial freedom</span> is an incredible gift. We can help you get there <u>faster</u>!</h2>
+  <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Your <span class="text-[#00FFBA] font-extrabold">financial</span> freedom is <em>closer</em> than you think, and we have something that'll help <u>you</u> get there.</h2>
   
   <div class="text-center my-6">
-    <p class="text-lg mb-3">We created a 6 week challenge called <span class="font-bold text-xl text-[#00FFBA]">F40</span> that's designed to completely transform your income, independence, and impact.</p>
+    <p class="text-lg mb-3">We created a 6 week challenge called <span class="font-bold text-xl text-[#00FFBA]">F40</span> that's designed to completely transform your financial situation and mindset.</p>
   </div>
 
   <div class="bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] p-4 rounded-xl border border-[#00FFBA]/20 shadow-sm mb-8 text-center">
-    <p class="flex items-center justify-center gap-2 text-lg"><span class="text-[#00FFBA] text-2xl">💰</span> We've had over <span class="font-bold">5,000+</span> people go through F40 with <span class="italic font-semibold">remarkable</span> results!</p>
+    <p class="flex items-center justify-center gap-2 text-lg"><span class="text-[#00FFBA] text-2xl">🔥</span> We've had over <span class="font-bold">5,000+</span> people go through F40 with <span class="italic font-semibold">incredible</span> results!</p>
   </div>
 </div>
 
-<div class="flex justify-center flex-wrap gap-3 my-8">
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#00FFBA]/40 shadow-sm bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path></svg>
-      Stress GONE
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#00FFBA]/40 shadow-sm bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z"></path></svg>
-      Expenses DOWN
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#00FFBA]/40 shadow-sm bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z" transform="rotate(180 10 10)"></path></svg>
-      Income UP
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-bold text-gray-800 border border-[#00FFBA]/40 shadow-md bg-gradient-to-r from-[#E4FFF4] to-[#C2FFE6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 scale-105">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L10 4.414l6.293 6.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-      Freedom through the roof
-    </span>
-  </div>
-</div>
+<div id="financial-benefits-container" class="my-8"></div>
 
 <div class="relative overflow-hidden bg-gradient-to-br from-[#F5FFF9] via-[#E4FFF4] to-[#D6FFEA] rounded-xl p-6 my-8 text-center border border-[#00FFBA]/30 shadow-md">
   <div class="absolute top-1 right-2 -rotate-12 scale-110">
@@ -223,32 +173,7 @@ export const sprintContent: Record<string, SprintContent> = {
   </div>
 </div>
 
-<div class="flex justify-center flex-wrap gap-3 my-8">
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#D10045]/40 shadow-sm bg-gradient-to-r from-[#FFF5F8] to-[#FFE0E9] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z" transform="rotate(180 10 10)"></path></svg>
-      Happiness UP
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#D10045]/40 shadow-sm bg-gradient-to-r from-[#FFF5F8] to-[#FFE0E9] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z"></path></svg>
-      Fear DOWN
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#D10045]/40 shadow-sm bg-gradient-to-r from-[#FFF5F8] to-[#FFE0E9] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M12 4v1H8V4zm0 11v1H8v-1zm4-6h1v4h-1zM3 9h1v4H3zm4 0h6v4H7z"></path></svg>
-      Connection DEEP
-    </span>
-  </div>
-  <div class="inline-block px-5 py-2.5 rounded-full font-bold text-gray-800 border border-[#D10045]/40 shadow-md bg-gradient-to-r from-[#FFE0E9] to-[#FFBECF] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 scale-105">
-    <span class="flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L10 4.414l6.293 6.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-      Joy through the ROOF
-    </span>
-  </div>
-</div>
+<div id="relationships-benefits-container" class="my-8"></div>
 
 <div class="relative overflow-hidden bg-gradient-to-br from-[#FFF5F8] via-[#FFE0E9] to-[#FFD6E1] rounded-xl p-6 my-8 text-center border border-[#D10045]/30 shadow-md">
   <div class="absolute top-1 right-2 -rotate-12 scale-110">

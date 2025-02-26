@@ -17,7 +17,7 @@ export const getBenefits = (sprintType: string): string[] => {
     case 'financial':
       return [
         "Stress GONE",
-        "Debt DOWN",
+        "Debt DOWN", 
         "Savings UP",
         "Joy through the ROOF"
       ];
