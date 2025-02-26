@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -21,30 +20,29 @@ const Index = () => {
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
               <div className="absolute inset-0 -m-2 rounded-full bg-[radial-gradient(circle,rgba(35,241,238,0.3)_0%,rgba(35,241,238,0)_70%)] animate-pulse" />
-              <img src="https://static.wixstatic.com/media/af616c_46b69360859246a587f805a9af193e54~mv2.png" alt="Health icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
+              <img src="https://static.wixstatic.com/media/af616c_f62b572d573e46df91187a19b34fe8c8~mv2.png" alt="Health icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
             </div>
             <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#242424]">health</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
               <div className="absolute inset-0 -m-2 rounded-full bg-[radial-gradient(circle,rgba(0,255,186,0.3)_0%,rgba(0,255,186,0)_70%)] animate-pulse" />
-              <img src="https://static.wixstatic.com/media/af616c_eda71941e0a04667a49dd0a12e0ca8ff~mv2.png" alt="Financial icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
+              <img src="https://static.wixstatic.com/media/af616c_ea23e3c04acd44cfb52510865397e02a~mv2.png" alt="Financial icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
             </div>
             <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#242424]">finances</span>
           </div>
           <div className="flex flex-col items-center space-y-2">
             <div className="relative">
               <div className="absolute inset-0 -m-2 rounded-full bg-[radial-gradient(circle,rgba(255,16,95,0.3)_0%,rgba(255,16,95,0)_70%)] animate-pulse" />
-              <img src="https://static.wixstatic.com/media/af616c_ee1fdc2818df4973842d2c907d0d4d7e~mv2.png" alt="Relationships icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
+              <img src="https://static.wixstatic.com/media/af616c_2da59b3c020c49e396d0a151b69b6c17~mv2.png" alt="Relationships icon" className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10" />
             </div>
             <span className="text-sm md:text-base font-heading font-bold tracking-tighter lowercase text-[#242424]">relationships</span>
           </div>
         </div>
 
         <div className="space-y-4 md:space-y-6 text-base md:text-lg lg:text-xl font-light leading-relaxed px-2 md:px-0 text-[#242424] md:bg-transparent bg-white/70 backdrop-blur-sm rounded-lg p-4 md:p-0">
-          <p>Discover your 9 Gauge Score™ – a comprehensive measure of your freedom across financial, health, and relationship dimensions backed by science.</p>
-          <p>
-            Take our quick 10-minute assessment to understand where you stand and identify areas for growth in your journey to true freedom.
+          <p>Unleash your potential with the groundbreaking 9 Gauge Score™ – a revolutionary, neuroscience-backed measure of your freedom across health, wealth, and relationships.</p> 
+          <p>Developed in partnership with our lead scientific advisor, Dr. Morgan Carter, PhD neuroscience, this assessment harnesses <strong>cutting-edge brain science</strong> to reveal where you stand and unlock areas for growth. Take our quick 10-minute journey, backed by science, to discover your path to true freedom today.
           </p>
         </div>
 

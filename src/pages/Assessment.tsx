@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
@@ -27,9 +27,9 @@ const Assessment = () => {
   });
 
   // Track assessment start when component mounts
-  useState(() => {
+  useEffect(() => {
     trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
-  });
+  }, []);
 
   // Render the layout structure regardless of loading state
   return (
@@ -97,9 +97,9 @@ const Assessment = () => {
                 if (currentQuestionIndex < questions.length - 1) {
                   setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
-                  // Navigate to results page with the answers and categories
+                  // Navigate to capture page with the answers and categories
                   const newAnswers = { ...answers, [currentQuestion.id]: value };
-                  navigate("/assessment/results", {
+                  navigate("/assessment/capture", {
                     state: {
                       answers: newAnswers,
                       categories: assessmentData.originalCategories

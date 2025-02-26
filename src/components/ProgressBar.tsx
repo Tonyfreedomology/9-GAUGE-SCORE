@@ -19,8 +19,8 @@ export const ProgressBar = ({
   const [animatedValue, setAnimatedValue] = useState(0);
 
   useEffect(() => {
-    const duration = 2000;
-    const steps = 60;
+    const duration = 2000; // Match the duration in ScoreCard
+    const steps = 60; // Match the steps in ScoreCard
     const increment = value / steps;
     let current = 0;
     
@@ -109,7 +109,7 @@ export const ProgressBar = ({
             cy="50"
           />
           <circle
-            className="transition-all duration-1000 ease-out"
+            className="transition-all duration-2000 ease-out"
             strokeWidth={10}
             stroke={color === 'url(#blue-gradient)' ? 'url(#blue-gradient)' : color}
             fill="transparent"
@@ -124,9 +124,12 @@ export const ProgressBar = ({
             {color === 'url(#blue-gradient)' && (
               <animate 
                 attributeName="stroke-dashoffset" 
-                from={progress+1} 
+                from={circumference} 
                 to={progress} 
-                dur="1s"
+                dur="2s"
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.42 0 0.58 1"
                 repeatCount="1"
               />
             )}
@@ -136,18 +139,27 @@ export const ProgressBar = ({
     );
   }
 
+  // For the horizontal progress bars, we'll use a new approach to fix the sync issue
   return (
     <div className={cn(
       "w-full h-3 bg-secondary/30 rounded-full overflow-hidden",
       className
     )}>
       <div
-        className="h-full transition-all duration-1000 ease-out rounded-full"
+        className="h-full rounded-full"
         style={{
-          width: `${animatedValue}%`,
+          width: '0%', // Start at 0%
           background: `linear-gradient(to right, ${color}, ${color}CC)`,
+          animation: `progressAnimation 2s forwards linear`
         }}
-      />
+      >
+        <style jsx>{`
+          @keyframes progressAnimation {
+            from { width: 0%; }
+            to { width: ${value}%; }
+          }
+        `}</style>
+      </div>
     </div>
   );
 };

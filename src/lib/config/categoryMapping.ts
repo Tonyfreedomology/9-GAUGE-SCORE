@@ -11,8 +11,8 @@ export const categoryToPillarMapping: Record<string, { pillar: string; displayNa
 };
 
 export const pillarColors = {
-  'Health': '#23F1EE',
-  'Financial': '#00805D',
+  'Health': '#1BEBE7',
+  'Financial': '#00FFBA',
   'Relationships': '#FF105F'
 } as const;
 

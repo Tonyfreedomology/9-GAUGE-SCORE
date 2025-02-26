@@ -1,4 +1,3 @@
-
 declare global {
   interface Window {
     fbq?: (event: string, eventName: string, params?: object) => void;
@@ -15,6 +14,7 @@ export const trackFacebookEvent = (eventName: string, params?: object) => {
 };
 
 export const FB_EVENTS = {
+  PAGE_VIEW: 'PageView',
   START_ASSESSMENT: 'StartAssessment',
   COMPLETE_QUESTION: 'CompleteQuestion',
   COMPLETE_ASSESSMENT: 'CompleteAssessment'

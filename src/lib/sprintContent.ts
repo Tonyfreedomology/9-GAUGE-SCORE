@@ -10,35 +10,35 @@ export const sprintContent: Record<string, SprintContent> = {
   "Health": {
     heading: "your health matters",
     body: `
-<p class="text-xl font-bold text-center mb-6">Your <strong style="color: #23F1EE;">health</strong> drives <em>everything</em>, and we have something that'll help <u>you</u> get even stronger.</p>
+<p class="text-xl font-bold text-center mb-6">Your <strong style="color: #1BEBE7;">health</strong> drives <em>everything</em>, and we have something that'll help <u>you</u> get even stronger.</p>
 
-<p class="text-center mb-4">We created a 6 week challenge called <strong style="font-size: 1.25rem; background: linear-gradient(90deg, #23F1EE, #60f5f5, #b0fcfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">H40</strong> that's designed to completely transform both your physical and mental health.</p>
+<p class="text-center mb-4">We created a 6 week challenge called <strong style="font-size: 1.25rem; color: #1BEBE7;">H40</strong> that's designed to completely transform both your physical and mental health.</p>
 
-<div style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 20px; margin: 16px auto; display: flex; align-items: center; max-width: 85%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+<div style="background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 12px 20px; margin: 16px auto; display: flex; align-items: center; max-width: 85%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);">
   <span style="font-size: 1.5rem; margin-right: 12px;">🔥</span>
   <p style="margin: 0;">We've had over <strong>5,000+</strong> people go through H40 with <em>incredible</em> results!</p>
 </div>
 
 <div class="flex justify-center flex-wrap gap-2 my-6">
-  <span class="inline-block px-4 py-2 bg-white bg-opacity-15 rounded-full font-semibold text-white border border-white border-opacity-20 shadow-sm">Fat gone</span>
-  <span class="inline-block px-4 py-2 bg-white bg-opacity-15 rounded-full font-semibold text-white border border-white border-opacity-20 shadow-sm">Weight down</span>
-  <span class="inline-block px-4 py-2 bg-white bg-opacity-15 rounded-full font-semibold text-white border border-white border-opacity-20 shadow-sm">Muscle up</span>
-  <span class="inline-block px-4 py-2 bg-white bg-opacity-25 rounded-full font-bold text-white border border-white border-opacity-30 shadow-sm transform scale-105">Energy through the roof</span>
+  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(27, 235, 231, 0.3); border-color: rgba(27, 235, 231, 0.5);">Fat gone</span>
+  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(27, 235, 231, 0.3); border-color: rgba(27, 235, 231, 0.5);">Weight down</span>
+  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(27, 235, 231, 0.3); border-color: rgba(27, 235, 231, 0.5);">Muscle up</span>
+  <span class="inline-block px-4 py-2 rounded-full font-bold text-gray-800 border shadow-md transform scale-105" style="background: rgba(27, 235, 231, 0.4); border-color: rgba(27, 235, 231, 0.6);">Energy through the roof</span>
 </div>
 
-<div style="background: rgba(0, 0, 0, 0.1); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; position: relative; border: 1px solid rgba(255, 255, 255, 0.1);">
-  <p style="text-decoration: line-through; opacity: 0.7; font-size: 1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 8px;">$197 value</p>
+<div style="background: rgba(27, 235, 231, 0.1); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; position: relative; border: 1px solid rgba(27, 235, 231, 0.25); box-shadow: 0 6px 16px rgba(0, 120, 120, 0.12);">
+  <p style="text-decoration: line-through; font-size: 1rem; color: rgba(30, 30, 30, 0.9); margin-bottom: 8px; font-weight: 600; background: rgba(255, 255, 255, 0.4); display: inline-block; padding: 2px 8px; border-radius: 4px;">$197 value</p>
   <p class="text-xl font-bold">FREE for you and a friend</p>
   <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 12px;">Get immediate access to the program that's changing thousands of lives. Plus, bring a friend or small group at no additional cost!</p>
 </div>
 
 <p class="text-lg text-center">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps you need to take to:</p>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-2 my-4">
-  <div class="flex items-center"><span style="margin-right: 10px; color: white; font-weight: bold;">✓</span> Increase your daily energy</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: white; font-weight: bold;">✓</span> Build sustainable muscle</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: white; font-weight: bold;">✓</span> Lose stubborn fat</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: white; font-weight: bold;">✓</span> Improve your mental health</div>
+<div class="grid grid-cols-2 gap-3 mt-4" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 16px; border: 1px solid rgba(27, 235, 231, 0.2);">
+  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Increase your daily energy</div>
+  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Build sustainable muscle</div>
+  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Lose stubborn fat</div>
+  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Improve your mental health</div>
 </div>`,
     cta: "Join H40",
     icon: "health",

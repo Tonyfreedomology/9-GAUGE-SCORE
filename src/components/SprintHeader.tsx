@@ -7,18 +7,18 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
     switch (color) {
       case "health":
         return {
-          base: "#23F1EE",
+          base: "#1BEBE7",
           end: "#19AFAD",
           mid1: "#60F5F3",
           mid2: "#90FCFA",
-          accent: "#4ADFDE"
+          accent: "#1BEBE7"
         };
       case "financial":
         return {
-          base: "#00805D",
-          end: "#00BA88",
+          base: "#00FFBA",
+          end: "#00E8A9",
           mid1: "#40FFCC",
-          mid2: "#00FFBA",
+          mid2: "#90FFE4",
           accent: "#00E8A9"
         };
       case "relationships":
@@ -31,11 +31,11 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
         };
       default:
         return {
-          base: "#23F1EE",
+          base: "#1BEBE7",
           end: "#19AFAD",
           mid1: "#60F5F3",
           mid2: "#90FCFA",
-          accent: "#4ADFDE"
+          accent: "#1BEBE7"
         };
     }
   };

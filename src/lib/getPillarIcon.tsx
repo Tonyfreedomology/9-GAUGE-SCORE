@@ -1,10 +1,9 @@
-
 export const getPillarIcon = (pillarName: string) => {
   switch (pillarName) {
     case 'Financial':
       return (
         <img 
-          src="https://static.wixstatic.com/media/af616c_eda71941e0a04667a49dd0a12e0ca8ff~mv2.png"
+          src="https://static.wixstatic.com/media/af616c_ea23e3c04acd44cfb52510865397e02a~mv2.png"
           alt="Financial icon"
           className="w-8 h-8 object-contain"
         />
@@ -12,7 +11,7 @@ export const getPillarIcon = (pillarName: string) => {
     case 'Health':
       return (
         <img 
-          src="https://static.wixstatic.com/media/af616c_46b69360859246a587f805a9af193e54~mv2.png"
+          src="https://static.wixstatic.com/media/af616c_f62b572d573e46df91187a19b34fe8c8~mv2.png"
           alt="Health icon"
           className="w-8 h-8 object-contain"
         />
@@ -20,7 +19,7 @@ export const getPillarIcon = (pillarName: string) => {
     case 'Relationships':
       return (
         <img 
-          src="https://static.wixstatic.com/media/af616c_ee1fdc2818df4973842d2c907d0d4d7e~mv2.png"
+          src="https://static.wixstatic.com/media/af616c_2da59b3c020c49e396d0a151b69b6c17~mv2.png"
           alt="Relationships icon"
           className="w-8 h-8 object-contain"
         />

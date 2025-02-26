@@ -53,10 +53,10 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
         };
       case "health":
         return {
-          start: "#23F1EE",
+          start: "#1BEBE7",
           mid: "#60F5F3", 
           end: "#19AFAD",
-          shadowColor: "rgba(35, 241, 238, 0.35)"
+          shadowColor: "rgba(27, 235, 231, 0.35)"
         };
       case "financial":
         return {
@@ -67,10 +67,10 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
         };
       default:
         return {
-          start: "#23F1EE",
+          start: "#1BEBE7",
           mid: "#60F5F3", 
           end: "#19AFAD",
-          shadowColor: "rgba(35, 241, 238, 0.35)"
+          shadowColor: "rgba(27, 235, 231, 0.35)"
         };
     }
   };

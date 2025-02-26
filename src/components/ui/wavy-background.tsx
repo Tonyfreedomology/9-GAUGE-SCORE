@@ -33,12 +33,12 @@ export function WavyBackground({
   const getSpeedFactor = useCallback(() => {
     switch (speed) {
       case "slow":
-        return 0.01;
+        return 0.008; // Slower movement
       case "fast":
-        return 0.04;
+        return 0.03;
       case "medium":
       default:
-        return 0.02;
+        return 0.015;
     }
   }, [speed]);
 
@@ -100,17 +100,23 @@ export function WavyBackground({
     const speedFactor = getSpeedFactor();
     const time = frameRef.current * speedFactor;
     
+    // Create an internal margin to keep waves from touching edges
+    const marginX = width * 0.12; // 12% margin on left and right
+    const marginY = height * 0.15; // 15% margin on top and bottom
+    const innerWidth = width - (marginX * 2);
+    const innerHeight = height - (marginY * 2);
+    
     // More wave lines for better definition
-    const waveCount = 15; // Increased number of waves for more distinction
+    const waveCount = 12; // Fewer, more distinct waves
     
     // Draw individual wave lines with higher contrast and less opacity
     for (let i = 0; i < waveCount; i++) {
-      // Calculate wave parameters
-      const baseY = (height / (waveCount + 1)) * (i + 1);
-      const amplitude = height * 0.06; // Slightly reduced amplitude for less overlap
-      const frequency = 0.01; // Increased frequency for more waves
+      // Calculate wave parameters with offset to center within margins
+      const baseY = marginY + ((innerHeight) / (waveCount + 1)) * (i + 1);
+      const amplitude = innerHeight * 0.05; // Reduced amplitude for less overlap
+      const frequency = 0.012; // Increased frequency for more waves
       
-      // Select color from the provided array
+      // Select color from the provided array with more variation
       const colorIndex = Math.floor((i / waveCount) * colors.length);
       const color = colors[Math.min(colorIndex, colors.length - 1)];
       
@@ -118,16 +124,16 @@ export function WavyBackground({
       ctx.beginPath();
       
       // Generate the wave path with finer detail
-      for (let x = 0; x <= width + 10; x += 3) { // Smaller step size for smoother curves
+      for (let x = marginX; x <= marginX + innerWidth; x += 2) { // Smaller step size for smoother curves
         // Use 3D noise for organic waves
         const noiseX = x * frequency;
         const noiseY = baseY * frequency * 0.5;
         const noiseValue = noise3D.current(noiseX, noiseY, time);
         
         // Calculate y position
-        const y = baseY + noiseValue * amplitude * 3.5;
+        const y = baseY + noiseValue * amplitude * 3;
         
-        if (x === 0) {
+        if (x === marginX) {
           ctx.moveTo(x, y);
         } else {
           ctx.lineTo(x, y);
@@ -136,21 +142,21 @@ export function WavyBackground({
       
       // Use thinner stroke for the wave lines with controlled transparency
       ctx.strokeStyle = color;
-      ctx.lineWidth = 1.8; // Thinner lines for better definition
-      ctx.globalAlpha = 0.6; // Less opacity for individual lines
+      ctx.lineWidth = 1.5; // Even thinner lines for better definition
+      ctx.globalAlpha = 0.7; // Higher opacity for individual lines
       ctx.stroke();
     }
     
-    // Then draw filled regions with much lower opacity to create subtle fills between lines
-    ctx.globalAlpha = 0.15; // Very low opacity for the fills
+    // Only draw minimal fills to avoid the blob effect
+    ctx.globalAlpha = 0.08; // Very low opacity for the fills
     
-    // Draw each filled wave area with larger spacing
-    for (let i = 0; i < waveCount - 1; i += 2) {
+    // Draw each filled wave area with larger spacing, skipping more for less density
+    for (let i = 0; i < waveCount - 1; i += 3) { // Skip more lines to reduce fill density
       // Calculate parameters for two adjacent waves
-      const baseY1 = (height / (waveCount + 1)) * (i + 1);
-      const baseY2 = (height / (waveCount + 1)) * (i + 3);
-      const amplitude = height * 0.06;
-      const frequency = 0.01;
+      const baseY1 = marginY + ((innerHeight) / (waveCount + 1)) * (i + 1);
+      const baseY2 = marginY + ((innerHeight) / (waveCount + 1)) * (i + 4); // More spacing
+      const amplitude = innerHeight * 0.05;
+      const frequency = 0.012;
       
       // Select color
       const colorIndex = Math.floor((i / waveCount) * colors.length);
@@ -162,13 +168,13 @@ export function WavyBackground({
       // First wave (top boundary)
       const points: [number, number][] = [];
       
-      for (let x = 0; x <= width + 10; x += 8) { // Larger step size for fills
+      for (let x = marginX; x <= marginX + innerWidth; x += 10) { // Larger step size for fills
         const noiseX = x * frequency;
         const noiseY1 = baseY1 * frequency * 0.5;
         const noiseValue1 = noise3D.current(noiseX, noiseY1, time);
-        const y1 = baseY1 + noiseValue1 * amplitude * 3.5;
+        const y1 = baseY1 + noiseValue1 * amplitude * 3;
         
-        if (x === 0) {
+        if (x === marginX) {
           ctx.moveTo(x, y1);
         } else {
           ctx.lineTo(x, y1);
@@ -178,11 +184,11 @@ export function WavyBackground({
       }
       
       // Second wave (bottom boundary) - in reverse to create closed shape
-      for (let x = width + 10; x >= 0; x -= 8) {
+      for (let x = marginX + innerWidth; x >= marginX; x -= 10) {
         const noiseX = x * frequency;
         const noiseY2 = baseY2 * frequency * 0.5;
         const noiseValue2 = noise3D.current(noiseX, noiseY2, time);
-        const y2 = baseY2 + noiseValue2 * amplitude * 3.5;
+        const y2 = baseY2 + noiseValue2 * amplitude * 3;
         
         ctx.lineTo(x, y2);
       }
@@ -192,7 +198,7 @@ export function WavyBackground({
       // Fill with gradient
       const gradient = ctx.createLinearGradient(0, baseY1, 0, baseY2);
       gradient.addColorStop(0, color);
-      gradient.addColorStop(1, colors[(colorIndex + 1) % colors.length]);
+      gradient.addColorStop(1, colors[(colorIndex + 2) % colors.length]); // More color variation
       
       ctx.fillStyle = gradient;
       ctx.fill();

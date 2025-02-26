@@ -73,8 +73,8 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
       case "Health":
         return {
           background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(235,255,255,0.97) 100%)",
-          boxShadow: "0 15px 35px rgba(35,241,238,0.15), 0 5px 15px rgba(0,0,0,0.05)",
-          borderTop: "4px solid #23F1EE"
+          boxShadow: "0 15px 35px rgba(27,235,231,0.15), 0 5px 15px rgba(0,0,0,0.05)",
+          borderTop: "4px solid #1BEBE7"
         };
       case "Financial":
         return {
@@ -100,7 +100,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
       case "Relationships":
         return "rgba(255,16,95,0.03)"; // Very subtle pink tint
       case "Health":
-        return "rgba(35,241,238,0.03)"; // Very subtle cyan tint
+        return "rgba(27,235,231,0.03)"; // Very subtle cyan tint
       case "Financial":
         return "rgba(0,255,186,0.03)"; // Very subtle green tint
       default:
@@ -144,10 +144,10 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         };
       case "Health":
         return {
-          primary: "#23F1EE",
+          primary: "#1BEBE7",
           secondary: "#60F5F3",
           darkAccent: "#00C5C3",
-          lightAccent: "rgba(35, 241, 238, 0.1)",
+          lightAccent: "rgba(27, 235, 231, 0.1)",
         };
       case "Financial":
         return {

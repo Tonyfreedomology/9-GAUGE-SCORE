@@ -1,4 +1,3 @@
-
 import { HelpCircle } from "lucide-react";
 import { FreedomologyLogo } from "../FreedomologyLogo";
 import {
@@ -8,15 +7,23 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const getScoreTagline = (score: number): string => {
-  if (score > 80) return "You're crushing it! Your balanced approach to life is paying off.";
-  if (score > 70) return "You're building something special. Keep nurturing all areas of your life.";
-  if (score > 60) return "You're making progress! Small steps lead to big transformations.";
-  if (score > 50) return "You've taken the first step. Let's build your freedom together.";
-  return "Your journey to freedom starts here. We're here to help you grow.";
+const getScoreTagline = (score: number, firstName?: string): string => {
+  const name = firstName ? `, ${firstName}` : "";
+  
+  if (score > 80) return `You're crushing it${name}! Your balanced approach to life is paying off.`;
+  if (score > 70) return `You're building something special${name}. Keep nurturing all areas of your life.`;
+  if (score > 60) return `You're making progress${name}! Small steps lead to big transformations.`;
+  if (score > 50) return `You've taken the first step${name}. Let's build your freedom together.`;
+  return `Your journey to freedom starts here${name}. We're here to help you grow.`;
 };
 
-export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
+export const ResultsHeader = ({ 
+  overallScore, 
+  firstName 
+}: { 
+  overallScore: number;
+  firstName?: string;
+}) => {
   return (
     <>
       <FreedomologyLogo variant="9gauge" />
@@ -47,7 +54,7 @@ export const ResultsHeader = ({ overallScore }: { overallScore: number }) => {
           </TooltipProvider>
         </div>
         <p className="text-xl text-white/90 font-medium">
-          {getScoreTagline(overallScore)}
+          {getScoreTagline(overallScore, firstName)}
         </p>
       </div>
     </>

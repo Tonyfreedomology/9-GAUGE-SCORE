@@ -118,7 +118,7 @@ export const ScoreCard = ({
         {!hideSubtext && (
           <div className="flex justify-center">
             <span className="text-sm font-medium text-white/80">
-              {getFeedbackTier(animatedScore)}
+              {getFeedbackTier(animatedScore).feedback}
             </span>
           </div>
         )}

@@ -6,7 +6,7 @@ import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
 const AssessmentResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { answers, categories } = location.state || {};
+  const { answers, categories, userInfo } = location.state || {};
 
   useEffect(() => {
     // If there's no state data, redirect back to assessment
@@ -15,21 +15,31 @@ const AssessmentResults = () => {
       return;
     }
 
-    // Fire Meta pixel CompleteRegistration event
-    trackFacebookEvent("CompleteRegistration");
+    // If no user info, redirect to capture page
+    if (!userInfo) {
+      navigate("/assessment/capture", { state: { answers, categories } });
+      return;
+    }
+
+    // Additional tracking for user with email
+    trackFacebookEvent("CompleteRegistration", {
+      first_name: userInfo.firstName,
+      email: userInfo.email
+    });
     
     // Also fire our custom complete assessment event
     trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
-      total_questions_answered: Object.keys(answers).length
+      total_questions_answered: Object.keys(answers).length,
+      email_captured: true
     });
-  }, [answers, categories, navigate]);
+  }, [answers, categories, userInfo, navigate]);
 
   const handleStartOver = () => {
     trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
     navigate("/assessment");
   };
 
-  if (!answers || !categories) {
+  if (!answers || !categories || !userInfo) {
     return null;
   }
 
@@ -55,6 +65,7 @@ const AssessmentResults = () => {
           answers={answers}
           categories={categories}
           onStartOver={handleStartOver}
+          userInfo={userInfo}
         />
       </div>
     </div>

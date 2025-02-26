@@ -1,14 +1,13 @@
-
 import { useRef, useEffect } from "react";
 import { NextSteps } from "./NextSteps";
 import { ResultsHeader } from "./results/ResultsHeader";
 import { ResultsActions } from "./results/ResultsActions";
 import { ResultsBreakdown } from "./results/ResultsBreakdown";
 import { ScoreCard } from "./ScoreCard";
-import { ScoreExplanation } from "./results/ScoreExplanation";
 import { calculateCategoryScore, calculateOverallScore, saveAssessmentScores } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
@@ -18,9 +17,13 @@ type AssessmentResultsProps = {
   answers: Record<string, number>;
   categories: AssessmentCategory[];
   onStartOver: () => void;
+  userInfo: {
+    firstName: string;
+    email: string;
+  };
 };
 
-export const AssessmentResults = ({ answers, categories, onStartOver }: AssessmentResultsProps) => {
+export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }: AssessmentResultsProps) => {
   const resultsRef = useRef<HTMLDivElement>(null);
   
   const overallScore = calculateOverallScore(categories, answers);
@@ -71,7 +74,7 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
           WebkitBackdropFilter: 'blur(10px)'
         }}
       >
-        <ResultsHeader overallScore={overallScore} />
+        <ResultsHeader overallScore={overallScore} firstName={userInfo.firstName} />
 
         <div className="mb-12 max-w-2xl mx-auto">
           <ScoreCard
@@ -91,17 +94,20 @@ export const AssessmentResults = ({ answers, categories, onStartOver }: Assessme
           answers={answers}
           categories={categories}
         />
-        
-        <ScoreExplanation />
       </div>
 
       <div className="w-full max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-[6rem] md:text-[10rem] font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase">
+        <motion.h2 
+          className="text-[6rem] md:text-[10rem] font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           Next Steps
-        </h2>
+        </motion.h2>
         <NextSteps lowestPillar={lowestCategory} onStartOver={onStartOver} />
       </div>
     </div>
   );
 };
-
