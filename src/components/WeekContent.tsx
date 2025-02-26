@@ -1,7 +1,9 @@
 import { useInView } from "react-intersection-observer";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { SprintType } from "@/types";
+import { usePerspectiveEffect } from "@/lib/animations/scrollEffects";
+import { shineEffectVariants } from "@/lib/animations/textEffects";
 
 type WeekContentProps = {
   title: string;
@@ -11,12 +13,25 @@ type WeekContentProps = {
 };
 
 export const WeekContent = ({ title, content, color, week }: WeekContentProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
 
   const [isHovered, setIsHovered] = useState(false);
+  const { elementRef: perspectiveRef, style: perspectiveStyle } = usePerspectiveEffect(3);
+  
+  // Scroll-driven animation for content reveal
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Transform scroll progress into staggered animation values
+  const weekOpacity = useTransform(scrollYProgress, [0, 0.1, 0.3], [0.08, 0.1, 0.12]);
+  const contentY = useTransform(scrollYProgress, [0.1, 0.4], [20, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0.6, 1]);
 
   const getBorderColor = () => {
     switch (color) {
@@ -49,28 +64,32 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
           start: "#FF105F",
           mid: "#FF5088", 
           end: "#BA0C45",
-          shadowColor: "rgba(255, 16, 95, 0.35)"
+          shadowColor: "rgba(255, 16, 95, 0.35)",
+          accentLight: "rgba(255, 16, 95, 0.15)"
         };
       case "health":
         return {
           start: "#1BEBE7",
           mid: "#60F5F3", 
           end: "#19AFAD",
-          shadowColor: "rgba(27, 235, 231, 0.35)"
+          shadowColor: "rgba(27, 235, 231, 0.35)",
+          accentLight: "rgba(27, 235, 231, 0.15)"
         };
       case "financial":
         return {
           start: "#00805D",
           mid: "#40FFCC", 
           end: "#00BA88",
-          shadowColor: "rgba(0, 255, 186, 0.35)"
+          shadowColor: "rgba(0, 255, 186, 0.35)",
+          accentLight: "rgba(0, 255, 186, 0.15)"
         };
       default:
         return {
           start: "#1BEBE7",
           mid: "#60F5F3", 
           end: "#19AFAD",
-          shadowColor: "rgba(27, 235, 231, 0.35)"
+          shadowColor: "rgba(27, 235, 231, 0.35)",
+          accentLight: "rgba(27, 235, 231, 0.15)"
         };
     }
   };
@@ -79,74 +98,147 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
 
   return (
     <motion.div
-      ref={ref}
+      ref={containerRef}
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.6 }}
       className="w-full"
     >
       <div 
-        className={`relative p-8 rounded-xl mb-8 overflow-hidden transition-all duration-300 ${
+        ref={ref}
+        className={`relative p-8 rounded-xl mb-8 overflow-hidden transition-all duration-300 group ${
           isHovered ? 'transform translate-y-[-8px]' : ''
         }`}
         style={{
           ...getBackgroundEffect(),
-          ...(isHovered && { boxShadow: `0 18px 40px ${headingColors.shadowColor}, 0 10px 25px rgba(0,0,0,0.08)` })
+          ...(isHovered && { boxShadow: `0 22px 45px ${headingColors.shadowColor}, 0 12px 28px rgba(0,0,0,0.08)` })
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex flex-col">
+        {/* Subtle patterned background */}
+        <div 
+          className="absolute inset-0 opacity-5 pointer-events-none"
+          style={{
+            backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CiAgPHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMC41Ii8+Cjwvc3ZnPg==')",
+            backgroundSize: "40px 40px",
+            backgroundRepeat: "repeat",
+            opacity: isHovered ? 0.08 : 0.05,
+            transition: "opacity 0.3s ease"
+          }}
+        />
+        
+        {/* Decorative corner accent */}
+        <div 
+          className="absolute right-0 top-0 w-32 h-32 pointer-events-none transform rotate-45 translate-x-16 -translate-y-16 transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(circle at center, ${headingColors.accentLight} 0%, transparent 70%)`,
+            opacity: isHovered ? 0.9 : 0.5
+          }}
+        />
+        
+        <div className="flex flex-col relative z-10">
           {/* Large Heading Section - Full width */}
           <div className="w-full mb-8 overflow-visible">
-            <h3 className="text-3xl md:text-5xl font-heading font-extrabold tracking-tighter lowercase transform transition-transform duration-300">
-              <span 
-                className="week-heading relative px-5 py-3 rounded-lg inline-block text-white"
-                style={{
-                  background: `linear-gradient(135deg, ${headingColors.start}, ${headingColors.mid} 45%, ${headingColors.end} 65%, ${headingColors.start})`,
-                  backgroundSize: "300% 300%",
-                  boxShadow: `0 6px 12px rgba(0,0,0,0.1)`,
-                  transform: isHovered ? "scale(1.02)" : "scale(1)",
-                  transition: "all 0.3s ease",
-                  fontWeight: "900",
-                  letterSpacing: "-0.03em",
+            <motion.div
+              ref={perspectiveRef as React.RefObject<HTMLDivElement>}
+              style={perspectiveStyle}
+              className="relative group"
+            >
+              <h3 className="text-3xl md:text-5xl font-heading font-extrabold tracking-tighter lowercase transform transition-transform duration-300">
+                <span 
+                  className="week-heading relative px-5 py-3 rounded-lg inline-block text-white overflow-hidden"
+                  style={{
+                    background: `linear-gradient(135deg, ${headingColors.start}, ${headingColors.mid} 45%, ${headingColors.end} 65%, ${headingColors.start})`,
+                    backgroundSize: "300% 300%",
+                    boxShadow: `0 6px 22px rgba(0,0,0,0.14), 0 2px 8px ${headingColors.start}80`,
+                    transform: isHovered ? "scale(1.02)" : "scale(1)",
+                    transition: "all 0.3s ease",
+                    fontWeight: "900",
+                    letterSpacing: "-0.03em",
+                  }}
+                >
+                  WEEK {week}: {title}
+                  
+                  {/* Shine effect overlay */}
+                  <motion.div 
+                    className="absolute inset-0 w-full h-full"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
+                      backgroundSize: '200% 100%'
+                    }}
+                    variants={shineEffectVariants}
+                    initial="initial"
+                    animate="animate"
+                  />
+                </span>
+              </h3>
+              
+              {/* Subtle reflection */}
+              <div 
+                className="absolute left-0 right-0 h-6 -bottom-6 opacity-30 blur-md scale-x-95 mx-auto hidden md:block"
+                style={{ 
+                  width: "calc(100% - 20px)",
+                  background: `linear-gradient(to bottom, ${headingColors.start}80, transparent)`,
+                  transform: 'rotateX(180deg)',
+                  transformOrigin: 'center top'
                 }}
-              >
-                WEEK {week}: {title}
-              </span>
-            </h3>
+              />
+            </motion.div>
           </div>
           
           {/* Content and Week Number in Flex Row */}
           <div className="flex">
             {/* Content on the left - takes 80% of the space */}
-            <div className="w-[80%] pr-8 relative z-10">
+            <motion.div 
+              className="w-[80%] pr-8 relative z-10"
+              style={{ 
+                y: contentY,
+                opacity: contentOpacity
+              }}
+            >
               <div 
-                className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-800 prose-p:text-gray-700 prose-strong:text-gray-800 prose-ul:text-gray-700"
+                className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-800 prose-p:text-gray-700 prose-strong:text-gray-800 prose-ul:text-gray-700 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-12 after:w-full after:bg-gradient-to-t after:from-white after:to-transparent after:opacity-60"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
-            </div>
+              
+              {/* Interactive content button for mobile */}
+              <div className="mt-4 block md:hidden">
+                <motion.button
+                  className="text-xs font-medium px-3 py-1.5 rounded-full"
+                  style={{
+                    background: headingColors.accentLight,
+                    color: headingColors.start,
+                    border: `1px solid ${headingColors.start}40`
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Read More
+                </motion.button>
+              </div>
+            </motion.div>
             
             {/* Week Number on the right - takes 20% of the space */}
             <div className="w-[20%] flex items-end justify-end relative">
-              <div 
-                className="week-number-container"
+              <motion.div 
+                className="week-number-container select-none"
                 style={{
                   color: getBorderColor(),
                   fontSize: "240px", 
                   fontWeight: "900",
                   lineHeight: "0.65",
-                  opacity: "0.12",
-                  userSelect: "none",
+                  opacity: weekOpacity,
                   marginBottom: "-30px",
                   marginRight: "-20px",
                   textAlign: "right",
+                  textShadow: `1px 1px 1px ${headingColors.shadowColor}`,
                   transition: "all 0.3s ease",
-                  ...(isHovered && { opacity: "0.18", transform: "scale(1.05)" })
+                  ...(isHovered && { transform: "scale(1.05)" })
                 }}
               >
                 {week}
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

@@ -4,7 +4,13 @@ import { WeekContent } from "./WeekContent";
 import { useInView } from "react-intersection-observer";
 import { WaitlistForm } from "./WaitlistForm";
 import { SprintHeader } from "./SprintHeader";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useParallax } from "@/lib/animations/scrollEffects";
+import ParticleBackground from "./ParticleBackground";
+import TextHighlight from "./TextHighlight";
+import { useRef, useState } from "react";
+import { WeekPreview } from "./WeekPreview";
+import { shineEffectVariants } from "@/lib/animations/textEffects";
 
 import { SprintType } from "@/types";
 
@@ -171,6 +177,28 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     return colors.primary;
   };
 
+  const [previewWeek, setPreviewWeek] = useState<number | null>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Set up parallax effect for the background
+  const { elementRef: bgParallaxRef, style: bgParallaxStyle } = useParallax({
+    speed: 0.1,
+    direction: 'up'
+  });
+  
+  // Set up scroll-driven animations
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Transform scroll progress into visual effects
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.1, 0.4], [0.6, 0.9, 1]);
+  const headerScale = useTransform(scrollYProgress, [0, 0.2], [0.95, 1]);
+  const headerY = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
+  const contentY = useTransform(scrollYProgress, [0.1, 0.3], [30, 0]);
+
   if (!content || !program) return null;
 
   // Safely extract intro text
@@ -178,33 +206,58 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
 
   return (
     <motion.div 
-      className="backdrop-blur-sm rounded-2xl p-6 md:p-8 text-foreground overflow-hidden"
+      ref={containerRef}
+      className="backdrop-blur-sm rounded-2xl p-6 md:p-8 text-foreground overflow-hidden relative"
       style={getCardStyle()}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="flex flex-col items-center space-y-6">
-        <SprintHeader 
-          title={content.heading} 
-          color={program.color as SprintType}
-          description=""  
-        />
+      {/* Particle background */}
+      <ParticleBackground 
+        color={program.color as SprintType} 
+        intensity="low" 
+        className="opacity-40" 
+      />
+      
+      {/* Background parallax effect */}
+      <motion.div 
+        ref={bgParallaxRef as React.RefObject<HTMLDivElement>}
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          ...bgParallaxStyle,
+          background: `radial-gradient(circle at center, ${getBackgroundTint()} 0%, rgba(255,255,255,0) 70%)`
+        }}
+      />
+      
+      <div className="flex flex-col items-center space-y-6 relative z-10">
+        <motion.div 
+          ref={headerRef}
+          style={{ 
+            opacity: headerOpacity,
+            scale: headerScale,
+            y: headerY
+          }}
+        >
+          <SprintHeader 
+            title={content.heading} 
+            color={program.color as SprintType}
+            description=""  
+          />
+        </motion.div>
         
-        {/* HTML content explaining the sprint - after headline and description, but before the logo */}
-        <div 
+        {/* HTML content explaining the sprint with enhanced typography */}
+        <motion.div 
           className="text-base md:text-lg text-center w-full text-foreground [&>p]:mb-3 last:[&>p]:mb-0 prose prose-p:my-2 max-w-none" 
           dangerouslySetInnerHTML={{ __html: introText }} 
+          style={{ y: contentY }}
         />
         
-        {/* Logo - added here between copy text and 6-weeks pill */}
+        {/* Logo */}
         <motion.img 
           src={getLogo()} 
           alt={`${capitalizedPillar} Sprint Logo`} 
-          className="h-24 object-contain mx-auto my-4"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          className="h-24 object-contain mx-auto my-4 relative z-10"
         />
         
         {/* The timeline section with 6-weeks pill - clean design instead of wavy background */}
@@ -220,10 +273,24 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
               background: `linear-gradient(135deg, ${getGradientColors().from}, ${getGradientColors().to})`,
               opacity: 0.7
             }}></div>
+            
+            {/* Texture overlay */}
+            <div 
+              className="absolute inset-0 rounded-lg opacity-10"
+              style={{
+                backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNjY2MiPjwvcmVjdD4KPC9zdmc+')",
+                backgroundRepeat: "repeat"
+              }}
+            />
           </div>
           
-          {/* Horizontal line through the middle */}
-          <div className="absolute left-[5%] right-[5%] top-1/2 h-0.5 bg-gray-200 transform -translate-y-1/2 z-10"></div>
+          {/* Horizontal line through the middle with gradient */}
+          <div 
+            className="absolute left-[5%] right-[5%] top-1/2 h-0.5 transform -translate-y-1/2 z-10"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${getPillarBorderColor()}, transparent)`
+            }}
+          />
           
           {/* Pill with the six weeks text */}
           <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
@@ -233,26 +300,79 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: `0 8px 20px rgba(0,0,0,0.2), 0 6px 10px ${getPillarBorderColor()}30`
+              }}
             >
               6-Week Program
             </motion.div>
           </div>
             
-          {/* Week dots */}
+          {/* Week dots with preview */}
           <div className="absolute left-[10%] right-[10%] top-1/2 flex justify-between transform -translate-y-1/2 z-10">
             {Array.from({ length: 6 }).map((_, index) => (
               <motion.div 
                 key={index} 
-                className="flex flex-col items-center"
+                className="flex flex-col items-center relative"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.4, delay: 0.1 * index }}
+                onMouseEnter={() => setPreviewWeek(index + 1)}
+                onMouseLeave={() => setPreviewWeek(null)}
               >
-                <div className="w-4 h-4 rounded-full bg-white border-2 mb-8" style={{ borderColor: getPillarBorderColor() }}></div>
-                <div className="text-xs font-medium" style={{ color: getPillarBorderColor() }}>Week {index + 1}</div>
+                <div 
+                  className="w-4 h-4 rounded-full bg-white border-2 mb-8 transition-all duration-300" 
+                  style={{ 
+                    borderColor: getPillarBorderColor(),
+                    transform: previewWeek === index + 1 ? 'scale(1.5)' : 'scale(1)',
+                    boxShadow: previewWeek === index + 1 ? `0 0 10px ${getPillarBorderColor()}80` : 'none'
+                  }}
+                />
+                <div 
+                  className="text-xs font-medium transition-all duration-300" 
+                  style={{ 
+                    color: getPillarBorderColor(),
+                    fontWeight: previewWeek === index + 1 ? 700 : 500
+                  }}
+                >
+                  Week {index + 1}
+                </div>
+                
+                {/* Preview tooltip */}
+                {program.weeks[index] && (
+                  <WeekPreview
+                    title={program.weeks[index].title}
+                    content={program.weeks[index].description}
+                    week={index + 1}
+                    color={program.color}
+                    isVisible={previewWeek === index + 1}
+                  />
+                )}
               </motion.div>
             ))}
           </div>
+          
+          {/* Decorative connecting lines */}
+          <svg 
+            className="absolute inset-0 w-full h-full z-5 opacity-30 pointer-events-none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="lineGradient" gradientTransform="rotate(90)">
+                <stop offset="0%" stopColor={getPillarBorderColor()} stopOpacity="0.1" />
+                <stop offset="50%" stopColor={getPillarBorderColor()} stopOpacity="0.5" />
+                <stop offset="100%" stopColor={getPillarBorderColor()} stopOpacity="0.1" />
+              </linearGradient>
+            </defs>
+            <path 
+              d="M50,30 Q150,10 250,50 T450,30" 
+              fill="none" 
+              stroke="url(#lineGradient)" 
+              strokeWidth="1"
+              strokeDasharray="5,5"
+            />
+          </svg>
         </div>
         
         {/* Enhanced program content with animations */}
@@ -269,7 +389,15 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
                 boxShadow: `0 10px 25px rgba(0,0,0,0.05), 0 5px 10px ${getPillarBorderColor()}15`
               }}
             >
-              <div className="text-center text-xl font-bold mb-4">Here's what we cover:</div>
+              <div className="text-center text-xl font-bold mb-4">
+                <TextHighlight 
+                  text="Here's what we cover:" 
+                  color={program.color}
+                  element="span"
+                  underline={true}
+                  animate={true}
+                />
+              </div>
             </motion.div>
           )}
           

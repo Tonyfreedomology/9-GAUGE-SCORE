@@ -10,35 +10,96 @@ export const sprintContent: Record<string, SprintContent> = {
   "Health": {
     heading: "your health matters",
     body: `
-<p class="text-xl font-bold text-center mb-6">Your <strong style="color: #1BEBE7;">health</strong> drives <em>everything</em>, and we have something that'll help <u>you</u> get even stronger.</p>
+<div class="relative z-10 mb-8">
+  <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Your <span class="text-[#1BEBE7] font-extrabold">health</span> drives <em>everything</em>, and we have something that'll help <u>you</u> get even stronger.</h2>
+  
+  <div class="text-center my-6">
+    <p class="text-lg mb-3">We created a 6 week challenge called <span class="font-bold text-xl text-[#1BEBE7]">H40</span> that's designed to completely transform both your physical and mental health.</p>
+  </div>
 
-<p class="text-center mb-4">We created a 6 week challenge called <strong style="font-size: 1.25rem; color: #1BEBE7;">H40</strong> that's designed to completely transform both your physical and mental health.</p>
-
-<div style="background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 12px 20px; margin: 16px auto; display: flex; align-items: center; max-width: 85%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);">
-  <span style="font-size: 1.5rem; margin-right: 12px;">🔥</span>
-  <p style="margin: 0;">We've had over <strong>5,000+</strong> people go through H40 with <em>incredible</em> results!</p>
+  <div class="bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] p-4 rounded-xl border border-[#1BEBE7]/20 shadow-sm mb-8 text-center">
+    <p class="flex items-center justify-center gap-2 text-lg"><span class="text-[#1BEBE7] text-2xl">🔥</span> We've had over <span class="font-bold">5,000+</span> people go through H40 with <span class="italic font-semibold">incredible</span> results!</p>
+  </div>
 </div>
 
-<div class="flex justify-center flex-wrap gap-2 my-6">
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(27, 235, 231, 0.3); border-color: rgba(27, 235, 231, 0.5);">Fat gone</span>
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(27, 235, 231, 0.3); border-color: rgba(27, 235, 231, 0.5);">Weight down</span>
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(27, 235, 231, 0.3); border-color: rgba(27, 235, 231, 0.5);">Muscle up</span>
-  <span class="inline-block px-4 py-2 rounded-full font-bold text-gray-800 border shadow-md transform scale-105" style="background: rgba(27, 235, 231, 0.4); border-color: rgba(27, 235, 231, 0.6);">Energy through the roof</span>
+<div class="flex justify-center flex-wrap gap-3 my-8">
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#1BEBE7]/40 shadow-sm bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path></svg>
+      Fat gone
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#1BEBE7]/40 shadow-sm bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z"></path></svg>
+      Weight down
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#1BEBE7]/40 shadow-sm bg-gradient-to-r from-[#F5FFFE] to-[#E4FFFE] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z" transform="rotate(180 10 10)"></path></svg>
+      Muscle up
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-bold text-gray-800 border border-[#1BEBE7]/40 shadow-md bg-gradient-to-r from-[#E4FFFE] to-[#C2FFFC] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 scale-105">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#1BEBE7]" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L10 4.414l6.293 6.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+      Energy through the roof
+    </span>
+  </div>
 </div>
 
-<div style="background: rgba(27, 235, 231, 0.1); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; position: relative; border: 1px solid rgba(27, 235, 231, 0.25); box-shadow: 0 6px 16px rgba(0, 120, 120, 0.12);">
-  <p style="text-decoration: line-through; font-size: 1rem; color: rgba(30, 30, 30, 0.9); margin-bottom: 8px; font-weight: 600; background: rgba(255, 255, 255, 0.4); display: inline-block; padding: 2px 8px; border-radius: 4px;">$197 value</p>
-  <p class="text-xl font-bold">FREE for you and a friend</p>
-  <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 12px;">Get immediate access to the program that's changing thousands of lives. Plus, bring a friend or small group at no additional cost!</p>
+<div class="relative overflow-hidden bg-gradient-to-br from-[#F5FFFE] via-[#E4FFFE] to-[#D6FFFC] rounded-xl p-6 my-8 text-center border border-[#1BEBE7]/30 shadow-md">
+  <div class="absolute top-1 right-2 -rotate-12 scale-110">
+    <div class="bg-[#1BEBE7] text-white px-2 py-0.5 rounded-sm text-xs uppercase font-bold tracking-wider">Special</div>
+  </div>
+  <p class="inline-block relative mb-2">
+    <span class="text-gray-700 font-medium relative">
+      <span class="absolute left-0 right-0 top-1/2 h-0.5 bg-[#1BEBE7]/70 -rotate-6"></span>
+      $197 value
+    </span>
+  </p>
+  <h3 class="text-2xl font-extrabold mb-2 text-gray-800">FREE for you and a friend</h3>
+  <p class="text-gray-700 mb-0">Get immediate access to the program that's changing thousands of lives. Plus, bring a friend or small group at no additional cost!</p>
+  <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-[#1BEBE7]/5 rounded-full blur-xl pointer-events-none"></div>
+  <div class="absolute -top-12 -left-12 w-32 h-32 bg-[#1BEBE7]/5 rounded-full blur-xl pointer-events-none"></div>
 </div>
 
-<p class="text-lg text-center">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps you need to take to:</p>
+<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps you need to take to:</p>
 
-<div class="grid grid-cols-2 gap-3 mt-4" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 16px; border: 1px solid rgba(27, 235, 231, 0.2);">
-  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Increase your daily energy</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Build sustainable muscle</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Lose stubborn fat</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #1BEBE7; font-weight: bold;">✓</span> Improve your mental health</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-[#1BEBE7]/20 shadow-sm">
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#1BEBE7] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#1BEBE7] transition-colors duration-300">Increase your daily energy</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#1BEBE7] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#1BEBE7] transition-colors duration-300">Build sustainable muscle</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#1BEBE7] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#1BEBE7] transition-colors duration-300">Lose stubborn fat</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#1BEBE7] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#1BEBE7] transition-colors duration-300">Improve your mental health</span>
+  </div>
 </div>`,
     cta: "Join H40",
     icon: "health",
@@ -47,35 +108,96 @@ export const sprintContent: Record<string, SprintContent> = {
   "Financial": {
     heading: "financial freedom for everyone",
     body: `
-<p class="text-xl font-bold text-center mb-6">We live in a world where <strong style="color: #00805D;">financial freedom</strong> is an incredible gift. We can help you get there <u>faster</u>!</p>
+<div class="relative z-10 mb-8">
+  <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">We live in a world where <span class="text-[#00FFBA] font-extrabold">financial freedom</span> is an incredible gift. We can help you get there <u>faster</u>!</h2>
+  
+  <div class="text-center my-6">
+    <p class="text-lg mb-3">We created a 6 week challenge called <span class="font-bold text-xl text-[#00FFBA]">F40</span> that's designed to completely transform your income, independence, and impact.</p>
+  </div>
 
-<p class="text-center mb-4">We created a 6 week challenge called <strong style="font-size: 1.25rem; background: linear-gradient(90deg, #00805D, #00A57D, #00C896); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">F40</strong> that's designed to completely transform your income, independence, and impact.</p>
-
-<div style="background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 12px 20px; margin: 16px auto; display: flex; align-items: center; max-width: 85%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);">
-  <span style="font-size: 1.5rem; margin-right: 12px;">💰</span>
-  <p style="margin: 0;">We've had over <strong>5,000+</strong> people go through F40 with <em>remarkable</em> results!</p>
+  <div class="bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] p-4 rounded-xl border border-[#00FFBA]/20 shadow-sm mb-8 text-center">
+    <p class="flex items-center justify-center gap-2 text-lg"><span class="text-[#00FFBA] text-2xl">💰</span> We've had over <span class="font-bold">5,000+</span> people go through F40 with <span class="italic font-semibold">remarkable</span> results!</p>
+  </div>
 </div>
 
-<div class="flex justify-center flex-wrap gap-2 my-6">
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(0, 255, 186, 0.3); border-color: rgba(0, 255, 186, 0.5);">Stress GONE</span>
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(0, 255, 186, 0.3); border-color: rgba(0, 255, 186, 0.5);">Expenses DOWN</span>
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(0, 255, 186, 0.3); border-color: rgba(0, 255, 186, 0.5);">Income UP</span>
-  <span class="inline-block px-4 py-2 rounded-full font-bold text-gray-800 border shadow-md transform scale-105" style="background: rgba(0, 255, 186, 0.4); border-color: rgba(0, 255, 186, 0.6);">Freedom through the roof</span>
+<div class="flex justify-center flex-wrap gap-3 my-8">
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#00FFBA]/40 shadow-sm bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path></svg>
+      Stress GONE
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#00FFBA]/40 shadow-sm bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z"></path></svg>
+      Expenses DOWN
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#00FFBA]/40 shadow-sm bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z" transform="rotate(180 10 10)"></path></svg>
+      Income UP
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-bold text-gray-800 border border-[#00FFBA]/40 shadow-md bg-gradient-to-r from-[#E4FFF4] to-[#C2FFE6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 scale-105">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#00FFBA]" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L10 4.414l6.293 6.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+      Freedom through the roof
+    </span>
+  </div>
 </div>
 
-<div style="background: linear-gradient(135deg, rgba(0, 255, 186, 0.1), rgba(0, 255, 186, 0.2)); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; position: relative; border: 1px solid rgba(0, 255, 186, 0.25); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);">
-  <p style="text-decoration: line-through; font-size: 1rem; color: rgba(30, 30, 30, 0.9); margin-bottom: 8px; font-weight: 600; background: rgba(255, 255, 255, 0.4); display: inline-block; padding: 2px 8px; border-radius: 4px;">$197 value</p>
-  <p class="text-xl font-bold">FREE for you and a friend</p>
-  <p style="font-size: 0.9rem; margin-top: 12px; color: rgba(0, 0, 0, 0.8);">Get immediate access to the program that's transforming thousands of financial futures. Plus, bring a friend or small group at no additional cost!</p>
+<div class="relative overflow-hidden bg-gradient-to-br from-[#F5FFF9] via-[#E4FFF4] to-[#D6FFEA] rounded-xl p-6 my-8 text-center border border-[#00FFBA]/30 shadow-md">
+  <div class="absolute top-1 right-2 -rotate-12 scale-110">
+    <div class="bg-[#00FFBA] text-white px-2 py-0.5 rounded-sm text-xs uppercase font-bold tracking-wider">Special</div>
+  </div>
+  <p class="inline-block relative mb-2">
+    <span class="text-gray-700 font-medium relative">
+      <span class="absolute left-0 right-0 top-1/2 h-0.5 bg-[#00FFBA]/70 -rotate-6"></span>
+      $197 value
+    </span>
+  </p>
+  <h3 class="text-2xl font-extrabold mb-2 text-gray-800">FREE for you and a friend</h3>
+  <p class="text-gray-700 mb-0">Get immediate access to the program that's transforming thousands of financial futures. Plus, bring a friend or small group at no additional cost!</p>
+  <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-[#00FFBA]/5 rounded-full blur-xl pointer-events-none"></div>
+  <div class="absolute -top-12 -left-12 w-32 h-32 bg-[#00FFBA]/5 rounded-full blur-xl pointer-events-none"></div>
 </div>
 
-<p class="text-lg text-center mb-4">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps to:</p>
+<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps to:</p>
 
-<div class="grid grid-cols-2 gap-3 mt-4" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 16px; border: 1px solid rgba(0, 255, 186, 0.2);">
-  <div class="flex items-center"><span style="margin-right: 10px; color: #00FFBA; font-weight: bold;">✓</span> Increase your monthly income</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #00FFBA; font-weight: bold;">✓</span> Build financial independence</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #00FFBA; font-weight: bold;">✓</span> Create lasting impact</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #00FFBA; font-weight: bold;">✓</span> Secure your financial future</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-[#00FFBA]/20 shadow-sm">
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#00FFBA] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#00FFBA] transition-colors duration-300">Increase your monthly income</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#00FFBA] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#00FFBA] transition-colors duration-300">Build financial independence</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#00FFBA] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#00FFBA] transition-colors duration-300">Create lasting impact</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#00FFBA] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#00FFBA] transition-colors duration-300">Secure your financial future</span>
+  </div>
 </div>`,
     cta: "Join F40",
     icon: "financial",
@@ -84,35 +206,97 @@ export const sprintContent: Record<string, SprintContent> = {
   "Relationships": {
     heading: "transform every relationship in your life",
     body: `
-<p class="text-xl font-bold text-center mb-6">The <strong style="color: #D10045;">KEY</strong> to happiness? <u>Relationships</u> - with others, yourself, and God. Strengthen everyone that matters.</p>
+<div class="relative z-10 mb-8">
+  <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">The <span class="text-[#D10045] font-extrabold">KEY</span> to happiness? <span class="relative inline-block"><span class="underline decoration-[#D10045] decoration-2 underline-offset-4">Relationships</span><span class="absolute inset-x-0 bottom-0 h-[2px] bg-[#D10045] overflow-hidden"><span class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-70" style="width: 200%; animation: shine 2s linear infinite;"></span></span></span></h2>
+  <p class="text-center text-gray-800 mb-6">- with others, yourself, and God. Strengthen everyone that matters.</p>
+  
+  <div class="text-center my-6">
+    <p class="text-lg mb-3">We created a 6 week challenge called <span class="font-bold text-xl text-[#D10045]">R40</span> that's designed to completely transform ALL your relationships.</p>
+  </div>
 
-<p class="text-center mb-4">We created a 6 week challenge called <strong style="font-size: 1.25rem; background: linear-gradient(90deg, #D10045, #9E0030, #780032); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">R40</strong> that's designed to completely transform ALL your relationships.</p>
-
-<div style="background: rgba(209, 0, 69, 0.12); border-radius: 8px; padding: 12px 20px; margin: 16px auto; display: flex; align-items: center; max-width: 85%; box-shadow: 0 4px 12px rgba(120, 0, 50, 0.08); border: 1px solid rgba(209, 0, 69, 0.2);">
-  <span style="font-size: 1.5rem; margin-right: 12px;">❤️</span>
-  <p style="margin: 0;">We've had over <strong>5,000+</strong> people go through R40 with <em>life-changing</em> results!</p>
+  <div class="bg-gradient-to-r from-[#FFEFF5] to-[#FFE4ED] p-4 rounded-xl border border-[#D10045]/20 shadow-sm mb-8 text-center">
+    <p class="flex items-center justify-center gap-2 text-lg"><span class="text-[#D10045] text-2xl">❤️</span> We've had over <span class="font-bold">5,000+</span> people go through R40 with <span class="italic font-semibold">life-changing</span> results!</p>
+  </div>
 </div>
 
-<div class="flex justify-center flex-wrap gap-2 my-6">
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(255, 105, 135, 0.3); border-color: rgba(255, 105, 135, 0.5);">Happiness UP</span>
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(255, 105, 135, 0.3); border-color: rgba(255, 105, 135, 0.5);">Fear DOWN</span>
-  <span class="inline-block px-4 py-2 rounded-full font-semibold text-gray-800 border shadow-sm" style="background: rgba(255, 105, 135, 0.3); border-color: rgba(255, 105, 135, 0.5);">Connection DEEP</span>
-  <span class="inline-block px-4 py-2 rounded-full font-bold text-gray-800 border shadow-sm" style="background: rgba(255, 105, 135, 0.4); border-color: rgba(255, 105, 135, 0.6); transform: scale(1.05);">Joy through the ROOF</span>
+<div class="flex justify-center flex-wrap gap-3 my-8">
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#D10045]/40 shadow-sm bg-gradient-to-r from-[#FFF5F8] to-[#FFE0E9] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z" transform="rotate(180 10 10)"></path></svg>
+      Happiness UP
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#D10045]/40 shadow-sm bg-gradient-to-r from-[#FFF5F8] to-[#FFE0E9] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M14 7l-5 5-5-5 1-1 4 4 4-4 1 1z"></path></svg>
+      Fear DOWN
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-semibold text-gray-800 border border-[#D10045]/40 shadow-sm bg-gradient-to-r from-[#FFF5F8] to-[#FFE0E9] hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M12 4v1H8V4zm0 11v1H8v-1zm4-6h1v4h-1zM3 9h1v4H3zm4 0h6v4H7z"></path></svg>
+      Connection DEEP
+    </span>
+  </div>
+  <div class="inline-block px-5 py-2.5 rounded-full font-bold text-gray-800 border border-[#D10045]/40 shadow-md bg-gradient-to-r from-[#FFE0E9] to-[#FFBECF] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 scale-105">
+    <span class="flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-[#D10045]" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L10 4.414l6.293 6.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+      Joy through the ROOF
+    </span>
+  </div>
 </div>
 
-<div style="background: linear-gradient(135deg, rgba(255, 105, 135, 0.18), rgba(255, 105, 135, 0.22)); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; position: relative; border: 1px solid rgba(255, 105, 135, 0.25); box-shadow: 0 6px 16px rgba(120, 0, 50, 0.12);">
-  <p style="text-decoration: line-through; font-size: 1rem; color: rgba(30, 30, 30, 0.9); margin-bottom: 8px; font-weight: 600; background: rgba(255, 255, 255, 0.4); display: inline-block; padding: 2px 8px; border-radius: 4px;">$197 value</p>
-  <p class="text-xl font-bold">FREE for you and a friend</p>
-  <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 12px;">Get immediate access to the program that's healing relationships worldwide. Plus, bring a friend or small group at no additional cost!</p>
+<div class="relative overflow-hidden bg-gradient-to-br from-[#FFF5F8] via-[#FFE0E9] to-[#FFD6E1] rounded-xl p-6 my-8 text-center border border-[#D10045]/30 shadow-md">
+  <div class="absolute top-1 right-2 -rotate-12 scale-110">
+    <div class="bg-[#D10045] text-white px-2 py-0.5 rounded-sm text-xs uppercase font-bold tracking-wider">Special</div>
+  </div>
+  <p class="inline-block relative mb-2">
+    <span class="text-gray-700 font-medium relative">
+      <span class="absolute left-0 right-0 top-1/2 h-0.5 bg-[#D10045]/70 -rotate-6"></span>
+      $197 value
+    </span>
+  </p>
+  <h3 class="text-2xl font-extrabold mb-2 text-gray-800">FREE for you and a friend</h3>
+  <p class="text-gray-700 mb-0">Get immediate access to the program that's healing relationships worldwide. Plus, bring a friend or small group at no additional cost!</p>
+  <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-[#D10045]/5 rounded-full blur-xl pointer-events-none"></div>
+  <div class="absolute -top-12 -left-12 w-32 h-32 bg-[#D10045]/5 rounded-full blur-xl pointer-events-none"></div>
 </div>
 
-<p class="text-lg text-center">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps to:</p>
+<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps to:</p>
 
-<div class="grid grid-cols-2 gap-3 mt-4" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 16px; border: 1px solid rgba(255, 105, 135, 0.2);">
-  <div class="flex items-center"><span style="margin-right: 10px; color: #FF69B4; font-weight: bold;">✓</span> Deepen your most important connections</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #FF69B4; font-weight: bold;">✓</span> Heal damaged relationships</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #FF69B4; font-weight: bold;">✓</span> Build lasting trust</div>
-  <div class="flex items-center"><span style="margin-right: 10px; color: #FF69B4; font-weight: bold;">✓</span> Discover new ways to live and love</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-[#D10045]/20 shadow-sm">
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#D10045] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#D10045] transition-colors duration-300">Deepen your most important connections</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#D10045] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#D10045] transition-colors duration-300">Heal damaged relationships</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#D10045] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#D10045] transition-colors duration-300">Build lasting trust</span>
+  </div>
+  <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
+    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#D10045] text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="text-gray-800 group-hover:text-[#D10045] transition-colors duration-300">Discover new ways to live and love</span>
+  </div>
 </div>`,
     cta: "Join R40",
     icon: "relationships",
