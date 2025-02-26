@@ -40,3 +40,61 @@ export const getSprintBackgroundImage = (sprintType: SprintType): BackgroundImag
       };
   }
 };
+
+// Week icons for each sprint type
+type WeekIconConfig = {
+  icon: string;
+  alt: string;
+  color: string;
+};
+
+export const getWeekIcon = (sprintType: SprintType, weekNumber: number): WeekIconConfig => {
+  // Health icons
+  const healthIcons: Record<number, WeekIconConfig> = {
+    1: { icon: "🧘‍♀️", alt: "Meditation", color: "#1BEBE7" },
+    2: { icon: "🥗", alt: "Nutrition", color: "#1BEBE7" },
+    3: { icon: "💪", alt: "Strength", color: "#1BEBE7" },
+    4: { icon: "🧠", alt: "Mental Health", color: "#1BEBE7" },
+    5: { icon: "💤", alt: "Sleep", color: "#1BEBE7" },
+    6: { icon: "🌱", alt: "Growth", color: "#1BEBE7" }
+  };
+
+  // Financial icons
+  const financialIcons: Record<number, WeekIconConfig> = {
+    1: { icon: "💰", alt: "Savings", color: "#00FFBA" },
+    2: { icon: "📊", alt: "Budgeting", color: "#00FFBA" },
+    3: { icon: "📈", alt: "Investing", color: "#00FFBA" },
+    4: { icon: "🏠", alt: "Real Estate", color: "#00FFBA" },
+    5: { icon: "💳", alt: "Debt Freedom", color: "#00FFBA" },
+    6: { icon: "🎯", alt: "Financial Goals", color: "#00FFBA" }
+  };
+
+  // Relationship icons
+  const relationshipIcons: Record<number, WeekIconConfig> = {
+    1: { icon: "❤️", alt: "Self Love", color: "#D10045" },
+    2: { icon: "👨‍👩‍👧‍👦", alt: "Family", color: "#D10045" },
+    3: { icon: "🤝", alt: "Friendship", color: "#D10045" },
+    4: { icon: "💑", alt: "Romantic", color: "#D10045" },
+    5: { icon: "🙏", alt: "Spiritual", color: "#D10045" },
+    6: { icon: "🌍", alt: "Community", color: "#D10045" }
+  };
+
+  // Select the appropriate icon set based on sprint type
+  let icons: Record<number, WeekIconConfig>;
+  switch (sprintType) {
+    case "health":
+      icons = healthIcons;
+      break;
+    case "financial":
+      icons = financialIcons;
+      break;
+    case "relationships":
+      icons = relationshipIcons;
+      break;
+    default:
+      icons = healthIcons;
+  }
+
+  // Return the icon for the specified week, or a default if not found
+  return icons[weekNumber] || { icon: "📝", alt: "Week Content", color: "#888888" };
+};
