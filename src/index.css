@@ -1,7 +1,56 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --health-color: #23F1EE;
+  --financial-color: #07E6BE;
+  --relationships-color: #FF105F;
+  --brand-blue: #17BEBB;
+}
+
+@keyframes weekHeadingGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.week-heading {
+  animation: weekHeadingGradient 6s ease infinite;
+  background-size: 300% 300% !important;
+}
+
+/* Add a subtle pulsing effect */
+@keyframes subtle-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Animated gradient text effect */
+@keyframes gradient-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 @layer base {
   @font-face {
@@ -17,7 +66,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    background-color: #f9f9f9;
+    background-image: 
+      radial-gradient(#f0f0f0 1px, transparent 1px),
+      radial-gradient(#f0f0f0 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    @apply text-foreground font-sans;
     min-height: 100vh;
   }
 }

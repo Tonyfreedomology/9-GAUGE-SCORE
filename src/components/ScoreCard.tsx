@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { getFeedbackTier } from "@/lib/questions";
@@ -70,10 +69,12 @@ export const ScoreCard = ({
   const getScoreStyle = () => {
     if (isOverallScore) {
       return {
-        background: 'linear-gradient(90deg, #17BEBB, #00D4FF)',
+        background: 'linear-gradient(90deg, #23F1EE, #00FFBA)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text'
+        backgroundClip: 'text',
+        backgroundSize: '200% auto',
+        animation: 'gradient-text 4s ease infinite'
       } as React.CSSProperties;
     }
     return {
@@ -98,12 +99,12 @@ export const ScoreCard = ({
         </h3>
       </div>
       <div className="space-y-6">
-        <div className="relative flex justify-center items-center">
+        <div className="relative flex justify-center items-center" style={{ margin: '16px', overflow: 'visible' }}>
           <ProgressBar 
             value={isVisible ? score : 0} 
             color={isOverallScore ? 'url(#blue-gradient)' : color} 
             variant="circle"
-            size={isOverallScore ? 200 : 160}
+            size={isOverallScore ? 240 : 200}
           />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 

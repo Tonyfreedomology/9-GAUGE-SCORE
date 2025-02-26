@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -48,22 +47,50 @@ export const ProgressBar = ({
           "relative transition-transform duration-300 hover:scale-105", 
           className
         )} 
-        style={{ width: size, height: size }}
+        style={{ 
+          width: size, 
+          height: size, 
+          overflow: 'visible',
+          padding: '15px'
+        }}
       >
         <svg
           className="transform -rotate-90 drop-shadow-lg"
-          width={size}
-          height={size}
+          width="100%"
+          height="100%"
           viewBox="0 0 100 100"
+          style={{ overflow: 'visible' }}
         >
           <defs>
-            <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#17BEBB" />
-              <stop offset="100%" stopColor="#00D4FF" />
+            <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#23F1EE">
+                <animate attributeName="stop-color" 
+                  values="#23F1EE; #00FFBA; #23F1EE" 
+                  dur="8s" 
+                  repeatCount="indefinite" />
+              </stop>
+              <stop offset="100%" stopColor="#00FFBA">
+                <animate attributeName="stop-color" 
+                  values="#00FFBA; #23F1EE; #00FFBA" 
+                  dur="8s" 
+                  repeatCount="indefinite" />
+              </stop>
             </linearGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feFlood floodColor="#23F1EE" floodOpacity="0.7" result="glow-color" />
+              <feComposite in="glow-color" in2="blur" operator="in" result="glow-blur" />
+              <feComposite in="SourceGraphic" in2="glow-blur" operator="over" />
+            </filter>
+            <filter id="enhanced-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feFlood result="flood" floodColor="#23F1EE" floodOpacity="0.4"></feFlood>
+              <feComposite in="flood" result="mask" in2="SourceGraphic" operator="in"></feComposite>
+              <feGaussianBlur in="mask" result="blurred" stdDeviation="3"></feGaussianBlur>
+              <feComposite in="SourceGraphic" in2="blurred" operator="over"></feComposite>
+            </filter>
           </defs>
           <circle
-            className="text-secondary/30"
+            className="text-secondary/20"
             strokeWidth="8"
             stroke="currentColor"
             fill="transparent"
@@ -73,8 +100,8 @@ export const ProgressBar = ({
           />
           <circle
             className="transition-all duration-1000 ease-out"
-            strokeWidth="8"
-            stroke={color}
+            strokeWidth={10}
+            stroke={color === 'url(#blue-gradient)' ? 'url(#blue-gradient)' : color}
             fill="transparent"
             r={radius}
             cx="50"
@@ -82,7 +109,18 @@ export const ProgressBar = ({
             strokeDasharray={circumference}
             strokeDashoffset={progress}
             strokeLinecap="round"
-          />
+            filter="url(#enhanced-glow)"
+          >
+            {color === 'url(#blue-gradient)' && (
+              <animate 
+                attributeName="stroke-dashoffset" 
+                from={progress+1} 
+                to={progress} 
+                dur="1s"
+                repeatCount="1"
+              />
+            )}
+          </circle>
         </svg>
       </div>
     );
