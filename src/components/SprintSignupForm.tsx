@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -118,7 +117,7 @@ export const SignupForm = ({ defaultSprint }: SignupFormProps) => {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                First Name
+                Name
               </label>
               <Input
                 id="firstName"

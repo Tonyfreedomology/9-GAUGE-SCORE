@@ -8,7 +8,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useParallax } from "@/lib/animations/scrollEffects";
 import ParticleBackground from "./ParticleBackground";
 import TextHighlight from "./TextHighlight";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { shineEffectVariants } from "@/lib/animations/textEffects";
 import { getBenefits } from "@/lib/benefits";
 
@@ -85,8 +85,8 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
       case "Financial":
         return {
           background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(230,255,240,0.97) 100%)",
-          boxShadow: "0 15px 35px rgba(7,230,190,0.15), 0 5px 15px rgba(0,0,0,0.05)",
-          borderTop: "4px solid #07E6BE"
+          boxShadow: "0 15px 35px rgba(0,232,169,0.15), 0 5px 15px rgba(0,0,0,0.05)",
+          borderTop: "4px solid #00E8A9"
         };
       default:
         return {};
@@ -108,7 +108,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
       case "Health":
         return "rgba(27,235,231,0.03)"; // Very subtle cyan tint
       case "Financial":
-        return "rgba(0,255,186,0.03)"; // Very subtle green tint
+        return "rgba(0,232,169,0.03)"; // Very subtle green tint
       default:
         return "rgba(255,255,255,0)";
     }
@@ -157,10 +157,10 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
         };
       case "Financial":
         return {
-          primary: "#00805D",
+          primary: "#00E8A9",
           secondary: "#00A57D",
           darkAccent: "#006647",
-          lightAccent: "rgba(0, 128, 93, 0.1)",
+          lightAccent: "rgba(0, 232, 169, 0.1)",
         };
       default:
         return {
@@ -198,6 +198,17 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   const headerY = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
   const contentY = useTransform(scrollYProgress, [0.1, 0.3], [30, 0]);
 
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   if (!content || !program) return null;
 
   // Safely extract intro text
@@ -206,8 +217,13 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   return (
     <motion.div 
       ref={containerRef}
-      className="backdrop-blur-sm rounded-2xl p-6 md:p-8 text-foreground overflow-hidden relative"
-      style={getCardStyle()}
+      className="backdrop-blur-sm p-3 sm:p-4 md:p-8 text-foreground overflow-hidden relative w-full sm:rounded-2xl"
+      style={{
+        ...getCardStyle(),
+        width: isSmallScreen ? '100vw' : 'auto',
+        marginLeft: isSmallScreen ? 'calc(-50vw + 50%)' : 0,
+        borderRadius: isSmallScreen ? 0 : undefined
+      }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}

@@ -109,8 +109,11 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-              First Name
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              Name
             </label>
             <Input
               id="firstName"
@@ -127,7 +130,10 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
           </div>
           
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
               Email Address
             </label>
             <Input
@@ -187,11 +193,11 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
           </div>
           
           <p className="text-gray-600 text-sm leading-relaxed pl-8">
-            Isn't just a number—it's your report card for life. It actively measures YOUR health (physical + environmental + mental), wealth (income + independence, impact) and happiness (great relationships with others + Self + God).
+            Isn't just a number—it's your <strong>report card for life</strong>. It actively measures YOUR <em>health</em> (physical + environmental + mental), <em>wealth</em> (income + independence, impact) and <em>happiness</em> (great relationships with others + Self + God).
           </p>
           
           <p className="text-gray-600 text-sm leading-relaxed mt-2 pl-8">
-            While the world preaches nonstop hustle, we've learned over 15 years and 11,000+ lives that balance is the real superpower. When your money, wellness, and connections align, everything feels freer, richer, and more fun.
+            While the world preaches <em>nonstop hustle</em>, we've learned over <strong>15 years</strong> and <strong>7,000+ lives</strong> that <u>balance is the real superpower</u>. When your money, wellness, and connections align, everything feels <strong>freer, richer, and more fun</strong>.
           </p>
         </div>
         
@@ -207,11 +213,11 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
           </div>
           
           <p className="text-gray-600 text-sm leading-relaxed pl-8">
-            Each pillar gets a rating from 0 to 100, based on things like debt, investments, generosity, mental + physical health, and your vibe with those around you (including YOU). 
+            Each pillar gets a <strong>rating from 0 to 100</strong>, based on things like <em>debt, investments, generosity, mental + physical health</em>, and your <em>vibe with those around you</em> (including <strong>YOU</strong>). 
           </p>
           
           <p className="text-gray-600 text-sm leading-relaxed mt-2 pl-8">
-            If any key area lags—say, your mental well-being or generosity—your overall score gets capped. Together, let's redefine what SUCCESS really means!
+            If any <em>key area lags</em>—say, your mental well-being or generosity—your <strong>overall score gets capped</strong>. Together, let's <u>redefine what SUCCESS really means</u>!
           </p>
         </div>
         
@@ -227,7 +233,7 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
           </div>
           
           <p className="text-gray-600 text-sm leading-relaxed pl-8">
-            Get your score now to receive our tips to improve your life. Whether it's freedom in your health, wealth, or relationships, our 40-day sprints are designed to help you grow where it really counts.
+            Get your score now to receive our <strong>tips to improve your life</strong>. Whether it's <em>freedom in your health, wealth, or relationships</em>, our <strong>40-day sprints</strong> are designed to help you <u>grow where it really counts</u>.
           </p>
           
           <div className="mt-5 pt-4 border-t border-gray-200 flex justify-center">

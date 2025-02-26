@@ -19,9 +19,9 @@ export const getSprintBackgroundImage = (sprintType: SprintType): BackgroundImag
       };
     case "financial":
       return {
-        url: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=2071&auto=format&fit=crop",
-        credit: "Towfiqu barbhuiya",
-        creditUrl: "https://unsplash.com/@towfiqu999999",
+        url: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=2070&auto=format&fit=crop",
+        credit: "Vitaly Taranov",
+        creditUrl: "https://unsplash.com/@thenightrider",
         position: "center 40%"
       };
     case "relationships":
@@ -61,12 +61,12 @@ export const getWeekIcon = (sprintType: SprintType, weekNumber: number): WeekIco
 
   // Financial icons
   const financialIcons: Record<number, WeekIconConfig> = {
-    1: { icon: "💰", alt: "Savings", color: "#00FFBA" },
-    2: { icon: "📊", alt: "Budgeting", color: "#00FFBA" },
-    3: { icon: "📈", alt: "Investing", color: "#00FFBA" },
-    4: { icon: "🏠", alt: "Real Estate", color: "#00FFBA" },
-    5: { icon: "💳", alt: "Debt Freedom", color: "#00FFBA" },
-    6: { icon: "🎯", alt: "Financial Goals", color: "#00FFBA" }
+    1: { icon: "💰", alt: "Savings", color: "#00E8A9" },
+    2: { icon: "📊", alt: "Budgeting", color: "#00E8A9" },
+    3: { icon: "📈", alt: "Investing", color: "#00E8A9" },
+    4: { icon: "🏠", alt: "Real Estate", color: "#00E8A9" },
+    5: { icon: "💳", alt: "Debt Freedom", color: "#00E8A9" },
+    6: { icon: "🎯", alt: "Financial Goals", color: "#00E8A9" }
   };
 
   // Relationship icons

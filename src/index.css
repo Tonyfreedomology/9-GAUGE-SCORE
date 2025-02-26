@@ -4,7 +4,7 @@
 
 :root {
   --health-color: #1BEBE7;
-  --financial-color: #07E6BE;
+  --financial-color: #00E8A9;
   --relationships-color: #FF105F;
   --brand-blue: #17BEBB;
 }
@@ -22,8 +22,8 @@
 }
 
 .week-heading {
-  animation: weekHeadingGradient 6s ease infinite;
-  background-size: 300% 300% !important;
+  animation: weekHeadingGradient 8s ease infinite;
+  background-size: 200% 200% !important;
 }
 
 /* Add a subtle pulsing effect */
@@ -49,6 +49,44 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* Enhanced animated gradient shine effect */
+@keyframes gradient-shine {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(0.9) saturate(0.9);
+  }
+  25% {
+    filter: brightness(1.1) saturate(1.1);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1) saturate(1);
+  }
+  75% {
+    filter: brightness(1.1) saturate(1.1);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(0.9) saturate(0.9);
+  }
+}
+
+/* Rotating gradient animation */
+@keyframes gradient-rotate {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: rotate(180deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(360deg);
   }
 }
 

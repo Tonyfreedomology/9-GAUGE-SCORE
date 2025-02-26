@@ -31,13 +31,13 @@ export const WeekPreview: React.FC<WeekPreviewProps> = ({
         };
       case 'financial':
         return {
-          primary: '#00FFBA',
+          primary: '#00E8A9',
           secondary: '#00A57D',
-          gradientStart: '#40FFCC',
+          gradientStart: '#40F0C0',
           gradientEnd: '#00A57D',
-          bg: 'rgba(0, 255, 186, 0.07)',
-          accent: 'rgba(0, 255, 186, 0.2)',
-          shadow: 'rgba(0, 255, 186, 0.35)'
+          bg: 'rgba(0, 232, 169, 0.07)',
+          accent: 'rgba(0, 232, 169, 0.2)',
+          shadow: 'rgba(0, 232, 169, 0.35)'
         };
       case 'relationships':
         return {
@@ -143,13 +143,6 @@ export const WeekPreview: React.FC<WeekPreviewProps> = ({
               
               <p className="text-xs text-gray-600 leading-snug">
                 {truncatedContent}
-                
-                {/* Gradient fade at the bottom */}
-                {content.length > 120 && (
-                  <span className="ml-1 text-xs font-medium" style={{ color: colors.secondary }}>
-                    Read more
-                  </span>
-                )}
               </p>
             </div>
           </div>

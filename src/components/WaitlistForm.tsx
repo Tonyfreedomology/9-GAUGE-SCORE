@@ -24,7 +24,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
       case 'Health':
         return '#23F1EE';
       case 'Financial':
-        return '#00C896';
+        return '#00E8A9';
       case 'Relationships':
         return '#FF105F';
       default:
@@ -142,7 +142,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
     <div className="w-full max-w-md mx-auto">
       <div className="text-center mb-8">
         <motion.h2 
-          className="text-4xl md:text-5xl font-heading font-extrabold tracking-tighter lowercase mb-3 text-foreground"
+          className="text-4xl md:text-5xl font-heading font-extrabold tracking-tighter lowercase mb-3 text-foreground py-1"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -150,7 +150,11 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
             background: `linear-gradient(to right, ${sprintColor}, ${sprintColor}AA)`,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            textShadow: `0 2px 4px rgba(0,0,0,0.1)`
+            textShadow: `0 2px 4px rgba(0,0,0,0.1)`,
+            paddingBottom: '0.2em',
+            position: 'relative',
+            display: 'inline-block',
+            lineHeight: '1.3'
           }}
         >
           join the waitlist
@@ -182,7 +186,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              First Name
+              Name
             </label>
             <Input
               id="firstName"

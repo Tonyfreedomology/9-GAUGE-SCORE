@@ -61,28 +61,66 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
       : 'Relationships';
   };
 
+  const getCategoryScores = () => {
+    const healthCategories = categories.filter(cat => 
+      cat.display_name.includes('Physical') || 
+      cat.display_name.includes('Mental') || 
+      cat.display_name.includes('Environmental')
+    );
+    
+    const financialCategories = categories.filter(cat => 
+      cat.display_name.includes('Income') || 
+      cat.display_name.includes('Independence') || 
+      cat.display_name.includes('Impact')
+    );
+    
+    const relationshipCategories = categories.filter(cat => 
+      !healthCategories.includes(cat) && !financialCategories.includes(cat)
+    );
+    
+    const healthScore = healthCategories.length > 0 
+      ? healthCategories.reduce((sum, cat) => sum + calculateCategoryScore(cat.questions, answers), 0) / healthCategories.length
+      : 0;
+      
+    const financialScore = financialCategories.length > 0 
+      ? financialCategories.reduce((sum, cat) => sum + calculateCategoryScore(cat.questions, answers), 0) / financialCategories.length
+      : 0;
+      
+    const relationshipsScore = relationshipCategories.length > 0 
+      ? relationshipCategories.reduce((sum, cat) => sum + calculateCategoryScore(cat.questions, answers), 0) / relationshipCategories.length
+      : 0;
+    
+    return {
+      health: healthScore,
+      financial: financialScore,
+      relationships: relationshipsScore
+    };
+  };
+
+  const categoryScores = getCategoryScores();
   const lowestCategory = findLowestCategory();
 
   return (
-    <div className="relative z-10 max-w-5xl mx-auto space-y-12">
+    <div className="relative z-10 w-full max-w-5xl mx-auto space-y-0 md:space-y-12 px-0">
       <div 
         ref={resultsRef}
-        className="space-y-12 p-8 rounded-3xl"
+        className="space-y-8 md:space-y-12 p-4 sm:p-6 md:p-8 rounded-none sm:rounded-2xl md:rounded-3xl w-full"
         style={{
           background: 'rgba(0,0,0,0.4)',
           backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)'
+          WebkitBackdropFilter: 'blur(10px)',
         }}
       >
         <ResultsHeader overallScore={overallScore} firstName={userInfo.firstName} />
 
-        <div className="mb-12 max-w-2xl mx-auto">
+        <div className="mb-6 md:mb-12 w-full md:max-w-2xl mx-auto">
           <ScoreCard
             title=""
             score={overallScore}
             color="#17BEBB"
             isOverallScore={true}
             hideSubtext={true}
+            categoryScores={categoryScores}
           />
         </div>
 
@@ -96,16 +134,19 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
         />
       </div>
 
-      <div className="w-full max-w-4xl mx-auto px-4 py-16">
-        <motion.h2 
-          className="text-[6rem] md:text-[10rem] font-heading font-bold text-white mb-8 text-center relative z-20 tracking-tighter lowercase"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          Next Steps
-        </motion.h2>
+      {/* Next Steps section - negative margin to eliminate gap on mobile */}
+      <div className="w-full max-w-none sm:max-w-4xl mx-auto px-0 sm:px-2 md:px-4 py-0 sm:py-8 md:py-16 -mt-1 sm:mt-8">
+        <div className="relative bg-[#363636] sm:bg-transparent py-4 sm:py-0">
+          <motion.h2 
+            className="text-[6rem] sm:text-[6rem] md:text-[10rem] font-heading font-bold text-white mb-4 md:mb-8 text-center relative z-20 tracking-tighter lowercase"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Next Steps
+          </motion.h2>
+        </div>
         <NextSteps lowestPillar={lowestCategory} onStartOver={onStartOver} />
       </div>
     </div>

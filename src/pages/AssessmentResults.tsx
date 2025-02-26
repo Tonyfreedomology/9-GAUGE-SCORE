@@ -60,7 +60,7 @@ const AssessmentResults = () => {
       <div className="fixed inset-0 z-[1] bg-black/60" />
       
       {/* Content */}
-      <div className="relative z-[2] min-h-screen p-8 md:p-12">
+      <div className="relative z-[2] min-h-screen px-0 py-8 md:p-12">
         <ResultsComponent
           answers={answers}
           categories={categories}

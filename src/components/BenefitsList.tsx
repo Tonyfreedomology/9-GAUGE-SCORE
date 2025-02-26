@@ -25,10 +25,10 @@ export const BenefitsList: React.FC<BenefitProps> = ({
         };
       case 'financial':
         return {
-          primary: '#00FFBA',
+          primary: '#00E8A9',
           text: '#00805D',
-          bg: 'rgba(0, 255, 186, 0.08)',
-          border: 'rgba(0, 255, 186, 0.2)'
+          bg: 'rgba(0, 232, 169, 0.08)',
+          border: 'rgba(0, 232, 169, 0.2)'
         };
       case 'relationships':
         return {

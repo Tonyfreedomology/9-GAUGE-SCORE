@@ -1,4 +1,3 @@
-
 import { getPillarIcon } from "@/lib/getPillarIcon";
 import { ScoreLine } from "./ScoreLine";
 
@@ -9,12 +8,12 @@ type PillarScoresProps = {
 };
 
 export const PillarScores = ({ title, scores, color }: PillarScoresProps) => (
-  <div className="space-y-6">
-    <div className="flex items-center justify-center gap-3">
+  <div className="space-y-4 md:space-y-6 px-1">
+    <div className="flex items-center justify-center gap-2 md:gap-3">
       {getPillarIcon(title)}
-      <h3 className="text-3xl font-heading font-bold text-white tracking-tighter lowercase">{title}</h3>
+      <h3 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tighter lowercase">{title}</h3>
     </div>
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {scores.map((score, index) => (
         <ScoreLine
           key={score.label}

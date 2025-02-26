@@ -43,32 +43,32 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
         return {
           base: "#1BEBE7",
           end: "#19AFAD",
-          mid1: "#60F5F3",
-          mid2: "#90FCFA",
+          mid1: "#23D7D3",
+          mid2: "#68DEDC",
           accent: "#1BEBE7"
         };
       case "financial":
         return {
-          base: "#00FFBA",
-          end: "#00E8A9",
-          mid1: "#40FFCC",
-          mid2: "#90FFE4",
+          base: "#00E8A9",
+          end: "#00D596",
+          mid1: "#00D09A",
+          mid2: "#56DCB8",
           accent: "#00E8A9"
         };
       case "relationships":
         return {
           base: "#D10045",
           end: "#9E0030",
-          mid1: "#FF105F",
-          mid2: "#FF5E96",
+          mid1: "#E01050",
+          mid2: "#EE4882",
           accent: "#FF105F"
         };
       default:
         return {
           base: "#1BEBE7",
           end: "#19AFAD",
-          mid1: "#60F5F3",
-          mid2: "#90FCFA",
+          mid1: "#23D7D3",
+          mid2: "#68DEDC",
           accent: "#1BEBE7"
         };
     }
@@ -83,8 +83,8 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
   const getGradientStyle = () => {
     return {
       background: `linear-gradient(135deg, ${colors.base} 0%, ${colors.mid1} 35%, ${colors.mid2} 70%, ${colors.end} 100%)`,
-      backgroundSize: "300% 300%",
-      animation: "weekHeadingGradient 6s ease infinite",
+      backgroundSize: "200% 200%",
+      animation: "weekHeadingGradient 8s ease infinite",
       boxShadow: `0 15px 35px rgba(0,0,0,0.15), 0 5px 15px ${colors.base}40`,
       WebkitBackgroundClip: isHovered ? "text" : "initial",
       WebkitTextFillColor: isHovered ? "transparent" : "initial",

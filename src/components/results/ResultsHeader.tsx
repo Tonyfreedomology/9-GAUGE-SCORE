@@ -28,9 +28,9 @@ export const ResultsHeader = ({
     <>
       <FreedomologyLogo variant="9gauge" />
       
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center gap-2">
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tighter lowercase">
+      <div className="text-center space-y-2 md:space-y-4">
+        <div className="flex items-center justify-center gap-1 md:gap-2">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tighter lowercase">
             9-Gauge Score
           </h1>
           <TooltipProvider delayDuration={0}>
@@ -53,7 +53,7 @@ export const ResultsHeader = ({
             </Tooltip>
           </TooltipProvider>
         </div>
-        <p className="text-xl text-white/90 font-medium">
+        <p className="text-lg sm:text-xl text-white/90 font-medium px-2">
           {getScoreTagline(overallScore, firstName)}
         </p>
       </div>

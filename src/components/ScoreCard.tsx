@@ -12,6 +12,11 @@ type ScoreCardProps = {
   className?: string;
   isOverallScore?: boolean;
   hideSubtext?: boolean;
+  categoryScores?: {
+    health: number;
+    financial: number;
+    relationships: number;
+  };
 };
 
 export const ScoreCard = ({ 
@@ -20,7 +25,8 @@ export const ScoreCard = ({
   color, 
   className, 
   isOverallScore = false,
-  hideSubtext = false
+  hideSubtext = false,
+  categoryScores
 }: ScoreCardProps) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -68,13 +74,28 @@ export const ScoreCard = ({
   // Get gradient style for overall score
   const getScoreStyle = () => {
     if (isOverallScore) {
+      if (categoryScores) {
+        // For the text, use only blue and green in the gradient (no red)
+        return {
+          backgroundImage: 'linear-gradient(90deg, #23F1EE, #00FFBA)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          backgroundSize: '200% 200%',
+          animation: 'gradient-shine 10s ease infinite',
+          filter: 'drop-shadow(0 0 6px rgba(35, 241, 238, 0.5))'
+        } as React.CSSProperties;
+      }
+      
+      // Default gradient if no category scores provided
       return {
-        background: 'linear-gradient(90deg, #23F1EE, #00FFBA)',
+        backgroundImage: 'linear-gradient(90deg, #23F1EE, #00FFBA)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
-        backgroundSize: '200% auto',
-        animation: 'gradient-text 4s ease infinite'
+        backgroundSize: '200% 200%',
+        animation: 'gradient-shine 10s ease infinite',
+        filter: 'drop-shadow(0 0 6px rgba(35, 241, 238, 0.5))'
       } as React.CSSProperties;
     }
     return {
@@ -105,6 +126,7 @@ export const ScoreCard = ({
             color={isOverallScore ? 'url(#blue-gradient)' : color} 
             variant="circle"
             size={isOverallScore ? 240 : 200}
+            categoryScores={isOverallScore ? categoryScores : undefined}
           />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
@@ -118,7 +140,7 @@ export const ScoreCard = ({
         {!hideSubtext && (
           <div className="flex justify-center">
             <span className="text-sm font-medium text-white/80">
-              {getFeedbackTier(animatedScore).feedback}
+              {getFeedbackTier(animatedScore)}
             </span>
           </div>
         )}

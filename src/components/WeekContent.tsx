@@ -198,25 +198,9 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
               }}
             >
               <div 
-                className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-800 prose-p:text-gray-700 prose-strong:text-gray-800 prose-ul:text-gray-700 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-12 after:w-full after:bg-gradient-to-t after:from-white after:to-transparent after:opacity-60"
+                className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-800 prose-p:text-gray-700 prose-strong:text-gray-800 prose-ul:text-gray-700 relative"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
-              
-              {/* Interactive content button for mobile */}
-              <div className="mt-4 block md:hidden">
-                <motion.button
-                  className="text-xs font-medium px-3 py-1.5 rounded-full"
-                  style={{
-                    background: headingColors.accentLight,
-                    color: headingColors.start,
-                    border: `1px solid ${headingColors.start}40`
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Read More
-                </motion.button>
-              </div>
             </motion.div>
             
             {/* Week Number on the right - takes 20% of the space */}

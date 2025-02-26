@@ -27,10 +27,10 @@ const Index = () => {
       >
         {/* Enhanced heading with normal question mark (no gradient) */}
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-heading tracking-tighter lowercase text-white drop-shadow-lg">
-          how free are you?
+          How Free Are You?
         </h1>
 
-        {/* Category icons */}
+        {/* Category icons moved back up */}
         <div className="flex justify-center space-x-8 md:space-x-20 relative">
           <div className="category-icon flex flex-col items-center space-y-2 relative">
             <div className="relative">
@@ -60,27 +60,28 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Value proposition cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          <div className="value-card">
-            <div className="text-3xl mb-3 text-[#17BEBB]">🔬</div>
-            <h3 className="text-lg font-bold mb-2">Neuroscience-Backed</h3>
-            <p className="text-sm">Discover insights powered by cutting-edge brain science from Dr. Morgan Carter, PhD.</p>
+        {/* Story section - moved from cards to above the fold */}
+        <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 md:p-8 text-left shadow-lg border border-white/30">
+          <p className="text-lg mb-4">
+            Your health, finances, and relationships shape the life you live. But how do you measure real freedom?
+          </p>
+          
+          <div className="mb-4">
+            <h3 className="text-lg font-bold mb-2">We've worked with over 7,000 people</h3>
+            <p>Coaching them to improve their health, financial independence, and relationships. Our approach is built on real-world experience and designed with scientific principles.</p>
           </div>
           
-          <div className="value-card">
-            <div className="text-3xl mb-3 text-[#17BEBB]">⚡</div>
-            <h3 className="text-lg font-bold mb-2">Quick Assessment</h3>
-            <p className="text-sm">Just 10 minutes to unlock your personalized freedom score and growth path.</p>
+          <div className="mb-4">
+            <h3 className="text-lg font-bold mb-2">Get clarity in just 9 minutes</h3>
+            <p>You'll receive a personalized freedom score — a clear, measurable look at where you stand in health, wealth, and relationships, plus actionable steps to improve.</p>
           </div>
           
-          <div className="value-card">
-            <div className="text-3xl mb-3 text-[#17BEBB]">🌱</div>
-            <h3 className="text-lg font-bold mb-2">Actionable Growth</h3>
-            <p className="text-sm">Get tailored insights to improve your health, finances, and relationships.</p>
+          <div>
+            <h3 className="text-lg font-bold mb-2">This isn't just another personality test</h3>
+            <p>The 9-Gauge Score helps you take control, showing you exactly where you're thriving, where you're stuck, and how to create more freedom in every part of your life.</p>
           </div>
         </div>
-        
+
         {/* Freedom Score Preview */}
         <div className="freedom-gauge">
           <div className="gauge-bg"></div>
@@ -90,7 +91,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* CTA button */}
+        {/* CTA button - moved up for better conversion */}
         <button 
           onClick={() => {
             console.log("Starting assessment");
@@ -106,17 +107,38 @@ const Index = () => {
         
         {/* Social proof */}
         <div className="text-white/90 text-sm mt-2">
-          Join over <span className="font-bold text-white">5,000+</span> people who have discovered their freedom potential
+          Join over <span className="font-bold text-white">7,000+</span> people who have discovered their freedom potential
         </div>
-      </div>
 
-      {/* Logo with improved styling */}
-      <img 
-        src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
-        alt="9 Gauge Logo" 
-        className="h-16 md:h-20 mx-auto mb-8 mt-auto filter drop-shadow-md"
-        style={{ animation: 'floatAnimation 6s ease-in-out infinite' }}
-      />
+        {/* Simplified benefit cards - just emoji, headline and a short sentence */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="value-card text-center py-6">
+            <div className="text-4xl mb-3">🔬</div>
+            <h3 className="text-lg font-bold mb-2">Backed by Science</h3>
+            <p className="text-sm">Created with Dr. Morgan Carter, PhD in Neuroscience</p>
+          </div>
+          
+          <div className="value-card text-center py-6">
+            <div className="text-4xl mb-3">⚡</div>
+            <h3 className="text-lg font-bold mb-2">9-Minute Assessment</h3>
+            <p className="text-sm">Get your personalized freedom score quickly</p>
+          </div>
+          
+          <div className="value-card text-center py-6">
+            <div className="text-4xl mb-3">🌱</div>
+            <h3 className="text-lg font-bold mb-2">Actionable Growth</h3>
+            <p className="text-sm">Practical steps to improve every area of your life</p>
+          </div>
+        </div>
+        
+        {/* Logo with improved styling */}
+        <img 
+          src="https://static.wixstatic.com/media/af616c_750d594b45cd42a4bb4f3290aad0fa61~mv2.png" 
+          alt="9 Gauge Logo" 
+          className="h-16 md:h-20 mx-auto mb-8 mt-auto filter drop-shadow-md"
+          style={{ animation: 'floatAnimation 6s ease-in-out infinite' }}
+        />
+      </div>
     </div>
   );
 };
