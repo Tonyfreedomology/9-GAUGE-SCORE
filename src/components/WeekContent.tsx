@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { SprintType } from "@/types";
 import { usePerspectiveEffect } from "@/lib/animations/scrollEffects";
 import { shineEffectVariants } from "@/lib/animations/textEffects";
-import { getWeekIcon } from "@/lib/imageUtils";
 
 type WeekContentProps = {
   title: string;
@@ -21,7 +20,6 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
   });
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isIconHovered, setIsIconHovered] = useState(false);
   const { elementRef: perspectiveRef, style: perspectiveStyle } = usePerspectiveEffect(3);
   
   // Scroll-driven animation for content reveal
@@ -57,9 +55,6 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
       transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
     };
   };
-
-  // Get week icon
-  const weekIcon = getWeekIcon(color, week);
 
   // For heading gradient
   const getHeadingColors = () => {
@@ -163,10 +158,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  <span className="inline-flex items-center">
-                    <span className="mr-2 text-2xl md:text-3xl" role="img" aria-label={weekIcon.alt}>{weekIcon.icon}</span>
-                    WEEK {week}: {title}
-                  </span>
+                  WEEK {week}: {title}
                   
                   {/* Shine effect overlay */}
                   <motion.div 
@@ -210,20 +202,6 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
                 dangerouslySetInnerHTML={{ __html: content }}
               />
               
-              {/* Week theme indicator */}
-              <div className="flex items-center mt-6 text-sm text-gray-500">
-                <div 
-                  className="flex items-center justify-center w-8 h-8 rounded-full mr-2 text-lg"
-                  style={{ 
-                    background: `${headingColors.accentLight}`,
-                    color: headingColors.start
-                  }}
-                >
-                  {weekIcon.icon}
-                </div>
-                <span>Focus: <span className="font-medium" style={{ color: headingColors.start }}>{weekIcon.alt}</span></span>
-              </div>
-              
               {/* Interactive content button for mobile */}
               <div className="mt-4 block md:hidden">
                 <motion.button
@@ -260,60 +238,6 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
                 }}
               >
                 {week}
-              </motion.div>
-              
-              {/* Icon floating above the week number */}
-              <motion.div
-                className="absolute bottom-16 right-12 z-20"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 260, 
-                  damping: 20, 
-                  delay: 0.3 
-                }}
-                whileHover={{ 
-                  scale: 1.2,
-                  rotate: [0, -10, 10, -5, 5, 0],
-                  transition: { duration: 0.5 }
-                }}
-                onMouseEnter={() => setIsIconHovered(true)}
-                onMouseLeave={() => setIsIconHovered(false)}
-              >
-                <div 
-                  className="flex items-center justify-center w-16 h-16 rounded-full shadow-lg"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${headingColors.start}, ${headingColors.end})`,
-                    boxShadow: `0 8px 32px ${headingColors.shadowColor}, 0 4px 8px rgba(0,0,0,0.1)`
-                  }}
-                >
-                  <span className="text-4xl" role="img" aria-label={weekIcon.alt}>
-                    {weekIcon.icon}
-                  </span>
-                </div>
-                
-                {/* Tooltip */}
-                {isIconHovered && (
-                  <motion.div
-                    className="absolute -top-10 right-0 bg-white px-3 py-1.5 rounded-lg shadow-lg whitespace-nowrap"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    style={{
-                      border: `1px solid ${headingColors.start}30`,
-                      boxShadow: `0 4px 12px ${headingColors.shadowColor}40`
-                    }}
-                  >
-                    <div className="text-sm font-medium" style={{ color: headingColors.start }}>
-                      {weekIcon.alt}
-                    </div>
-                    <div 
-                      className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white rotate-45"
-                      style={{ border: `1px solid ${headingColors.start}30`, borderTop: 'none', borderLeft: 'none' }}
-                    />
-                  </motion.div>
-                )}
               </motion.div>
             </div>
           </div>
