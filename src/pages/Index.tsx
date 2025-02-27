@@ -68,7 +68,7 @@ const Index = () => {
           
           <div className="mb-4">
             <h3 className="text-lg font-bold mb-2">We've worked with over 7,000 people</h3>
-            <p className="text-base">Coaching them to improve their health, financial independence, and relationships. Our approach is built on real-world experience and designed with scientific principles.</p>
+            <p className="text-base">Coaching them to improve their health, financial independence, and relationships. The 9-Gauge Score is built on this experience and designed in collaboration with <strong>Dr. Morgan Carter, PhD in Neuroscience</strong>, our lead scientific advisor.</p>
           </div>
           
           <div className="mb-4">
@@ -78,7 +78,7 @@ const Index = () => {
           
           <div>
             <h3 className="text-lg font-bold mb-2">This isn't just another personality test</h3>
-            <p className="text-base">The 9-Gauge Score helps you take control, showing you exactly where you're thriving, where you're stuck, and how to create more freedom in every part of your life.</p>
+            <p className="text-base">The 9-Gauge Score <strong>helps you take control</strong>, showing you exactly where you're thriving, where you're stuck, and how to create more freedom in every part of your life.</p>
           </div>
         </div>
 
@@ -115,7 +115,7 @@ const Index = () => {
           <div className="value-card text-center py-6">
             <div className="text-4xl mb-3">🔬</div>
             <h3 className="text-lg font-bold mb-2">Backed by Science</h3>
-            <p className="text-base">Created with Dr. Morgan Carter, PhD in Neuroscience</p>
+            <p className="text-base">Created in collaboration with Dr. Morgan Carter, PhD in Neuroscience</p>
           </div>
           
           <div className="value-card text-center py-6">
