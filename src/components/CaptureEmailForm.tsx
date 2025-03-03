@@ -79,7 +79,7 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
     >
       {/* Top section with highlight gradient */}
       <div className="relative pt-6 pb-3 px-8 md:px-10">
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#23F1EE] via-[#19AFAD] to-[#00805D]"></div>
+        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#22DFDC] via-[#19AFAD] to-[#00805D]"></div>
         <motion.h2 
           className="text-3xl md:text-4xl font-heading font-bold tracking-tighter lowercase mb-1 text-center bg-clip-text text-transparent bg-gradient-to-r from-gray-800 to-gray-600"
           initial={{ opacity: 0, y: 10 }}
@@ -155,7 +155,7 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full h-12 mt-2 bg-gradient-to-r from-[#23F1EE] to-[#19AFAD] text-white font-medium text-lg rounded-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden flex items-center justify-center"
+            className="w-full h-12 mt-2 bg-gradient-to-r from-[#22DFDC] to-[#19AFAD] text-white font-medium text-lg rounded-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden flex items-center justify-center"
             style={{ 
               boxShadow: '0 4px 12px rgba(25,175,173,0.4)'
             }}

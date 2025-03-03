@@ -16,9 +16,9 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   const getParticleColors = () => {
     switch (color) {
       case 'health':
-        return ['#23F1EE', '#1BEBE7', '#60F5F3', '#B3FCFA'];
+        return ['#22DFDC', '#1BEBE7', '#60F5F3', '#B3FCFA'];
       case 'financial':
-        return ['#00FFBA', '#00C896', '#07E6BE', '#80FFDC'];
+        return ['#22EDB6', '#00C896', '#07E6BE', '#80FFDC'];
       case 'relationships':
         return ['#FF105F', '#D10045', '#FF5088', '#FF9FBE'];
       default:

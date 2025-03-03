@@ -39,7 +39,7 @@
 }
 
 .text-financial {
-  color: #00FFBA;
+  color: #22EDB6;
   font-weight: bold;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .financial-gradient {
-  background: linear-gradient(90deg, #00FFBA, #40ffcc, #b0ffea);
+  background: linear-gradient(90deg, #22EDB6, #40ffcc, #b0ffea);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

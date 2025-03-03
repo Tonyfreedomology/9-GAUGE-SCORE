@@ -50,7 +50,7 @@
 
 /* Gradient Text */
 .text-gradient {
-  background: linear-gradient(90deg, #23F1EE, #00FFBA, #FF105F, #23F1EE);
+  background: linear-gradient(90deg, #22DFDC, #22EDB6, #FF105F, #22DFDC);
   background-size: 300% 100%;
   animation: gradient-shift 8s ease infinite;
   -webkit-background-clip: text;
@@ -117,7 +117,7 @@
 /* Enhanced CTA button */
 .cta-button {
   position: relative;
-  background: linear-gradient(90deg, #17BEBB, #23F1EE);
+  background: linear-gradient(90deg, #17BEBB, #22DFDC);
   background-size: 200% 100%;
   animation: gradient-shift 5s ease infinite;
   color: white;
@@ -182,7 +182,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: linear-gradient(90deg, #23F1EE, #00FFBA);
+  background: linear-gradient(90deg, #22DFDC, #22EDB6);
   /* Use a static clip-path instead of animation to prevent glitching */
   clip-path: polygon(50% 50%, 100% 50%, 100% 0, 0 0, 0 50%);
 }

@@ -28,7 +28,7 @@ export const createOverallScoreRing = ({ score, centerX, centerY }: OverallScore
     top: centerY - radius,
     radius: radius,
     fill: 'transparent',
-    stroke: '#23F1EE',
+    stroke: '#22DFDC',
     strokeWidth: 8,
     strokeDashArray: [Math.PI * radius * 2],
     strokeDashOffset: Math.PI * radius * 2 * (1 - score / 100),

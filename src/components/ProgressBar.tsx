@@ -70,12 +70,12 @@ export const ProgressBar = ({
       return (
         <linearGradient id="dynamic-weighted-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
           {/* Health segment */}
-          <stop offset="0%" stopColor="#23F1EE" />
-          <stop offset={healthStop} stopColor="#23F1EE" />
+          <stop offset="0%" stopColor="#22DFDC" />
+          <stop offset={healthStop} stopColor="#22DFDC" />
           
           {/* Financial segment */}
-          <stop offset={healthStop} stopColor="#00FFBA" />
-          <stop offset={financialStop} stopColor="#00FFBA" />
+          <stop offset={healthStop} stopColor="#22EDB6" />
+          <stop offset={financialStop} stopColor="#22EDB6" />
           
           {/* Relationships segment */}
           <stop offset={financialStop} stopColor="#FF105F" />
@@ -106,12 +106,12 @@ export const ProgressBar = ({
         >
           <defs>
             <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#23F1EE">
+              <stop offset="0%" stopColor="#22DFDC">
                 <animate 
                   attributeName="stop-color" 
                   calcMode="spline"
                   keyTimes="0; 0.5; 1"
-                  values="#23F1EE; #00E8A9; #23F1EE" 
+                  values="#22DFDC; #00E8A9; #22DFDC" 
                   keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
                   dur="8s"
                   repeatCount="indefinite"
@@ -126,7 +126,7 @@ export const ProgressBar = ({
               <stop offset="100%" stopColor="#00E8A9">
                 <animate
                   attributeName="stop-color"
-                  values="#00E8A9; #23F1EE; #00E8A9" 
+                  values="#00E8A9; #22DFDC; #00E8A9" 
                   keyTimes="0; 0.5; 1"
                   calcMode="spline"
                   keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
@@ -142,19 +142,19 @@ export const ProgressBar = ({
               </stop>
             </linearGradient>
             <linearGradient id="dynamic-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#23F1EE" />
-              <stop offset="33%" stopColor="#00FFBA" />
+              <stop offset="0%" stopColor="#22DFDC" />
+              <stop offset="33%" stopColor="#22EDB6" />
               <stop offset="66%" stopColor="#FF105F" />
             </linearGradient>
             {createDynamicGradient()}
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="6" result="blur" />
-              <feFlood floodColor="#23F1EE" floodOpacity="0.7" result="glow-color" />
+              <feFlood floodColor="#22DFDC" floodOpacity="0.7" result="glow-color" />
               <feComposite in="glow-color" in2="blur" operator="in" result="glow-blur" />
               <feComposite in="SourceGraphic" in2="glow-blur" operator="over" />
             </filter>
             <filter id="enhanced-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feFlood result="flood" floodColor="#23F1EE" floodOpacity="0.4"></feFlood>
+              <feFlood result="flood" floodColor="#22DFDC" floodOpacity="0.4"></feFlood>
               <feComposite in="flood" result="mask" in2="SourceGraphic" operator="in"></feComposite>
               <feGaussianBlur in="mask" result="blurred" stdDeviation="3"></feGaussianBlur>
               <feComposite in="SourceGraphic" in2="blurred" operator="over"></feComposite>

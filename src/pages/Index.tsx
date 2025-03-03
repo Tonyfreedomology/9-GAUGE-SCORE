@@ -16,8 +16,8 @@ const Index = () => {
       backgroundAttachment: 'fixed'
     }}>
       {/* Ambient light effects */}
-      <div className="ambient-light w-96 h-96 bg-[#23F1EE] top-[-10%] left-[-5%]" />
-      <div className="ambient-light w-80 h-80 bg-[#00FFBA] bottom-[10%] right-[-5%]" />
+      <div className="ambient-light w-96 h-96 bg-[#22DFDC] top-[-10%] left-[-5%]" />
+      <div className="ambient-light w-80 h-80 bg-[#22EDB6] bottom-[10%] right-[-5%]" />
       <div className="ambient-light w-60 h-60 bg-[#FF105F] bottom-[-10%] left-[20%]" />
       
       {/* Main content container */}

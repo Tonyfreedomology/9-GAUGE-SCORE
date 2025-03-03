@@ -37,11 +37,11 @@ export default {
         background: "hsl(var(--background))",
         foreground: "#242424",
         financial: {
-          DEFAULT: "#00FFBA",
+          DEFAULT: "#22EDB6",
           light: "#C8E7E8",
         },
         health: {
-          DEFAULT: "#23F1EE",
+          DEFAULT: "#22DFDC",
           light: "#E3FFFE",
         },
         relationships: {

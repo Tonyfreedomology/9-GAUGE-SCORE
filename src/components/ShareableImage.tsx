@@ -77,7 +77,7 @@ export const ShareableImage = ({
       scoreRingElements.forEach(element => canvas.add(element));
 
       const pillars = [
-        { name: 'HEALTH', color: '#23F1EE', categories: ['Mental', 'Physical', 'Environmental'] },
+        { name: 'HEALTH', color: '#22DFDC', categories: ['Mental', 'Physical', 'Environmental'] },
         { name: 'FINANCES', color: '#00805D', categories: ['Income', 'Independence', 'Impact'] },
         { name: 'RELATIONSHIPS', color: '#FF105F', categories: ['Others', 'Self', 'God'] }
       ];

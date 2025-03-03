@@ -22,7 +22,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
     
     switch (defaultSprint) {
       case 'Health':
-        return '#23F1EE';
+        return '#22DFDC';
       case 'Financial':
         return '#00E8A9';
       case 'Relationships':

@@ -77,7 +77,7 @@ export const ScoreCard = ({
       if (categoryScores) {
         // For the text, use only blue and green in the gradient (no red)
         return {
-          backgroundImage: 'linear-gradient(90deg, #23F1EE, #00FFBA)',
+          backgroundImage: 'linear-gradient(90deg, #22DFDC, #22EDB6)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -89,7 +89,7 @@ export const ScoreCard = ({
       
       // Default gradient if no category scores provided
       return {
-        backgroundImage: 'linear-gradient(90deg, #23F1EE, #00FFBA)',
+        backgroundImage: 'linear-gradient(90deg, #22DFDC, #22EDB6)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',

@@ -37,7 +37,7 @@ export const TextHighlight: React.FC<TextHighlightProps> = ({
       case 'health':
         return '#1BEBE7';
       case 'financial':
-        return '#00FFBA';
+        return '#22EDB6';
       case 'relationships':
         return '#FF105F';
       default:
