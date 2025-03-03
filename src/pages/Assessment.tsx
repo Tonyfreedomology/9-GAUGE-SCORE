@@ -26,9 +26,15 @@ const Assessment = () => {
     queryFn: fetchAssessmentData
   });
 
-  // Track assessment start when component mounts
+  // Track assessment start when component mounts - only once per session
   useEffect(() => {
-    trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
+    const hasStartedAssessment = localStorage.getItem('hasStartedAssessment');
+    
+    // Only fire the StartAssessment event if user hasn't started yet
+    if (!hasStartedAssessment) {
+      trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
+      localStorage.setItem('hasStartedAssessment', 'true');
+    }
   }, []);
 
   // Render the layout structure regardless of loading state
@@ -111,6 +117,8 @@ const Assessment = () => {
               const handleStartOver = () => {
                 setCurrentQuestionIndex(0);
                 setAnswers({});
+                // Clear the localStorage flag and fire StartAssessment again
+                localStorage.removeItem('hasStartedAssessment');
                 trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
               };
 

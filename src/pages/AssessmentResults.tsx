@@ -21,20 +21,16 @@ const AssessmentResults = () => {
       return;
     }
 
-    // Additional tracking for user with email
+    // Additional tracking for user with email - only keep CompleteRegistration
     trackFacebookEvent("CompleteRegistration", {
       first_name: userInfo.firstName,
       email: userInfo.email
     });
-    
-    // Also fire our custom complete assessment event
-    trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
-      total_questions_answered: Object.keys(answers).length,
-      email_captured: true
-    });
   }, [answers, categories, userInfo, navigate]);
 
   const handleStartOver = () => {
+    // Clear the localStorage flag to ensure StartAssessment will fire on restart
+    localStorage.removeItem('hasStartedAssessment');
     trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
     navigate("/assessment");
   };
