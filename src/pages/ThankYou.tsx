@@ -7,7 +7,10 @@ import { trackFacebookEvent } from "@/lib/utils/facebookTracking";
 const ThankYou = () => {
   const navigate = useNavigate();
 
-  // No additional tracking events needed beyond the default PageView
+  useEffect(() => {
+    // Track Facebook Lead event when the thank you page loads
+    trackFacebookEvent('Lead');
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-black">
