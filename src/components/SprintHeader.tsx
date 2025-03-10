@@ -85,7 +85,7 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
       background: `linear-gradient(135deg, ${colors.base} 0%, ${colors.mid1} 35%, ${colors.mid2} 70%, ${colors.end} 100%)`,
       backgroundSize: "200% 200%",
       animation: "weekHeadingGradient 8s ease infinite",
-      boxShadow: `0 15px 35px rgba(0,0,0,0.15), 0 5px 15px ${colors.base}40`,
+      boxShadow: `0 8px 16px rgba(0,0,0,0.08)`,
       WebkitBackgroundClip: isHovered ? "text" : "initial",
       WebkitTextFillColor: isHovered ? "transparent" : "initial",
       backgroundClip: isHovered ? "text" : "initial",
@@ -124,7 +124,7 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
           initial={{ opacity: 0.7 }}
           animate={{ opacity: 0.85, transition: { duration: 1.2, delay: 0.3 } }}
           style={{ 
-            background: `linear-gradient(135deg, ${colors.base}99 0%, ${colors.end}80 100%)`,
+            background: `linear-gradient(135deg, ${colors.base}80 0%, ${colors.end}60 100%)`,
             mixBlendMode: 'multiply'
           }}
         />
@@ -136,17 +136,7 @@ export const SprintHeader = ({ color, title, description }: { color: SprintType,
         </div>
       </div>
       
-      {/* Background glow effect */}
-      <div 
-        className="absolute inset-0 blur-2xl opacity-40 rounded-full z-10"
-        style={{ 
-          background: `radial-gradient(circle at center, ${colors.mid1} 0%, transparent 70%)`,
-          top: "-50%",
-          left: "-20%",
-          right: "-20%",
-          bottom: "-50%"
-        }}
-      />
+      {/* Removed glow effect for cleaner design */}
       
       {/* Main heading content with animated gradient background */}
       <div className="flex justify-center mb-2 relative z-20">

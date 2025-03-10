@@ -91,6 +91,8 @@ const Index = () => {
           </div>
         </div>
 
+
+
         {/* CTA button - moved up for better conversion */}
         <button 
           onClick={() => {

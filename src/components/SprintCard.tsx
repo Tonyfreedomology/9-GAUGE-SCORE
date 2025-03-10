@@ -11,7 +11,6 @@ import TextHighlight from "./TextHighlight";
 import { useRef, useState, useEffect } from "react";
 import { shineEffectVariants } from "@/lib/animations/textEffects";
 import { getBenefits } from "@/lib/benefits";
-
 import { SprintType } from "@/types";
 
 type SprintCardProps = {
@@ -72,21 +71,21 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     switch (capitalizedPillar) {
       case "Relationships":
         return {
-          background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,240,245,0.97) 100%)",
-          boxShadow: "0 15px 35px rgba(255,16,95,0.15), 0 5px 15px rgba(0,0,0,0.05)",
-          borderTop: "4px solid #FF105F"
+          background: "white",
+          boxShadow: "none",
+          borderLeft: "2px solid #FF105F"
         };
       case "Health":
         return {
-          background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(235,255,255,0.97) 100%)",
-          boxShadow: "0 15px 35px rgba(27,235,231,0.15), 0 5px 15px rgba(0,0,0,0.05)",
-          borderTop: "4px solid #1BEBE7"
+          background: "white",
+          boxShadow: "none",
+          borderLeft: "2px solid #1BEBE7"
         };
       case "Financial":
         return {
-          background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(230,255,240,0.97) 100%)",
-          boxShadow: "0 15px 35px rgba(0,232,169,0.15), 0 5px 15px rgba(0,0,0,0.05)",
-          borderTop: "4px solid #00E8A9"
+          background: "white",
+          boxShadow: "none",
+          borderLeft: "2px solid #00E8A9"
         };
       default:
         return {};
@@ -96,19 +95,19 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   const getPillColor = () => {
     const colors = getSprintColors(capitalizedPillar);
     return {
-      background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.secondary} 100%)`,
-      boxShadow: `0 4px 12px rgba(0,0,0,0.2)`
+      background: colors.primary,
+      boxShadow: `0 2px 8px rgba(0,0,0,0.1)`
     };
   };
 
   const getBackgroundTint = () => {
     switch (capitalizedPillar) {
       case "Relationships":
-        return "rgba(255,16,95,0.03)"; // Very subtle pink tint
+        return "rgba(255,16,95,0.008)"; // Almost imperceptible pink tint
       case "Health":
-        return "rgba(27,235,231,0.03)"; // Very subtle cyan tint
+        return "rgba(27,235,231,0.008)"; // Almost imperceptible cyan tint
       case "Financial":
-        return "rgba(0,232,169,0.03)"; // Very subtle green tint
+        return "rgba(0,232,169,0.008)"; // Almost imperceptible green tint
       default:
         return "rgba(255,255,255,0)";
     }
@@ -118,23 +117,23 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     switch (capitalizedPillar) {
       case "Relationships":
         return {
-          from: "rgba(255,255,255,0.9)",
-          to: "rgba(255,240,245,0.85)"
+          from: "rgba(255,255,255,0.95)",
+          to: "rgba(255,240,245,0.92)"
         };
       case "Health":
         return {
-          from: "rgba(255,255,255,0.9)",
-          to: "rgba(235,255,255,0.85)"
+          from: "rgba(255,255,255,0.95)",
+          to: "rgba(235,255,255,0.92)"
         };
       case "Financial":
         return {
-          from: "rgba(255,255,255,0.9)",
-          to: "rgba(230,255,240,0.85)"
+          from: "rgba(255,255,255,0.95)",
+          to: "rgba(230,255,240,0.92)"
         };
       default:
         return {
-          from: "rgba(255,255,255,0.9)",
-          to: "rgba(255,255,255,0.85)"
+          from: "rgba(255,255,255,0.95)",
+          to: "rgba(255,255,255,0.92)"
         };
     }
   };
@@ -143,31 +142,31 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
     switch (pillar) {
       case "Relationships":
         return {
-          primary: "#D10045",
-          secondary: "#9E0030",
-          darkAccent: "#780032",
-          lightAccent: "rgba(209, 0, 69, 0.1)",
+          primary: "#FF105F",
+          secondary: "#FF105F",
+          darkAccent: "#D10045",
+          lightAccent: "rgba(209, 0, 69, 0.05)",
         };
       case "Health":
         return {
           primary: "#1BEBE7",
-          secondary: "#60F5F3",
+          secondary: "#1BEBE7",
           darkAccent: "#00C5C3",
-          lightAccent: "rgba(27, 235, 231, 0.1)",
+          lightAccent: "rgba(27, 235, 231, 0.05)",
         };
       case "Financial":
         return {
           primary: "#00E8A9",
-          secondary: "#00A57D",
-          darkAccent: "#006647",
-          lightAccent: "rgba(0, 232, 169, 0.1)",
+          secondary: "#00E8A9",
+          darkAccent: "#00A57D",
+          lightAccent: "rgba(0, 232, 169, 0.05)",
         };
       default:
         return {
           primary: "#888888",
-          secondary: "#AAAAAA",
+          secondary: "#888888",
           darkAccent: "#666666",
-          lightAccent: "rgba(136, 136, 136, 0.1)",
+          lightAccent: "rgba(136, 136, 136, 0.05)",
         };
     }
   };
@@ -217,7 +216,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   return (
     <motion.div 
       ref={containerRef}
-      className="backdrop-blur-sm p-3 sm:p-4 md:p-8 text-foreground overflow-hidden relative w-full sm:rounded-2xl"
+      className="p-3 sm:p-4 md:p-8 text-foreground overflow-hidden relative w-full sm:rounded-2xl"
       style={{
         ...getCardStyle(),
         width: isSmallScreen ? '100vw' : 'auto',

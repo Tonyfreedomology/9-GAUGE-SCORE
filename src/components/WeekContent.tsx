@@ -50,8 +50,8 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
     let baseColor = getBorderColor();
     return {
       borderLeft: `4px solid ${baseColor}`,
-      background: "linear-gradient(135deg, #ffffff 0%, rgba(251, 251, 251, 0.95) 65%, rgba(248, 248, 248, 0.85) 100%)",
-      boxShadow: `0 15px 35px ${baseColor}30, 0 8px 20px rgba(0,0,0,0.06)`,
+      background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+      boxShadow: `0 8px 24px ${baseColor}15`,
       transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
     };
   };
@@ -111,7 +111,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
         }`}
         style={{
           ...getBackgroundEffect(),
-          ...(isHovered && { boxShadow: `0 22px 45px ${headingColors.shadowColor}, 0 12px 28px rgba(0,0,0,0.08)` })
+          ...(isHovered && { boxShadow: `0 12px 32px ${headingColors.shadowColor}` })
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -198,7 +198,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
               }}
             >
               <div 
-                className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-800 prose-p:text-gray-700 prose-strong:text-gray-800 prose-ul:text-gray-700 relative"
+                className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-gray-200 prose-strong:text-white prose-ul:text-gray-200 relative"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             </motion.div>

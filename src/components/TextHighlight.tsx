@@ -33,6 +33,11 @@ export const TextHighlight: React.FC<TextHighlightProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   
   const getColor = () => {
+    // Special case for H40 text
+    if (text.toLowerCase() === 'h40') {
+      return '#2D3748';
+    }
+
     switch (color) {
       case 'health':
         return '#1BEBE7';

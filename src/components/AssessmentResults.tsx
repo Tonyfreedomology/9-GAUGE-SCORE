@@ -135,7 +135,7 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
       </div>
 
       {/* Next Steps section - negative margin to eliminate gap on mobile */}
-      <div className="w-full max-w-none sm:max-w-4xl mx-auto px-0 sm:px-2 md:px-4 py-0 sm:py-8 md:py-16 -mt-1 sm:mt-8">
+      <div className="w-full max-w-none sm:max-w-4xl mx-auto px-0 sm:px-2 md:px-4 py-0 sm:py-8 md:py-16 -mt-1 sm:mt-8 bg-transparent">
         <div className="relative bg-[#363636] sm:bg-transparent py-4 sm:py-0">
           <motion.h2 
             className="text-[6rem] sm:text-[6rem] md:text-[10rem] font-heading font-bold text-white mb-4 md:mb-8 text-center relative z-20 tracking-tighter lowercase"

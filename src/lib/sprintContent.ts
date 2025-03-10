@@ -45,7 +45,7 @@ export const sprintContent: Record<string, SprintContent> = {
   <div class="absolute -top-12 -left-12 w-32 h-32 bg-[#1BEBE7]/5 rounded-full blur-xl pointer-events-none"></div>
 </div>
 
-<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps you need to take to:</p>
+<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch.<br /><br />We'll show you the exact steps you need to take to:</p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-[#1BEBE7]/20 shadow-sm">
   <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
@@ -94,7 +94,6 @@ export const sprintContent: Record<string, SprintContent> = {
   
   <div class="text-center my-6">
     <p class="text-lg mb-3">We created a 6 week challenge called <span class="font-bold text-xl text-[#00E8A9]">F40</span> that's designed to completely transform your <u>income, independence, and impact.</u></p>
-    <div class="w-16 h-1 bg-[#00E8A9] mx-auto rounded-full"></div>
   </div>
 
   <div class="bg-gradient-to-r from-[#F5FFF9] to-[#E4FFF4] p-4 rounded-xl border border-[#00E8A9]/20 shadow-sm mb-8 text-center">
@@ -123,7 +122,7 @@ export const sprintContent: Record<string, SprintContent> = {
   <div class="absolute -top-12 -left-12 w-32 h-32 bg-[#00E8A9]/5 rounded-full blur-xl pointer-events-none"></div>
 </div>
 
-<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the exact steps to:</p>
+<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch.<br /><br />We'll show you the exact steps to:</p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-[#00E8A9]/20 shadow-sm">
   <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">
@@ -201,7 +200,7 @@ export const sprintContent: Record<string, SprintContent> = {
   <div class="absolute -top-12 -left-12 w-32 h-32 bg-[#D10045]/5 rounded-full blur-xl pointer-events-none"></div>
 </div>
 
-<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch. We'll show you the <strong>exact steps</strong> you need to take to <em> improve all your relatoinships </em> and discover new ways to live. You'll learn to:</p>
+<p class="text-lg text-center font-medium">Join the waitlist below, and you'll get an email as soon as we launch.<br /><br />We'll show you the exact steps you need to take to:</p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-[#D10045]/20 shadow-sm">
   <div class="flex items-center gap-2 group transition-all duration-300 hover:translate-x-1">

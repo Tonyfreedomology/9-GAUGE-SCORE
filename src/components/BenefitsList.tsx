@@ -19,30 +19,26 @@ export const BenefitsList: React.FC<BenefitProps> = ({
       case 'health':
         return {
           primary: '#1BEBE7',
-          text: '#00A5A2',
-          bg: 'rgba(27, 235, 231, 0.08)',
-          border: 'rgba(27, 235, 231, 0.2)'
+          text: '#2D3748',
+          border: '#1BEBE7'
         };
       case 'financial':
         return {
           primary: '#00E8A9',
-          text: '#00805D',
-          bg: 'rgba(0, 232, 169, 0.08)',
-          border: 'rgba(0, 232, 169, 0.2)'
+          text: '#2D3748',
+          border: '#00E8A9'
         };
       case 'relationships':
         return {
           primary: '#D10045',
-          text: '#D10045',
-          bg: 'rgba(209, 0, 69, 0.08)',
-          border: 'rgba(209, 0, 69, 0.2)'
+          text: '#2D3748',
+          border: '#D10045'
         };
       default:
         return {
           primary: '#1BEBE7',
-          text: '#00A5A2',
-          bg: 'rgba(27, 235, 231, 0.08)',
-          border: 'rgba(27, 235, 231, 0.2)'
+          text: '#2D3748',
+          border: '#1BEBE7'
         };
     }
   };
@@ -83,16 +79,17 @@ export const BenefitsList: React.FC<BenefitProps> = ({
           <div 
             className="flex items-center p-3 rounded-lg w-full group transition-all duration-300"
             style={{ 
-              background: colors.bg,
-              border: `1px solid ${colors.border}`
+              background: 'white',
+              border: `1px solid ${colors.border}40`
             }}
           >
             <div 
-              className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-3"
-              style={{ background: colors.primary }}
+              className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mr-3"
+              style={{ background: `${colors.primary}20`, border: `1.5px solid ${colors.primary}` }}
             >
               <svg 
-                className="w-3.5 h-3.5 text-white" 
+                className="w-3 h-3"
+                style={{ color: colors.primary }} 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
