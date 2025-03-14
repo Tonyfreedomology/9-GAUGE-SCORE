@@ -35,19 +35,47 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
       }
 
       // Create contact in GHL using Supabase Edge Function
-      const { error: ghlError } = await supabase.functions.invoke(
-        'create-ghl-contact',
-        {
-          body: JSON.stringify({
-            firstName,
-            email,
-            source: "Assessment",
-          }),
-        }
-      );
+      console.log(`Attempting to create GHL contact for ${email} with Assessment tag`);
+      
+      try {
+        const { data: ghlData, error: ghlError } = await supabase.functions.invoke(
+          'create-ghl-contact',
+          {
+            body: JSON.stringify({
+              firstName,
+              email,
+              source: "Assessment",
+            }),
+          }
+        );
 
-      if (ghlError) {
-        console.error('GHL API Error:', ghlError);
+        if (ghlError) {
+          console.error('GHL API Error:', ghlError);
+          // Log to analytics or monitoring service if available
+          // Using type assertion for dataLayer since it's added by Google Tag Manager
+          (window as any).dataLayer?.push({
+            event: 'ghl_error',
+            error_type: 'api_error',
+            error_message: ghlError.message || 'Unknown GHL error',
+            user_email: email
+          });
+          
+          // We don't throw here to allow the user to continue to results
+          // But we do want to track these failures
+        } else {
+          console.log('Successfully created GHL contact:', ghlData);
+        }
+      } catch (ghlIntegrationError) {
+        // This catches any unexpected errors in the function invocation itself
+        console.error('Unexpected GHL integration error:', ghlIntegrationError);
+        // Using type assertion for dataLayer since it's added by Google Tag Manager
+        (window as any).dataLayer?.push({
+          event: 'ghl_error',
+          error_type: 'integration_error',
+          error_message: ghlIntegrationError.message || 'Unknown integration error',
+          user_email: email
+        });
+        // Still don't throw, let the user continue to results
       }
 
       // Track lead capture event with Meta Pixel
