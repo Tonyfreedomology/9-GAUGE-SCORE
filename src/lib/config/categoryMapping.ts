@@ -1,3 +1,4 @@
+
 export const categoryToPillarMapping: Record<string, { pillar: string; displayName: string }> = {
   'Mental Health': { pillar: 'Health', displayName: 'Mental Health' },
   'Physical Health': { pillar: 'Health', displayName: 'Physical Health' },
