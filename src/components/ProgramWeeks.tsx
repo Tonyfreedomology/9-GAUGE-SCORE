@@ -1,3 +1,4 @@
+
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
@@ -46,12 +47,12 @@ export const ProgramWeeks = ({ pillarName }: ProgramWeeksProps) => {
             <div className="space-y-12">
               {program.weeks.map((week, index) => (
                 <WeekContent
-                  color={week.color}
-                  index={index}
-                  number={week.number}
+                  key={week.title}
                   title={week.title}
                   description={week.description}
-                  key={week.title}
+                  number={week.number}
+                  color={program.color}
+                  index={index}
                 />
               ))}
             </div>

@@ -1,3 +1,4 @@
+
 import { useInView } from "react-intersection-observer";
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -7,12 +8,13 @@ import { shineEffectVariants } from "@/lib/animations/textEffects";
 
 type WeekContentProps = {
   title: string;
-  content: string;
+  description: string; // Changed from 'content' to match what ProgramWeeks passes
   color: SprintType;
-  week: number;
+  number: string; // Added to match what ProgramWeeks passes
+  index: number; // Added to match what ProgramWeeks passes
 };
 
-export const WeekContent = ({ title, content, color, week }: WeekContentProps) => {
+export const WeekContent = ({ title, description, color, number, index }: WeekContentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -95,6 +97,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
   };
 
   const headingColors = getHeadingColors();
+  const weekNumber = parseInt(number, 10); // Convert string number to integer
 
   return (
     <motion.div
@@ -158,7 +161,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
                     letterSpacing: "-0.03em",
                   }}
                 >
-                  WEEK {week}: {title}
+                  WEEK {weekNumber}: {title}
                   
                   {/* Shine effect overlay */}
                   <motion.div 
@@ -199,7 +202,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
             >
               <div 
                 className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-gray-200 prose-strong:text-white prose-ul:text-gray-200 relative"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: description }} // Changed from content to description
               />
             </motion.div>
             
@@ -221,7 +224,7 @@ export const WeekContent = ({ title, content, color, week }: WeekContentProps) =
                   ...(isHovered && { transform: "scale(1.05)" })
                 }}
               >
-                {week}
+                {weekNumber}
               </motion.div>
             </div>
           </div>

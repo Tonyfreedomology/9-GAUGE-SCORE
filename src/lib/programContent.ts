@@ -1,3 +1,4 @@
+
 import { SprintType } from "@/types";
 import { ReactNode } from "react";
 
@@ -5,6 +6,7 @@ export type WeekContent = {
   number: string;
   title: string;
   description: string;
+  color?: SprintType; // Added as optional in case it's needed
 };
 
 export type ProgramContent = {
