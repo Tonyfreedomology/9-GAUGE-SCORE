@@ -1,4 +1,3 @@
-
 import { useRef, useEffect } from "react";
 import { NextSteps } from "./NextSteps";
 import { ResultsHeader } from "./results/ResultsHeader";
@@ -92,57 +91,6 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
     return mapping;
   };
 
-  const getCategoryScores = () => {
-    // Group the categories by pillar
-    const healthCategories: AssessmentCategory[] = [];
-    const financialCategories: AssessmentCategory[] = [];
-    const relationshipCategories: AssessmentCategory[] = [];
-    
-    categories.forEach(category => {
-      const mapping = findPillarForCategory(category.display_name);
-      if (mapping) {
-        switch (mapping.pillar) {
-          case 'Health':
-            healthCategories.push(category);
-            break;
-          case 'Financial':
-            financialCategories.push(category);
-            break;
-          case 'Relationships':
-            relationshipCategories.push(category);
-            break;
-        }
-      }
-    });
-    
-    // Calculate scores with safeguards against division by zero
-    const calculateAvgScore = (cats: AssessmentCategory[]) => {
-      if (cats.length === 0) return 0;
-      
-      let totalScore = 0;
-      let validCategories = 0;
-      
-      cats.forEach(cat => {
-        const score = calculateCategoryScore(cat.questions, answers);
-        if (score > 0) {  // Only include valid scores
-          totalScore += score;
-          validCategories++;
-        }
-      });
-      
-      return validCategories > 0 ? totalScore / validCategories : 0;
-    };
-    
-    return {
-      health: calculateAvgScore(healthCategories),
-      financial: calculateAvgScore(financialCategories),
-      relationships: calculateAvgScore(relationshipCategories)
-    };
-  };
-
-  const categoryScores = getCategoryScores();
-  const lowestCategory = findLowestCategory();
-
   return (
     <div className="relative z-10 w-full max-w-5xl mx-auto space-y-0 md:space-y-12 px-0">
       <div 
@@ -163,7 +111,6 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
             color="#17BEBB"
             isOverallScore={true}
             hideSubtext={true}
-            categoryScores={categoryScores}
           />
         </div>
 
@@ -190,7 +137,7 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
             Next Steps
           </motion.h2>
         </div>
-        <NextSteps lowestPillar={lowestCategory} onStartOver={onStartOver} />
+        <NextSteps lowestPillar={findLowestCategory()} onStartOver={onStartOver} />
       </div>
     </div>
   );

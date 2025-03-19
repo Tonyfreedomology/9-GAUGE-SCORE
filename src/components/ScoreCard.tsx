@@ -13,11 +13,6 @@ type ScoreCardProps = {
   className?: string;
   isOverallScore?: boolean;
   hideSubtext?: boolean;
-  categoryScores?: {
-    health: number;
-    financial: number;
-    relationships: number;
-  };
 };
 
 export const ScoreCard = ({ 
@@ -26,8 +21,7 @@ export const ScoreCard = ({
   color, 
   className, 
   isOverallScore = false,
-  hideSubtext = false,
-  categoryScores
+  hideSubtext = false
 }: ScoreCardProps) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -115,7 +109,6 @@ export const ScoreCard = ({
             color={isOverallScore ? 'url(#blue-gradient)' : color} 
             variant="circle"
             size={isOverallScore ? 240 : 200}
-            categoryScores={isOverallScore ? categoryScores : undefined}
           />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
