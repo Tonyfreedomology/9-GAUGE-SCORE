@@ -46,11 +46,12 @@ export const ProgramWeeks = ({ pillarName }: ProgramWeeksProps) => {
             <div className="space-y-12">
               {program.weeks.map((week, index) => (
                 <WeekContent
-                  key={week.number}
-                  {...week}
-                  color={program.color}
-                  isOpen={isOpen}
+                  color={week.color}
                   index={index}
+                  number={week.number}
+                  title={week.title}
+                  description={week.description}
+                  key={week.title}
                 />
               ))}
             </div>

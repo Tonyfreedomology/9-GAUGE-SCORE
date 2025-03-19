@@ -13,7 +13,6 @@ export const ScoreLineChart = ({ answers, categories }: {
 }) => {
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
-    console.log('Processing category:', categoryName);
     
     const matchingEntry = categoryToPillarMapping[categoryName];
     
@@ -27,7 +26,6 @@ export const ScoreLineChart = ({ answers, categories }: {
       const totalQuestions = category.questions.length;
       const totalScore = category.questions.reduce((sum, q) => {
         const answer = answers[q.id] || 0;
-        console.log(`Question ${q.id} (${q.question_text}) answer:`, answer);
         return sum + answer;
       }, 0);
       
@@ -35,8 +33,6 @@ export const ScoreLineChart = ({ answers, categories }: {
       const score = totalQuestions > 0 
         ? Math.round((totalScore / (totalQuestions * 5)) * 100)
         : 0;
-        
-      console.log(`Category ${categoryName} - Total: ${totalScore}, Questions: ${totalQuestions}, Final Score: ${score}`);
       
       acc[pillar].push({
         label: displayName,
@@ -48,6 +44,12 @@ export const ScoreLineChart = ({ answers, categories }: {
     
     return acc;
   }, {} as Record<string, { label: string; score: number; }[]>);
+
+  // Ensure categories within each pillar are in a consistent order
+  Object.keys(groupedCategories).forEach(pillar => {
+    // Sort categories within each pillar alphabetically by label
+    groupedCategories[pillar].sort((a, b) => a.label.localeCompare(b.label));
+  });
 
   return (
     <div className="grid gap-16">
