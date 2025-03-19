@@ -39,12 +39,6 @@ const ThankYou = () => {
             Your journey towards freedom and financial independence starts now. We'll be in touch soon with personalized insights and strategies tailored to your assessment results.
           </p>
 
-          <div className="bg-white/10 p-4 rounded-lg mb-8 border border-white/20">
-            <p className="text-white/90 text-lg">
-              <span className="font-semibold">Important:</span> Please check your spam or promotions folder if you don't see our email in your inbox. Add <span className="font-mono bg-white/20 px-2 py-1 rounded">hello@freedomology.com</span> to your contacts to ensure you receive all future communications.
-            </p>
-          </div>
-
           <p className="text-lg text-white/80 mb-12">
             In the meantime, why not share this assessment with others who might benefit from understanding their own freedom score?
           </p>
