@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -47,21 +48,28 @@ export const ProgressBar = ({
     const circumference = 2 * Math.PI * radius;
     const progress = ((100 - animatedValue) / 100) * circumference;
 
-    // Use dynamic gradient if category scores are provided, otherwise use the blue-green gradient
-    const gradientToUse = categoryScores 
-      ? 'url(#dynamic-weighted-gradient)' 
-      : 'url(#blue-gradient)';
+    // Determine which gradient to use based on whether we have category scores
+    let strokeColor = 'url(#blue-gradient)';
+    
+    if (categoryScores) {
+      const total = categoryScores.health + categoryScores.financial + categoryScores.relationships;
+      
+      if (total > 0) {
+        strokeColor = 'url(#dynamic-weighted-gradient)';
+      }
+    }
 
     // Create dynamic weighted gradient for the circle stroke
     const createDynamicGradient = () => {
       if (!categoryScores) return null;
-
+      
       const total = categoryScores.health + categoryScores.financial + categoryScores.relationships;
+      
+      if (total === 0) return null;
       
       // Calculate percentages for each category
       const healthPercent = Math.round((categoryScores.health / total) * 100);
       const financialPercent = Math.round((categoryScores.financial / total) * 100);
-      const relationshipsPercent = Math.round((categoryScores.relationships / total) * 100);
       
       // Position the stops based on category weights with distinct color segments (no blending)
       const healthStop = `${healthPercent}%`;
@@ -69,15 +77,15 @@ export const ProgressBar = ({
       
       return (
         <linearGradient id="dynamic-weighted-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
-          {/* Health segment */}
-          <stop offset="0%" stopColor="#22DFDC" />
-          <stop offset={healthStop} stopColor="#22DFDC" />
+          {/* Health segment - Cyan */}
+          <stop offset="0%" stopColor="#1BEBE7" />
+          <stop offset={healthStop} stopColor="#1BEBE7" />
           
-          {/* Financial segment */}
+          {/* Financial segment - Green */}
           <stop offset={healthStop} stopColor="#22EDB6" />
           <stop offset={financialStop} stopColor="#22EDB6" />
           
-          {/* Relationships segment */}
+          {/* Relationships segment - Pink/Red */}
           <stop offset={financialStop} stopColor="#FF105F" />
           <stop offset="100%" stopColor="#FF105F" />
         </linearGradient>
@@ -141,11 +149,6 @@ export const ProgressBar = ({
                 />
               </stop>
             </linearGradient>
-            <linearGradient id="dynamic-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#22DFDC" />
-              <stop offset="33%" stopColor="#22EDB6" />
-              <stop offset="66%" stopColor="#FF105F" />
-            </linearGradient>
             {createDynamicGradient()}
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="6" result="blur" />
@@ -178,7 +181,7 @@ export const ProgressBar = ({
           <circle
             className="transition-all duration-2000 ease-out"
             strokeWidth={10}
-            stroke={gradientToUse}
+            stroke={strokeColor}
             fill="transparent"
             r={radius}
             cx="50"
@@ -188,36 +191,32 @@ export const ProgressBar = ({
             strokeLinecap="round"
             filter="url(#enhanced-glow)"
           >
-            {color === 'url(#blue-gradient)' && (
-              <>
-                <animate 
-                  attributeName="stroke-dashoffset" 
-                  from={circumference} 
-                  to={progress} 
-                  dur="2s"
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.42 0 0.58 1"
-                  repeatCount="1"
-                />
-                <animateTransform
-                  attributeName="transform"
-                  type="rotate"
-                  from="0 50 50"
-                  to="360 50 50"
-                  dur="30s"
-                  repeatCount="indefinite"
-                  additive="sum"
-                />
-              </>
-            )}
+            <animate 
+              attributeName="stroke-dashoffset" 
+              from={circumference} 
+              to={progress} 
+              dur="2s"
+              fill="freeze"
+              calcMode="spline"
+              keySplines="0.42 0 0.58 1"
+              repeatCount="1"
+            />
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50 50"
+              to="360 50 50"
+              dur="30s"
+              repeatCount="indefinite"
+              additive="sum"
+            />
           </circle>
         </svg>
       </div>
     );
   }
 
-  // For the horizontal progress bars, we'll use a new approach to fix the sync issue
+  // For the horizontal progress bars
   return (
     <div className={cn(
       "w-full h-3 bg-secondary/30 rounded-full overflow-hidden",
@@ -226,12 +225,11 @@ export const ProgressBar = ({
       <div
         className="h-full rounded-full"
         style={{
-          width: `${animatedValue}%`, // Use animated value directly
+          width: `${animatedValue}%`,
           background: `linear-gradient(to right, ${color}, ${color}CC)`,
-          transition: 'width 2s ease-out' // Use CSS transition instead of keyframes
+          transition: 'width 2s ease-out'
         }}
-      >
-      </div>
+      />
     </div>
   );
 };

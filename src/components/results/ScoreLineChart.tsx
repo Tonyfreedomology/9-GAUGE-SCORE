@@ -11,10 +11,37 @@ export const ScoreLineChart = ({ answers, categories }: {
   answers: Record<string, number>;
   categories: Category[];
 }) => {
+  // Initialize all pillar groups to ensure we have entries even if no categories are found
+  const initialGroups: Record<string, { label: string; score: number; }[]> = {};
+  pillarOrder.forEach(pillar => {
+    initialGroups[pillar] = [];
+  });
+
   const groupedCategories = categories.reduce((acc, category) => {
     const categoryName = category.display_name;
     
-    const matchingEntry = categoryToPillarMapping[categoryName];
+    // Find the mapping by exact match or partial match
+    let matchingEntry = categoryToPillarMapping[categoryName];
+    
+    if (!matchingEntry) {
+      // Try to find a partial match if no exact match is found
+      const matchingKey = Object.keys(categoryToPillarMapping).find(key => 
+        categoryName.includes(key) || key.includes(categoryName)
+      );
+      
+      if (matchingKey) {
+        matchingEntry = categoryToPillarMapping[matchingKey];
+      } else {
+        // Determine pillar based on category name patterns
+        if (categoryName.includes('Mental') || categoryName.includes('Physical') || categoryName.includes('Environmental')) {
+          matchingEntry = { pillar: 'Health', displayName: categoryName };
+        } else if (categoryName.includes('Income') || categoryName.includes('Independen') || categoryName.includes('Impact')) {
+          matchingEntry = { pillar: 'Financial', displayName: categoryName };
+        } else {
+          matchingEntry = { pillar: 'Relationships', displayName: categoryName };
+        }
+      }
+    }
     
     if (matchingEntry) {
       const { pillar, displayName } = matchingEntry;
@@ -29,7 +56,7 @@ export const ScoreLineChart = ({ answers, categories }: {
       
       category.questions.forEach(q => {
         const answer = answers[q.id];
-        if (typeof answer === 'number') {
+        if (typeof answer === 'number' && answer > 0) {
           totalScore += answer;
           answeredQuestions++;
         }
@@ -49,7 +76,7 @@ export const ScoreLineChart = ({ answers, categories }: {
     }
     
     return acc;
-  }, {} as Record<string, { label: string; score: number; }[]>);
+  }, initialGroups);
 
   // Ensure categories within each pillar are in a consistent order
   Object.keys(groupedCategories).forEach(pillar => {

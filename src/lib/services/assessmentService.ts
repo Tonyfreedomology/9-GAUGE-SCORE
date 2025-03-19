@@ -132,13 +132,17 @@ export const calculateCategoryScore = (
 
   questions.forEach(question => {
     const answer = answers[question.id];
-    if (typeof answer === 'number') {
+    if (typeof answer === 'number' && answer > 0) {
       totalScore += answer;
       answeredQuestions++;
     }
   });
 
-  return answeredQuestions ? Math.round((totalScore / (answeredQuestions * 5)) * 100) : 0;
+  // If no questions were answered, return 0
+  if (answeredQuestions === 0) return 0;
+  
+  // Calculate score as percentage
+  return Math.round((totalScore / (answeredQuestions * 5)) * 100);
 };
 
 export const calculateOverallScore = (
@@ -147,12 +151,14 @@ export const calculateOverallScore = (
   })[],
   answers: Record<string, number>
 ): number => {
+  // Calculate scores for each category and filter out zeros
   const categoryScores = categories.map(category => 
     calculateCategoryScore(category.questions, answers)
   ).filter(score => score > 0); // Only include valid scores
   
   if (categoryScores.length === 0) return 0;
 
+  // Average the scores
   return Math.round(
     categoryScores.reduce((sum, score) => sum + score, 0) / categoryScores.length
   );

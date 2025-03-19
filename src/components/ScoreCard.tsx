@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { getFeedbackTier } from "@/lib/questions";
@@ -74,20 +75,7 @@ export const ScoreCard = ({
   // Get gradient style for overall score
   const getScoreStyle = () => {
     if (isOverallScore) {
-      if (categoryScores) {
-        // For the text, use only blue and green in the gradient (no red)
-        return {
-          backgroundImage: 'linear-gradient(90deg, #22DFDC, #22EDB6)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-          backgroundSize: '200% 200%',
-          animation: 'gradient-shine 10s ease infinite',
-          filter: 'drop-shadow(0 0 6px rgba(35, 241, 238, 0.5))'
-        } as React.CSSProperties;
-      }
-      
-      // Default gradient if no category scores provided
+      // For the text, use cyan-to-green gradient
       return {
         backgroundImage: 'linear-gradient(90deg, #22DFDC, #22EDB6)',
         WebkitBackgroundClip: 'text',
@@ -98,6 +86,7 @@ export const ScoreCard = ({
         filter: 'drop-shadow(0 0 6px rgba(35, 241, 238, 0.5))'
       } as React.CSSProperties;
     }
+    
     return {
       color,
       '--glow-color': getRgbValues(color),

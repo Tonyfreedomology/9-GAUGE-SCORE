@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -20,7 +21,7 @@ export const ScoreLine = ({ score, label, color, delay = 0 }: ScoreLineProps) =>
     if (inView) {
       const scoreTimer = setTimeout(() => {
         const duration = 2000;
-        const steps = 100;
+        const steps = 60;
         
         const easeInOutQuad = (t: number) => {
           return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;

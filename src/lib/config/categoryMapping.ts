@@ -8,7 +8,12 @@ export const categoryToPillarMapping: Record<string, { pillar: string; displayNa
   'Impact': { pillar: 'Financial', displayName: 'Impact' },
   'Relationships with Others': { pillar: 'Relationships', displayName: 'Relationships with Others' },
   'Relationship with Self': { pillar: 'Relationships', displayName: 'Relationship with Self' },
-  'Relationship with God': { pillar: 'Relationships', displayName: 'Relationship with God' }
+  'Relationship with God': { pillar: 'Relationships', displayName: 'Relationship with God' },
+  // Add fallback mappings for generic category names
+  'Health': { pillar: 'Health', displayName: 'Health' },
+  'Finance': { pillar: 'Financial', displayName: 'Finance' },
+  'Financial': { pillar: 'Financial', displayName: 'Financial' },
+  'Relationships': { pillar: 'Relationships', displayName: 'Relationships' }
 };
 
 export const pillarColors = {
