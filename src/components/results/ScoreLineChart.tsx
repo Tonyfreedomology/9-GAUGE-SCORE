@@ -1,6 +1,8 @@
+
 import { Database } from "@/integrations/supabase/types";
 import { PillarScores } from "./PillarScores";
 import { categoryToPillarMapping, pillarColors, pillarOrder } from "@/lib/config/categoryMapping";
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
@@ -64,12 +66,56 @@ export const ScoreLineChart = ({ answers, categories }: {
     <div className="grid gap-16">
       {pillarOrder.map(pillar => 
         groupedCategories[pillar] && groupedCategories[pillar].length > 0 && (
-          <PillarScores
-            key={pillar}
-            title={pillar}
-            scores={groupedCategories[pillar]}
-            color={pillarColors[pillar]}
-          />
+          <div key={pillar} className="space-y-8">
+            <PillarScores
+              title={pillar}
+              scores={groupedCategories[pillar]}
+              color={pillarColors[pillar]}
+            />
+            
+            {/* Add a chart visualization for each pillar */}
+            <div className="h-[200px] w-full px-4 mt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  data={groupedCategories[pillar].map(item => ({
+                    name: item.label,
+                    value: item.score,
+                  }))}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                  <XAxis 
+                    dataKey="name" 
+                    tick={{ fill: "#ffffff", opacity: 0.7 }}
+                    axisLine={{ stroke: "#ffffff", opacity: 0.3 }}
+                  />
+                  <YAxis 
+                    domain={[0, 100]}
+                    tick={{ fill: "#ffffff", opacity: 0.7 }}
+                    axisLine={{ stroke: "#ffffff", opacity: 0.3 }}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: "rgba(0,0,0,0.85)", 
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "6px",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+                    }}
+                    labelStyle={{ color: "#fff", fontWeight: "bold" }}
+                    formatter={(value) => [`${value}%`, "Score"]}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="value" 
+                    stroke={pillarColors[pillar]} 
+                    fill={pillarColors[pillar]} 
+                    fillOpacity={0.3}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         )
       )}
     </div>
