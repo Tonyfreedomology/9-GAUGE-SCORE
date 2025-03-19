@@ -9,6 +9,7 @@ import { calculateCategoryScore, calculateOverallScore, saveAssessmentScores } f
 import { Database } from "@/integrations/supabase/types";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { categoryToPillarMapping } from "@/lib/config/categoryMapping";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
@@ -44,45 +45,75 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
   }, [categories, answers]);
 
   const findLowestCategory = () => {
-    let lowestScore = Infinity;
-    let lowestCategory = '';
+    const categoryScores: { category: string; pillar: string; score: number }[] = [];
 
+    // Calculate scores for each category
     categories.forEach(category => {
       const score = calculateCategoryScore(category.questions, answers);
-      if (score < lowestScore && score > 0) {  // Only consider categories with valid scores
-        lowestScore = score;
-        lowestCategory = category.display_name;
+      if (score > 0) { // Only consider categories with valid scores
+        const mapping = findPillarForCategory(category.display_name);
+        if (mapping) {
+          categoryScores.push({
+            category: category.display_name,
+            pillar: mapping.pillar,
+            score
+          });
+        }
       }
     });
 
-    // Fallback if we couldn't find a valid lowest score
-    if (lowestCategory === '') {
-      return 'Health'; // Default to Health if no valid scores
+    // Sort by score (lowest first) and get the lowest one
+    categoryScores.sort((a, b) => a.score - b.score);
+    
+    if (categoryScores.length === 0) {
+      return 'Health'; // Default if no scores available
     }
+    
+    // Return the pillar of the lowest-scoring category
+    return categoryScores[0].pillar;
+  };
 
-    return lowestCategory.includes('Physical') || lowestCategory.includes('Mental') || lowestCategory.includes('Environmental') 
-      ? 'Health' 
-      : lowestCategory.includes('Income') || lowestCategory.includes('Independence') || lowestCategory.includes('Impact')
-      ? 'Financial'
-      : 'Relationships';
+  const findPillarForCategory = (categoryName: string) => {
+    // Try direct match
+    let mapping = categoryToPillarMapping[categoryName];
+    
+    if (!mapping) {
+      // Try partial match
+      const matchingKey = Object.keys(categoryToPillarMapping).find(key => 
+        categoryName.toLowerCase().includes(key.toLowerCase()) || 
+        key.toLowerCase().includes(categoryName.toLowerCase())
+      );
+      
+      if (matchingKey) {
+        mapping = categoryToPillarMapping[matchingKey];
+      }
+    }
+    
+    return mapping;
   };
 
   const getCategoryScores = () => {
-    const healthCategories = categories.filter(cat => 
-      cat.display_name.includes('Physical') || 
-      cat.display_name.includes('Mental') || 
-      cat.display_name.includes('Environmental')
-    );
+    // Group the categories by pillar
+    const healthCategories: AssessmentCategory[] = [];
+    const financialCategories: AssessmentCategory[] = [];
+    const relationshipCategories: AssessmentCategory[] = [];
     
-    const financialCategories = categories.filter(cat => 
-      cat.display_name.includes('Income') || 
-      cat.display_name.includes('Independence') || 
-      cat.display_name.includes('Impact')
-    );
-    
-    const relationshipCategories = categories.filter(cat => 
-      !healthCategories.includes(cat) && !financialCategories.includes(cat)
-    );
+    categories.forEach(category => {
+      const mapping = findPillarForCategory(category.display_name);
+      if (mapping) {
+        switch (mapping.pillar) {
+          case 'Health':
+            healthCategories.push(category);
+            break;
+          case 'Financial':
+            financialCategories.push(category);
+            break;
+          case 'Relationships':
+            relationshipCategories.push(category);
+            break;
+        }
+      }
+    });
     
     // Calculate scores with safeguards against division by zero
     const calculateAvgScore = (cats: AssessmentCategory[]) => {

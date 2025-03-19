@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { pillarColors } from "@/lib/config/categoryMapping";
 
 type ProgressBarProps = {
   value: number;
@@ -26,8 +27,8 @@ export const ProgressBar = ({
   const [animatedValue, setAnimatedValue] = useState(0);
 
   useEffect(() => {
-    const duration = 2000; // Match the duration in ScoreCard
-    const steps = 60; // Match the steps in ScoreCard
+    const duration = 2000;
+    const steps = 60;
     const increment = value / steps;
     let current = 0;
     
@@ -49,13 +50,13 @@ export const ProgressBar = ({
     const progress = ((100 - animatedValue) / 100) * circumference;
 
     // Determine which gradient to use based on whether we have category scores
-    let strokeColor = 'url(#blue-gradient)';
+    let strokeGradientId = 'blue-gradient';
     
     if (categoryScores) {
       const total = categoryScores.health + categoryScores.financial + categoryScores.relationships;
       
       if (total > 0) {
-        strokeColor = 'url(#dynamic-weighted-gradient)';
+        strokeGradientId = 'dynamic-weighted-gradient';
       }
     }
 
@@ -78,16 +79,16 @@ export const ProgressBar = ({
       return (
         <linearGradient id="dynamic-weighted-gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
           {/* Health segment - Cyan */}
-          <stop offset="0%" stopColor="#1BEBE7" />
-          <stop offset={healthStop} stopColor="#1BEBE7" />
+          <stop offset="0%" stopColor={pillarColors['Health']} />
+          <stop offset={healthStop} stopColor={pillarColors['Health']} />
           
           {/* Financial segment - Green */}
-          <stop offset={healthStop} stopColor="#22EDB6" />
-          <stop offset={financialStop} stopColor="#22EDB6" />
+          <stop offset={healthStop} stopColor={pillarColors['Financial']} />
+          <stop offset={financialStop} stopColor={pillarColors['Financial']} />
           
           {/* Relationships segment - Pink/Red */}
-          <stop offset={financialStop} stopColor="#FF105F" />
-          <stop offset="100%" stopColor="#FF105F" />
+          <stop offset={financialStop} stopColor={pillarColors['Relationships']} />
+          <stop offset="100%" stopColor={pillarColors['Relationships']} />
         </linearGradient>
       );
     };
@@ -181,7 +182,7 @@ export const ProgressBar = ({
           <circle
             className="transition-all duration-2000 ease-out"
             strokeWidth={10}
-            stroke={strokeColor}
+            stroke={`url(#${strokeGradientId})`}
             fill="transparent"
             r={radius}
             cx="50"
