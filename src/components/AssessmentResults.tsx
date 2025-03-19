@@ -1,3 +1,4 @@
+
 import { useRef, useEffect } from "react";
 import { NextSteps } from "./NextSteps";
 import { ResultsHeader } from "./results/ResultsHeader";
@@ -44,20 +45,20 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
   }, [categories, answers]);
 
   const findLowestCategory = () => {
+    // Filter for subcategories only (IDs 30-38)
+    const subcategories = categories.filter(category => category.id >= 30);
+
     const categoryScores: { category: string; pillar: string; score: number }[] = [];
 
-    // Calculate scores for each category
-    categories.forEach(category => {
+    // Calculate scores for each subcategory
+    subcategories.forEach(category => {
       const score = calculateCategoryScore(category.questions, answers);
       if (score > 0) { // Only consider categories with valid scores
-        const mapping = findPillarForCategory(category.display_name);
-        if (mapping) {
-          categoryScores.push({
-            category: category.display_name,
-            pillar: mapping.pillar,
-            score
-          });
-        }
+        categoryScores.push({
+          category: category.display_name,
+          pillar: category.pillar,
+          score
+        });
       }
     });
 
@@ -70,25 +71,6 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
     
     // Return the pillar of the lowest-scoring category
     return categoryScores[0].pillar;
-  };
-
-  const findPillarForCategory = (categoryName: string) => {
-    // Try direct match
-    let mapping = categoryToPillarMapping[categoryName];
-    
-    if (!mapping) {
-      // Try partial match
-      const matchingKey = Object.keys(categoryToPillarMapping).find(key => 
-        categoryName.toLowerCase().includes(key.toLowerCase()) || 
-        key.toLowerCase().includes(categoryName.toLowerCase())
-      );
-      
-      if (matchingKey) {
-        mapping = categoryToPillarMapping[matchingKey];
-      }
-    }
-    
-    return mapping;
   };
 
   return (

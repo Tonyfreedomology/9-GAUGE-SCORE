@@ -1,4 +1,3 @@
-
 import { Database } from "@/integrations/supabase/types";
 import { PillarScores } from "./PillarScores";
 import { categoryToPillarMapping, pillarColors, pillarOrder } from "@/lib/config/categoryMapping";
@@ -17,30 +16,18 @@ export const ScoreLineChart = ({ answers, categories }: {
     initialGroups[pillar] = [];
   });
 
-  // Process each category and assign to the correct pillar
-  const groupedCategories = categories.reduce((acc, category) => {
+  // Filter out pillar-level categories (IDs 1-3) and keep only subcategories (IDs 30-38)
+  const subcategories = categories.filter(category => category.id >= 30);
+  
+  // Process each subcategory and assign to the correct pillar
+  const groupedCategories = subcategories.reduce((acc, category) => {
     const categoryName = category.display_name;
+    const pillarName = category.pillar;
     
-    // Find the mapping using exact or partial match
-    let matchingEntry = categoryToPillarMapping[categoryName];
-    
-    if (!matchingEntry) {
-      // Try to find a partial match if no exact match is found
-      const matchingKey = Object.keys(categoryToPillarMapping).find(key => 
-        categoryName.toLowerCase().includes(key.toLowerCase()) || 
-        key.toLowerCase().includes(categoryName.toLowerCase())
-      );
-      
-      if (matchingKey) {
-        matchingEntry = categoryToPillarMapping[matchingKey];
-      }
-    }
-    
-    if (matchingEntry) {
-      const { pillar, displayName } = matchingEntry;
-      
-      if (!acc[pillar]) {
-        acc[pillar] = [];
+    // If we have a valid pillar, add this subcategory to its group
+    if (pillarName && pillarOrder.includes(pillarName as any)) {
+      if (!acc[pillarName]) {
+        acc[pillarName] = [];
       }
       
       // Calculate score for this category
@@ -63,26 +50,16 @@ export const ScoreLineChart = ({ answers, categories }: {
       
       // Only add categories with actual questions
       if (category.questions.length > 0) {
-        // Check if we already have this category (to avoid duplicates)
-        const existingCategory = acc[pillar].find(c => c.label === displayName);
-        if (!existingCategory) {
-          acc[pillar].push({
-            label: displayName,
-            score
-          });
-        }
+        acc[pillarName].push({
+          label: categoryName,
+          score
+        });
       }
     }
     
     return acc;
   }, initialGroups);
   
-  // Filter out any duplicates and ensure we have exactly 3 categories per pillar
-  pillarOrder.forEach(pillar => {
-    // Sort the categories alphabetically for consistency
-    groupedCategories[pillar].sort((a, b) => a.label.localeCompare(b.label));
-  });
-
   return (
     <div className="grid gap-16">
       {pillarOrder.map(pillar => 
