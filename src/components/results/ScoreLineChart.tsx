@@ -29,27 +29,13 @@ export const ScoreLineChart = ({ answers, categories }: {
   
   console.log("Available answers:", Object.keys(answers).length, "keys");
   
-  // Find all questions regardless of category and group them by subcategory
-  // Since the questions might not be correctly associated with subcategories
-  const allQuestions = categories.flatMap(cat => cat.questions);
-  
-  console.log("Total questions in dataset:", allQuestions.length);
-  
   // Process each subcategory
   const groupedCategories = subcategories.reduce((acc, category) => {
     const categoryName = category.display_name;
     const pillarName = category.pillar;
     
-    // Get the main pillar category that might contain our questions
-    const mainPillarCategory = categories.find(c => c.pillar === pillarName && c.id < 30);
-    
-    // Combine questions from both the subcategory and the main pillar
-    const relevantQuestions = mainPillarCategory 
-      ? [...category.questions, ...mainPillarCategory.questions]
-      : category.questions;
-    
     console.log(`Processing category: ${categoryName} (${category.id}) under pillar: ${pillarName}`);
-    console.log(`Questions in this category (including main pillar):`, relevantQuestions.map(q => q.id));
+    console.log(`Questions in this category:`, category.questions.map(q => q.id));
     
     // If we have a valid pillar, add this subcategory to its group
     if (pillarName && pillarOrder.includes(pillarName as any)) {
@@ -57,8 +43,8 @@ export const ScoreLineChart = ({ answers, categories }: {
       let totalScore = 0;
       let answeredQuestions = 0;
       
-      // Debug questions and answers
-      relevantQuestions.forEach(q => {
+      // Loop through the questions assigned to this subcategory
+      category.questions.forEach(q => {
         const answer = answers[q.id];
         console.log(`Question ID ${q.id}: Answer = ${answer}`);
         
