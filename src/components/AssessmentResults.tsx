@@ -1,3 +1,4 @@
+
 import { useRef, useEffect } from "react";
 import { NextSteps } from "./NextSteps";
 import { ResultsHeader } from "./results/ResultsHeader";
@@ -44,15 +45,20 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
 
   const findLowestCategory = () => {
     let lowestScore = Infinity;
-    let lowestCategory = categories[0].display_name;
+    let lowestCategory = '';
 
     categories.forEach(category => {
       const score = calculateCategoryScore(category.questions, answers);
-      if (score < lowestScore) {
+      if (score < lowestScore && score > 0) {  // Only consider categories with valid scores
         lowestScore = score;
         lowestCategory = category.display_name;
       }
     });
+
+    // Fallback if we couldn't find a valid lowest score
+    if (lowestCategory === '') {
+      return 'Health'; // Default to Health if no valid scores
+    }
 
     return lowestCategory.includes('Physical') || lowestCategory.includes('Mental') || lowestCategory.includes('Environmental') 
       ? 'Health' 
@@ -78,22 +84,28 @@ export const AssessmentResults = ({ answers, categories, onStartOver, userInfo }
       !healthCategories.includes(cat) && !financialCategories.includes(cat)
     );
     
-    const healthScore = healthCategories.length > 0 
-      ? healthCategories.reduce((sum, cat) => sum + calculateCategoryScore(cat.questions, answers), 0) / healthCategories.length
-      : 0;
+    // Calculate scores with safeguards against division by zero
+    const calculateAvgScore = (cats: AssessmentCategory[]) => {
+      if (cats.length === 0) return 0;
       
-    const financialScore = financialCategories.length > 0 
-      ? financialCategories.reduce((sum, cat) => sum + calculateCategoryScore(cat.questions, answers), 0) / financialCategories.length
-      : 0;
+      let totalScore = 0;
+      let validCategories = 0;
       
-    const relationshipsScore = relationshipCategories.length > 0 
-      ? relationshipCategories.reduce((sum, cat) => sum + calculateCategoryScore(cat.questions, answers), 0) / relationshipCategories.length
-      : 0;
+      cats.forEach(cat => {
+        const score = calculateCategoryScore(cat.questions, answers);
+        if (score > 0) {  // Only include valid scores
+          totalScore += score;
+          validCategories++;
+        }
+      });
+      
+      return validCategories > 0 ? totalScore / validCategories : 0;
+    };
     
     return {
-      health: healthScore,
-      financial: financialScore,
-      relationships: relationshipsScore
+      health: calculateAvgScore(healthCategories),
+      financial: calculateAvgScore(financialCategories),
+      relationships: calculateAvgScore(relationshipCategories)
     };
   };
 

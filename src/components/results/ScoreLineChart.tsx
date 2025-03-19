@@ -24,14 +24,20 @@ export const ScoreLineChart = ({ answers, categories }: {
       }
       
       const totalQuestions = category.questions.length;
-      const totalScore = category.questions.reduce((sum, q) => {
-        const answer = answers[q.id] || 0;
-        return sum + answer;
-      }, 0);
+      let totalScore = 0;
+      let answeredQuestions = 0;
       
-      // Guard against division by zero
-      const score = totalQuestions > 0 
-        ? Math.round((totalScore / (totalQuestions * 5)) * 100)
+      category.questions.forEach(q => {
+        const answer = answers[q.id];
+        if (typeof answer === 'number') {
+          totalScore += answer;
+          answeredQuestions++;
+        }
+      });
+      
+      // Guard against division by zero and ensure we only count answered questions
+      const score = answeredQuestions > 0 
+        ? Math.round((totalScore / (answeredQuestions * 5)) * 100)
         : 0;
       
       acc[pillar].push({

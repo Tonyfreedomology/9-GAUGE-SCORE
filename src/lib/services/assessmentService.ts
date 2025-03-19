@@ -1,3 +1,4 @@
+
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 import { toast } from "sonner";
@@ -148,10 +149,12 @@ export const calculateOverallScore = (
 ): number => {
   const categoryScores = categories.map(category => 
     calculateCategoryScore(category.questions, answers)
-  );
+  ).filter(score => score > 0); // Only include valid scores
+  
+  if (categoryScores.length === 0) return 0;
 
   return Math.round(
-    categoryScores.reduce((sum, score) => sum + score, 0) / categories.length
+    categoryScores.reduce((sum, score) => sum + score, 0) / categoryScores.length
   );
 };
 
