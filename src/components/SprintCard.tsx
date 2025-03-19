@@ -179,19 +179,16 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Set up parallax effect for the background
   const { elementRef: bgParallaxRef, style: bgParallaxStyle } = useParallax({
     speed: 0.1,
     direction: 'up'
   });
   
-  // Set up scroll-driven animations
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
   
-  // Transform scroll progress into visual effects
   const headerOpacity = useTransform(scrollYProgress, [0, 0.1, 0.4], [0.6, 0.9, 1]);
   const headerScale = useTransform(scrollYProgress, [0, 0.2], [0.95, 1]);
   const headerY = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
@@ -210,8 +207,7 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
 
   if (!content || !program) return null;
 
-  // Safely extract intro text
-  const introText = content.body; // Use the whole body as introText if there's no separator
+  const introText = content.body;
 
   return (
     <motion.div 
@@ -227,14 +223,12 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Particle background */}
       <ParticleBackground 
         color={program.color as SprintType} 
         intensity="low" 
         className="opacity-40" 
       />
       
-      {/* Background parallax effect */}
       <motion.div 
         ref={bgParallaxRef as React.RefObject<HTMLDivElement>}
         className="absolute inset-0 z-0 pointer-events-none"
@@ -261,21 +255,18 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
           />
         </motion.div>
         
-        {/* HTML content explaining the sprint with enhanced typography */}
         <motion.div 
           className="text-base md:text-lg text-center w-full text-foreground [&>p]:mb-3 last:[&>p]:mb-0 prose prose-p:my-2 max-w-none" 
           dangerouslySetInnerHTML={{ __html: introText }} 
           style={{ y: contentY }}
         />
         
-        {/* Logo */}
         <motion.img 
           src={getLogo()} 
           alt={`${capitalizedPillar} Sprint Logo`} 
           className="h-24 object-contain mx-auto my-4 relative z-10"
         />
         
-        {/* Enhanced program content with animations */}
         <div className="w-full" ref={ref}>
           {inView && (
             <motion.div 
@@ -317,7 +308,6 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
             </motion.div>
           )}
           
-          {/* Program content weeks with enhanced styling */}
           <div className="mt-8 space-y-6">
             {inView && program.weeks.map((week, index) => (
               <motion.div
@@ -328,9 +318,10 @@ export const SprintCard = ({ lowestPillar }: SprintCardProps) => {
               >
                 <WeekContent
                   title={week.title}
-                  content={week.description}
+                  description={week.description}
                   color={program.color}
-                  week={index + 1}
+                  number={(index + 1).toString()}
+                  index={index}
                 />
               </motion.div>
             ))}
