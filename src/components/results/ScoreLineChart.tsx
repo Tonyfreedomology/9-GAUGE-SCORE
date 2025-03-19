@@ -11,7 +11,7 @@ export const ScoreLineChart = ({ answers, categories }: {
   answers: Record<string, number>;
   categories: Category[];
 }) => {
-  // Initialize all pillar groups
+  // Initialize all pillar groups with empty arrays
   const initialGroups: Record<string, { label: string; score: number; }[]> = {};
   pillarOrder.forEach(pillar => {
     initialGroups[pillar] = [];

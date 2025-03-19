@@ -1,3 +1,4 @@
+
 import { getPillarIcon } from "@/lib/getPillarIcon";
 import { ScoreLine } from "./ScoreLine";
 
