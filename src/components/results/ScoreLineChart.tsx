@@ -2,7 +2,6 @@
 import { Database } from "@/integrations/supabase/types";
 import { PillarScores } from "./PillarScores";
 import { categoryToPillarMapping, pillarColors, pillarOrder } from "@/lib/config/categoryMapping";
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 type Category = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: Database['public']['Tables']['assessment_questions']['Row'][];
@@ -18,27 +17,38 @@ export const ScoreLineChart = ({ answers, categories }: {
     initialGroups[pillar] = [];
   });
 
-  // Filter out pillar-level categories (IDs 1-3) and keep only subcategories (IDs 30-38)
+  // Filter for subcategories only (IDs 30-38)
   const subcategories = categories.filter(category => category.id >= 30);
+  
+  console.log("Available subcategories:", subcategories.map(c => ({ 
+    id: c.id, 
+    name: c.display_name, 
+    pillar: c.pillar,
+    questionCount: c.questions.length
+  })));
+  
+  console.log("Available answers:", Object.keys(answers).length, "keys");
   
   // Process each subcategory and assign to the correct pillar
   const groupedCategories = subcategories.reduce((acc, category) => {
     const categoryName = category.display_name;
     const pillarName = category.pillar;
     
+    // Debug category information
+    console.log(`Processing category: ${categoryName} (${category.id}) under pillar: ${pillarName}`);
+    console.log(`Questions in this category:`, category.questions.map(q => q.id));
+    
     // If we have a valid pillar, add this subcategory to its group
     if (pillarName && pillarOrder.includes(pillarName as any)) {
-      if (!acc[pillarName]) {
-        acc[pillarName] = [];
-      }
-      
       // Calculate score for this category
-      const totalPossibleScore = category.questions.length * 5; // 5 is max score per question
       let totalScore = 0;
       let answeredQuestions = 0;
       
+      // Debug questions and answers
       category.questions.forEach(q => {
         const answer = answers[q.id];
+        console.log(`Question ID ${q.id}: Answer = ${answer}`);
+        
         if (typeof answer === 'number' && answer > 0) {
           totalScore += answer;
           answeredQuestions++;
@@ -50,17 +60,27 @@ export const ScoreLineChart = ({ answers, categories }: {
         ? Math.round((totalScore / (answeredQuestions * 5)) * 100)
         : 0;
       
-      // Only add categories with actual questions
-      if (category.questions.length > 0) {
-        acc[pillarName].push({
-          label: categoryName,
-          score
-        });
+      console.log(`Category ${categoryName}: Score = ${score}% (${answeredQuestions} questions answered)`);
+      
+      // Include all categories in output, even with zero scores
+      if (!acc[pillarName]) {
+        acc[pillarName] = [];
       }
+      
+      acc[pillarName].push({
+        label: categoryName,
+        score
+      });
     }
     
     return acc;
   }, initialGroups);
+  
+  // Final debug output
+  Object.keys(groupedCategories).forEach(pillar => {
+    console.log(`Pillar: ${pillar}, Categories: ${groupedCategories[pillar].length}`);
+    console.log(groupedCategories[pillar]);
+  });
   
   return (
     <div className="grid gap-16">
@@ -72,49 +92,6 @@ export const ScoreLineChart = ({ answers, categories }: {
               scores={groupedCategories[pillar]}
               color={pillarColors[pillar]}
             />
-            
-            {/* Add a chart visualization for each pillar */}
-            <div className="h-[200px] w-full px-4 mt-2">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={groupedCategories[pillar].map(item => ({
-                    name: item.label,
-                    value: item.score,
-                  }))}
-                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                  <XAxis 
-                    dataKey="name" 
-                    tick={{ fill: "#ffffff", opacity: 0.7 }}
-                    axisLine={{ stroke: "#ffffff", opacity: 0.3 }}
-                  />
-                  <YAxis 
-                    domain={[0, 100]}
-                    tick={{ fill: "#ffffff", opacity: 0.7 }}
-                    axisLine={{ stroke: "#ffffff", opacity: 0.3 }}
-                  />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: "rgba(0,0,0,0.85)", 
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "6px",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
-                    }}
-                    labelStyle={{ color: "#fff", fontWeight: "bold" }}
-                    formatter={(value) => [`${value}%`, "Score"]}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="value" 
-                    stroke={pillarColors[pillar]} 
-                    fill={pillarColors[pillar]} 
-                    fillOpacity={0.3}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
           </div>
         )
       )}
