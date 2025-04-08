@@ -78,11 +78,12 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
         // Still don't throw, let the user continue to results
       }
 
-      // Track lead capture event with Meta Pixel
-      trackFacebookEvent("Lead", { 
+      // Track assessment completion with Meta Pixel
+      trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, { 
         content_name: "Assessment Email Capture",
         content_category: "Assessment",
-        value: 1
+        status: "submitted",
+        email_provided: true
       });
 
       // Complete the form and proceed to results

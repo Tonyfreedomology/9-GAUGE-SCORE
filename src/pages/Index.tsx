@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import "../styles/landingAnimations.css";
+import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -97,6 +98,7 @@ const Index = () => {
         <button 
           onClick={() => {
             console.log("Starting assessment");
+            trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
             navigate("/assessment");
           }} 
           className="cta-button"
