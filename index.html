@@ -54,7 +54,9 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '807615624569188');
-      // PageView is tracked by the router on navigation
+      fbq('track', 'PageView');
+      // Flag to prevent duplicate PageView tracking
+      window.initialPageViewFired = true;
     </script>
 
     <!-- SegMetrics -->
