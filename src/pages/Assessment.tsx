@@ -26,16 +26,7 @@ const Assessment = () => {
     queryFn: fetchAssessmentData
   });
 
-  // Track assessment start when component mounts - only once per session
-  useEffect(() => {
-    const hasStartedAssessment = localStorage.getItem('hasStartedAssessment');
-    
-    // Only fire the StartAssessment event if user hasn't started yet
-    if (!hasStartedAssessment) {
-      trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
-      localStorage.setItem('hasStartedAssessment', 'true');
-    }
-  }, []);
+  // Removed START_ASSESSMENT tracking as it's now handled on the index page button click
 
   // Render the layout structure regardless of loading state
   return (
