@@ -51,10 +51,7 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
 
         if (ghlError) {
           console.error('GHL API Error:', ghlError);
-          // Log to analytics or monitoring service if available
-          // Using type assertion for dataLayer since it's added by Google Tag Manager
-          (window as any).dataLayer?.push({
-            event: 'ghl_error',
+          console.error({
             error_type: 'api_error',
             error_message: ghlError.message || 'Unknown GHL error',
             user_email: email
@@ -68,9 +65,7 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
       } catch (ghlIntegrationError) {
         // This catches any unexpected errors in the function invocation itself
         console.error('Unexpected GHL integration error:', ghlIntegrationError);
-        // Using type assertion for dataLayer since it's added by Google Tag Manager
-        (window as any).dataLayer?.push({
-          event: 'ghl_error',
+        console.error({
           error_type: 'integration_error',
           error_message: ghlIntegrationError.message || 'Unknown integration error',
           user_email: email
@@ -78,15 +73,9 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
         // Still don't throw, let the user continue to results
       }
 
-      // Track assessment completion with Meta Pixel
-      trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, { 
-        content_name: "Assessment Email Capture",
-        content_category: "Assessment",
-        status: "submitted",
-        email_provided: true
-      });
-
       // Complete the form and proceed to results
+      // Note: CompleteAssessment is tracked when capture page loads
+      // CompleteRegistration will be tracked on the results page
       onComplete(firstName, email);
     } catch (err) {
       console.error("Error submitting form:", err);

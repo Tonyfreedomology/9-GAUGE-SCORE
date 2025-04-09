@@ -6,7 +6,7 @@ import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
 const AssessmentCapture = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { answers, categories } = location.state || {};
+  const { answers, categories, userInfo } = location.state || {};
 
   useEffect(() => {
     // If there's no state data, redirect back to assessment
@@ -15,7 +15,7 @@ const AssessmentCapture = () => {
       return;
     }
 
-    // Log view of capture page
+    // Log view of capture page - this is the only place CompleteAssessment should fire
     trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
       total_questions_answered: Object.keys(answers).length,
       capture_page_viewed: true
@@ -23,7 +23,9 @@ const AssessmentCapture = () => {
   }, [answers, categories, navigate]);
 
   const handleEmailCaptureComplete = (firstName: string, email: string) => {
-    // Fire Meta pixel CompleteRegistration event
+    if (userInfo && userInfo.registrationComplete) return;
+
+    // Fire Meta pixel CompleteRegistration event - this is the only place it should fire
     trackFacebookEvent("CompleteRegistration", {
       first_name: firstName,
       email: email,
@@ -37,7 +39,8 @@ const AssessmentCapture = () => {
         categories,
         userInfo: {
           firstName,
-          email
+          email,
+          registrationComplete: true // Flag to prevent duplicate event firing
         }
       } 
     });

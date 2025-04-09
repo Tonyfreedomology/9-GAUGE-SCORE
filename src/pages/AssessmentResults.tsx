@@ -21,11 +21,15 @@ const AssessmentResults = () => {
       return;
     }
 
-    // Additional tracking for user with email - only keep CompleteRegistration
-    trackFacebookEvent("CompleteRegistration", {
-      first_name: userInfo.firstName,
-      email: userInfo.email
-    });
+    // Only track CompleteRegistration if it hasn't been tracked already
+    // This prevents duplicate tracking since it should be tracked on the capture page
+    if (!userInfo.registrationComplete) {
+      trackFacebookEvent("CompleteRegistration", {
+        first_name: userInfo.firstName,
+        email: userInfo.email,
+        content_name: "Assessment"
+      });
+    }
   }, [answers, categories, userInfo, navigate]);
 
   const handleStartOver = () => {

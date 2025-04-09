@@ -8,11 +8,8 @@ const ThankYou = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Track custom event when the thank you page loads
-    trackFacebookEvent('ViewedThankYou', {
-      content_name: 'Waitlist Confirmation',
-      status: 'confirmed'
-    });
+    // Track Facebook Lead event when the thank you page loads
+    trackFacebookEvent('Lead');
   }, []);
 
   return (
