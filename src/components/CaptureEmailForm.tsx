@@ -45,6 +45,7 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
               firstName,
               email,
               source: "Assessment",
+              action: "assessment"
             }),
           }
         );

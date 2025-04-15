@@ -14,9 +14,9 @@ serve(async (req) => {
       return new Response(null, { headers: corsHeaders });
     }
 
-    const { firstName, email, source } = await req.json();
+    const { firstName, email, source, action } = await req.json();
     
-    console.log(`Attempting to create GHL contact for ${email} with source tag: "${source}"`);
+    console.log(`Attempting to create GHL contact for ${email} with source tag: "${source}" and action: "${action}"`);
     
     // Get GHL API key directly from Edge Function secrets
     const GHL_API_KEY = Deno.env.get('GHL_API_KEY');
@@ -56,8 +56,20 @@ serve(async (req) => {
     }
 
     // Merge tags (add new tag if not present)
-    const newTag = source || 'Waitlist';
-    let mergedTags = existingTags.includes(newTag) ? existingTags : [...existingTags, newTag];
+    let mergedTags = existingTags;
+    if (action === "waitlist") {
+      // Only add the Waitlist tag if action is explicitly 'waitlist'
+      const newTag = source || 'Waitlist';
+      if (!existingTags.includes(newTag)) {
+        mergedTags = [...existingTags, newTag];
+      }
+    } else if (action === "assessment") {
+      // Only add the Assessment/Lead tag if action is 'assessment'
+      const newTag = source || 'Assessment';
+      if (!existingTags.includes(newTag)) {
+        mergedTags = [...existingTags, newTag];
+      }
+    }
 
     // Prepare the request payload
     const payload = {

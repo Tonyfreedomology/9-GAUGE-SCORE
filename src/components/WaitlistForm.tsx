@@ -106,6 +106,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
             firstName,
             email,
             source: defaultSprint ? `Waitlist - ${defaultSprint}` : "Waitlist",
+            action: "waitlist"
           }),
         }
       );
