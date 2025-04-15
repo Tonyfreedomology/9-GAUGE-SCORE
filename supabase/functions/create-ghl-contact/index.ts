@@ -26,11 +26,44 @@ serve(async (req) => {
       throw new Error('GHL API key not configured');
     }
 
+    // Helper to GET existing contact by email
+    async function getExistingContact(email: string) {
+      const response = await fetch(`https://rest.gohighlevel.com/v1/contacts/?email=${encodeURIComponent(email)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${GHL_API_KEY}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (!response.ok) {
+        console.error('Failed to fetch existing GHL contact:', await response.text());
+        return null;
+      }
+      const data = await response.json();
+      if (Array.isArray(data.contacts) && data.contacts.length > 0) {
+        return data.contacts[0];
+      }
+      return null;
+    }
+
+    // Get existing contact and tags
+    let existingContact = await getExistingContact(email);
+    let existingTags = [];
+    if (existingContact && Array.isArray(existingContact.tags)) {
+      existingTags = existingContact.tags.map((tag: string | { name?: string; id?: string }) => (typeof tag === 'string' ? tag : tag.name || tag.id)).filter(Boolean);
+    }
+
+    // Merge tags (add new tag if not present)
+    const newTag = source || 'Waitlist';
+    let mergedTags = existingTags.includes(newTag) ? existingTags : [...existingTags, newTag];
+
     // Prepare the request payload
     const payload = {
       firstName,
       email,
-      tags: [source || 'Waitlist']
+      tags: mergedTags
     };
     
     console.log(`Sending request to GHL API with payload:`, payload);
@@ -70,13 +103,13 @@ serve(async (req) => {
         throw new Error(`GHL API error: ${ghlResponse.status} - ${JSON.stringify(errorData)}`);
       }
       
-      console.log('Successfully created GHL contact:', errorData);
+      console.log('Successfully created/updated GHL contact:', errorData);
 
       return new Response(
         JSON.stringify({ 
           success: true, 
           data: errorData,
-          message: `Successfully created contact for ${email} with tag: ${source}`
+          message: `Successfully created/updated contact for ${email} with tags: ${mergedTags.join(', ')}`
         }), 
         { 
           headers: { 
