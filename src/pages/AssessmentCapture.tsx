@@ -25,14 +25,7 @@ const AssessmentCapture = () => {
   const handleEmailCaptureComplete = (firstName: string, email: string) => {
     if (userInfo && userInfo.registrationComplete) return;
 
-    // Fire Meta pixel CompleteRegistration event - this is the only place it should fire
-    trackFacebookEvent("CompleteRegistration", {
-      first_name: firstName,
-      email: email,
-      content_name: "Assessment"
-    });
-    
-    // Navigate to results page with all the needed data
+    // Only navigate to results page with all the needed data
     navigate("/assessment/results", { 
       state: { 
         answers, 

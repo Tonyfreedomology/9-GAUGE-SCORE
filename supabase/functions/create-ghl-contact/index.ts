@@ -55,22 +55,13 @@ serve(async (req) => {
       existingTags = existingContact.tags.map((tag: string | { name?: string; id?: string }) => (typeof tag === 'string' ? tag : tag.name || tag.id)).filter(Boolean);
     }
 
-    // Merge tags (add new tag if not present)
-    let mergedTags = existingTags;
+    // Only set the tag(s) for this action, do not merge with any existing tags
+    let mergedTags: string[] = [];
     if (action === "waitlist") {
-      // Only add the Waitlist tag if action is explicitly 'waitlist'
-      const newTag = source || 'Waitlist';
-      if (!existingTags.includes(newTag)) {
-        mergedTags = [...existingTags, newTag];
-      }
+      mergedTags = ["Assessment", source || 'Waitlist'];
     } else if (action === "assessment") {
-      // Only add the Assessment/Lead tag if action is 'assessment'
-      const newTag = source || 'Assessment';
-      if (!existingTags.includes(newTag)) {
-        mergedTags = [...existingTags, newTag];
-      }
+      mergedTags = [source || 'Assessment'];
     }
-
     // Prepare the request payload
     const payload = {
       firstName,

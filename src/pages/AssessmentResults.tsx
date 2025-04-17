@@ -21,9 +21,8 @@ const AssessmentResults = () => {
       return;
     }
 
-    // Only track CompleteRegistration if it hasn't been tracked already
-    // This prevents duplicate tracking since it should be tracked on the capture page
-    if (!userInfo.registrationComplete) {
+    // Only track CompleteRegistration if registration was just completed
+    if (userInfo.registrationComplete) {
       trackFacebookEvent("CompleteRegistration", {
         first_name: userInfo.firstName,
         email: userInfo.email,
