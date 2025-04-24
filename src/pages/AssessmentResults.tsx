@@ -23,11 +23,7 @@ const AssessmentResults = () => {
 
     // Only track CompleteRegistration if registration was just completed
     if (userInfo.registrationComplete) {
-      trackFacebookEvent("CompleteRegistration", {
-        first_name: userInfo.firstName,
-        email: userInfo.email,
-        content_name: "Assessment"
-      });
+      trackFacebookEvent("CompleteRegistration");
     }
   }, [answers, categories, userInfo, navigate]);
 
