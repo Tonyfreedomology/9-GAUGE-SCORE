@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "./ui/input";
-import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
 import { ArrowRight, CheckCircle, BarChart2, PieChart, Activity } from "lucide-react";
 
 type CaptureEmailFormProps = {
@@ -73,6 +72,13 @@ export const CaptureEmailForm = ({ onComplete }: CaptureEmailFormProps) => {
         });
         // Still don't throw, let the user continue to results
       }
+
+      // Track lead capture through GTM
+      window.dataLayer?.push({
+        event: 'LeadCapture',
+        firstName: firstName,
+        email: email
+      });
 
       // Complete the form and proceed to results
       // Note: CompleteAssessment is tracked when capture page loads

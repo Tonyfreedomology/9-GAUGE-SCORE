@@ -1,7 +1,13 @@
+
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CaptureEmailForm } from "@/components/CaptureEmailForm";
-import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
+
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
 
 const AssessmentCapture = () => {
   const location = useLocation();
@@ -16,7 +22,8 @@ const AssessmentCapture = () => {
     }
 
     // Log view of capture page - this is the only place CompleteAssessment should fire
-    trackFacebookEvent(FB_EVENTS.COMPLETE_ASSESSMENT, {
+    window.dataLayer?.push({
+      event: 'CompleteAssessment',
       total_questions_answered: Object.keys(answers).length,
       capture_page_viewed: true
     });

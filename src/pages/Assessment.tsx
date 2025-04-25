@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
 import { fetchAssessmentData } from "@/lib/services/assessmentService";
 import { Database } from "@/integrations/supabase/types";
-import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
 
 type AssessmentCategory = Database['public']['Tables']['assessment_categories']['Row'] & {
   questions: (Database['public']['Tables']['assessment_questions']['Row'] & {
@@ -14,6 +13,12 @@ type AssessmentCategory = Database['public']['Tables']['assessment_categories'][
 };
 
 type Answers = Record<string, number>;
+
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
 
 const Assessment = () => {
   const navigate = useNavigate();
@@ -81,8 +86,9 @@ const Assessment = () => {
               const options = (currentQuestion.options as { value: number; label: string }[] | null) ?? [];
 
               const handleAnswer = (value: number) => {
-                // Track question completion
-                trackFacebookEvent(FB_EVENTS.COMPLETE_QUESTION, {
+                // Track question completion through GTM
+                window.dataLayer?.push({
+                  event: 'CompleteQuestion',
                   question_number: currentQuestionNumber,
                   total_questions: totalQuestions,
                   category: currentQuestion.originalCategoryName,
@@ -108,9 +114,11 @@ const Assessment = () => {
               const handleStartOver = () => {
                 setCurrentQuestionIndex(0);
                 setAnswers({});
-                // Clear the localStorage flag and fire StartAssessment again
+                // Clear the localStorage flag and fire StartAssessment through GTM
                 localStorage.removeItem('hasStartedAssessment');
-                trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
+                window.dataLayer?.push({
+                  event: 'StartAssessment'
+                });
               };
 
               const handlePrevious = () => {

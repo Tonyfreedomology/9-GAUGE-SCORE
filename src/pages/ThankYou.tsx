@@ -1,15 +1,17 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { trackFacebookEvent } from "@/lib/utils/facebookTracking";
 
 const ThankYou = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Track Facebook Lead event when the thank you page loads
-    trackFacebookEvent('Lead');
+    // Track Lead event through GTM when the thank you page loads
+    window.dataLayer?.push({
+      event: 'Lead'
+    });
   }, []);
 
   return (
