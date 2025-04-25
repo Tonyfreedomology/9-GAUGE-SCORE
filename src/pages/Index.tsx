@@ -1,8 +1,14 @@
+
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import "../styles/landingAnimations.css";
-import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
+
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
 
 const Index = () => {
   const navigate = useNavigate();
@@ -92,13 +98,16 @@ const Index = () => {
           </div>
         </div>
 
-
-
         {/* CTA button - moved up for better conversion */}
         <button 
           onClick={() => {
             console.log("Starting assessment");
-            trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
+            
+            // Use dataLayer push instead of direct Facebook pixel call
+            window.dataLayer?.push({
+              event: 'StartAssessment'
+            });
+            
             navigate("/assessment");
           }} 
           className="cta-button"
