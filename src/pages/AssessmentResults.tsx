@@ -1,7 +1,13 @@
+
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AssessmentResults as ResultsComponent } from "@/components/AssessmentResults";
-import { trackFacebookEvent, FB_EVENTS } from "@/lib/utils/facebookTracking";
+
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
 
 const AssessmentResults = () => {
   const location = useLocation();
@@ -23,14 +29,20 @@ const AssessmentResults = () => {
 
     // Only track CompleteRegistration if registration was just completed
     if (userInfo.registrationComplete) {
-      trackFacebookEvent("CompleteRegistration");
+      window.dataLayer?.push({
+        event: 'CompleteRegistration',
+        // Add any additional data you want to pass to GTM
+        userEmail: userInfo.email
+      });
     }
   }, [answers, categories, userInfo, navigate]);
 
   const handleStartOver = () => {
     // Clear the localStorage flag to ensure StartAssessment will fire on restart
     localStorage.removeItem('hasStartedAssessment');
-    trackFacebookEvent(FB_EVENTS.START_ASSESSMENT);
+    window.dataLayer?.push({
+      event: 'StartAssessment'
+    });
     navigate("/assessment");
   };
 
