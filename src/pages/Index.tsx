@@ -105,7 +105,7 @@ const Index = () => {
             
             // Use dataLayer push instead of direct Facebook pixel call
             window.dataLayer?.push({
-              // event: 'StartAssessment'
+              event: 'StartAssessment'
             });
             
             navigate("/assessment");
