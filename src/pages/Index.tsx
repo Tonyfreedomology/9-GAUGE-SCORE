@@ -103,7 +103,7 @@ const Index = () => {
           onClick={() => {
             console.log("Starting assessment");
                 // Prevent ViewContent from firing on next page load
-                window.skipViewContent = true;
+                // window.skipViewContent = true;
 
             // Use dataLayer push instead of direct Facebook pixel call
             window.dataLayer?.push({
