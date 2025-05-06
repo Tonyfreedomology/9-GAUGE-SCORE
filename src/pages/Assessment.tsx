@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +32,14 @@ const Assessment = () => {
     queryFn: fetchAssessmentData
   });
 
-  // Removed START_ASSESSMENT tracking as it's now handled on the index page button click
+  // Fire ViewContent event when assessment page loads
+  useEffect(() => {
+    window.dataLayer?.push({
+      event: 'ViewContent',
+      content_name: 'Assessment Page',
+      content_type: 'assessment'
+    });
+  }, []);
 
   // Render the layout structure regardless of loading state
   return (
