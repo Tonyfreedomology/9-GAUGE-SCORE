@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-const Assessments = () => {
+const Assessment = () => {
   const navigate = useNavigate();
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -155,4 +155,4 @@ const Assessments = () => {
   );
 };
 
-export default Assessments;
+export default Assessment;
