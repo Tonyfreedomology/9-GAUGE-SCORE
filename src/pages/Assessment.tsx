@@ -30,7 +30,27 @@ const Assessment = () => {
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
   });
-  
+  useEffect(() => {
+  // Block unintended ViewContent event if fired from somewhere else
+  const dataLayer = window.dataLayer || [];
+  window.dataLayer = new Proxy(dataLayer, {
+    apply(target, thisArg, args) {
+      const event = args[0];
+      if (event?.event === "ViewContent") {
+        console.warn("Blocked ViewContent event on /assessment");
+        return;
+      }
+      return Reflect.apply(target, thisArg, args);
+    },
+    get(target, prop) {
+      return Reflect.get(target, prop);
+    },
+    set(target, prop, value) {
+      return Reflect.set(target, prop, value);
+    }
+  });
+}, []);
+
   // Render the layout structure regardless of loading state
   return (
     <div className="relative min-h-screen bg-black">
