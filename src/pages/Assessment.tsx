@@ -30,20 +30,6 @@ const Assessment = () => {
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
   });
-  useEffect(() => {
-  const originalPush = window.dataLayer?.push;
-
-  if (originalPush) {
-    window.dataLayer.push = function (...args) {
-      const event = args[0];
-      if (event?.event === "ViewContent") {
-        console.warn("Blocked ViewContent event on /assessment");
-        return;
-      }
-      return originalPush.apply(window.dataLayer, args);
-    };
-  }
-}, []);
 
   // Render the layout structure regardless of loading state
   return (
