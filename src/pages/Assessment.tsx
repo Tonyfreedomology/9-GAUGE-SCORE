@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -31,15 +30,6 @@ const Assessment = () => {
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
   });
-
-  // Fire ViewContent event when assessment page loads
-  useEffect(() => {
-    window.dataLayer?.push({
-      event: 'ViewContent',
-      content_name: 'Assessment Page',
-      content_type: 'assessment'
-    });
-  }, []);
 
   // Render the layout structure regardless of loading state
   return (
