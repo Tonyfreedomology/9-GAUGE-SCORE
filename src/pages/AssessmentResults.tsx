@@ -28,6 +28,7 @@ const AssessmentResults = () => {
     }
 
     // Only track CompleteRegistration if registration was just completed
+    // CompleteRegistration FB event code commented
     if (userInfo.registrationComplete) {
       // window.dataLayer?.push({
       //   event: 'CompleteRegistration',
