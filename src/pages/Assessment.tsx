@@ -132,20 +132,20 @@ const Assessment = () => {
               };
 
               return (
-                <AssessmentQuestion
-                  category={currentQuestion.pillar}
-                  questionText={currentQuestion.question_text}
-                  progress={progress}
-                  currentValue={answers[currentQuestion.id] || 0}
-                  currentStep={currentQuestionNumber}
-                  totalSteps={totalQuestions}
-                  options={options}
-                  onAnswer={handleAnswer}
-                  onPrevious={handlePrevious}
-                  onNext={handleNext}
-                  isFirstQuestion={isFirstQuestion}
-                  isLastQuestion={isLastQuestion}
-                />
+                // <AssessmentQuestion
+                //   category={currentQuestion.pillar}
+                //   questionText={currentQuestion.question_text}
+                //   progress={progress}
+                //   currentValue={answers[currentQuestion.id] || 0}
+                //   currentStep={currentQuestionNumber}
+                //   totalSteps={totalQuestions}
+                //   options={options}
+                //   onAnswer={handleAnswer}
+                //   onPrevious={handlePrevious}
+                //   onNext={handleNext}
+                //   isFirstQuestion={isFirstQuestion}
+                //   isLastQuestion={isLastQuestion}
+                // />
               );
             })()}
           </div>
