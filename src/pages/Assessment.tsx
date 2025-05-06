@@ -30,22 +30,7 @@ const Assessment = () => {
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
   });
-  useEffect(() => {
-  const originalPush = window.dataLayer?.push;
-  if (originalPush) {
-    window.dataLayer.push = function (...args: any[]) {
-      const eventObj = args[0];
-      if (eventObj?.event === "ViewContent") {
-        // Block it completely
-        console.log("Blocked ViewContent from firing on /assessment");
-        return;
-      }
-      return originalPush.apply(this, args);
-    };
-  }
-}, []);
-
-
+  
   // Render the layout structure regardless of loading state
   return (
     <div className="relative min-h-screen bg-black">
