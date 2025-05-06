@@ -17,6 +17,7 @@ type Answers = Record<string, number>;
 declare global {
   interface Window {
     dataLayer: any[];
+    skipViewContent?: boolean;
   }
 }
 
@@ -25,6 +26,30 @@ const Assessment = () => {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
+
+  // Block ViewContent event from firing
+  useEffect(() => {
+    // Check if we're blocking ViewContent based on the flag set from Index page
+    const originalPush = window.dataLayer?.push;
+    if (originalPush) {
+      window.dataLayer.push = function (...args: any[]) {
+        const eventObj = args[0];
+        if (eventObj?.event === "ViewContent") {
+          // Block it completely
+          console.log("Blocked ViewContent from firing on /assessment");
+          return;
+        }
+        return originalPush.apply(this, args);
+      };
+    }
+    
+    // Clean up the override when component unmounts
+    return () => {
+      if (originalPush && window.dataLayer) {
+        window.dataLayer.push = originalPush;
+      }
+    };
+  }, []);
 
   const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
