@@ -86,7 +86,7 @@ const Assessment = () => {
               const handleAnswer = (value: number) => {
                 // Track question completion through GTM
                 window.dataLayer?.push({
-                  event: 'CompleteQuestion',
+                  // event: 'CompleteQuestion',
                   question_number: currentQuestionNumber,
                   total_questions: totalQuestions,
                   category: currentQuestion.originalCategoryName,
@@ -115,7 +115,7 @@ const Assessment = () => {
                 // Clear the localStorage flag and fire StartAssessment through GTM
                 localStorage.removeItem('hasStartedAssessment');
                 window.dataLayer?.push({
-                  event: 'StartAssessment'
+                  // event: 'StartAssessment'
                 });
               };
 
