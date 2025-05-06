@@ -17,7 +17,7 @@ const App = () => (
       <TooltipProvider>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/assessments" element={<Assessment />} />
+          <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment/capture" element={<AssessmentCapture />} />
           <Route path="/assessment/results" element={<AssessmentResults />} />
           <Route path="/assessment/thankyou" element={<ThankYou />} />
