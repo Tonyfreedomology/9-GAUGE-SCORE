@@ -115,7 +115,7 @@ const Assessment = () => {
                 // Clear the localStorage flag and fire StartAssessment through GTM
                 localStorage.removeItem('hasStartedAssessment');
                 window.dataLayer?.push({
-                  // event: 'StartAssessment'
+                  event: 'StartAssessment'
                 });
               };
 
