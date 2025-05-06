@@ -29,13 +29,16 @@ const Assessment = () => {
 
   // Block ViewContent event from firing
   useEffect(() => {
-    // Check if we're blocking ViewContent based on the flag set from Index page
+    // Store original push function
     const originalPush = window.dataLayer?.push;
+    
+    // Only proceed if dataLayer exists
     if (originalPush) {
+      // Override the push function
       window.dataLayer.push = function (...args: any[]) {
         const eventObj = args[0];
         if (eventObj?.event === "ViewContent") {
-          // Block it completely
+          // Block ViewContent events
           console.log("Blocked ViewContent from firing on /assessment");
           return;
         }
