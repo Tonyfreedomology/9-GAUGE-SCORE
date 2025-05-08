@@ -28,7 +28,7 @@ const Assessment = () => {
   const [answers, setAnswers] = useState<Answers>({});
    useEffect(() => {
     // Ensure ViewContent is skipped and only PageView is fired
-    fbq('init', 'YOUR_PIXEL_ID', {}, { autoConfig: false });
+    fbq('init', '807615624569188', {}, { autoConfig: false });
     fbq('track', 'PageView'); // Fire PageView only
 
     // Optionally, manually control other events here (e.g., StartAssessment)
@@ -41,14 +41,7 @@ const Assessment = () => {
       fbq('track', 'ViewContent');
     }
   }, []);
-    // Clean up the override when component unmounts
-    return () => {
-      if (originalPush && window.dataLayer) {
-        window.dataLayer.push = originalPush;
-      }
-    };
-  }, []);
-
+    
   const { data: assessmentData, isLoading, error } = useQuery({
     queryKey: ['assessment'],
     queryFn: fetchAssessmentData
