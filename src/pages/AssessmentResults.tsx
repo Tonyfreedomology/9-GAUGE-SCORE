@@ -17,13 +17,13 @@ const AssessmentResults = () => {
   useEffect(() => {
     // If there's no state data, redirect back to assessment
     if (!answers || !categories) {
-      navigate("/assessment");
+      navigate("/assessments");
       return;
     }
 
     // If no user info, redirect to capture page
     if (!userInfo) {
-      navigate("/assessment/capture", { state: { answers, categories } });
+      navigate("/assessments/capture", { state: { answers, categories } });
       return;
     }
 
@@ -44,7 +44,7 @@ const AssessmentResults = () => {
     window.dataLayer?.push({
       event: 'StartAssessment'
     });
-    navigate("/assessment");
+    navigate("/assessments");
   };
 
   if (!answers || !categories || !userInfo) {

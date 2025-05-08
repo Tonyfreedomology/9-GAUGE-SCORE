@@ -116,7 +116,7 @@ const Assessment = () => {
                 } else {
                   // Navigate to capture page with the answers and categories
                   const newAnswers = { ...answers, [currentQuestion.id]: value };
-                  navigate("/assessment/capture", {
+                  navigate("/assessments/capture", {
                     state: {
                       answers: newAnswers,
                       categories: assessmentData.originalCategories

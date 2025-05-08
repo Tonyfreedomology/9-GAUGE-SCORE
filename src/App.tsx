@@ -17,10 +17,10 @@ const App = () => (
       <TooltipProvider>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/assessment1" element={<Assessment />} />
-          <Route path="/assessment/capture" element={<AssessmentCapture />} />
-          <Route path="/assessment/results" element={<AssessmentResults />} />
-          <Route path="/assessment/thankyou" element={<ThankYou />} />
+          <Route path="/assessments" element={<Assessment />} />
+          <Route path="/assessments/capture" element={<AssessmentCapture />} />
+          <Route path="/assessments/results" element={<AssessmentResults />} />
+          <Route path="/assessments/thankyou" element={<ThankYou />} />
         </Routes>
         <Toaster />
         <Sonner />

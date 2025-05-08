@@ -121,7 +121,7 @@ export const WaitlistForm = ({ defaultSprint }: WaitlistFormProps) => {
         });
       } else {
         // Instead of showing a toast, redirect to thank you page
-        navigate("/assessment/thankyou");
+        navigate("/assessments/thankyou");
       }
 
       // Reset form

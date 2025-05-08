@@ -17,7 +17,7 @@ const AssessmentCapture = () => {
   useEffect(() => {
     // If there's no state data, redirect back to assessment
     if (!answers || !categories) {
-      navigate("/assessment");
+      navigate("/assessments");
       return;
     }
 
@@ -33,7 +33,7 @@ const AssessmentCapture = () => {
     if (userInfo && userInfo.registrationComplete) return;
 
     // Only navigate to results page with all the needed data
-    navigate("/assessment/results", { 
+    navigate("/assessments/results", { 
       state: { 
         answers, 
         categories,
