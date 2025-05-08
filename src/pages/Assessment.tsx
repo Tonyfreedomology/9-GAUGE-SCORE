@@ -26,26 +26,7 @@ const Assessment = () => {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-
-  // Block ViewContent event from firing
-  useEffect(() => {
-    // Store original push function
-    const originalPush = window.dataLayer?.push;
-    
-    // Only proceed if dataLayer exists
-    if (originalPush) {
-      // Override the push function
-      window.dataLayer.push = function (...args: any[]) {
-        const eventObj = args[0];
-        if (eventObj?.event === "ViewContent") {
-          // Block ViewContent events
-          console.log("Blocked ViewContent from firing on /assessment");
-          return;
-        }
-        return originalPush.apply(this, args);
-      };
-    }
-    
+   
     // Clean up the override when component unmounts
     return () => {
       if (originalPush && window.dataLayer) {
