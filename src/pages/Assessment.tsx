@@ -26,7 +26,21 @@ const Assessment = () => {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-   
+   useEffect(() => {
+    // Ensure ViewContent is skipped and only PageView is fired
+    fbq('init', 'YOUR_PIXEL_ID', {}, { autoConfig: false });
+    fbq('track', 'PageView'); // Fire PageView only
+
+    // Optionally, manually control other events here (e.g., StartAssessment)
+    // fbq('track', 'StartAssessment'); // Uncomment when needed
+
+    // Optional condition to trigger ViewContent or other events
+    // Example: Only fire ViewContent on certain conditions
+    const shouldFireViewContent = false;
+    if (shouldFireViewContent) {
+      fbq('track', 'ViewContent');
+    }
+  }, []);
     // Clean up the override when component unmounts
     return () => {
       if (originalPush && window.dataLayer) {
