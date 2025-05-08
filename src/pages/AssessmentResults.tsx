@@ -30,11 +30,11 @@ const AssessmentResults = () => {
     // Only track CompleteRegistration if registration was just completed
     // CompleteRegistration FB event code commented
     if (userInfo.registrationComplete) {
-      // window.dataLayer?.push({
-      //   event: 'CompleteRegistration',
-      //   // Add any additional data you want to pass to GTM
-      //   userEmail: userInfo.email
-      // });
+      window.dataLayer?.push({
+        event: 'CompleteRegistration',
+        // Add any additional data you want to pass to GTM
+        userEmail: userInfo.email
+      });
     }
   }, [answers, categories, userInfo, navigate]);
 
