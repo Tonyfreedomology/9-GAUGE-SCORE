@@ -110,7 +110,7 @@ const Index = () => {
               event: 'StartAssessment'
             });
             
-            navigate("/assessment");
+            navigate("/assessment1");
           }} 
           className="cta-button"
         >
